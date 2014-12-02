@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "home";
+$route['default_controller'] = "front/sessioncookie";
 $route['404_override'] = '';
 
 
