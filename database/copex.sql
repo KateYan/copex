@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2014 at 08:11 AM
+-- Generation Time: Dec 02, 2014 at 05:19 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -46,7 +46,17 @@ CREATE TABLE IF NOT EXISTS `campus` (
   `cname` varchar(20) NOT NULL,
   `caddr` varchar(30) NOT NULL,
   PRIMARY KEY (`cid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10005 ;
+
+--
+-- Dumping data for table `campus`
+--
+
+INSERT INTO `campus` (`cid`, `cname`, `caddr`) VALUES
+(10001, 'UTSC', ''),
+(10002, 'UTM', ''),
+(10003, 'UTSG', ''),
+(10004, 'YouK', '');
 
 -- --------------------------------------------------------
 
@@ -61,7 +71,18 @@ CREATE TABLE IF NOT EXISTS `coperationline` (
   PRIMARY KEY (`lineid`),
   KEY `cid` (`cid`,`did`),
   KEY `did` (`did`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10007 ;
+
+--
+-- Dumping data for table `coperationline`
+--
+
+INSERT INTO `coperationline` (`lineid`, `cid`, `did`) VALUES
+(10004, 10001, 10002),
+(10001, 10002, 10001),
+(10002, 10003, 10001),
+(10006, 10003, 10002),
+(10005, 10004, 10001);
 
 -- --------------------------------------------------------
 
@@ -72,12 +93,19 @@ CREATE TABLE IF NOT EXISTS `coperationline` (
 CREATE TABLE IF NOT EXISTS `dailymenu` (
   `mid` int(5) NOT NULL AUTO_INCREMENT,
   `cid` int(5) DEFAULT NULL,
-  `misvip` tinyint(1) NOT NULL,
   `mcreatedate` date NOT NULL,
   `mstatus` tinyint(1) NOT NULL,
   PRIMARY KEY (`mid`),
   KEY `cid` (`cid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10003 ;
+
+--
+-- Dumping data for table `dailymenu`
+--
+
+INSERT INTO `dailymenu` (`mid`, `cid`, `mcreatedate`, `mstatus`) VALUES
+(10001, 10001, '2014-11-30', 1),
+(10002, 10002, '2014-11-30', 1);
 
 -- --------------------------------------------------------
 
@@ -92,7 +120,15 @@ CREATE TABLE IF NOT EXISTS `diner` (
   `demail` varchar(25) NOT NULL,
   `dphone` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`did`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10003 ;
+
+--
+-- Dumping data for table `diner`
+--
+
+INSERT INTO `diner` (`did`, `dname`, `daddr`, `demail`, `dphone`) VALUES
+(10001, 'T&T', '', 'tt123@gmail.com', '647-310-6789'),
+(10002, 'benben resturaunt', '', 'benben@hotmail.com', '647-123-4567');
 
 -- --------------------------------------------------------
 
@@ -101,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `diner` (
 --
 
 CREATE TABLE IF NOT EXISTS `food` (
-  `fid` int(6) NOT NULL AUTO_INCREMENT,
+  `fid` int(5) NOT NULL AUTO_INCREMENT,
   `did` int(5) NOT NULL,
   `fname` varchar(30) NOT NULL,
   `fdes` varchar(50) DEFAULT NULL,
@@ -109,7 +145,17 @@ CREATE TABLE IF NOT EXISTS `food` (
   `fpicture` varchar(30) NOT NULL,
   PRIMARY KEY (`fid`),
   KEY `did` (`did`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10005 ;
+
+--
+-- Dumping data for table `food`
+--
+
+INSERT INTO `food` (`fid`, `did`, `fname`, `fdes`, `fprice`, `fpicture`) VALUES
+(10001, 10001, '红烧鸭子', '精心秘制，回味无穷', 78, ''),
+(10002, 10002, '干锅排骨', NULL, 6.99, ''),
+(10003, 10001, '蜜辣烤翅', NULL, 6.99, ''),
+(10004, 10002, '清蒸鲤鱼', NULL, 9.99, '');
 
 -- --------------------------------------------------------
 
@@ -118,13 +164,26 @@ CREATE TABLE IF NOT EXISTS `food` (
 --
 
 CREATE TABLE IF NOT EXISTS `menuitem` (
-  `mitemid` int(6) NOT NULL AUTO_INCREMENT,
-  `fid` int(6) DEFAULT NULL,
-  `mid` int(6) NOT NULL,
+  `mitemid` int(5) NOT NULL AUTO_INCREMENT,
+  `fid` int(5) DEFAULT NULL,
+  `mid` int(5) NOT NULL,
+  `isrecomd` tinyint(4) NOT NULL COMMENT 'recommend or not',
   PRIMARY KEY (`mitemid`),
   KEY `fid` (`fid`,`mid`),
   KEY `mid` (`mid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10008 ;
+
+--
+-- Dumping data for table `menuitem`
+--
+
+INSERT INTO `menuitem` (`mitemid`, `fid`, `mid`, `isrecomd`) VALUES
+(10001, 10001, 10001, 1),
+(10002, 10002, 10001, 0),
+(10004, 10004, 10002, 1),
+(10005, 10003, 10002, 0),
+(10006, 10003, 10001, 0),
+(10007, 10002, 10002, 0);
 
 -- --------------------------------------------------------
 
@@ -140,7 +199,15 @@ CREATE TABLE IF NOT EXISTS `ofitem` (
   PRIMARY KEY (`ofitemid`),
   KEY `oid` (`oid`,`fid`),
   KEY `fid` (`fid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10009 ;
+
+--
+-- Dumping data for table `ofitem`
+--
+
+INSERT INTO `ofitem` (`ofitemid`, `oid`, `fid`, `ofamount`) VALUES
+(10001, 10001, 10001, 1),
+(10008, 10001, 10002, 2);
 
 -- --------------------------------------------------------
 
@@ -157,7 +224,14 @@ CREATE TABLE IF NOT EXISTS `order` (
   `ocost` float NOT NULL,
   PRIMARY KEY (`oid`),
   KEY `uid` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10002 ;
+
+--
+-- Dumping data for table `order`
+--
+
+INSERT INTO `order` (`oid`, `uid`, `odate`, `ostatus`, `oispaid`, `ocost`) VALUES
+(10001, 10001, '2014-11-30', 1, 1, 43.98);
 
 -- --------------------------------------------------------
 
@@ -173,7 +247,14 @@ CREATE TABLE IF NOT EXISTS `osideitem` (
   PRIMARY KEY (`osideid`),
   KEY `oid` (`oid`,`sid`),
   KEY `sid` (`sid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10002 ;
+
+--
+-- Dumping data for table `osideitem`
+--
+
+INSERT INTO `osideitem` (`osideid`, `oid`, `sid`, `osideamount`) VALUES
+(10001, 10001, 10001, 1);
 
 -- --------------------------------------------------------
 
@@ -185,12 +266,21 @@ CREATE TABLE IF NOT EXISTS `sidedish` (
   `sid` int(5) NOT NULL AUTO_INCREMENT,
   `did` int(5) NOT NULL,
   `sname` varchar(30) NOT NULL,
-  `sdes` int(50) NOT NULL,
+  `sdes` varchar(30) DEFAULT NULL,
   `sprice` float NOT NULL,
   `spicture` varchar(30) NOT NULL,
   PRIMARY KEY (`sid`),
   KEY `did` (`did`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10004 ;
+
+--
+-- Dumping data for table `sidedish`
+--
+
+INSERT INTO `sidedish` (`sid`, `did`, `sname`, `sdes`, `sprice`, `spicture`) VALUES
+(10001, 10001, '鱼香宫保鸡丁小份', NULL, 18, ''),
+(10002, 10002, '麻辣热干面2两', NULL, 7, ''),
+(10003, 10002, '鲜肉叉烧包一笼', NULL, 12, '');
 
 -- --------------------------------------------------------
 
@@ -202,12 +292,22 @@ CREATE TABLE IF NOT EXISTS `user` (
   `uid` int(5) NOT NULL AUTO_INCREMENT,
   `cid` int(5) DEFAULT NULL,
   `vipid` int(5) DEFAULT NULL,
-  `uphone` int(10) NOT NULL,
+  `uphone` varchar(20) NOT NULL,
   `uisvip` tinyint(1) NOT NULL,
   PRIMARY KEY (`uid`),
   KEY `cid` (`cid`,`vipid`),
   KEY `vipid` (`vipid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10005 ;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uisvip`) VALUES
+(10001, 10001, 10001, '647789456', 1),
+(10002, 10001, 32716, '201-456-4567', 1),
+(10003, 10002, NULL, '453-453-1234', 0),
+(10004, 10001, NULL, '234-234-1234', 0);
 
 -- --------------------------------------------------------
 
@@ -223,7 +323,15 @@ CREATE TABLE IF NOT EXISTS `vipcard` (
   `vbalance` float NOT NULL,
   PRIMARY KEY (`vipid`),
   KEY `uid` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32717 ;
+
+--
+-- Dumping data for table `vipcard`
+--
+
+INSERT INTO `vipcard` (`vipid`, `uid`, `vnumber`, `vpassword`, `vbalance`) VALUES
+(10001, 10001, 4592, 'qweqwe', 50),
+(32716, 10002, 9874, 'asdfas', 50);
 
 --
 -- Constraints for dumped tables
@@ -233,8 +341,8 @@ CREATE TABLE IF NOT EXISTS `vipcard` (
 -- Constraints for table `coperationline`
 --
 ALTER TABLE `coperationline`
-  ADD CONSTRAINT `linedid` FOREIGN KEY (`did`) REFERENCES `diner` (`did`) ON DELETE CASCADE,
-  ADD CONSTRAINT `linecid` FOREIGN KEY (`cid`) REFERENCES `campus` (`cid`) ON DELETE CASCADE;
+  ADD CONSTRAINT `linecid` FOREIGN KEY (`cid`) REFERENCES `campus` (`cid`) ON DELETE CASCADE,
+  ADD CONSTRAINT `linedid` FOREIGN KEY (`did`) REFERENCES `diner` (`did`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `dailymenu`
@@ -272,8 +380,8 @@ ALTER TABLE `order`
 -- Constraints for table `osideitem`
 --
 ALTER TABLE `osideitem`
-  ADD CONSTRAINT `osidesid` FOREIGN KEY (`sid`) REFERENCES `sidedish` (`sid`) ON DELETE SET NULL,
-  ADD CONSTRAINT `osideoid` FOREIGN KEY (`oid`) REFERENCES `order` (`oid`) ON DELETE CASCADE;
+  ADD CONSTRAINT `osideoid` FOREIGN KEY (`oid`) REFERENCES `order` (`oid`) ON DELETE CASCADE,
+  ADD CONSTRAINT `osidesid` FOREIGN KEY (`sid`) REFERENCES `sidedish` (`sid`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `sidedish`
@@ -285,8 +393,8 @@ ALTER TABLE `sidedish`
 -- Constraints for table `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `uservipid` FOREIGN KEY (`vipid`) REFERENCES `vipcard` (`vipid`) ON DELETE SET NULL,
-  ADD CONSTRAINT `usercid` FOREIGN KEY (`cid`) REFERENCES `campus` (`cid`) ON DELETE SET NULL;
+  ADD CONSTRAINT `usercid` FOREIGN KEY (`cid`) REFERENCES `campus` (`cid`) ON DELETE SET NULL,
+  ADD CONSTRAINT `uservipid` FOREIGN KEY (`vipid`) REFERENCES `vipcard` (`vipid`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `vipcard`
