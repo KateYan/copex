@@ -1,3 +1,28 @@
-@charset "utf-8";
-/* CSS Document */
-
+.selectedDinner{ padding:8px;}
+.selectedDinner ul{ clear:both; float:left;  width:100%}
+.menu_list{ border:1px solid #d5d5d5;}
+.menu_list li, .memu_accout li, .menu_list_li{ clear:both; border-bottom:1px solid #d5d5d5; display:table; width:100%}
+.menu_list_li li{ border-bottom:none;}
+.menu_list span, .memu_accout span{ border-right:1px solid #d5d5d5; vertical-align:middle; display:table-cell}
+.menu_list span:last-child{ border-right:none;}
+.menu_list li:last-child, .memu_accout li:last-child{ border-bottom:none;}
+.menuD_img, .menuD_AccoutTitle{ width:47%; height:72px; overflow:hidden;}
+.menuD_img img{ float:left;}
+.menuD_title, .menuD_price, .menuD_AccoutNum, .menuD_AccoutPrice{ width:25%; font-size:13px; color:#646464; text-align:center;}
+.menuD_price{ color:#e33939;}
+.memu_accout li{ height:32px; line-height:32px;}
+.memu_accout span{ border-right:none;}
+.dSales_btnTo, .btn_resetOrder{ padding: 0 10px 10px;}
+.dSales_btnTo{ padding-bottom:55px;}
+.btn_footer{ background:url(images/arrow@2x.png) no-repeat left center; background-size:10px auto; padding-left:15px; font-size:12px; color:#545454;}
+.moreDinner, .btn_rest{ float:left;}
+.notInUTSC, .btn_nowOrder{ float:right;}
+.passWord{ border:1px solid #d5d5d5; border-radius:5px; width:150px; padding-left:5px; height:32px; float:right; margin-right:5px;}
+.passPay{ width:80px;}
+.menuD_pay:after{ padding:10px;}
+/*.menuD_pay{ padding:10px;}*/
+.menuD_pay{ padding:1px 0 14px;}
+.menuD_pay span.passPay{ height:32px; margin-left:10px; float:left;}
+li.menuD_balance{ border-bottom:none; padding-top:3px;}
+.menuD_AccoutTitle{ padding-left:10px; width:132px;}
+.memu_accout li span{ height:32px; line-height:32px; font-size:14px;}
