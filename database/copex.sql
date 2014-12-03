@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 03, 2014 at 08:59 PM
+-- Generation Time: Dec 03, 2014 at 11:16 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -304,23 +304,23 @@ CREATE TABLE IF NOT EXISTS `user` (
   `uhash` varchar(128) NOT NULL,
   `ip` varchar(20) DEFAULT NULL,
   `ordered` tinyint(4) DEFAULT NULL,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_login` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`uid`),
   KEY `cid` (`cid`,`vipid`),
   KEY `vipid` (`vipid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10014 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10017 ;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`) VALUES
-(10001, 10001, 10001, '647789456', '', '', 0),
-(10002, 10001, 32716, '201-456-4567', '', '', 0),
-(10003, 10002, NULL, '453-453-1234', '', '', 0),
-(10004, 10001, NULL, '234-234-1234', '', '', 0),
-(10011, 10003, NULL, NULL, '12345', '::1', 0),
-(10012, 10003, NULL, NULL, '12345', '::1', 0),
-(10013, 10004, NULL, NULL, '12345', '::1', 0);
+INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `created`, `last_login`) VALUES
+(10001, 10001, 10001, '647789456', '', '', 0, '0000-00-00 00:00:00', '2014-12-03 21:25:48'),
+(10002, 10001, 32716, '201-456-4567', '', '', 0, '0000-00-00 00:00:00', '2014-12-03 21:25:48'),
+(10003, 10002, NULL, '453-453-1234', '', '', 0, '0000-00-00 00:00:00', '2014-12-03 21:25:48'),
+(10004, 10001, NULL, '234-234-1234', '', '', 0, '0000-00-00 00:00:00', '2014-12-03 21:25:48'),
+(10016, 10002, NULL, NULL, '12345', '::1', 0, '2014-12-03 16:50:59', '2014-12-03 21:50:59');
 
 -- --------------------------------------------------------
 
