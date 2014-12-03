@@ -15,18 +15,20 @@ class Userstatuscontroller extends MY_Controller
      * 判断cookie进入不同页面
     */
     public function checkUserStatus(){
-        if(isset($_COOKIE['uid'])){
-
-            if(validateUser($_COOKIE['uid'],$_COOKIE['uhash'])){
-            //合法用户
-                return "Old User!";
-            }
-            else {//非法法用户
-                unset($_COOKIE['uid']);
-                return redirect('userlogincontroller/loadCampus');
-            }
-         }
-        return redirect('userlogincontroller/loadCampus');
+//        if(isset($_COOKIE['uid'])){
+//
+//            if(validateUser($_COOKIE['uid'],$_COOKIE['uhash'])){
+//            //合法用户
+//                echo "Old User!";
+//                return false;
+//            }
+//            else {//非法法用户
+//                unset($_COOKIE['uid']);
+//                return redirect('userlogincontroller/loadCampus');
+//            }
+//         }
+//        return redirect('userlogincontroller/loadCampus');
+        var_dump($_COOKIE);
     }
 
 
