@@ -22,27 +22,45 @@ class Userstatuscontroller extends MY_Controller
     */
     public function checkStatus(){
 
-
-        if(empty($_COOKIE['cid']) && empty($_COOKIE['uid']) && empty($_COOKIE['vipid'])){
-            redirect('userlogincontroller/loadCampus');
-        }
-        elseif(isset($_COOKIE['cid']) && isset($_COOKIE['uid']) && empty($_COOKIE['vipid'])){
-            redirect('userlogincontroller/setSession');
-        }
-        elseif(isset($_COOKIE['cid']) && isset($_COOKIE['uid']) && isset($_COOKIE['vipid'])){
-            redirect('userlogincontroller/setSession');
-        }
+    if(isset($_COOKIE['cid'])){
 
     }
+        redirect('userlogincontroller/loadCampus');
+//
+//        elseif(isset($_COOKIE['cid']) && isset($_COOKIE['uid']) && empty($_COOKIE['vipid'])){
+//            redirect('userlogincontroller/setSession');
+//        }
+//        elseif(isset($_COOKIE['cid']) && isset($_COOKIE['uid']) && isset($_COOKIE['vipid'])){
+//            redirect('userlogincontroller/setSession');
+//        }
 
+    }
+    /*
+     * 检查用户合法性
+     */
+    public function validateUser($uid,$uhash){
+        return true;
+    }
     /*
      * 校区界面post 校区id=>cid
-     * 设置校区cookie['cid']
+     * 新建一个普通用户只有uid,校区，ip，hash
+     * 设置uid,cid,hash的cookie
+     * 设置uid，cid,hash的session
+     * 跳转去加载菜单页面
      */
     public function campusCookie(){
         $cid=$this->input->post('cid');
+        $this->load->model('user');
+        $newUser=$this->user->newUser($cid);
+
         setcookie('cid',$cid);
-//        echo $_COOKIE['cid'];
+        setcookie('uid',$newUser->uid);
+        setcookie('uhash',$newUser->uhash);
+
+        $_SESSION['cid']=$cid;
+        $_SESSION['uid']=$newUser->uid;
+        $_SESSION['uhash']=$newUser->uhash;
+
         redirect('marketcontroller/loadMenu');
     }
 

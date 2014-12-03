@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 03, 2014 at 06:58 AM
+-- Generation Time: Dec 03, 2014 at 08:59 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `dailymenu` (
   `mstatus` tinyint(1) NOT NULL,
   PRIMARY KEY (`mid`),
   KEY `cid` (`cid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10003 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10005 ;
 
 --
 -- Dumping data for table `dailymenu`
@@ -105,7 +105,9 @@ CREATE TABLE IF NOT EXISTS `dailymenu` (
 
 INSERT INTO `dailymenu` (`mid`, `cid`, `mcreatedate`, `mstatus`) VALUES
 (10001, 10001, '2014-12-03', 1),
-(10002, 10002, '2014-12-03', 1);
+(10002, 10002, '2014-12-03', 1),
+(10003, 10003, '2014-12-03', 1),
+(10004, 10004, '2014-12-03', 1);
 
 -- --------------------------------------------------------
 
@@ -145,15 +147,15 @@ CREATE TABLE IF NOT EXISTS `food` (
   `fpicture` varchar(60) NOT NULL,
   PRIMARY KEY (`fid`),
   KEY `did` (`did`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10006 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10005 ;
 
 --
 -- Dumping data for table `food`
 --
 
 INSERT INTO `food` (`fid`, `did`, `fname`, `fdes`, `fprice`, `fpicture`) VALUES
-(10001, 10001, '红烧鸭子', '精心秘制，回味无穷', 19.99, 'css/images/1_04img01.jpg'),
-(10002, 10002, '干锅排骨', NULL, 6.99, 'css/images/1_04img02.jpg'),
+(10001, 10001, '红烧鸭子', NULL, 19.99, 'css/images/1_04img01.jpg'),
+(10002, 10002, '干锅排骨', NULL, 6.99, 'css/images/3_03img01.jpg'),
 (10003, 10001, '蜜辣烤翅', NULL, 6.99, 'css/images/1_04img02.jpg'),
 (10004, 10002, '清蒸鲤鱼', NULL, 9.99, 'css/images/4_03img02.jpg');
 
@@ -171,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `menuitem` (
   PRIMARY KEY (`mitemid`),
   KEY `fid` (`fid`,`mid`),
   KEY `mid` (`mid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10008 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10017 ;
 
 --
 -- Dumping data for table `menuitem`
@@ -179,11 +181,17 @@ CREATE TABLE IF NOT EXISTS `menuitem` (
 
 INSERT INTO `menuitem` (`mitemid`, `fid`, `mid`, `isrecomd`) VALUES
 (10001, 10001, 10001, 1),
-(10002, 10002, 10001, 0),
 (10004, 10004, 10002, 1),
 (10005, 10003, 10002, 0),
 (10006, 10003, 10001, 0),
-(10007, 10002, 10002, 0);
+(10007, 10002, 10002, 0),
+(10010, 10003, 10001, 0),
+(10011, 10002, 10003, 1),
+(10012, 10003, 10003, 0),
+(10013, 10004, 10003, 0),
+(10014, 10002, 10004, 1),
+(10015, 10001, 10004, 0),
+(10016, 10003, 10004, 0);
 
 -- --------------------------------------------------------
 
@@ -292,22 +300,27 @@ CREATE TABLE IF NOT EXISTS `user` (
   `uid` int(5) NOT NULL AUTO_INCREMENT,
   `cid` int(5) DEFAULT NULL,
   `vipid` int(5) DEFAULT NULL,
-  `uphone` varchar(20) NOT NULL,
-  `uisvip` tinyint(1) NOT NULL,
+  `uphone` varchar(20) DEFAULT NULL,
+  `uhash` varchar(128) NOT NULL,
+  `ip` varchar(20) DEFAULT NULL,
+  `ordered` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`uid`),
   KEY `cid` (`cid`,`vipid`),
   KEY `vipid` (`vipid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10005 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10014 ;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uisvip`) VALUES
-(10001, 10001, 10001, '647789456', 1),
-(10002, 10001, 32716, '201-456-4567', 1),
-(10003, 10002, NULL, '453-453-1234', 0),
-(10004, 10001, NULL, '234-234-1234', 0);
+INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`) VALUES
+(10001, 10001, 10001, '647789456', '', '', 0),
+(10002, 10001, 32716, '201-456-4567', '', '', 0),
+(10003, 10002, NULL, '453-453-1234', '', '', 0),
+(10004, 10001, NULL, '234-234-1234', '', '', 0),
+(10011, 10003, NULL, NULL, '12345', '::1', 0),
+(10012, 10003, NULL, NULL, '12345', '::1', 0),
+(10013, 10004, NULL, NULL, '12345', '::1', 0);
 
 -- --------------------------------------------------------
 

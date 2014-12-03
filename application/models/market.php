@@ -5,7 +5,7 @@ class Market extends CI_Model {
     /*
      * 查找campus表中所有行并返回
      */
-    public function getCampus(){
+    public function getCampusList(){
         $sql="SELECT * FROM campus";
         $query=$this->db->query($sql);
         return $query->result();
