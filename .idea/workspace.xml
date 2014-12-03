@@ -30,8 +30,8 @@
       <file leaf-file-name="userstatuscontroller.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/controllers/userstatuscontroller.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.31296572" vertical-offset="105" max-vertical-offset="1239">
-              <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.5320417" vertical-offset="105" max-vertical-offset="1365">
+              <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -171,8 +171,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="881" />
-    <option name="y" value="175" />
+    <option name="x" value="465" />
+    <option name="y" value="158" />
     <option name="width" value="1288" />
     <option name="height" value="907" />
   </component>
@@ -334,7 +334,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="881" y="175" width="1288" height="907" extended-state="0" />
+    <frame x="465" y="158" width="1288" height="907" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -778,8 +778,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/userstatuscontroller.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31296572" vertical-offset="105" max-vertical-offset="1239">
-          <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.5320417" vertical-offset="105" max-vertical-offset="1365">
+          <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
           <folding />
         </state>
       </provider>

@@ -12,14 +12,20 @@ class Userstatuscontroller extends MY_Controller
 {
 
     /* 微信二级菜单主入口控制方法。
-     * 根据cookie进入不同页面
+     * 判断cookie进入不同页面
     */
     public function checkUserStatus(){
         if(isset($_COOKIE['uid'])){
-            /*
-             * 调用vailidatauer方法
-             * 返回
-             */
+
+
+            $valid=$this->validateUser($_COOKIE['uid'],$_COOKIE['uhash']);
+            if($valid){
+
+            }
+            else {
+                unset($_COOKIE['uid']);
+                return redirect('userlogincontroller/loadCampus');
+                }
          }
         return redirect('userlogincontroller/loadCampus');
     }
