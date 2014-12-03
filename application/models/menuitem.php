@@ -10,8 +10,12 @@ class Menuitem extends CI_Model {
     public  $fpicture;
     public  $isrecomd;
 
+    /*
+     * 根据校区返回普通用户菜单页面的店长推荐菜品
+     */
+
     public function recommend($cid){
-//        $date=date('Y-m-d');
+
         $sql="SELECT dailymenu.cid as cid, menuitem.mitemid as mitemid, menuitem.fid as fid, food.fname as fname, food.fdes as fdes, food.fprice as fprice, food.fpicture as fpicture FROM(dailymenu JOIN menuitem ON dailymenu.mid=menuitem.mid)JOIN food ON food.fid=menuitem.fid WHERE dailymenu.cid='".$cid."'AND menuitem.isrecomd='1' AND dailymenu.mstatus='1'";
         $query=$this->db->query($sql);
 
@@ -29,7 +33,9 @@ class Menuitem extends CI_Model {
             return $this;
         }return false;
     }
-
+/*
+ * 根据校区返回普通用户菜单降价菜品（2个）
+ */
     public function saleitem($cid){
         $sql="SELECT dailymenu.cid, menuitem.mitemid, menuitem.fid, food.fname, food.fdes, food.fprice, food.fpicture FROM(dailymenu JOIN menuitem ON dailymenu.mid=menuitem.mid)JOIN food ON food.fid=menuitem.fid WHERE dailymenu.cid='".$cid."'AND menuitem.isrecomd='0' AND dailymenu.mstatus='1'";
         $query=$this->db->query($sql);

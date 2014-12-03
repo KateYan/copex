@@ -35,7 +35,6 @@
             echo $recommend->fpicture;
             echo '" width="100%" height="100%"/>';
         ?>
-<!--        <img src="http://54.174.69.142/copex/css/images/1_04img01.jpg" width="100%" height="100%"/>-->
         <ul>
             <li><?php echo $recommend->fname;?><i class="borderWidth"></i></li>
             <li>$<?php echo $recommend->fprice;?></li>
