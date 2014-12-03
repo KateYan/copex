@@ -33,9 +33,10 @@ class Userlogincontroller extends MY_Controller{
         $this->load->model('user');
         $newUser=$this->user->newUser($cid);
 
-        setcookie('cid',$cid);
-        setcookie('uid',$newUser->uid);
-        setcookie('uhash',$newUser->uhash);
+        $cookieLife=time()+3600*24*365;
+        setcookie('cid',$cid,$cookieLife);
+        setcookie('uid',$newUser->uid,$cookieLife);
+        setcookie('uhash',$newUser->uhash,$cookieLife);
 
         $_SESSION['cid']=$cid;
         $_SESSION['uid']=$newUser->uid;
