@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
 <html>
 <head>
@@ -27,28 +28,44 @@
 <div class="manaRecommends">
     <h3>店长推荐</h3>
     <div class="manaRecom_menu">
-        <img src="http://localhost/copex/css/images/1_04img01.jpg" width="100%" height="100%"/>
+
+        <?php
+            echo '<img src="';
+            echo$recommend->fpicture;
+            echo '" width="100%" height="100%"/>';
+        ?>
+<!--        <img src="http://54.174.69.142/copex/css/images/1_04img01.jpg" width="100%" height="100%"/>-->
         <ul>
-            <li>红烧鸭子<i class="borderWidth"></i></li>
-            <li>￥78.00</li>
+            <li><?php echo $recommend->fname;?><i class="borderWidth"></i></li>
+            <li>$<?php echo $recommend->fprice;?></li>
         </ul>
     </div>
 </div>
 <div class="tdySales">
     <h3>今日6.99特价</h3>
     <div class="tdySal_menu">
-        <div class="tdyS_m_block">
-            <span class="tdyS_m_img">
-                <img src="http://localhost/copex/css/images/1_04img02.jpg" width="100%" height="100%" />
-                <span class="menu_title">干锅排骨</span>
-            </span>
-        </div><!-- end of tdyS_m_block-->
-        <div class="tdyS_m_block">
-            <span class="tdyS_m_img">
-                <img src="http://localhost/copex/css/images/1_04img02.jpg" width="100%" height="100%" />
-                <span class="menu_title">蜜辣烤翅</span>
-            </span>
-        </div><!-- end of tdyS_m_block-->
+        <?php
+            foreach($saleitem as $sale){
+                echo '<div class="tdyS_m_block">';
+                echo '<span class="tdyS_m_img">';
+                echo '<img src="'.$sale->fpicture.'" width="100%" height="100%" />';
+                echo '<span class="menu_title">'.$sale->fname.'</span>';
+                echo '</span>';
+                echo '</div>';
+            }
+        ?>
+<!--        <div class="tdyS_m_block">-->
+<!--            <span class="tdyS_m_img">-->
+<!--                <img src="http://54.174.69.142/copex/css/images/1_04img02.jpg" width="100%" height="100%" />-->
+<!--                <span class="menu_title">干锅排骨</span>-->
+<!--            </span>-->
+<!--        </div><!-- end of tdyS_m_block-->-->
+<!--        <div class="tdyS_m_block">-->
+<!--            <span class="tdyS_m_img">-->
+<!--                <img src="http://54.174.69.142/copex/css/images/1_04img02.jpg" width="100%" height="100%" />-->
+<!--                <span class="menu_title">蜜辣烤翅</span>-->
+<!--            </span>-->
+<!--        </div><!-- end of tdyS_m_block-->-->
         <div class="clear"></div>
     </div>
 </div>
@@ -82,4 +99,4 @@
  * User: cecil_000
  * Date: 12/1/2014
  * Time: 5:53 PM
- */ 
+ */

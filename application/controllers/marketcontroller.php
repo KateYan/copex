@@ -5,11 +5,13 @@ class Marketcontroller extends MY_Controller{
      * 加载普通用户菜单页面
      */
     public function loadMenu(){
-        $this->load->view('menu');
-
-
-
-//        $this->load->view('menu',$data);
+        $this->load->model('menuitem');
+        $cid=$_SESSION['cid'];
+        $data['recommend']=$this->menuitem->recommend($cid);
+        $data['saleitem']=$this->menuitem->saleitem($cid);
+//
+        $this->load->view('dailymenu',$data);
+//
     }
 
     public function loadVipmenu(){
