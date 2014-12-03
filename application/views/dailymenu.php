@@ -1,19 +1,12 @@
-
-<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="Cache-control" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta content="yes" name="apple-mobile-web-app-capable" />
-    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
-    <meta content="telephone=no" name="format-detection" />
-    <meta name="viewport" content="width=device-width; maximum-scale=1.0;  user-scalable=no; initial-scale=1.0" />
-    <title>特价午餐菜单</title>
-    <link href="<?php echo base_url();?>css/masterpage.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url();?>css/dinner.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="<?php echo base_url();?>js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript">
+<?php
+/**
+ * Created by PhpStorm.
+ * User: cecil_000
+ * Date: 12/1/2014
+ * Time: 5:51 PM
+ */
+?>
+<script type="text/javascript">
         $(function(){
             var _W = document.documentElement.clientWidth;
             $(".manaRecom_menu").css("height", parseInt((_W - 18)*256/606)+"px");
@@ -84,9 +77,3 @@
 </html>
 
 <?php
-/**
- * Created by PhpStorm.
- * User: cecil_000
- * Date: 12/1/2014
- * Time: 5:53 PM
- */

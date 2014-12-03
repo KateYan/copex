@@ -1,4 +1,12 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+/**
+ * Created by PhpStorm.
+ * User: cecil_000
+ * Date: 12/1/2014
+ * Time: 4:10 PM
+ */
+
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Userstatuscontroller extends MY_Controller
 {
@@ -12,18 +20,19 @@ class Userstatuscontroller extends MY_Controller
      * 只有vipid为空为普通用户再次登录，设置session 用户信息
      * 全部不为空为会员再次登陆，设置session用户信息
     */
-    public function checkCookies(){
+    public function checkStatus(){
 
 
-        if(($_COOKIE['uid']=='')&&($_COOKIE['cid']=='')&&($_COOKIE['vipid']=='')){
+        if(empty($_COOKIE['cid']) && empty($_COOKIE['uid']) && empty($_COOKIE['vipid'])){
             redirect('userlogincontroller/loadCampus');
         }
-        elseif(($_COOKIE['uid']!='')&&($_COOKIE['cid']!='')&&($_COOKIE['vipid']!='')){
+        elseif(isset($_COOKIE['cid']) && isset($_COOKIE['uid']) && empty($_COOKIE['vipid'])){
             redirect('userlogincontroller/setSession');
         }
-        elseif($_COOKIE['uid']!=null&&$_COOKIE['cid']=!null&&$_COOKIE['vipid']==null){
+        elseif(isset($_COOKIE['cid']) && isset($_COOKIE['uid']) && isset($_COOKIE['vipid'])){
             redirect('userlogincontroller/setSession');
         }
+
     }
 
     /*
@@ -32,9 +41,9 @@ class Userstatuscontroller extends MY_Controller
      */
     public function campusCookie(){
         $cid=$this->input->post('cid');
-        $_SESSION['cid']=$cid;
-//        echo $_COOKIE['cid'];
-        redirect('marketcontroller/loadMenu');
+        setcookie('cid',$cid);
+        echo $_COOKIE['cid'];
+//        redirect('marketcontroller/loadMenu');
     }
 
     /*
@@ -56,9 +65,3 @@ class Userstatuscontroller extends MY_Controller
         }else redirect('marketcontroller/loadVipmenu');
     }
 }
-/**
- * Created by PhpStorm.
- * User: cecil_000
- * Date: 12/1/2014
- * Time: 4:10 PM
- */ 

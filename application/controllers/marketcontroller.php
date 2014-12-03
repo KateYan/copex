@@ -1,4 +1,11 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+/**
+ * Created by PhpStorm.
+ * User: cecil_000
+ * Date: 12/1/2014
+ * Time: 5:28 PM
+ */
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Marketcontroller extends MY_Controller{
     /*
@@ -6,12 +13,14 @@ class Marketcontroller extends MY_Controller{
      */
     public function loadMenu(){
         $this->load->model('menuitem');
-        $cid=$_SESSION['cid'];
+        $cid=$_COOKIE['cid'];
+        $data['title']='特价午餐菜单';
         $data['$base_url']=base_url();
         $data['date']=date('m月d日');
         $data['recommend']=$this->menuitem->recommend($cid);
         $data['saleitem']=$this->menuitem->saleitem($cid);
 //
+        $this->load->view('partials/header',$data);
         $this->load->view('dailymenu',$data);
 //
     }
@@ -24,9 +33,3 @@ class Marketcontroller extends MY_Controller{
         $this->load->view('vipmenu',$data);
     }
 }
-/**
- * Created by PhpStorm.
- * User: cecil_000
- * Date: 12/1/2014
- * Time: 5:28 PM
- */ 

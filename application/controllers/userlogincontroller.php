@@ -1,4 +1,12 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+/**
+ * Created by PhpStorm.
+ * User: cecil_000
+ * Date: 12/1/2014
+ * Time: 5:27 PM
+ */
+
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Userlogincontroller extends MY_Controller{
 
@@ -7,7 +15,9 @@ class Userlogincontroller extends MY_Controller{
      */
     public function loadCampus(){
         $this->load->model('market');
+        $data['title']='选择你所在的校区';
         $data['result']=$this->market->getCampus();
+        $this->load->view('partials/header',$data);
         $this->load->view('campus',$data);
     }
 
@@ -35,9 +45,3 @@ class Userlogincontroller extends MY_Controller{
         }
     }
 }
-/**
- * Created by PhpStorm.
- * User: cecil_000
- * Date: 12/1/2014
- * Time: 5:27 PM
- */ 

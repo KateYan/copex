@@ -1,4 +1,11 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+/**
+ * Created by PhpStorm.
+ * User: cecil_000
+ * Date: 12/1/2014
+ * Time: 5:46 PM
+ */
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class User extends CI_Model {
 
@@ -18,9 +25,3 @@ class User extends CI_Model {
     }
 
 }
-/**
- * Created by PhpStorm.
- * User: cecil_000
- * Date: 12/1/2014
- * Time: 5:46 PM
- */ 
