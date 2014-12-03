@@ -11,58 +11,57 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Userstatuscontroller extends MY_Controller
 {
 
-    public function index()
-    {
-    }
     /* 微信二级菜单主入口控制方法。
      * 判断cookie内容
-     * uid，cid, vipid 全空跳转加载选校区界面
-     * 只有vipid为空为普通用户再次登录，设置session 用户信息
-     * 全部不为空为会员再次登陆，设置session用户信息
+     * 没有cookie uid 跳转加载选校区界面
+     * 有则判断是否另外两个也有
+     * 没有有另外两个则清空cookie转选校
+     * 三个cookie都有判断user合法性
+     * 合法加载对应菜单
+     * 不合法清空cookie去选校
     */
-    public function checkStatus(){
+    public function checkUserStatus(){
+        if(isset($_COOKIE['uid'])){
+            //如果有cookie cid和hash{
+            //  调用validateUser方法
+            //  如果返回值为真{判断用户类型，分别进入不同点餐页面}
+            //  如果返回值为假{delete all cookie, 重定向到选校区方法}
+            //}
+            //如果不全有，删除所有cookie,跳转点餐页面
+            if(isset($_COOKIE['cid'])&&isset($_COOKIE['uhash'])){
+                $valid=$this->validateUser($_COOKIE['uid'],$_COOKIE['uhash']);
+                if($valid){
 
-    if(isset($_COOKIE['cid'])){
-
+                }
+                else{
+                    setcookie('uid','');
+                    setcookie('cid','');
+                    setcookie('uhash','');
+                    return redirect('userlogincontroller/loadCampus');
+                }
+            }
+            else{
+                setcookie('uid','');
+                setcookie('cid','');
+                setcookie('uhash','');
+                return redirect('userlogincontroller/loadCampus');
+            }
+         }
+        return redirect('userlogincontroller/loadCampus');
     }
-        redirect('userlogincontroller/loadCampus');
-//
-//        elseif(isset($_COOKIE['cid']) && isset($_COOKIE['uid']) && empty($_COOKIE['vipid'])){
-//            redirect('userlogincontroller/setSession');
-//        }
-//        elseif(isset($_COOKIE['cid']) && isset($_COOKIE['uid']) && isset($_COOKIE['vipid'])){
-//            redirect('userlogincontroller/setSession');
-//        }
 
-    }
+
     /*
      * 检查用户合法性
      */
     public function validateUser($uid,$uhash){
+        //添加用户合法性验证代码
+        //
+        //
         return true;
     }
-    /*
-     * 校区界面post 校区id=>cid
-     * 新建一个普通用户只有uid,校区，ip，hash
-     * 设置uid,cid,hash的cookie
-     * 设置uid，cid,hash的session
-     * 跳转去加载菜单页面
-     */
-    public function campusCookie(){
-        $cid=$this->input->post('cid');
-        $this->load->model('user');
-        $newUser=$this->user->newUser($cid);
 
-        setcookie('cid',$cid);
-        setcookie('uid',$newUser->uid);
-        setcookie('uhash',$newUser->uhash);
 
-        $_SESSION['cid']=$cid;
-        $_SESSION['uid']=$newUser->uid;
-        $_SESSION['uhash']=$newUser->uhash;
-
-        redirect('marketcontroller/loadMenu');
-    }
 
     /*
      * 为用户设置每次订餐行为的session

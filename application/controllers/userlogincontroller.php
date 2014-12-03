@@ -22,6 +22,31 @@ class Userlogincontroller extends MY_Controller{
     }
 
     /*
+     * 校区界面post 校区id=>cid
+     * 新建一个普通用户只有uid,校区，ip，hash
+     * 设置uid,cid,hash的cookie
+     * 设置uid，cid,hash的session
+     * 跳转去加载菜单页面
+     */
+    public function setUser(){
+        $cid=$this->input->post('cid');
+        $this->load->model('user');
+        $newUser=$this->user->newUser($cid);
+
+        setcookie('cid',$cid);
+        setcookie('uid',$newUser->uid);
+        setcookie('uhash',$newUser->uhash);
+
+        $_SESSION['cid']=$cid;
+        $_SESSION['uid']=$newUser->uid;
+        $_SESSION['uhash']=$newUser->uhash;
+
+        redirect('marketcontroller/loadMenu');
+    }
+
+
+
+    /*
      * 加载会员登陆界面
      */
     public function loadViplogin(){

@@ -10,7 +10,7 @@
 <body>
 <?php
     $attributes=array('class'=>'formcontrol','id'=>'campus');
-echo form_open('userstatuscontroller/campusCookie',$attributes);
+echo form_open('userlogincontroller/setUser',$attributes);
 ?>
 <ul>
     <?php
