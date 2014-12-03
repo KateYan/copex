@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3d68781b-1c85-441b-981e-54644f8690ad" name="Default" comment="" />
+    <list default="true" id="3d68781b-1c85-441b-981e-54644f8690ad" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/userstatuscontroller.php" afterPath="$PROJECT_DIR$/application/controllers/userstatuscontroller.php" />
+    </list>
     <ignored path="copex.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -25,11 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="userstatuscontroller.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="userstatuscontroller.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/controllers/userstatuscontroller.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.444445" vertical-offset="189" max-vertical-offset="1785">
-              <caret line="39" column="49" selection-start-line="39" selection-start-column="49" selection-end-line="39" selection-end-column="49" />
+            <state vertical-scroll-proportion="0.31296572" vertical-offset="105" max-vertical-offset="1239">
+              <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -99,10 +101,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="user.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/models/user.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.02980626" vertical-offset="547" max-vertical-offset="1218">
+            <state vertical-scroll-proportion="-0.7407407" vertical-offset="547" max-vertical-offset="1218">
               <caret line="27" column="9" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
               <folding>
                 <element signature="e#6#92#0#PHP" expanded="true" />
@@ -162,15 +164,15 @@
         <option value="$PROJECT_DIR$/application/models/user.php" />
         <option value="$PROJECT_DIR$/application/controllers/userlogincontroller.php" />
         <option value="$PROJECT_DIR$/application/views/campus.php" />
-        <option value="$PROJECT_DIR$/application/controllers/userstatuscontroller.php" />
         <option value="$PROJECT_DIR$/css/dinner.css" />
+        <option value="$PROJECT_DIR$/application/controllers/userstatuscontroller.php" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="444" />
-    <option name="y" value="49" />
+    <option name="x" value="881" />
+    <option name="y" value="175" />
     <option name="width" value="1288" />
     <option name="height" value="907" />
   </component>
@@ -332,7 +334,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="444" y="49" width="1288" height="907" extended-state="0" />
+    <frame x="881" y="175" width="1288" height="907" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -727,14 +729,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/userstatuscontroller.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.444445" vertical-offset="189" max-vertical-offset="1785">
-          <caret line="39" column="49" selection-start-line="39" selection-start-column="49" selection-end-line="39" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/marketcontroller.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.111111" vertical-offset="33" max-vertical-offset="882">
@@ -765,7 +759,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/models/user.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.02980626" vertical-offset="547" max-vertical-offset="1218">
+        <state vertical-scroll-proportion="-0.7407407" vertical-offset="547" max-vertical-offset="1218">
           <caret line="27" column="9" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
           <folding>
             <element signature="e#6#92#0#PHP" expanded="true" />
@@ -779,6 +773,14 @@
             <marker date="1417636692080" expanded="true" signature="687:766" placeholder="INSERT INTO ..." />
             <marker date="1417636692080" expanded="true" signature="687:766" placeholder="INSERT INTO ..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/userstatuscontroller.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31296572" vertical-offset="105" max-vertical-offset="1239">
+          <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
