@@ -42,8 +42,8 @@ class Userstatuscontroller extends MY_Controller
     public function campusCookie(){
         $cid=$this->input->post('cid');
         setcookie('cid',$cid);
-        echo $_COOKIE['cid'];
-//        redirect('marketcontroller/loadMenu');
+//        echo $_COOKIE['cid'];
+        redirect('marketcontroller/loadMenu');
     }
 
     /*
