@@ -12,7 +12,7 @@ class Menuitem extends CI_Model {
 
     public function recommend($cid){
 //        $date=date('Y-m-d');
-        $sql="SELECT menuitem.mitemid as mitemid, menuitem.isrecomd as isrecomd, food.fid as fid,food.fname as fname, food.fdes as fdes, food.fprice as fprice, food.fpicture as fpicture FROM  menuitem JOIN food ON dailymenu.mid=menuitem.mid AND menuitem.fid=food.fid WHERE dailymenu.cid='".$cid."' AND menuitem.isrecomd='1' AND dailymenu.mstatus='1'";
+        $sql="SELECT dailymenu.cid as cid, menuitem.mitemid as mitemid, menuitem.fid as fid, food.fname as fname, food.fdes as fdes, food.fprice as fprice, food.fpicture as fpicture FROM(dailymenu JOIN menuitem ON dailymenu.mid=menuitem.mid)JOIN food ON food.fid=menuitem.fid WHERE dailymenu.cid='".$cid."'AND menuitem.isrecomd='1' AND dailymenu.mstatus='1'";
         $query=$this->db->query($sql);
 
         if($query->num_rows()==1){
@@ -31,7 +31,7 @@ class Menuitem extends CI_Model {
     }
 
     public function saleitem($cid){
-        $sql="SELECT dailymenu.mid, menuitem.mitemid, menuitem.isrecomd, food.* FROM dailymenu JOIN menuitem JOIN food ON dailymenu.mid=menuitem.mid AND menuitem.fid=food.fid WHERE dailymenu.cid='".$cid."' AND menuitem.isrecomd='0' AND dailymenu.mstatus='1'";
+        $sql="SELECT dailymenu.cid, menuitem.mitemid, menuitem.fid, food.fname, food.fdes, food.fprice, food.fpicture FROM(dailymenu JOIN menuitem ON dailymenu.mid=menuitem.mid)JOIN food ON food.fid=menuitem.fid WHERE dailymenu.cid='".$cid."'AND menuitem.isrecomd='0' AND dailymenu.mstatus='1'";
         $query=$this->db->query($sql);
         if($query->num_rows()==2){
             return $query->result();

@@ -7,6 +7,8 @@ class Marketcontroller extends MY_Controller{
     public function loadMenu(){
         $this->load->model('menuitem');
         $cid=$_SESSION['cid'];
+        $data['$base_url']=base_url();
+        $data['date']=date('m月d日');
         $data['recommend']=$this->menuitem->recommend($cid);
         $data['saleitem']=$this->menuitem->saleitem($cid);
 //

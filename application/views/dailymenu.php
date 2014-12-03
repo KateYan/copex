@@ -10,9 +10,9 @@
     <meta content="telephone=no" name="format-detection" />
     <meta name="viewport" content="width=device-width; maximum-scale=1.0;  user-scalable=no; initial-scale=1.0" />
     <title>特价午餐菜单</title>
-    <link href="http://localhost/copex/css/masterpage.css" rel="stylesheet" type="text/css" />
-    <link href="http://localhost/copex/css/dinner.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="http://localhost/copex/js/jquery-1.7.2.min.js"></script>
+    <link href="<?php echo base_url();?>css/masterpage.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url();?>css/dinner.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="<?php echo base_url();?>js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript">
         $(function(){
             var _W = document.documentElement.clientWidth;
@@ -23,7 +23,7 @@
     </script>
 </head>
 <body>
-<header id="Header">11月14号午餐菜单</header>
+<header id="Header"><?php echo $date; ?>午餐菜单</header>
 
 <div class="manaRecommends">
     <h3>店长推荐</h3>
@@ -31,7 +31,8 @@
 
         <?php
             echo '<img src="';
-            echo$recommend->fpicture;
+            echo base_url();
+            echo $recommend->fpicture;
             echo '" width="100%" height="100%"/>';
         ?>
 <!--        <img src="http://54.174.69.142/copex/css/images/1_04img01.jpg" width="100%" height="100%"/>-->
@@ -48,24 +49,14 @@
             foreach($saleitem as $sale){
                 echo '<div class="tdyS_m_block">';
                 echo '<span class="tdyS_m_img">';
-                echo '<img src="'.$sale->fpicture.'" width="100%" height="100%" />';
+                echo '<img src="';
+                echo base_url();
+                echo $sale->fpicture.'" width="100%" height="100%" />';
                 echo '<span class="menu_title">'.$sale->fname.'</span>';
                 echo '</span>';
                 echo '</div>';
             }
         ?>
-<!--        <div class="tdyS_m_block">-->
-<!--            <span class="tdyS_m_img">-->
-<!--                <img src="http://54.174.69.142/copex/css/images/1_04img02.jpg" width="100%" height="100%" />-->
-<!--                <span class="menu_title">干锅排骨</span>-->
-<!--            </span>-->
-<!--        </div><!-- end of tdyS_m_block-->-->
-<!--        <div class="tdyS_m_block">-->
-<!--            <span class="tdyS_m_img">-->
-<!--                <img src="http://54.174.69.142/copex/css/images/1_04img02.jpg" width="100%" height="100%" />-->
-<!--                <span class="menu_title">蜜辣烤翅</span>-->
-<!--            </span>-->
-<!--        </div><!-- end of tdyS_m_block-->-->
         <div class="clear"></div>
     </div>
 </div>

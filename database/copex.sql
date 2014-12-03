@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2014 at 05:19 PM
+-- Generation Time: Dec 03, 2014 at 06:58 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -104,8 +104,8 @@ CREATE TABLE IF NOT EXISTS `dailymenu` (
 --
 
 INSERT INTO `dailymenu` (`mid`, `cid`, `mcreatedate`, `mstatus`) VALUES
-(10001, 10001, '2014-11-30', 1),
-(10002, 10002, '2014-11-30', 1);
+(10001, 10001, '2014-12-03', 1),
+(10002, 10002, '2014-12-03', 1);
 
 -- --------------------------------------------------------
 
@@ -142,20 +142,20 @@ CREATE TABLE IF NOT EXISTS `food` (
   `fname` varchar(30) NOT NULL,
   `fdes` varchar(50) DEFAULT NULL,
   `fprice` float NOT NULL,
-  `fpicture` varchar(30) NOT NULL,
+  `fpicture` varchar(60) NOT NULL,
   PRIMARY KEY (`fid`),
   KEY `did` (`did`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10005 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10006 ;
 
 --
 -- Dumping data for table `food`
 --
 
 INSERT INTO `food` (`fid`, `did`, `fname`, `fdes`, `fprice`, `fpicture`) VALUES
-(10001, 10001, '红烧鸭子', '精心秘制，回味无穷', 78, ''),
-(10002, 10002, '干锅排骨', NULL, 6.99, ''),
-(10003, 10001, '蜜辣烤翅', NULL, 6.99, ''),
-(10004, 10002, '清蒸鲤鱼', NULL, 9.99, '');
+(10001, 10001, '红烧鸭子', '精心秘制，回味无穷', 19.99, 'css/images/1_04img01.jpg'),
+(10002, 10002, '干锅排骨', NULL, 6.99, 'css/images/1_04img02.jpg'),
+(10003, 10001, '蜜辣烤翅', NULL, 6.99, 'css/images/1_04img02.jpg'),
+(10004, 10002, '清蒸鲤鱼', NULL, 9.99, 'css/images/4_03img02.jpg');
 
 -- --------------------------------------------------------
 
