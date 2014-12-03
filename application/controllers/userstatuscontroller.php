@@ -16,14 +16,11 @@ class Userstatuscontroller extends MY_Controller
     */
     public function checkUserStatus(){
         if(isset($_COOKIE['uid'])){
-
-//            $valid=$this->validateUser($_COOKIE['uid'],$_COOKIE['uhash']);
+            
             if(validateUser($_COOKIE['uid'],$_COOKIE['uhash'])){
-            /*
-             * 合法用户查找用户类型再分类跳转不同用户
-             */
+            //合法用户查找用户类型再分类跳转不同用户
             }
-            else {//合法用户
+            else {//非法法用户
                 unset($_COOKIE['uid']);
                 return redirect('userlogincontroller/loadCampus');
             }
