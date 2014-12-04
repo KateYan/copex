@@ -33,16 +33,7 @@ class Userlogincontroller extends MY_Controller{
             $cid=$this->input->post('cid');
             $this->load->model('user');
             $newUser=$this->user->newUser($cid);
-
-            $cookieLife=time()+3600*24*365;
-            setcookie('cid',$cid,$cookieLife,'/');
-            setcookie('uid',$newUser->uid,$cookieLife,'/');
-            setcookie('uhash',$newUser->uhash,$cookieLife,'/');
-
-            $_SESSION['cid']=$cid;
-            $_SESSION['uid']=$newUser->uid;
-            $_SESSION['uhash']=$newUser->uhash;
-
+            $this->user->login($newUser);
         } elseif(isset($_POST['cid'])){
             //老用户改校区
         } else{

@@ -20,9 +20,9 @@ class Userstatuscontroller extends MY_Controller
             //合法用户
                 $this->load->model('user');
                 $oldUser=$this->user->oldUser($_COOKIE['uid']);
-                var_dump($oldUser);
-//                echo "old User";
-                return false;
+                $this->user->login($oldUser);
+
+                return redirect('marketcontroller/loadMenu');
             }
             else {//非法法用户
                 unset($_COOKIE['uid']);
@@ -51,16 +51,16 @@ class Userstatuscontroller extends MY_Controller
      * 2.新vip登陆成功的时候
      * 3.所有用户再次点击订餐的时候
      */
-    public function setSession(){
-        $data['uid']=$_COOKIE['uid'];
-        $data['vipid']=$_COOKIE['vipid'];
-        $data['cid']=$_COOKIE['cid'];
-        $this->load->model('market');
-        $dataset=$this->market->
-        $this->load->model('user');
-        $buyer=new User($dataset);
-        if($_COOKIE['vipid']==NULL){
-            redirect('marketcontroller/loadMenu');
-        }else redirect('marketcontroller/loadVipmenu');
-    }
+//    public function setSession(){
+//        $data['uid']=$_COOKIE['uid'];
+//        $data['vipid']=$_COOKIE['vipid'];
+//        $data['cid']=$_COOKIE['cid'];
+//        $this->load->model('market');
+//        $dataset=$this->market->
+//        $this->load->model('user');
+//        $buyer=new User($dataset);
+//        if($_COOKIE['vipid']==NULL){
+//            redirect('marketcontroller/loadMenu');
+//        }else redirect('marketcontroller/loadVipmenu');
+//    }
 }
