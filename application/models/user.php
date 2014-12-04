@@ -18,7 +18,6 @@ class User extends CI_Model {
     public $vpassword;
     public $ip;
     public $uhash;
-    public $ordered;
 
     function __construct(Array $params=array()){
         if(count($params)){
@@ -46,7 +45,26 @@ class User extends CI_Model {
         $this->ip=$ip;
         $this->uhash='12345';
         return $this;
+    }
 
+    /*
+     * 根据uid返回一个老用户
+     */
+    public function oldUser(){
+        $sql="SELECT user.vipid as vipid, user.uphone as uphone,user.ip as ip,vipcard.vnumber as vnumber,vipcard.vbalance as vbalance,vipcard.vpassword as vpassword FROM user LEFT JOIN vipcard ON user.uid=vipcard.uid WHERE user.uid='".$_COOKIE['uid']."'";
+        $query=$this->db->query($sql);
+        $oldUser=$query->row(0);
+
+        $this->uid=$_COOKIE['uid'];
+        $this->cid=$_COOKIE['cid'];
+        $this->vipid=$oldUser->vipid;
+        $this->uphone=$oldUser->uphone;
+        $this->vnumber=$oldUser->vnumber;
+        $this->vbalance=$oldUser->vbalance;
+        $this->vpassword=$oldUser->vpassword;
+        $this->ip=$oldUser->ip;
+        $this->uhash=$_COOKIE['uhash'];
+        return $this;
     }
 
 }
