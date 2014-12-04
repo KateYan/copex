@@ -19,16 +19,16 @@ class Userstatuscontroller extends MY_Controller
             if($this->validateUser($_COOKIE['uid'],$_COOKIE['uhash'])){
             //合法用户
                 $this->load->model('user');
-                $oldUser=$this->user->oldUser();
+                $oldUser=$this->user->oldUser($_COOKIE['uid']);
                 var_dump($oldUser);
 //                echo "old User";
-//                return false;
+                return false;
             }
             else {//非法法用户
                 unset($_COOKIE['uid']);
                 return redirect('userlogincontroller/loadCampus');
             }
-         }else
+         }
         return redirect('userlogincontroller/loadCampus');
     }
 
