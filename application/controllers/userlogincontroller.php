@@ -29,18 +29,25 @@ class Userlogincontroller extends MY_Controller{
      * 跳转去加载菜单页面
      */
     public function setUser(){
-        $cid=$this->input->post('cid');
-        $this->load->model('user');
-        $newUser=$this->user->newUser($cid);
+        if(!isset($_COOKIE['uid'])){
+            $cid=$this->input->post('cid');
+            $this->load->model('user');
+            $newUser=$this->user->newUser($cid);
 
-        $cookieLife=time()+3600*24*365;
-        setcookie('cid',$cid,$cookieLife);
-        setcookie('uid',$newUser->uid,$cookieLife);
-        setcookie('uhash',$newUser->uhash,$cookieLife);
+            $cookieLife=time()+3600*24*365;
+            setcookie('cid',$cid,$cookieLife,'/');
+            setcookie('uid',$newUser->uid,$cookieLife,'/');
+            setcookie('uhash',$newUser->uhash,$cookieLife,'/');
 
-        $_SESSION['cid']=$cid;
-        $_SESSION['uid']=$newUser->uid;
-        $_SESSION['uhash']=$newUser->uhash;
+            $_SESSION['cid']=$cid;
+            $_SESSION['uid']=$newUser->uid;
+            $_SESSION['uhash']=$newUser->uhash;
+
+        } elseif(isset($_POST['cid'])){
+            //老用户改校区
+        } else{
+            //点错页面的用户
+        }
 
         redirect('marketcontroller/loadMenu');
     }

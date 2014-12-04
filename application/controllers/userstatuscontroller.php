@@ -17,7 +17,7 @@ class Userstatuscontroller extends MY_Controller
     public function checkUserStatus(){
         if(isset($_COOKIE['uid'])){
 
-            if(validateUser($_COOKIE['uid'],$_COOKIE['uhash'])){
+            if($this->validateUser($_COOKIE['uid'],$_COOKIE['uhash'])){
             //合法用户
                 echo "Old User!";
                 return false;
