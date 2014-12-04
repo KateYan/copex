@@ -63,7 +63,7 @@ class User extends CI_Model {
         $this->vbalance=$oldUser->vbalance;
         $this->vpassword=$oldUser->vpassword;
         $this->ip=$oldUser->ip;
-        $this->uhash=$oldUser->vipid;
+        $this->uhash=$oldUser->uhash;
         return $this;
     }
 
@@ -71,7 +71,7 @@ class User extends CI_Model {
      * 为登录的user对象设置session和cookie
      */
     public function login($user){
-        if(($user->vipid)!=null){
+        if(!isset($user->vipid)){
             $_SESSION['vipid']=$user->vipid;
         }
         $_SESSION['uid']=$user->uid;

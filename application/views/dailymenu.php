@@ -41,8 +41,7 @@
             foreach($saleitem as $sale){
                 echo '<div class="tdyS_m_block">';
                 echo '<span class="tdyS_m_img">';
-                echo '<img src="';
-                echo base_url();
+                echo '<img src="../../';
                 echo $sale->fpicture.'" width="100%" height="100%" />';
                 echo '<span class="menu_title">'.$sale->fname.'</span>';
                 echo '</span>';

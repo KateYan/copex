@@ -16,7 +16,6 @@ class Marketcontroller extends MY_Controller{
     public function loadMenu(){
         $this->load->model('menuitem');
         $data['title']='特价午餐菜单';
-        $data['$base_url']=base_url();
         $data['date']=date('m月d日');
         $data['recommend']=$this->menuitem->recommend($_SESSION['cid']);
         $data['saleitem']=$this->menuitem->saleitem($_SESSION['cid']);

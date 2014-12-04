@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2014-12-04 02:53:50
--- 服务器版本： 5.6.17
+-- Generation Time: Dec 04, 2014 at 04:56 PM
+-- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- 表的结构 `basicrule`
+-- Table structure for table `basicrule`
 --
 
 CREATE TABLE IF NOT EXISTS `basicrule` (
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `basicrule` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `campus`
+-- Table structure for table `campus`
 --
 
 CREATE TABLE IF NOT EXISTS `campus` (
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `campus` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10005 ;
 
 --
--- 转存表中的数据 `campus`
+-- Dumping data for table `campus`
 --
 
 INSERT INTO `campus` (`cid`, `cname`, `caddr`) VALUES
@@ -61,7 +61,7 @@ INSERT INTO `campus` (`cid`, `cname`, `caddr`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `coperationline`
+-- Table structure for table `coperationline`
 --
 
 CREATE TABLE IF NOT EXISTS `coperationline` (
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `coperationline` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10007 ;
 
 --
--- 转存表中的数据 `coperationline`
+-- Dumping data for table `coperationline`
 --
 
 INSERT INTO `coperationline` (`lineid`, `cid`, `did`) VALUES
@@ -87,7 +87,7 @@ INSERT INTO `coperationline` (`lineid`, `cid`, `did`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `dailymenu`
+-- Table structure for table `dailymenu`
 --
 
 CREATE TABLE IF NOT EXISTS `dailymenu` (
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `dailymenu` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10005 ;
 
 --
--- 转存表中的数据 `dailymenu`
+-- Dumping data for table `dailymenu`
 --
 
 INSERT INTO `dailymenu` (`mid`, `cid`, `mcreatedate`, `mstatus`) VALUES
@@ -112,7 +112,7 @@ INSERT INTO `dailymenu` (`mid`, `cid`, `mcreatedate`, `mstatus`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `diner`
+-- Table structure for table `diner`
 --
 
 CREATE TABLE IF NOT EXISTS `diner` (
@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `diner` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10003 ;
 
 --
--- 转存表中的数据 `diner`
+-- Dumping data for table `diner`
 --
 
 INSERT INTO `diner` (`did`, `dname`, `daddr`, `demail`, `dphone`) VALUES
@@ -135,7 +135,7 @@ INSERT INTO `diner` (`did`, `dname`, `daddr`, `demail`, `dphone`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `food`
+-- Table structure for table `food`
 --
 
 CREATE TABLE IF NOT EXISTS `food` (
@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `food` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10005 ;
 
 --
--- 转存表中的数据 `food`
+-- Dumping data for table `food`
 --
 
 INSERT INTO `food` (`fid`, `did`, `fname`, `fdes`, `fprice`, `fpicture`) VALUES
@@ -162,7 +162,7 @@ INSERT INTO `food` (`fid`, `did`, `fname`, `fdes`, `fprice`, `fpicture`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `menuitem`
+-- Table structure for table `menuitem`
 --
 
 CREATE TABLE IF NOT EXISTS `menuitem` (
@@ -176,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `menuitem` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10017 ;
 
 --
--- 转存表中的数据 `menuitem`
+-- Dumping data for table `menuitem`
 --
 
 INSERT INTO `menuitem` (`mitemid`, `fid`, `mid`, `isrecomd`) VALUES
@@ -196,7 +196,7 @@ INSERT INTO `menuitem` (`mitemid`, `fid`, `mid`, `isrecomd`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `ofitem`
+-- Table structure for table `ofitem`
 --
 
 CREATE TABLE IF NOT EXISTS `ofitem` (
@@ -210,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `ofitem` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10009 ;
 
 --
--- 转存表中的数据 `ofitem`
+-- Dumping data for table `ofitem`
 --
 
 INSERT INTO `ofitem` (`ofitemid`, `oid`, `fid`, `ofamount`) VALUES
@@ -220,7 +220,7 @@ INSERT INTO `ofitem` (`ofitemid`, `oid`, `fid`, `ofamount`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `order`
+-- Table structure for table `order`
 --
 
 CREATE TABLE IF NOT EXISTS `order` (
@@ -235,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `order` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10002 ;
 
 --
--- 转存表中的数据 `order`
+-- Dumping data for table `order`
 --
 
 INSERT INTO `order` (`oid`, `uid`, `odate`, `ostatus`, `oispaid`, `ocost`) VALUES
@@ -244,7 +244,7 @@ INSERT INTO `order` (`oid`, `uid`, `odate`, `ostatus`, `oispaid`, `ocost`) VALUE
 -- --------------------------------------------------------
 
 --
--- 表的结构 `osideitem`
+-- Table structure for table `osideitem`
 --
 
 CREATE TABLE IF NOT EXISTS `osideitem` (
@@ -258,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `osideitem` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10002 ;
 
 --
--- 转存表中的数据 `osideitem`
+-- Dumping data for table `osideitem`
 --
 
 INSERT INTO `osideitem` (`osideid`, `oid`, `sid`, `osideamount`) VALUES
@@ -267,7 +267,7 @@ INSERT INTO `osideitem` (`osideid`, `oid`, `sid`, `osideamount`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sidedish`
+-- Table structure for table `sidedish`
 --
 
 CREATE TABLE IF NOT EXISTS `sidedish` (
@@ -282,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `sidedish` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10004 ;
 
 --
--- 转存表中的数据 `sidedish`
+-- Dumping data for table `sidedish`
 --
 
 INSERT INTO `sidedish` (`sid`, `did`, `sname`, `sdes`, `sprice`, `spicture`) VALUES
@@ -293,7 +293,7 @@ INSERT INTO `sidedish` (`sid`, `did`, `sname`, `sdes`, `sprice`, `spicture`) VAL
 -- --------------------------------------------------------
 
 --
--- 表的结构 `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
@@ -309,10 +309,10 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`uid`),
   KEY `cid` (`cid`,`vipid`),
   KEY `vipid` (`vipid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10027 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10043 ;
 
 --
--- 转存表中的数据 `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `created`, `last_login`) VALUES
@@ -323,12 +323,28 @@ INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `
 (10016, 10002, NULL, NULL, '12345', '::1', 0, '2014-12-03 21:50:59', '2014-12-03 21:50:59'),
 (10023, 10001, NULL, NULL, '12345', '::1', 0, '2014-12-04 01:36:11', NULL),
 (10024, 10002, NULL, NULL, '12345', '::1', 0, '2014-12-04 01:44:32', NULL),
-(10025, 10004, NULL, NULL, '12345', '::1', 0, '2014-12-04 01:47:06', NULL);
+(10025, 10004, NULL, NULL, '12345', '::1', 0, '2014-12-04 01:47:06', NULL),
+(10027, 10001, NULL, NULL, '12345', '::1', 0, '2014-12-04 02:23:10', NULL),
+(10028, 10003, NULL, NULL, '12345', '::1', 0, '2014-12-04 02:27:27', NULL),
+(10029, 10001, NULL, NULL, '12345', '::1', 0, '2014-12-04 03:16:51', NULL),
+(10030, 10002, NULL, NULL, '12345', '::1', 0, '2014-12-04 03:19:18', NULL),
+(10031, 10001, NULL, NULL, '12345', '::1', 0, '2014-12-04 03:25:10', NULL),
+(10032, 10004, NULL, NULL, '12345', '::1', 0, '2014-12-04 03:28:15', NULL),
+(10033, 10003, NULL, NULL, '12345', '::1', 0, '2014-12-04 03:31:15', NULL),
+(10034, 10002, NULL, NULL, '12345', '::1', 0, '2014-12-04 03:47:26', NULL),
+(10035, 10001, NULL, NULL, '12345', '::1', 0, '2014-12-04 04:15:55', NULL),
+(10036, 10001, NULL, NULL, '12345', '::1', 0, '2014-12-04 06:00:01', NULL),
+(10037, 10001, NULL, NULL, '12345', '::1', 0, '2014-12-04 14:40:35', NULL),
+(10038, 10002, NULL, NULL, '12345', '::1', 0, '2014-12-04 14:43:06', NULL),
+(10039, 10002, NULL, NULL, '12345', '::1', 0, '2014-12-04 15:12:29', NULL),
+(10040, 10001, NULL, NULL, '12345', '::1', 0, '2014-12-04 15:18:21', NULL),
+(10041, 10003, NULL, NULL, '12345', '::1', 0, '2014-12-04 15:24:56', NULL),
+(10042, 10002, NULL, NULL, '12345', '::1', 0, '2014-12-04 15:48:57', NULL);
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `vipcard`
+-- Table structure for table `vipcard`
 --
 
 CREATE TABLE IF NOT EXISTS `vipcard` (
@@ -342,7 +358,7 @@ CREATE TABLE IF NOT EXISTS `vipcard` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32717 ;
 
 --
--- 转存表中的数据 `vipcard`
+-- Dumping data for table `vipcard`
 --
 
 INSERT INTO `vipcard` (`vipid`, `uid`, `vnumber`, `vpassword`, `vbalance`) VALUES
@@ -350,70 +366,70 @@ INSERT INTO `vipcard` (`vipid`, `uid`, `vnumber`, `vpassword`, `vbalance`) VALUE
 (32716, 10002, 9874, 'asdfas', 50);
 
 --
--- 限制导出的表
+-- Constraints for dumped tables
 --
 
 --
--- 限制表 `coperationline`
+-- Constraints for table `coperationline`
 --
 ALTER TABLE `coperationline`
   ADD CONSTRAINT `linecid` FOREIGN KEY (`cid`) REFERENCES `campus` (`cid`) ON DELETE CASCADE,
   ADD CONSTRAINT `linedid` FOREIGN KEY (`did`) REFERENCES `diner` (`did`) ON DELETE CASCADE;
 
 --
--- 限制表 `dailymenu`
+-- Constraints for table `dailymenu`
 --
 ALTER TABLE `dailymenu`
   ADD CONSTRAINT `dailymenucid` FOREIGN KEY (`cid`) REFERENCES `campus` (`cid`) ON DELETE SET NULL;
 
 --
--- 限制表 `food`
+-- Constraints for table `food`
 --
 ALTER TABLE `food`
   ADD CONSTRAINT `fooddid` FOREIGN KEY (`did`) REFERENCES `diner` (`did`) ON DELETE CASCADE;
 
 --
--- 限制表 `menuitem`
+-- Constraints for table `menuitem`
 --
 ALTER TABLE `menuitem`
   ADD CONSTRAINT `mitemfid` FOREIGN KEY (`fid`) REFERENCES `food` (`fid`) ON DELETE SET NULL,
   ADD CONSTRAINT `mitemmid` FOREIGN KEY (`mid`) REFERENCES `dailymenu` (`mid`) ON DELETE CASCADE;
 
 --
--- 限制表 `ofitem`
+-- Constraints for table `ofitem`
 --
 ALTER TABLE `ofitem`
   ADD CONSTRAINT `ofitemfid` FOREIGN KEY (`fid`) REFERENCES `food` (`fid`) ON DELETE SET NULL,
   ADD CONSTRAINT `ofitemoid` FOREIGN KEY (`oid`) REFERENCES `order` (`oid`) ON DELETE CASCADE;
 
 --
--- 限制表 `order`
+-- Constraints for table `order`
 --
 ALTER TABLE `order`
   ADD CONSTRAINT `orderuid` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE SET NULL;
 
 --
--- 限制表 `osideitem`
+-- Constraints for table `osideitem`
 --
 ALTER TABLE `osideitem`
   ADD CONSTRAINT `osideoid` FOREIGN KEY (`oid`) REFERENCES `order` (`oid`) ON DELETE CASCADE,
   ADD CONSTRAINT `osidesid` FOREIGN KEY (`sid`) REFERENCES `sidedish` (`sid`) ON DELETE SET NULL;
 
 --
--- 限制表 `sidedish`
+-- Constraints for table `sidedish`
 --
 ALTER TABLE `sidedish`
   ADD CONSTRAINT `sidedid` FOREIGN KEY (`did`) REFERENCES `diner` (`did`) ON DELETE CASCADE;
 
 --
--- 限制表 `user`
+-- Constraints for table `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `usercid` FOREIGN KEY (`cid`) REFERENCES `campus` (`cid`) ON DELETE SET NULL,
   ADD CONSTRAINT `uservipid` FOREIGN KEY (`vipid`) REFERENCES `vipcard` (`vipid`) ON DELETE SET NULL;
 
 --
--- 限制表 `vipcard`
+-- Constraints for table `vipcard`
 --
 ALTER TABLE `vipcard`
   ADD CONSTRAINT `vipcarduid` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE SET NULL;
