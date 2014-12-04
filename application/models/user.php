@@ -6,9 +6,7 @@
  * Time: 5:46 PM
  */
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
 class User extends CI_Model {
-
     public $uid;
     public $cid;
     public $vipid;
@@ -18,7 +16,6 @@ class User extends CI_Model {
     public $vpassword;
     public $ip;
     public $uhash;
-
     function __construct(Array $params=array()){
         if(count($params)){
             foreach($params as $key=>$value){
@@ -26,27 +23,29 @@ class User extends CI_Model {
             }
         }
     }
-/*
- * 新建一个不含电话的用户
- */
-    public function newUser($cid){
-        $ip=$_SERVER['REMOTE_ADDR'];
-        $sql="INSERT INTO user(cid,uhash,ip,ordered) VALUES('".$cid."','12345','".$ip."','0')";
-        $this->db->query($sql);
-        $uid=$this->db->insert_id();
+    /*
+     * 新建一个用户
+     * $properties format
+     */
+    public function newUser($properties){
+        foreach ($properties as $key => $value) {
+//            if (isset($this->$key)) {
+//在这里始终不执行$this->$key=$value,加了magic method __set()才可以
+                $this->$key = $value;
+//            }
+        }
 
-        $this->uid=$uid;
-        $this->cid=$cid;
-        $this->vipid=null;
-        $this->uphone=null;
-        $this->vnumber=null;
-        $this->vbalance=null;
-        $this->vpassword=null;
-        $this->ip=$ip;
-        $this->uhash='12345';
+        $sql="INSERT INTO user(cid,uhash,ip,ordered) VALUES('".$properties['cid']."','".$properties['uhash']."','".$properties['ip']."','".$properties['ordered']."')";
+        $this->db->query($sql);
+        $this->uid=$this->db->insert_id();
         return $this;
     }
-
+    //遇到给属性赋值，就验证属性是否已经定义，定义后才会赋值
+    public function __set($name,$value){
+        if(isset($this->$name)){
+            $this->$name = $value;
+        }
+    }
     /*
      * 根据uid返回一个老用户
      */
@@ -54,7 +53,6 @@ class User extends CI_Model {
         $sql="SELECT user.cid as cid, user.vipid as vipid, user.uphone as uphone,user.ip as ip,user.uhash as uhash, vipcard.vnumber as vnumber,vipcard.vbalance as vbalance,vipcard.vpassword as vpassword FROM user LEFT JOIN vipcard ON user.uid=vipcard.uid WHERE user.uid='".$uid."'";
         $query=$this->db->query($sql);
         $oldUser=$query->row(0);
-
         $this->uid=$uid;
         $this->cid=$oldUser->cid;
         $this->vipid=$oldUser->vipid;
@@ -66,7 +64,6 @@ class User extends CI_Model {
         $this->uhash=$oldUser->uhash;
         return $this;
     }
-
     /*
      * 为登录的user对象设置session和cookie
      */
@@ -76,10 +73,8 @@ class User extends CI_Model {
         }
         $_SESSION['uid']=$user->uid;
         $_SESSION['cid']=$user->cid;
-
         $cookieLife=time()+3600*24*365;
         setcookie('uid',$user->uid,$cookieLife,'/');
         setcookie('uhash',$user->uhash,$cookieLife,'/');
     }
-
 }

@@ -32,8 +32,13 @@ class Userlogincontroller extends MY_Controller{
         if(!isset($_COOKIE['uid'])){
             $cid=$this->input->post('cid');
             $this->load->model('user');
-            $newUser=$this->user->newUser($cid);
+            $ip=$_SERVER['REMOTE_ADDR'];
+            //设置属性传值数组$properties
+            $properties=array('cid'=>$cid,'ip'=>$ip,'uhash'=>'12345','ordered'=>'0','abc'=>'abc');
+            $newUser=$this->user->newUser($properties);
             $this->user->login($newUser);
+//            var_dump($newUser);
+//            return false;
         } elseif(isset($_POST['cid'])){
             //老用户改校区
         } else{
