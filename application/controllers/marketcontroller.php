@@ -14,33 +14,20 @@ class Marketcontroller extends MY_Controller{
      * for loading vipusers or non-vip users' menu
      */
     public function showDailyMenu(){
-//        $this->load->model('menuitem');
-//        $data['title']='特价午餐菜单';
-        $data['date']=date('m月d日');
-//        $data['recommend']=$this->menuitem->recommend($_SESSION['cid']);
-//        $data['saleitem']=$this->menuitem->saleitem($_SESSION['cid']);
-//
-        $data['title']='午餐菜单';
-        $data['recommend']=(object) array('fpicture'=>'../../css/images/3_03img01.jpg','fname'=>'鱼香宫保鸡丁小份','fprice'=>'7.99');
-        $data['saleItem']=(object) array(
-            (object) array('fpicture'=>'../../css/images/1_04img02.jpg','fname'=>'蜜辣烤翅','fprice'=>'7.99'),
-            (object) array('fpicture'=>'../../css/images/1_04img01.jpg','fname'=>'红烧鸭子','fprice'=>'7.99')
-        );
+        $this->load->model('menuitem');
+        $data['date']=date('Y-m-d');
 
+        //using cid and date to find menuitems
+        $data['recomdItem']=$this->menuitem->recomdItem($_SESSION['cid'],$data['date']);
+        $data['saleItem']=$this->menuitem->saleItem($_SESSION['cid'],$data['date']);
+
+        $data['title']='午餐菜单';
         $this->load->view('partials/header',$data);
+        //if user is vip->he has vipid session then load vipmenu
         if(isset($_SESSION['vipid'])){
             $this->load->view('vipmenu',$data);
             return false;
         }
         $this->load->view('dailymenu',$data);
-
     }
-
-//    public function loadVipmenu(){
-//        $this->load->model('menu');
-//
-//
-//
-//        $this->load->view('vipmenu',$data);
-//    }
 }

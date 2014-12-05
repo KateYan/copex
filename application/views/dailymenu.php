@@ -16,7 +16,7 @@
     </script>
 </head>
 <body>
-<header id="Header"><?php echo $date; ?>午餐菜单</header>
+<header id="Header"><?php echo $date; ?> 午餐菜单</header>
 
 <div class="manaRecommends">
     <h3>店长推荐</h3>
@@ -24,13 +24,12 @@
 
         <?php
             echo '<img src="';
-            echo base_url();
-            echo $recommend->fpicture;
+            echo $recomdItem->fpicture;
             echo '" width="100%" height="100%"/>';
         ?>
         <ul>
-            <li><?php echo $recommend->fname;?><i class="borderWidth"></i></li>
-            <li>$<?php echo $recommend->fprice;?></li>
+            <li><?php echo $recomdItem->fname;?><i class="borderWidth"></i></li>
+            <li>$<?php echo $recomdItem->fprice;?></li>
         </ul>
     </div>
 </div>

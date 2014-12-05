@@ -40,13 +40,13 @@
     </script>
 </head>
 <body>
-<header id="Header"><?php echo $date; ?>午餐菜单</header>
+<header id="Header"><?php echo $date; ?> 午餐菜单</header>
 <div id="Contenter" class="dinner_cont">
     <div class="menu_block">
-        <span class="menuD_img"><img src="<?php echo $recommend->fpicture; ?>" width="100%" /></span>
+        <span class="menuD_img"><img src="<?php echo $recomdItem->fpicture; ?>" width="100%" /></span>
         <span class="menuD_summary">
-        	<h4><?php echo $recommend->fname; ?></h4>
-            <p class="menuDP">$<?php echo $recommend->fprice; ?></p>
+        	<h4><?php echo $recomdItem->fname; ?></h4>
+            <p class="menuDP">$<?php echo $recomdItem->fprice; ?></p>
             <span class="dinnerAddPuls">
             	数量
             	<a class="btn_plus" onclick="plusRoom(this)"></a>

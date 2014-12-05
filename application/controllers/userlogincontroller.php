@@ -32,8 +32,8 @@ class Userlogincontroller extends MY_Controller{
             //set properties array to get new user object and create new user into database
             $properties=array('cid'=>$cid,'ip'=>$ip,'uhash'=>'12345','ordered'=>'0');
             $newUser=$this->user->newUser($properties);
-            //set cookies and sessions for new user
-            $this->user->login($newUser);
+
+            $this->user->login($newUser);//set cookies and sessions for new user
         } elseif(isset($_POST['cid'])){
             //for existing user to change campus
         } else{

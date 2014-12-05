@@ -28,7 +28,7 @@ class User extends CI_Model {
             $this->$key = $value;//__set() will be used automaticlly to check if the $key is property of user class
         }
 
-        $sql="INSERT INTO user(cid,vipid,uphone,uhash,ip,last_login,ordered) VALUES('".$this->cid."','".$this->vipid."','".$this->uphone."','".$this->uhash."','".$this->ip."','".$this->last_login."','".$this->ordered."')";
+        $sql="INSERT INTO user(cid,vipid,uphone,uhash,ip,last_login,ordered) VALUES('$this->cid',".$this->db->escape($this->vipid).",".$this->db->escape($this->uphone).",'$this->uhash','$this->ip',".$this->db->escape($this->last_login).",'$this->ordered')";
         $this->db->query($sql);
         $this->uid=$this->db->insert_id();
         return $this;
@@ -43,7 +43,7 @@ class User extends CI_Model {
      * user varible 'uid' to return an old user object
      */
     public function oldUser($uid){
-        $sql="SELECT user.cid as cid, user.vipid as vipid, user.uphone as uphone,user.ip as ip,user.uhash as uhash, vipcard.vnumber as vnumber,vipcard.vbalance as vbalance,vipcard.vpassword as vpassword FROM user LEFT JOIN vipcard ON user.uid=vipcard.uid WHERE user.uid='".$uid."'";
+        $sql="SELECT user.cid as cid, user.vipid as vipid, user.uphone as uphone,user.ip as ip,user.uhash as uhash, vipcard.vnumber as vnumber,vipcard.vbalance as vbalance,vipcard.vpassword as vpassword FROM user LEFT JOIN vipcard ON user.uid=vipcard.uid WHERE user.uid='$uid'";
         $query=$this->db->query($sql);
         $oldUser=$query->row(0);
         $this->uid=$uid;

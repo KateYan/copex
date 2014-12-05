@@ -19,33 +19,32 @@ class Menuitem extends CI_Model {
     public  $isrecomd;
 
     /*
-     * 根据校区返回普通用户菜单页面的店长推荐菜品
+     * using cid and date and status to choose one recommend menu-item
      */
 
-    public function recommend($cid){
-
-        $sql="SELECT dailymenu.cid as cid, menuitem.mitemid as mitemid, menuitem.fid as fid, food.fname as fname, food.fdes as fdes, food.fprice as fprice, food.fpicture as fpicture FROM(dailymenu JOIN menuitem ON dailymenu.mid=menuitem.mid)JOIN food ON food.fid=menuitem.fid WHERE dailymenu.cid='".$cid."'AND menuitem.isrecomd='1' AND dailymenu.mstatus='1'";
+    public function recomdItem($cid,$date){
+        $sql="SELECT dailymenu.cid as cid, menuitem.mitemid as mitemid, menuitem.fid as fid, food.fname as fname, food.fdes as fdes, food.fprice as fprice, food.fpicture as fpicture FROM(dailymenu JOIN menuitem ON dailymenu.mid=menuitem.mid)JOIN food ON food.fid=menuitem.fid WHERE dailymenu.cid='".$cid."'AND dailymenu.mdate='".$date."'AND menuitem.isrecomd='1' AND dailymenu.mstatus='1'";
         $query=$this->db->query($sql);
 
         if($query->num_rows()==1){
-            $recommond=$query->row(0);
+            $recomdItem=$query->row(0);
 
-            $this->mitemid=$recommond->mitemid;
-            $this->fid=$recommond->fid;
+            $this->mitemid=$recomdItem->mitemid;
+            $this->fid=$recomdItem->fid;
             $this->cid=$cid;
-            $this->fname=$recommond->fname;
-            $this->fdes=$recommond->fdes;
-            $this->fprice=$recommond->fprice;
-            $this->fpicture=$recommond->fpicture;
+            $this->fname=$recomdItem->fname;
+            $this->fdes=$recomdItem->fdes;
+            $this->fprice=$recomdItem->fprice;
+            $this->fpicture=$recomdItem->fpicture;
 
             return $this;
         }return false;
     }
 /*
- * 根据校区返回普通用户菜单降价菜品（2个）
+ * using cid and date and status to choose two on-sale menu-items
  */
-    public function saleitem($cid){
-        $sql="SELECT dailymenu.cid, menuitem.mitemid, menuitem.fid, food.fname, food.fdes, food.fprice, food.fpicture FROM(dailymenu JOIN menuitem ON dailymenu.mid=menuitem.mid)JOIN food ON food.fid=menuitem.fid WHERE dailymenu.cid='".$cid."'AND menuitem.isrecomd='0' AND dailymenu.mstatus='1'";
+    public function saleItem($cid,$date){
+        $sql="SELECT dailymenu.cid, menuitem.mitemid, menuitem.fid, food.fname, food.fdes, food.fprice, food.fpicture FROM(dailymenu JOIN menuitem ON dailymenu.mid=menuitem.mid)JOIN food ON food.fid=menuitem.fid WHERE dailymenu.cid='".$cid."'AND dailymenu.mdate='".$date."' AND menuitem.isrecomd='0' AND dailymenu.mstatus='1'";
         $query=$this->db->query($sql);
         if($query->num_rows()==2){
             return $query->result();
