@@ -14,28 +14,21 @@ class User extends CI_Model {
     public $vnumber;
     public $vbalance;
     public $vpassword;
-    public $ip;
     public $uhash;
-    function __construct(Array $params=array()){
-        if(count($params)){
-            foreach($params as $key=>$value){
-                $this->$key=$value;
-            }
-        }
-    }
+    public $ip;
+    public $last_login;
+    public $ordered;
+
     /*
      * 新建一个用户
      * $properties format
      */
     public function newUser($properties){
         foreach ($properties as $key => $value) {
-//            if (isset($this->$key)) {
-//在这里始终不执行$this->$key=$value,加了magic method __set()才可以
-                $this->$key = $value;
-//            }
+            $this->$key = $value;//__set()函数会自动调用，来验证数组传来的属性是否定义
         }
 
-        $sql="INSERT INTO user(cid,uhash,ip,ordered) VALUES('".$properties['cid']."','".$properties['uhash']."','".$properties['ip']."','".$properties['ordered']."')";
+        $sql="INSERT INTO user(cid,vipid,uphone,uhash,ip,last_login,ordered) VALUES('".$this->cid."','".$this->vipid."','".$this->uphone."','".$this->uhash."','".$this->ip."','".$this->last_login."','".$this->ordered."')";
         $this->db->query($sql);
         $this->uid=$this->db->insert_id();
         return $this;
@@ -68,7 +61,7 @@ class User extends CI_Model {
      * 为登录的user对象设置session和cookie
      */
     public function login($user){
-        if(!isset($user->vipid)){
+        if(isset($user->vipid)){
             $_SESSION['vipid']=$user->vipid;
         }
         $_SESSION['uid']=$user->uid;
