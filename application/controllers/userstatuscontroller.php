@@ -8,18 +8,18 @@
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Userstatuscontroller extends MY_Controller
 {
-    /* 微信二级菜单主入口控制方法。
-     * 判断cookie进入不同页面
+    /* wechat enterence to copex
+     * judge cookie to enter different controller-methods
     */
     public function checkUserStatus(){
         if(isset($_COOKIE['uid'])){
             $oldUser = $this->validateUser($_COOKIE['uid'],$_COOKIE['uhash']);
-            if($oldUser){ //合法用户
-                //调用model user的方法设置用户cookie和session
+            if($oldUser){ //legal user
+                //request user model's method login() to set cookies and sessions for user
                 $this->user->login($oldUser);
                 return redirect('marketcontroller/showDailyMenu');
             }
-            else {//非法法用户
+            else {//illegal user
                 unset($_COOKIE['uid']);
                 return redirect('userlogincontroller/loadCampus');
                 return false;
@@ -28,10 +28,10 @@ class Userstatuscontroller extends MY_Controller
         return redirect('userlogincontroller/loadCampus');
     }
     /*
-     * 检查用户合法性
+     * Validate user by checking uid-uhash pair
      */
     private function validateUser($uid,$uhash){
-        //添加用户合法性验证代码
+        //code for validating user
         $this->load->model('user');
         $oldUser =$this->user->oldUser($uid);
         if($uhash==$oldUser->uhash){

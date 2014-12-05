@@ -20,12 +20,12 @@ class User extends CI_Model {
     public $ordered;
 
     /*
-     * 新建一个用户
+     * create a new user object
      * $properties format
      */
     public function newUser($properties){
         foreach ($properties as $key => $value) {
-            $this->$key = $value;//__set()函数会自动调用，来验证数组传来的属性是否定义
+            $this->$key = $value;//__set() will be used automaticlly to check if the $key is property of user class
         }
 
         $sql="INSERT INTO user(cid,vipid,uphone,uhash,ip,last_login,ordered) VALUES('".$this->cid."','".$this->vipid."','".$this->uphone."','".$this->uhash."','".$this->ip."','".$this->last_login."','".$this->ordered."')";
@@ -33,14 +33,14 @@ class User extends CI_Model {
         $this->uid=$this->db->insert_id();
         return $this;
     }
-    //遇到给属性赋值，就验证属性是否已经定义，定义后才会赋值
+    //if $name is property of user class then set value to it
     public function __set($name,$value){
         if(isset($this->$name)){
             $this->$name = $value;
         }
     }
     /*
-     * 根据uid返回一个老用户
+     * user varible 'uid' to return an old user object
      */
     public function oldUser($uid){
         $sql="SELECT user.cid as cid, user.vipid as vipid, user.uphone as uphone,user.ip as ip,user.uhash as uhash, vipcard.vnumber as vnumber,vipcard.vbalance as vbalance,vipcard.vpassword as vpassword FROM user LEFT JOIN vipcard ON user.uid=vipcard.uid WHERE user.uid='".$uid."'";
@@ -58,7 +58,7 @@ class User extends CI_Model {
         return $this;
     }
     /*
-     * 为登录的user对象设置session和cookie
+     * set sessions and cookies for loged in user
      */
     public function login($user){
         if(isset($user->vipid)){

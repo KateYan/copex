@@ -11,7 +11,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Userlogincontroller extends MY_Controller{
 
     /*
-     * 加载选校区页面
+     * load campus choosing page
      */
     public function loadCampus(){
         $data['title']='选择你所在的校区';
@@ -22,26 +22,22 @@ class Userlogincontroller extends MY_Controller{
     }
 
     /*
-     * 校区界面post 校区id=>cid
-     * 新建一个普通用户只有uid,校区，ip，hash
-     * 设置uid,cid,hash的cookie
-     * 设置uid，cid,hash的session
-     * 跳转去加载菜单页面
+     * set cookies and sessions for user
      */
     public function setUser(){
         if(!isset($_COOKIE['uid'])){
             $cid=$this->input->post('cid');
             $this->load->model('user');
             $ip=$_SERVER['REMOTE_ADDR'];
-            //设置属性传值数组$properties
+            //set properties array to get new user object and create new user into database
             $properties=array('cid'=>$cid,'ip'=>$ip,'uhash'=>'12345','ordered'=>'0');
             $newUser=$this->user->newUser($properties);
-            //为新用户设置cookie和session
+            //set cookies and sessions for new user
             $this->user->login($newUser);
         } elseif(isset($_POST['cid'])){
-            //老用户改校区
+            //for existing user to change campus
         } else{
-            //点错页面的用户
+            //accident loged in user
         }
         redirect('marketcontroller/showDailyMenu');
     }

@@ -6,20 +6,6 @@
  * Time: 5:54 PM
  */
 ?>
-<!--<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">-->
-<!--<html>-->
-<!--<head>-->
-<!--    <meta charset="utf-8">-->
-<!--    <meta http-equiv="Cache-control" />-->
-<!--    <meta name="format-detection" content="telephone=no" />-->
-<!--    <meta content="yes" name="apple-mobile-web-app-capable" />-->
-<!--    <meta content="black" name="apple-mobile-web-app-status-bar-style" />-->
-<!--    <meta content="telephone=no" name="format-detection" />-->
-<!--    <meta name="viewport" content="width=device-width; maximum-scale=1.0;  user-scalable=no; initial-scale=1.0" />-->
-<!--    <title>午餐菜单</title>-->
-<!--    <link href="css/masterpage.css" rel="stylesheet" type="text/css" />-->
-<!--    <link href="css/dinner.css" rel="stylesheet" type="text/css" />-->
-<!--    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>-->
     <script type="text/javascript">
         $(function(){
             var _W = document.documentElement.clientWidth;
@@ -57,10 +43,10 @@
 <header id="Header"><?php echo $date; ?>午餐菜单</header>
 <div id="Contenter" class="dinner_cont">
     <div class="menu_block">
-        <span class="menuD_img"><img src="<?php echo $menuitem['image']; ?>" width="100%" /></span>
+        <span class="menuD_img"><img src="<?php echo $recommend->fpicture; ?>" width="100%" /></span>
         <span class="menuD_summary">
-        	<h4><?php echo $menuitem['name']; ?></h4>
-            <p class="menuDP">$<?php echo $menuitem['price']; ?></p>
+        	<h4><?php echo $recommend->fname; ?></h4>
+            <p class="menuDP">$<?php echo $recommend->fprice; ?></p>
             <span class="dinnerAddPuls">
             	数量
             	<a class="btn_plus" onclick="plusRoom(this)"></a>
@@ -69,32 +55,18 @@
             </span>
         </span>
     </div><!-- end of menu_block -->
-    <div class="menu_block">
-        <span class="menuD_img"><img src="<?php echo $menuitem['image']; ?>" width="100%" /></span>
-        <span class="menuD_summary">
-        	<h4><?php echo $menuitem['name']; ?></h4>
-            <p class="menuDP">$<?php echo $menuitem['price']; ?></p>
-            <span class="dinnerAddPuls">
-            	数量
-            	<a class="btn_plus" onclick="plusRoom(this)"></a>
-                <span class="btn_showNum">1</span>
-                <a class="btn_add" onclick="addRoom(this)"></a>
-            </span>
-        </span>
-    </div><!-- end of menu_block -->
-    <div class="menu_block">
-        <span class="menuD_img"><img src="<?php echo $menuitem['image']; ?>" width="100%" /></span>
-        <span class="menuD_summary">
-        	<h4><?php echo $menuitem['name']; ?></h4>
-            <p class="menuDP">$<?php echo $menuitem['price']; ?></p>
-            <span class="dinnerAddPuls">
-            	数量
-            	<a class="btn_plus" onclick="plusRoom(this)"></a>
-                <span class="btn_showNum">1</span>
-                <a class="btn_add" onclick="addRoom(this)"></a>
-            </span>
-        </span>
-    </div><!-- end of menu_block -->
+    <?php
+    foreach($saleItem as $sale){
+        echo '<div class="menu_block">';
+        echo '<span class="menuD_img"><img src="'.$sale->fpicture.'" width="100%" /></span>';
+        echo '<span class="menuD_summary">';
+        echo '<h4>'.$sale->fname.'</h4>';
+        echo '<p class="menuDP">$'.$sale->fprice.'</p>';
+        echo '<span class="dinnerAddPuls">'."数量".'<a class="btn_plus" onclick="plusRoom(this)"></a>';
+        echo '<span class="btn_showNum">1</span>';
+        echo '<a class="btn_add" onclick="addRoom(this)"></a></span></span></div>';
+    }
+    ?>
 </div>
 <footer id="Footer">
     <a class="btn_footer changeArea">更改校区</a>
