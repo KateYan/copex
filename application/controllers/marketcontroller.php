@@ -28,6 +28,6 @@ class Marketcontroller extends MY_Controller{
             $this->load->view('vipmenu',$data);
             return false;
         }
-        $this->load->view('dailymenu',$data);
+        $this->load->view('menu',$data);
     }
 }
