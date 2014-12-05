@@ -1,13 +1,24 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: cecil_000
+ * User: kunyan
  * Date: 12/1/2014
  * Time: 5:28 PM
  */
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Marketcontroller extends MY_Controller{
+
+    /*
+     * if some user try to use url/uri to see daily menu directyly,
+     * forbid it and redirect to check user's status
+     */
+    function __construct(){
+        parent::__construct();
+        if(!isset($_SESSION['uid'])){
+            return redirect('userstatuscontroller/checkUserStatus');
+        }
+    }
     /*
      * load model "menuitem" and using its method recommend() and saleitem()
      * to find validate menuitem

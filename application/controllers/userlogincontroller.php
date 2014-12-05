@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: cecil_000
+ * User: kunyan
  * Date: 12/1/2014
  * Time: 5:27 PM
  */
@@ -41,30 +41,4 @@ class Userlogincontroller extends MY_Controller{
         }
         redirect('marketcontroller/showDailyMenu');
     }
-
-//
-//
-//    /*
-//     * 加载会员登陆界面
-//     */
-//    public function loadViplogin(){
-//        $this->load->view('viplogin');
-//    }
-//
-//    /*
-//     * 验证用户是否是vip
-//     * 确认是后更新cookie
-//     */
-//    public function login(){
-//        $uphone=$this->input->post('uphone');
-//        $this->load->model('market');
-//        $user=$this->market->isvip($uphone);
-//        if($user!=null){
-//            $vipid=$user->row(0);
-//            $_COOKIE['vipid']=$vipid->vipid;
-//            redirect('userlogincontroller/setSession');
-//        }else{
-//            echo "error!";
-//        }
-//    }
 }

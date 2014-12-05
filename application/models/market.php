@@ -1,9 +1,16 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+/**
+ * Created by PhpStorm.
+ * User: kunyan
+ * Date: 12/1/2014
+ * Time: 5:46 PM
+ */
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Market extends CI_Model {
 
     /*
-     * 查找campus表中所有行并返回
+     * select all campus infomation from campus table
      */
     public function getCampusList(){
         $sql="SELECT * FROM campus";
@@ -24,9 +31,3 @@ class Market extends CI_Model {
         return NULL;
     }
 }
-/**
- * Created by PhpStorm.
- * User: cecil_000
- * Date: 12/1/2014
- * Time: 5:46 PM
- */ 
