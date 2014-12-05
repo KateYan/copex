@@ -38,10 +38,10 @@
     <h3>今日6.99特价</h3>
     <div class="tdySal_menu">
         <?php
-            foreach($saleitem as $sale){
+            foreach($saleItem as $sale){
                 echo '<div class="tdyS_m_block">';
                 echo '<span class="tdyS_m_img">';
-                echo '<img src="../../';
+                echo '<img src="';
                 echo $sale->fpicture.'" width="100%" height="100%" />';
                 echo '<span class="menu_title">'.$sale->fname.'</span>';
                 echo '</span>';
