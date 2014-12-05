@@ -17,7 +17,7 @@ class Userstatuscontroller extends MY_Controller
             if($oldUser){ //合法用户
                 //调用model user的方法设置用户cookie和session
                 $this->user->login($oldUser);
-                return redirect('marketcontroller/loadMenu');
+                return redirect('marketcontroller/showDailyMenu');
             }
             else {//非法法用户
                 unset($_COOKIE['uid']);

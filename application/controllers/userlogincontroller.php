@@ -43,7 +43,7 @@ class Userlogincontroller extends MY_Controller{
         } else{
             //点错页面的用户
         }
-        redirect('marketcontroller/loadMenu');
+        redirect('marketcontroller/showDailyMenu');
     }
 
 //
