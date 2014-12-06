@@ -29,8 +29,9 @@ class Userlogincontroller extends MY_Controller{
             $cid = $this->input->post('cid');
             $this->load->model('user');
             $ip = $_SERVER['REMOTE_ADDR'];
+            $uhash=hash('sha256',rand(10000,99999));
             //set properties array to get new user object and create new user into database
-            $properties = array('cid'=>$cid,'ip'=>$ip,'uhash'=>'12345','ordered'=>'0');
+            $properties = array('cid'=>$cid,'ip'=>$ip,'uhash'=>$uhash,'ordered'=>'0');
             $newUser = $this->user->newUser($properties);
 
             $this->user->login($newUser);//set cookies and sessions for new user

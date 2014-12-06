@@ -25,7 +25,6 @@ class Marketcontroller extends MY_Controller{
      */
     public function showDailyMenu(){
         $this->load->model('menuitem');
-        date_default_timezone_set("America/Montreal");
         $data['date'] = date('Y-m-d');
 
         //using cid and date to find menuitems
@@ -42,5 +41,12 @@ class Marketcontroller extends MY_Controller{
             return false;
         }
         $this->load->view('menu',$data);
+    }
+    public function showSideDish(){
+        $this->load->model('market');
+        $data['sideDish']=$this->market->getSideDish($_SESSION['cid']);
+        $data['title']='精选小食';
+        $this->load->view('partials/header',$data);
+        $this->load->view('sidedish',$data);
     }
 }

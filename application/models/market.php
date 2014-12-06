@@ -17,17 +17,9 @@ class Market extends CI_Model {
         $query=$this->db->query($sql);
         return $query->result();
     }
-
-    /*
-     * 根据输入手机号查找用户并判断是否为VIP
-     */
-    public function isVip($uphone){
-        $sql="SELECT vipid FROM user WHERE uphone='".$uphone."'";
+    public function getSideDish($cid){
+        $sql="SELECT sidemenu.cid, sidemenuitem.sideItemID, sidemenuitem.sid, sidedish.sname, sidedish.sdes, sidedish.sprice, sidedish.spicture FROM(sidemenu JOIN sidemenuitem ON sidemenu.sideMenuID=sidemenuitem.sideMenuID)JOIN sidedish ON sidedish.sid=sidemenuitem.sid WHERE sidemenu.cid='".$cid."'AND sidemenu.sideMenuStatus='1'";
         $query=$this->db->query($sql);
-        $num=$query->num_rows();
-        if($num==1){
-            return $query->row();
-        }
-        return NULL;
+        return $query->result();
     }
 }
