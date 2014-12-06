@@ -26,13 +26,12 @@ class Marketcontroller extends MY_Controller{
     public function showDailyMenu(){
         $this->load->model('menuitem');
         $data['date'] = date('Y-m-d');
+        $data['title'] = '午餐菜单';
+        $data['uphone'] = $_SESSION['uphone'];
 
         //using cid and date to find menuitems
         $data['recomdItem'] = $this->menuitem->recomdItem($_SESSION['cid'],$data['date']);
         $data['saleItem'] = $this->menuitem->saleItem($_SESSION['cid'],$data['date']);
-
-        $data['title'] = '午餐菜单';
-        $data['uphone'] = $_SESSION['uphone'];
 
         $this->load->view('partials/header',$data);
         //if user is vip->he has vipid session then load vipmenu
@@ -42,7 +41,15 @@ class Marketcontroller extends MY_Controller{
         }
         $this->load->view('menu',$data);
     }
+
+    /*
+     * show sidedish option for vipuser
+     */
     public function showSideDish(){
+        //forbid non-vip user to see sidedish page
+        if(!isset($_SESSION['vipid'])){
+            return redirect('userstatuscontroller/checkUserStatus');
+        }
         $this->load->model('market');
         $data['sideDish']=$this->market->getSideDish($_SESSION['cid']);
         $data['title']='精选小食';
