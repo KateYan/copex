@@ -19,8 +19,7 @@ class Marketcontroller extends MY_Controller{
             return redirect('userstatuscontroller/checkUserStatus');
         }
     }
-    /*
-     * load model "menuitem" and using its method recommend() and saleitem()
+    /* load model "menuitem" and using its method recommend() and saleitem()
      * to find validate menuitem
      * for loading vipusers or non-vip users' menu
      */
