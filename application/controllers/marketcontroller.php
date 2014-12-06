@@ -33,8 +33,8 @@ class Marketcontroller extends MY_Controller{
         $data['saleItem'] = $this->menuitem->saleItem($_SESSION['cid'],$data['date']);
 
         $data['title'] = '午餐菜单';
-//        $data['uphone'] = $_SESSION['uphone'];
-        $data['uphone'] ='647-255-1234'; //use this phone number as session to try
+        $data['uphone'] = $_SESSION['uphone'];
+
         $this->load->view('partials/header',$data);
         //if user is vip->he has vipid session then load vipmenu
         if(isset($_SESSION['vipid'])){
