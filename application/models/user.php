@@ -11,13 +11,11 @@ class User extends CI_Model {
     public $cid;
     public $vipid;
     public $uphone;
-    public $vnumber;
-    public $vbalance;
-    public $vpassword;
     public $uhash;
     public $ip;
     public $last_login;
     public $ordered;
+    public $created;
 
     /*
      * create a new user object
@@ -43,18 +41,20 @@ class User extends CI_Model {
      * user varible 'uid' to return an old user object
      */
     public function oldUser($uid){
-        $sql="SELECT user.cid as cid, user.vipid as vipid, user.uphone as uphone,user.ip as ip,user.uhash as uhash, vipcard.vnumber as vnumber,vipcard.vbalance as vbalance,vipcard.vpassword as vpassword FROM user LEFT JOIN vipcard ON user.uid=vipcard.uid WHERE user.uid='$uid'";
+        $sql="SELECT *FROM user WHERE uid='$uid'";
         $query=$this->db->query($sql);
         $oldUser=$query->row(0);
+
         $this->uid=$uid;
         $this->cid=$oldUser->cid;
         $this->vipid=$oldUser->vipid;
         $this->uphone=$oldUser->uphone;
-        $this->vnumber=$oldUser->vnumber;
-        $this->vbalance=$oldUser->vbalance;
-        $this->vpassword=$oldUser->vpassword;
         $this->ip=$oldUser->ip;
         $this->uhash=$oldUser->uhash;
+        $this->last_login=$oldUser->last_login;
+        $this->ordered=$oldUser->ordered;
+        $this->created=$oldUser->created;
+
         return $this;
     }
     /*
@@ -69,5 +69,16 @@ class User extends CI_Model {
         $cookieLife=time()+3600*24*365;
         setcookie('uid',$user->uid,$cookieLife,'/');
         setcookie('uhash',$user->uhash,$cookieLife,'/');
+    }
+    /*
+     * update specific user's property's value
+     * return updated user object
+     */
+    public function updateUser($uid,$name,$value){
+        $sql = "UPDATE user SET ".$name." = '".$value."' WHERE uid='$uid'";
+        $this->db->query($sql);
+        $this->oldUser($uid);
+        return $this;
+
     }
 }

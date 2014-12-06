@@ -26,13 +26,13 @@ class Marketcontroller extends MY_Controller{
      */
     public function showDailyMenu(){
         $this->load->model('menuitem');
-        $data['date']=date('Y-m-d');
+        $data['date'] = date('Y-m-d');
 
         //using cid and date to find menuitems
-        $data['recomdItem']=$this->menuitem->recomdItem($_SESSION['cid'],$data['date']);
-        $data['saleItem']=$this->menuitem->saleItem($_SESSION['cid'],$data['date']);
+        $data['recomdItem'] = $this->menuitem->recomdItem($_SESSION['cid'],$data['date']);
+        $data['saleItem'] = $this->menuitem->saleItem($_SESSION['cid'],$data['date']);
 
-        $data['title']='午餐菜单';
+        $data['title'] = '午餐菜单';
         $this->load->view('partials/header',$data);
         //if user is vip->he has vipid session then load vipmenu
         if(isset($_SESSION['vipid'])){

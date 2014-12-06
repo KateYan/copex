@@ -52,7 +52,7 @@
 </div>
 <div class="dSales_btnTo">
     <a class="btn_footer moreDinner" href="dinner.html">想多选？点这里</a>
-    <a href="#" class="btn_footer notInUTSC">我不在UTSC</a>
+    <a href="../userlogincontroller/loadCampus" class="btn_footer notInUTSC">我不在UTSC</a>
     <div class="clear"></div>
 </div>
 <footer id="Footer">

@@ -33,7 +33,7 @@ class Userstatuscontroller extends MY_Controller
     private function validateUser($uid,$uhash){
         //code for validating user
         $this->load->model('user');
-        $oldUser =$this->user->oldUser($uid);
+        $oldUser = $this->user->oldUser($uid);
         if($uhash==$oldUser->uhash){
             return $oldUser;
         }
