@@ -66,6 +66,7 @@ class User extends CI_Model {
         }
         $_SESSION['uid']=$user->uid;
         $_SESSION['cid']=$user->cid;
+        $_SESSION['uphone']=$user->uphone;
         $cookieLife=time()+3600*24*365;
         setcookie('uid',$user->uid,$cookieLife,'/');
         setcookie('uhash',$user->uhash,$cookieLife,'/');
