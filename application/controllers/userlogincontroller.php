@@ -42,7 +42,7 @@ class Userlogincontroller extends MY_Controller{
             $value = $this->input->post('cid');
             $updateUser = $this->user->updateUser($_SESSION['uid'],$name,$value);
             //update user's cid session's value
-            $_SESSION['cid']=$updateUser->cid;
+            $this->user->login($updateUser);
         }
         else{
             //accident loged in user
