@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2014 at 01:55 AM
+-- Generation Time: Dec 06, 2014 at 10:03 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -313,16 +313,78 @@ CREATE TABLE IF NOT EXISTS `sidedish` (
   `spicture` varchar(30) NOT NULL,
   PRIMARY KEY (`sid`),
   KEY `did` (`did`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10004 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10005 ;
 
 --
 -- Dumping data for table `sidedish`
 --
 
 INSERT INTO `sidedish` (`sid`, `did`, `sname`, `sdes`, `sprice`, `spicture`) VALUES
-(10001, 10001, '鱼香宫保鸡丁小份', NULL, 18, ''),
-(10002, 10002, '麻辣热干面2两', NULL, 7, ''),
-(10003, 10002, '鲜肉叉烧包一笼', NULL, 12, '');
+(10001, 10001, '麻辣热干面', NULL, 6.99, '../../css/images/4_03img01.jpg'),
+(10002, 10002, '成都冒菜', NULL, 6.99, '../../css/images/4_03img03.jpg'),
+(10003, 10002, '鲜肉叉烧包', NULL, 6.99, '../../css/images/3_08.jpg'),
+(10004, 10002, '东北小菜', NULL, 5.99, '../../css/images/4_03img04.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sidemenu`
+--
+
+CREATE TABLE IF NOT EXISTS `sidemenu` (
+  `sideMenuID` int(5) NOT NULL AUTO_INCREMENT,
+  `cid` int(5) DEFAULT NULL,
+  `sideMenuStatus` tinyint(1) NOT NULL,
+  PRIMARY KEY (`sideMenuID`),
+  KEY `cid` (`cid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10006 ;
+
+--
+-- Dumping data for table `sidemenu`
+--
+
+INSERT INTO `sidemenu` (`sideMenuID`, `cid`, `sideMenuStatus`) VALUES
+(10001, 10001, 1),
+(10002, 10002, 1),
+(10004, 10003, 1),
+(10005, 10004, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sidemenuitem`
+--
+
+CREATE TABLE IF NOT EXISTS `sidemenuitem` (
+  `sideItemID` int(5) NOT NULL AUTO_INCREMENT,
+  `sid` int(5) DEFAULT NULL,
+  `sideMenuID` int(5) NOT NULL,
+  PRIMARY KEY (`sideItemID`),
+  KEY `sid` (`sid`,`sideMenuID`),
+  KEY `mid` (`sideMenuID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+
+--
+-- Dumping data for table `sidemenuitem`
+--
+
+INSERT INTO `sidemenuitem` (`sideItemID`, `sid`, `sideMenuID`) VALUES
+(9, 10001, 10001),
+(15, 10001, 10002),
+(1, 10001, 10004),
+(6, 10001, 10005),
+(10, 10002, 10001),
+(13, 10002, 10002),
+(2, 10002, 10004),
+(5, 10002, 10005),
+(11, 10003, 10001),
+(14, 10003, 10002),
+(3, 10003, 10004),
+(7, 10003, 10005),
+(12, 10004, 10001),
+(16, 10004, 10002),
+(4, 10004, 10004),
+(8, 10004, 10005);
 
 -- --------------------------------------------------------
 
@@ -343,7 +405,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`uid`),
   KEY `cid` (`cid`,`vipid`),
   KEY `vipid` (`vipid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10149 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10153 ;
 
 --
 -- Dumping data for table `user`
@@ -386,7 +448,11 @@ INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `
 (10145, 10004, NULL, NULL, '12345', '::1', 0, '2014-12-06 00:32:28', NULL),
 (10146, 10004, NULL, NULL, '12345', '::1', 0, '2014-12-06 00:37:24', NULL),
 (10147, 10004, NULL, NULL, '12345', '::1', 0, '2014-12-06 00:42:26', NULL),
-(10148, 10004, NULL, NULL, '12345', '::1', 0, '2014-12-06 00:46:22', NULL);
+(10148, 10004, NULL, NULL, '12345', '::1', 0, '2014-12-06 00:46:22', NULL),
+(10149, 10004, NULL, NULL, '12345', '::1', 0, '2014-12-06 01:07:50', NULL),
+(10150, 10002, 10005, '647-123-4567', '12345', '::1', 0, '2014-12-06 02:59:46', NULL),
+(10151, 10004, NULL, NULL, '3a538bb5f530c15cce7e6b840645000fc8697a194532812a19652710a8ef5509', '::1', 0, '2014-12-06 05:37:16', NULL),
+(10152, 10004, 10006, NULL, '1195b4cdc64e4e248ff388680d34774a10e40a5facff17681a8a645d8434bf7c', '::1', 0, '2014-12-06 20:58:25', NULL);
 
 -- --------------------------------------------------------
 
@@ -410,6 +476,7 @@ CREATE TABLE IF NOT EXISTS `vipcard` (
 
 INSERT INTO `vipcard` (`vipid`, `uid`, `vnumber`, `vpassword`, `vbalance`) VALUES
 (10001, 10001, 4592, 'qweqwe', 50),
+(10005, 10150, 45612, 'yuanyi', 50),
 (32716, 10002, 9874, 'asdfas', 50);
 
 --
@@ -467,6 +534,19 @@ ALTER TABLE `osideitem`
 --
 ALTER TABLE `sidedish`
   ADD CONSTRAINT `sidedid` FOREIGN KEY (`did`) REFERENCES `diner` (`did`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `sidemenu`
+--
+ALTER TABLE `sidemenu`
+  ADD CONSTRAINT `campus-sidemenu` FOREIGN KEY (`cid`) REFERENCES `campus` (`cid`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `sidemenuitem`
+--
+ALTER TABLE `sidemenuitem`
+  ADD CONSTRAINT `menu-item` FOREIGN KEY (`sideMenuID`) REFERENCES `sidemenu` (`sideMenuID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `side-menu-item` FOREIGN KEY (`sid`) REFERENCES `sidedish` (`sid`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `user`
