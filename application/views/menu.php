@@ -57,7 +57,7 @@
 </div>
 <footer id="Footer">
     <div class="dinnerS_fMain">
-        <input type="tel" class="telephone" placeholder="输入手机号" />
+        <input type="tel" class="telephone" name="uphone" placeholder="输入手机号" value="<?php echo $uphone; ?>" />
         <a class="btn_submitOrder btn_nowOrder">立刻下单</a>
     </div>
 </footer>

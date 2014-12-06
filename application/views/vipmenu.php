@@ -69,7 +69,7 @@
     ?>
 </div>
 <footer id="Footer">
-    <a class="btn_footer changeArea">更改校区</a>
+    <a href="../userlogincontroller/loadCampus" class="btn_footer changeArea">更改校区</a>
     <a class="btn_submitOrder" href="goodDinner.html">确认订单</a>
     <div class="clear"></div>
 </footer>
