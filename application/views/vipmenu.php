@@ -50,7 +50,7 @@
             <span class="dinnerAddPuls">
             	数量
             	<a class="btn_plus" onclick="plusRoom(this)"></a>
-                <span class="btn_showNum">1</span>
+                <span class="btn_showNum">0</span>
                 <a class="btn_add" onclick="addRoom(this)"></a>
             </span>
         </span>
@@ -63,7 +63,7 @@
         echo '<h4>'.$sale->fname.'</h4>';
         echo '<p class="menuDP">$'.$sale->fprice.'</p>';
         echo '<span class="dinnerAddPuls">'."数量".'<a class="btn_plus" onclick="plusRoom(this)"></a>';
-        echo '<span class="btn_showNum">1</span>';
+        echo '<span class="btn_showNum">0</span>';
         echo '<a class="btn_add" onclick="addRoom(this)"></a></span></span></div>';
     }
     ?>
