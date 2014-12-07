@@ -17,7 +17,7 @@ class Userlogincontroller extends MY_Controller{
         $data['title'] = '选择你所在的校区';
         $this->load->model('market');
         $data['result'] = $this->market->getCampusList();
-        $this->load->view('partials/header',$data);
+//        $this->load->view('partials/header',$data);
         $this->load->view('campus',$data);
     }
 
@@ -27,13 +27,16 @@ class Userlogincontroller extends MY_Controller{
     public function setUser(){
         if(!isset($_COOKIE['uid'])){
             $cid = $this->input->post('cid');
+//            echo $this->input->post('cid');
+//            return false;
+
             $this->load->model('user');
             $ip = $_SERVER['REMOTE_ADDR'];
-            $uhash=hash('sha256',rand(10000,99999));
+            $uhash = hash('sha256',rand(10000,99999));
             //set properties array to get new user object and create new user into database
             $properties = array('cid'=>$cid,'ip'=>$ip,'uhash'=>$uhash,'ordered'=>'0');
             $newUser = $this->user->newUser($properties);
-
+//
             $this->user->login($newUser);//set cookies and sessions for new user
         }
         elseif(isset($_POST['cid'])&&isset($_SESSION['uid'])){

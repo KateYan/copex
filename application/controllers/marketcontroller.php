@@ -51,8 +51,8 @@ class Marketcontroller extends MY_Controller{
             return redirect('userstatuscontroller/checkUserStatus');
         }
         $this->load->model('market');
-        $data['sideDish']=$this->market->getSideDish($_SESSION['cid']);
-        $data['title']='精选小食';
+        $data['sideDish'] = $this->market->getSideDish($_SESSION['cid']);
+        $data['title'] = '精选小食';
         $this->load->view('partials/header',$data);
         $this->load->view('sidedish',$data);
     }

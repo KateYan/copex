@@ -13,8 +13,8 @@ class Market extends CI_Model {
      * select all campus infomation from campus table
      */
     public function getCampusList(){
-        $sql="SELECT * FROM campus";
-        $query=$this->db->query($sql);
+        $sql = "SELECT * FROM campus";
+        $query = $this->db->query($sql);
         return $query->result();
     }
     /*
@@ -22,7 +22,7 @@ class Market extends CI_Model {
      */
     public function getSideDish($cid){
         $sql="SELECT sidemenu.cid, sidemenuitem.sideItemID, sidemenuitem.sid, sidedish.sname, sidedish.sdes, sidedish.sprice, sidedish.spicture FROM(sidemenu JOIN sidemenuitem ON sidemenu.sideMenuID=sidemenuitem.sideMenuID)JOIN sidedish ON sidedish.sid=sidemenuitem.sid WHERE sidemenu.cid='".$cid."'AND sidemenu.sideMenuStatus='1'";
-        $query=$this->db->query($sql);
+        $query = $this->db->query($sql);
         return $query->result();
     }
 }
