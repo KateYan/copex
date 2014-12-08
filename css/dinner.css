@@ -92,9 +92,7 @@ h3{
     border-radius:5px;
     overflow:hidden;}
 .manaRecom_menu img, .tdyS_m_img img{
-    float:left;
-    width: 100%;
-height: 100%;}
+    float:left;}
 .manaRecom_menu ul, .menu_title{
     position:absolute;
     width:100%;
@@ -149,15 +147,16 @@ height: 100%;}
 .btn_nowOrder{
     margin-right:0;}
 
+/*let the label be a block so it will contain a div with image and list*/
 label{
     display: block;
     border: 2px solid transparent
 }
-
+/*for choosing different food's id with only one out of multiple inputs*/
 input[type="radio"]{
     display:none;
 }
-
+/*after click the input,change it's lables style which is adding border for it*/
 input[type="radio"]:checked+label{
 
     border-radius:5px; overflow:hidden;

@@ -27,6 +27,12 @@
 <div class="manaRecommends">
     <h3>店长推荐</h3>
     <?php
+    /*
+     * add food's id sending element-><input>
+     * and add a label for it, so once the input is checked
+     * the border of label will pop out to high light which food
+     * the user just chose
+     */
     echo '<input type="radio" id="recomdItem" name="fid" value="'.$recomdItem->fid.'">';
     echo '<label for="recomdItem">';
     echo '<div class="manaRecom_menu">';
@@ -45,6 +51,11 @@
         <?php
             foreach($saleItem as $sale){
                 echo '<div class="tdyS_m_block">';
+                /* add food's id sending element-><input>
+                 * and add a label for it, so once the input is checked
+                 * the border of label will pop out to high light which food
+                 * the user just chose
+                 */
                 echo '<input type="radio" id="'.$sale->fid.'" name="fid" value="'.$sale->fid.'">';
                 echo '<label for="'.$sale->fid.'">';
                 echo '<span class="tdyS_m_img">';
