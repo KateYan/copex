@@ -13,6 +13,15 @@
             $(".tdyS_m_block").css("height", parseInt((_W - 18)*0.46*317/266)+"px");
 
         })
+        function choosefood(id){
+            id.style.padding="5px";
+            id.style.border="2px solid #3c3c3c";
+            var para=document.createElement("input");
+            para.name="fid";
+            para.value="<?php echo $recomdItem->fid?>";
+            para.style.display="none";
+            id.appendChild(para);
+        }
 
     </script>
 </head>
@@ -24,11 +33,13 @@
 
 ?>
 <div class="manaRecommends">
+
     <h3>店长推荐</h3>
-    <div class="manaRecom_menu">
+    <div onclick=choosefood(this) class="manaRecom_menu" id="recomdItem" >
 
         <?php
-            echo '<input name="fid" value="'.$recomdItem->fid.'" style="display:none;"><img src="';
+            $foodid=$recomdItem->fid;
+            echo '<img src="';
             echo $recomdItem->fpicture;
             echo '" width="100%" height="100%"/>';
         ?>
@@ -43,9 +54,9 @@
     <div class="tdySal_menu">
         <?php
             foreach($saleItem as $sale){
-                echo '<div class="tdyS_m_block">';
+                echo '<div onclick=choosefood(this) class="tdyS_m_block">';
 
-                echo '<span class="tdyS_m_img">';
+                echo '<span  class="tdyS_m_img">';
                 echo '<img src="';
                 echo $sale->fpicture.'" width="100%" height="100%" />';
                 echo '<span class="menu_title">'.$sale->fname.'</span>';

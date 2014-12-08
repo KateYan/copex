@@ -58,15 +58,29 @@ class Marketcontroller extends MY_Controller{
     }
 
     public function orderGenerate(){
-        $fid = $this->input->post('fid');
         $uid = $_SESSION['uid'];
         $odate = date('Y-m-d');
-        $oispaid = '0';
-        $item = array('food'=>array($fid),'sidedish'=>array());
-//
-        $this->load->model('order');
-        $order = new Order($uid,$odate,$oispaid,$item);
-        var_dump($order);
+
+        $this->load->model('order');//load model "order"
+
+        if(isset($_SESSION['vipid'])){
+            //for vip user generating order
+        }else{
+            //for non-vip user generating order
+            $orderItemId = $this->input->post('fid');
+            $order = $this->order->userOrder($uid,$odate,$orderItemId);
+        }
+        // get order's number and date for showing order page
+        $data['orderNumber'] = $order->oid;
+        $data['date'] = $order->odate;
+
+        // get campus address using session['cid]
+        $this->load->model('market');
+        $campus = $this->market->getCampusAddress($_SESSION['cid']);
+        $data['address'] = $campus->caddr;
+
+//        var_dump($order);
+        $this->load->view('ordersuccess',$data);
 
     }
 }

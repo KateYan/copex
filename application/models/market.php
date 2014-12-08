@@ -17,6 +17,7 @@ class Market extends CI_Model {
         $query = $this->db->query($sql);
         return $query->result();
     }
+
     /*
      * select all sidemenu item from database where the side menu is activated
      */
@@ -26,12 +27,14 @@ class Market extends CI_Model {
         return $query->result();
     }
 
-    public function getFood($fid){
-        $sql="SELECT * FROM food WHERE fid = '".$fid."'";
-        $query=$this->db->query($sql);
-        if($query->num_rows()==1){
-            return $query->result();
-        }
-        return false;
+    /*
+     * get campus's address by using session['cid']
+     */
+    public function getCampusAddress($cid){
+        $sql = "SELECT caddr FROM campus WHERE cid='".$cid."'";
+        $query = $this->db->query($sql);
+
+        // return the result set as an array
+        return $query->row(0);
     }
 }
