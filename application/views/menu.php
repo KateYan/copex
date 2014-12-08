@@ -13,18 +13,9 @@
             $(".tdyS_m_block").css("height", parseInt((_W - 18)*0.46*317/266)+"px");
 
         })
-        function choosefood(id){
-            id.style.padding="5px";
-            id.style.border="2px solid #3c3c3c";
-            var para=document.createElement("input");
-            para.name="fid";
-            para.value="<?php echo $recomdItem->fid?>";
-            para.style.display="none";
-            id.appendChild(para);
-        }
-
     </script>
 </head>
+
 <body>
 <header id="Header"><?php echo $date; ?> 午餐菜单</header>
 <?php
@@ -32,35 +23,36 @@
     echo form_open('marketcontroller/orderGenerate',$attributes);
 
 ?>
+
 <div class="manaRecommends">
-
     <h3>店长推荐</h3>
-    <div onclick=choosefood(this) class="manaRecom_menu" id="recomdItem" >
-
-        <?php
-            $foodid=$recomdItem->fid;
-            echo '<img src="';
-            echo $recomdItem->fpicture;
-            echo '" width="100%" height="100%"/>';
-        ?>
+    <?php
+    echo '<input type="radio" id="recomdItem" name="fid" value="'.$recomdItem->fid.'">';
+    echo '<label for="recomdItem">';
+    echo '<div class="manaRecom_menu">';
+    echo ' <img src="'.$recomdItem->fpicture.'" width="100%" height="100%" alt>';
+    ?>
         <ul>
             <li><?php echo $recomdItem->fname;?><i class="borderWidth"></i></li>
             <li>$<?php echo $recomdItem->fprice;?></li>
         </ul>
     </div>
+    </label>
 </div>
 <div class="tdySales">
     <h3>今日6.99特价</h3>
     <div class="tdySal_menu">
         <?php
             foreach($saleItem as $sale){
-                echo '<div onclick=choosefood(this) class="tdyS_m_block">';
-
-                echo '<span  class="tdyS_m_img">';
+                echo '<div class="tdyS_m_block">';
+                echo '<input type="radio" id="'.$sale->fid.'" name="fid" value="'.$sale->fid.'">';
+                echo '<label for="'.$sale->fid.'">';
+                echo '<span class="tdyS_m_img">';
                 echo '<img src="';
                 echo $sale->fpicture.'" width="100%" height="100%" />';
                 echo '<span class="menu_title">'.$sale->fname.'</span>';
                 echo '</span>';
+                echo '</label>';
                 echo '</div>';
             }
         ?>
