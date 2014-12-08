@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2014 at 12:57 AM
+-- Generation Time: Dec 08, 2014 at 08:07 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -53,10 +53,10 @@ CREATE TABLE IF NOT EXISTS `campus` (
 --
 
 INSERT INTO `campus` (`cid`, `cname`, `caddr`) VALUES
-(10001, 'UTSC', ''),
-(10002, 'UTM', ''),
-(10003, 'UTSG', ''),
-(10004, 'YouK', '');
+(10001, 'UTSC', '312 King Street'),
+(10002, 'UTM', '789 Queen Street'),
+(10003, 'UTSG', '102 Bay Street'),
+(10004, 'YouK', '789 York Road');
 
 -- --------------------------------------------------------
 
@@ -109,14 +109,14 @@ INSERT INTO `dailymenu` (`mid`, `cid`, `mdate`, `mstatus`) VALUES
 (10002, 10002, '2014-12-03', 1),
 (10003, 10003, '2014-12-03', 1),
 (10004, 10004, '2014-12-03', 1),
-(10005, 10001, '2014-12-07', 1),
-(10006, 10002, '2014-12-07', 1),
+(10005, 10001, '2014-12-08', 1),
+(10006, 10002, '2014-12-08', 1),
 (10007, 10001, '2014-12-05', 1),
 (10008, 10002, '2014-12-05', 1),
 (10009, 10003, '2014-12-05', 1),
 (10010, 10004, '2014-12-05', 1),
-(10011, 10003, '2014-12-07', 1),
-(10012, 10004, '2014-12-07', 1);
+(10011, 10003, '2014-12-08', 1),
+(10012, 10004, '2014-12-08', 1);
 
 -- --------------------------------------------------------
 
@@ -234,15 +234,15 @@ INSERT INTO `menuitem` (`mitemid`, `fid`, `mid`, `isrecomd`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `order` (
-  `oid` int(5) NOT NULL AUTO_INCREMENT,
+  `oid` int(7) NOT NULL AUTO_INCREMENT,
   `uid` int(5) DEFAULT NULL,
   `odate` date NOT NULL,
-  `ostatus` tinyint(1) NOT NULL,
-  `oispaid` tinyint(1) NOT NULL,
-  `totalcost` float DEFAULT NULL,
+  `ostatus` tinyint(1) DEFAULT '0',
+  `oispaid` tinyint(1) DEFAULT '0',
+  `totalcost` float DEFAULT '0',
   PRIMARY KEY (`oid`),
   KEY `uid` (`uid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10025 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2753477 ;
 
 --
 -- Dumping data for table `order`
@@ -264,15 +264,16 @@ INSERT INTO `order` (`oid`, `uid`, `odate`, `ostatus`, `oispaid`, `totalcost`) V
 (10013, 10168, '2014-12-07', 0, 0, NULL),
 (10014, 10168, '2014-12-07', 0, 0, NULL),
 (10015, 10168, '2014-12-07', 0, 0, NULL),
-(10016, 10168, '2014-12-07', 0, 0, NULL),
-(10017, 0, '0000-00-00', 0, 0, NULL),
-(10018, 10168, '2014-12-07', 0, 0, NULL),
-(10019, 0, '0000-00-00', 0, 0, NULL),
-(10020, 10168, '2014-12-07', 0, 0, NULL),
-(10021, 0, '0000-00-00', 0, 0, NULL),
-(10022, 10169, '2014-12-07', 0, 0, NULL),
-(10023, 0, '0000-00-00', 0, 0, NULL),
-(10024, 10169, '2014-12-07', 0, 0, NULL);
+(10057, 10178, '2014-12-08', 0, 0, 9.99),
+(2753468, 10156, '2014-12-08', 0, 0, 9.99),
+(2753469, 10178, '2014-12-08', 0, 0, 9.99),
+(2753470, 10178, '2014-12-08', 0, 0, 9.99),
+(2753471, 10178, '2014-12-08', 0, 0, 9.99),
+(2753472, 10178, '2014-12-08', 0, 0, 9.99),
+(2753473, 10178, '2014-12-08', 0, 0, 9.99),
+(2753474, 10178, '2014-12-08', 0, 0, 9.99),
+(2753475, 10178, '2014-12-08', 0, 0, 9.99),
+(2753476, 10178, '2014-12-08', 0, 0, 9.99);
 
 -- --------------------------------------------------------
 
@@ -287,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `orderitem` (
   `dishtype` tinyint(1) NOT NULL,
   PRIMARY KEY (`oitemid`),
   KEY `oid` (`oid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10018 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10037 ;
 
 --
 -- Dumping data for table `orderitem`
@@ -299,10 +300,15 @@ INSERT INTO `orderitem` (`oitemid`, `oid`, `dishid`, `dishtype`) VALUES
 (10011, 10013, 10004, 0),
 (10012, 10014, 10004, 0),
 (10013, 10015, 10004, 0),
-(10014, 10016, 10004, 0),
-(10015, 10020, 10004, 0),
-(10016, 10022, 10004, 0),
-(10017, 10024, 10003, 0);
+(10028, 10057, 10004, 0),
+(10029, 2753469, 10004, 0),
+(10030, 2753470, 10004, 0),
+(10031, 2753471, 10004, 0),
+(10032, 2753472, 10004, 0),
+(10033, 2753473, 10004, 0),
+(10034, 2753474, 10004, 0),
+(10035, 2753475, 10004, 0),
+(10036, 2753476, 10004, 0);
 
 -- --------------------------------------------------------
 
@@ -412,7 +418,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`uid`),
   KEY `cid` (`cid`,`vipid`),
   KEY `vipid` (`vipid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10170 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10179 ;
 
 --
 -- Dumping data for table `user`
@@ -466,7 +472,16 @@ INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `
 (10166, 10004, 10010, NULL, '2f19e1106c94fcd552cbd8f4c354bf7c463715dd7b07b0359272ec47b22fcda0', '::1', 0, '2014-12-07 02:59:41', NULL),
 (10167, 10002, NULL, NULL, '6d19021e3fcd8075eac58f7d78d7e275e0d8a6ad4febe883af4364a288155273', '::1', 0, '2014-12-07 16:30:18', NULL),
 (10168, 10002, NULL, NULL, '65db06b543a510cc1c7d4ec5bab2add717070f55775d457af4a2bdcf5efdccdc', '::1', 0, '2014-12-07 23:02:04', NULL),
-(10169, 10004, NULL, NULL, 'ac5d499580e05f70dc2d6e1ef4d970b8e1502b8468a3a17ed1f5eab02f5a00dd', '::1', 0, '2014-12-07 23:56:02', NULL);
+(10169, 10004, NULL, NULL, 'ac5d499580e05f70dc2d6e1ef4d970b8e1502b8468a3a17ed1f5eab02f5a00dd', '::1', 0, '2014-12-07 23:56:02', NULL),
+(10170, 10001, NULL, NULL, 'e941ce2cfbfe77a7edcff4a19dd65db92bdf47f1f6d1804f3b80d25280f35509', '::1', 0, '2014-12-08 01:07:45', NULL),
+(10171, 10003, NULL, NULL, 'a67debf9b55d648530627997abf54d0d6a30926b0946833d0a612e777801a886', '::1', 0, '2014-12-08 01:27:24', NULL),
+(10172, 10002, NULL, NULL, 'bc439d9d676688e9d5e563039474a9830992af172b682bcff339da0699c4534d', '::1', 0, '2014-12-08 01:30:29', NULL),
+(10173, 10002, NULL, NULL, '08393c4e8ba73a1b14f0cfbbe489d708c5566259170ea85ebaa7920f03ce9361', '::1', 0, '2014-12-08 01:31:58', NULL),
+(10174, 10002, NULL, NULL, '271b3f1de56770a20d8c8a25e4ec16bed58deb805fee1f90f852ce1a18bac40c', '::1', 0, '2014-12-08 01:32:28', NULL),
+(10175, 10002, NULL, NULL, '1418976f52fa9512ffaecb0ab43c351d3543d2411444d45b86ef237cfcad1d15', '::1', 0, '2014-12-08 01:35:08', NULL),
+(10176, 10002, NULL, NULL, '4394ca83de46028cce19b586b1a3d7fef635d4ebd50c9c7fcec74b4ab1377a95', '::1', 1, '2014-12-08 05:59:14', NULL),
+(10177, 10001, NULL, NULL, 'a54a878797df75406d98c00d107499f0ef7f54c02e7951e9fcf812533ee33126', '::1', 1, '2014-12-08 06:11:55', NULL),
+(10178, 10002, NULL, NULL, '4e1a67348631f82e22bcf8a1cbfe252a9cc2bc9a7df10e6b290cfe1b1189f6f8', '::1', 1, '2014-12-08 06:13:48', NULL);
 
 -- --------------------------------------------------------
 
