@@ -13,17 +13,22 @@
             $(".tdyS_m_block").css("height", parseInt((_W - 18)*0.46*317/266)+"px");
 
         })
+
     </script>
 </head>
 <body>
 <header id="Header"><?php echo $date; ?> 午餐菜单</header>
+<?php
+    $attributes = array('class'=>'formcontrol', 'id'=>'menuItem');
+    echo form_open('marketcontroller/orderGenerate',$attributes);
 
+?>
 <div class="manaRecommends">
     <h3>店长推荐</h3>
     <div class="manaRecom_menu">
 
         <?php
-            echo '<img src="';
+            echo '<input name="fid" value="'.$recomdItem->fid.'" style="display:none;"><img src="';
             echo $recomdItem->fpicture;
             echo '" width="100%" height="100%"/>';
         ?>
@@ -39,6 +44,7 @@
         <?php
             foreach($saleItem as $sale){
                 echo '<div class="tdyS_m_block">';
+
                 echo '<span class="tdyS_m_img">';
                 echo '<img src="';
                 echo $sale->fpicture.'" width="100%" height="100%" />';
@@ -58,7 +64,7 @@
 <footer id="Footer">
     <div class="dinnerS_fMain">
         <input type="tel" class="telephone" name="uphone" placeholder="输入手机号" value="<?php echo $uphone; ?>" />
-        <a class="btn_submitOrder btn_nowOrder">立刻下单</a>
+        <button class="btn_submitOrder btn_nowOrder">立刻下单</button>
     </div>
 </footer>
 <div class="layer">

@@ -56,4 +56,17 @@ class Marketcontroller extends MY_Controller{
         $this->load->view('partials/header',$data);
         $this->load->view('sidedish',$data);
     }
+
+    public function orderGenerate(){
+        $fid = $this->input->post('fid');
+        $uid = $_SESSION['uid'];
+        $odate = date('Y-m-d');
+        $oispaid = '0';
+        $item = array('food'=>array($fid),'sidedish'=>array());
+//
+        $this->load->model('order');
+        $order = new Order($uid,$odate,$oispaid,$item);
+        var_dump($order);
+
+    }
 }

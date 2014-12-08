@@ -25,4 +25,13 @@ class Market extends CI_Model {
         $query = $this->db->query($sql);
         return $query->result();
     }
+
+    public function getFood($fid){
+        $sql="SELECT * FROM food WHERE fid = '".$fid."'";
+        $query=$this->db->query($sql);
+        if($query->num_rows()==1){
+            return $query->result();
+        }
+        return false;
+    }
 }
