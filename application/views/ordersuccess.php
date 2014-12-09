@@ -26,7 +26,10 @@
 	<span class="orderFont">
     	您的订单号为<br /><?php echo $orderNumber ?><br /><br />
         请在<?php echo $date; ?><br />
-        11:30-13:30<br />
+        <?php
+        echo $timestart;
+        echo "-".$timeend;
+        ?><br />
         于<?php echo $address; ?>取餐
     </span>
 </div>

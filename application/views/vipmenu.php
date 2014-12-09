@@ -42,6 +42,10 @@
 <body>
 <header id="Header"><?php echo $date; ?> 午餐菜单</header>
 <div id="Contenter" class="dinner_cont">
+    <?php
+    $attributes = array('class'=>'formcontrol', 'id'=>'vipmenuitem');
+    echo form_open('showSideDish',$attributes);
+    ?>
     <div class="menu_block">
         <span class="menuD_img"><img src="<?php echo $recomdItem->fpicture; ?>" width="100%" /></span>
         <span class="menuD_summary">

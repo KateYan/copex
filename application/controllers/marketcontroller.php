@@ -33,6 +33,11 @@ class Marketcontroller extends MY_Controller{
         $data['recomdItem'] = $this->menuitem->recomdItem($_SESSION['cid'],$data['date']);
         $data['saleItem'] = $this->menuitem->saleItem($_SESSION['cid'],$data['date']);
 
+        //show campus name for user to switch favor-campus
+        $this->load->model('market');
+        $campus = $this->market->getCampus($_SESSION['cid']);
+        $data['cname'] = $campus->cname;
+
         $this->load->view('partials/header',$data);
         //if user is vip->he has vipid session then load vipmenu
         if(isset($_SESSION['vipid'])){
@@ -68,7 +73,7 @@ class Marketcontroller extends MY_Controller{
         }else{
             //for non-vip user generating order
             $orderItemId = $this->input->post('fid');
-            $order = $this->order->userOrder($uid,$odate,$orderItemId);
+            $order = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$orderItemId);
         }
         // get order's number and date for showing order page
         $data['orderNumber'] = $order->oid;
@@ -76,10 +81,15 @@ class Marketcontroller extends MY_Controller{
 
         // get campus address using session['cid]
         $this->load->model('market');
-        $campus = $this->market->getCampusAddress($_SESSION['cid']);
+        $campus = $this->market->getCampus($order->cid);
         $data['address'] = $campus->caddr;
 
-//        var_dump($order);
+        // get user's pickup time range by getting an rule object using it's name and date
+        $this->load->model('rules');
+        $pickupRule = $this->rules->getPickupTime('pickupTime',$data['date']);
+        $data['timestart'] = $pickupRule->timestart;
+        $data['timeend'] = $pickupRule->timeend;
+
         $this->load->view('ordersuccess',$data);
 
     }

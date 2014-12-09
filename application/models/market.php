@@ -30,11 +30,12 @@ class Market extends CI_Model {
     /*
      * get campus's address by using session['cid']
      */
-    public function getCampusAddress($cid){
-        $sql = "SELECT caddr FROM campus WHERE cid='".$cid."'";
+    public function getCampus($cid){
+        $sql = "SELECT * FROM campus WHERE cid='".$cid."'";
         $query = $this->db->query($sql);
 
         // return the result set as an array
         return $query->row(0);
     }
+
 }

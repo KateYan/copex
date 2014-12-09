@@ -10,6 +10,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Order extends CI_Model {
     public  $oid;
     public $uid;
+    public $cid;   //if user made two order to two different campus in a very short time, using cid will help to ditermin which order is to which campus
     public $odate;
     public $ostatus;
     public $oispaid;
@@ -72,14 +73,15 @@ class Order extends CI_Model {
     /*
      * using userid, date, and the foodid the user chosed to create order for non-vip user
      */
-    public function userOrder($uid,$odate,$orderItemId){
+    public function userOrder($uid,$cid,$odate,$orderItemId){
         // set order object's properties' known values
         $this->uid = $uid;
+        $this->cid = $cid;
         $this->odate = $odate;
         $this->orderitem = $orderItemId;
 
         // insert into order table a new row
-        $sql = "INSERT INTO `order`(`uid`,`odate`) VALUES (".$this->db->escape($this->uid).",".$this->db->escape($this->odate).")";
+        $sql = "INSERT INTO `order`(`uid`,`cid`,`odate`) VALUES (".$this->db->escape($this->uid).",".$this->db->escape($this->cid).",".$this->db->escape($this->odate).")";
         $this->db->query($sql);
 
         // set the order's object's oid equal to the last insert's order's id
