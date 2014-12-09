@@ -7,6 +7,10 @@
  */
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+// this class will be used to
+// 1. get pickup time range for user who just ordered successfully
+// 2. check if the order time is with in the vailid order time range
+
 class Rules extends CI_Model {
     public  $ruleid;
     public $rulename;
@@ -15,11 +19,13 @@ class Rules extends CI_Model {
     public $date;
     public $risvip;
 
-    // using rules'name and date to get rule object contain a time range for user to pickup
+// using rules'name and date to get rule object
+// which contains a time range for user to pickup
     public function getPickupTime($name,$date){
         $sql = "SELECT * FROM basicrule WHERE rulename='".$name."' AND date='".$date."'";
         $query = $this->db->query($sql);
-        // if the rule exists
+
+// if the rule exists
         if($query->num_rows()==1){
             $rule = $query->row(0);
             $this->ruleid = $rule->ruleid;
@@ -34,7 +40,8 @@ class Rules extends CI_Model {
     }
 
 
-    // using the time of user clicking "order confirm" button to check if the user is allowed to order at that time
+// using the time of user clicking "order confirm" button to check
+//if the user is allowed to order at that time
     public function validateOrderTime($time){
 
     }

@@ -35,7 +35,7 @@ class Marketcontroller extends MY_Controller{
 
         //show campus name for user to switch favor-campus
         $this->load->model('market');
-        $campus = $this->market->getCampus($_SESSION['cid']);
+        $campus = $this->market->getCampusById($_SESSION['cid']);
         $data['cname'] = $campus->cname;
 
         $this->load->view('partials/header',$data);
@@ -51,6 +51,7 @@ class Marketcontroller extends MY_Controller{
      * show sidedish option for vipuser
      */
     public function showSideDish(){
+
         //forbid non-vip user to see sidedish page
         if(!isset($_SESSION['vipid'])){
             return redirect('userstatuscontroller/checkUserStatus');
@@ -66,25 +67,30 @@ class Marketcontroller extends MY_Controller{
         $uid = $_SESSION['uid'];
         $odate = date('Y-m-d');
 
-        $this->load->model('order');//load model "order"
+        //load model "order"
+        $this->load->model('order');
 
         if(isset($_SESSION['vipid'])){
             //for vip user generating order
-        }else{
-            //for non-vip user generating order
+        }
+
+        //for non-vip user generating order
+        else{
             $orderItemId = $this->input->post('fid');
             $order = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$orderItemId);
         }
+
         // get order's number and date for showing order page
         $data['orderNumber'] = $order->oid;
         $data['date'] = $order->odate;
 
         // get campus address using session['cid]
         $this->load->model('market');
-        $campus = $this->market->getCampus($order->cid);
+        $campus = $this->market->getCampusById($order->cid);
         $data['address'] = $campus->caddr;
 
-        // get user's pickup time range by getting an rule object using it's name and date
+        // get user's pickup time range by getting an rule object
+        // from 'rules' class using it's name and date
         $this->load->model('rules');
         $pickupRule = $this->rules->getPickupTime('pickupTime',$data['date']);
         $data['timestart'] = $pickupRule->timestart;
