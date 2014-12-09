@@ -211,6 +211,9 @@ class Marketcontroller extends MY_Controller{
         $this->load->view('sidedish',$data);
     }
 
+    /*
+     * generate order for non-vip user
+     */
     public function orderGenerate(){
         $uid = $_SESSION['uid'];
         $odate = date('Y-m-d');
@@ -243,7 +246,11 @@ class Marketcontroller extends MY_Controller{
         $this->load->view('ordersuccess',$data);
 
     }
-    // for vip user generating order
+
+
+    /*
+     * generate order for vipuser
+     */
     public function vipOrderGenerate(){
         $uid = $_SESSION['uid'];
         $odate = date('Y-m-d');
