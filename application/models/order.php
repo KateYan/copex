@@ -18,7 +18,7 @@ class Order extends CI_Model {
     public $totalcost;
 
 // generating vip user's order by using uid
-    public function vipOrder($uid,$cid,$odate,$food,$sidedish,$totalcost){
+    public function vipOrder($uid,$cid,$odate,$food,$sidedish,$totalcost,$balance){
 
         $this->uid = $uid;
         $this->cid = $cid;

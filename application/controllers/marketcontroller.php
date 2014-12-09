@@ -215,28 +215,11 @@ class Marketcontroller extends MY_Controller{
         $uid = $_SESSION['uid'];
         $odate = date('Y-m-d');
 
-        //load model "order"
-        $this->load->model('order');
-
-        if(isset($_SESSION['vipid'])){
-            //for vip user generating order
-            //1. check if the password is match or not by user method validatePassword()
-            if(validatePassword($_SESSION['vipid'],$this->input->post('password'))){
-                // check if the balance is enouth to pay for all the dishes just ordered
-                if($_SESSION['balance']>=$_SESSION['totalcost']){
-                    // create new vip order for user
-                    $this->load->model('order');
-                    $order = $this->order->vipOrder($uid,$_SESSION['cid'],$odate,$_SESSION['food'],$_SESSION['sidedish'],$_SESSION['totalcost']);
-                }
-                echo "not enough balance!!!";//balance is not enough to pay
-                return false;
-            }
-            echo "error!!!!!!";//entered not match password
-            return false;
-        }
-
         //for non-vip user generating order
-        else{
+        if(!isset($_SESSION['vipid'])){
+            //load model "order"
+            $this->load->model('order');
+
             $orderItemId = $this->input->post('fid');
             $order = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$orderItemId);
         }
@@ -259,6 +242,30 @@ class Marketcontroller extends MY_Controller{
 
         $this->load->view('ordersuccess',$data);
 
+    }
+    // for vip user generating order
+    public function vipOrderGenerate(){
+        $uid = $_SESSION['uid'];
+        $odate = date('Y-m-d');
+
+        //load model "order"
+        $this->load->model('order');
+        if(isset($_SESSION['vipid'])){
+            //for vip user generating order
+            //1. check if the password is match or not by user method validatePassword()
+            if(validatePassword($_SESSION['vipid'],$this->input->post('password'))){
+                // check if the balance is enouth to pay for all the dishes just ordered
+                if($_SESSION['balance']>=$_SESSION['totalcost']){
+                    // create new vip order for user
+                    $this->load->model('order');
+                    $order = $this->order->vipOrder($uid,$_SESSION['cid'],$odate,$_SESSION['food'],$_SESSION['sidedish'],$_SESSION['totalcost']);
+                }
+                echo "not enough balance!!!";//balance is not enough to pay
+                return false;
+            }
+            echo "error!!!!!!";//entered not match password
+            return false;
+        }
     }
 
     // using user's vipid to find his vipcard's password,
