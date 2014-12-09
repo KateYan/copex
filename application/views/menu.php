@@ -60,7 +60,7 @@
                 echo '<label for="'.$sale->fid.'">';
                 echo '<span class="tdyS_m_img">';
                 echo '<img src="';
-                echo $sale->fpicture.'" width="100%" height="100%" />';
+                echo $sale->fpicture.'" width="100%" height="100%">';
                 echo '<span class="menu_title">'.$sale->fname.'</span>';
                 echo '</span>';
                 echo '</label>';
