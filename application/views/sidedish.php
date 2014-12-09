@@ -33,37 +33,38 @@
     <ul class="memu_accout">
         <div class="menu_list_li">
             <ul>
-                <li>
-                    <span class="menuD_AccoutTitle">成都冒菜</span>
-                    <span class="menuD_AccoutNum">1份</span>
-                    <span class="menuD_AccoutPrice">￥7.00</span>
-                </li>
-                <li>
-                    <span class="menuD_AccoutTitle">成都冒菜</span>
-                    <span class="menuD_AccoutNum">1份</span>
-                    <span class="menuD_AccoutPrice">￥7.00</span>
-                </li>
-                <li>
-                    <span class="menuD_AccoutTitle">成都冒菜</span>
-                    <span class="menuD_AccoutNum">1份</span>
-                    <span class="menuD_AccoutPrice">￥7.00</span>
-                </li>
-                <li>
-                    <span class="menuD_AccoutTitle">成都冒菜</span>
-                    <span class="menuD_AccoutNum">1份</span>
-                    <span class="menuD_AccoutPrice">￥7.00</span>
-                </li>
+                <?php
+                foreach($orderedFood as $foodArray){
+                    if(!empty($foodArray)){
+                        echo '<li>';
+                        echo '<span class="menuD_AccoutTitle">'.$foodArray['name'].'</span>';
+                        echo '<span class="menuD_AccoutNum">'.$foodArray['qty']."份".'</span>';
+                        echo '<span class="menuD_AccoutPrice">'."$".$foodArray['cost'].'</span>';
+                        echo '</li>';
+                    }
+                }
+                foreach($orderedSidedish as $sideArray){
+                    if(!empty($sideArray)){
+                        echo '<li>';
+                        echo '<span class="menuD_AccoutTitle">'.$sideArray['name'].'</span>';
+                        echo '<span class="menuD_AccoutNum">'.$sideArray['qty']."份".'</span>';
+                        echo '<span class="menuD_AccoutPrice">'."$".$sideArray['cost'].'</span>';
+                        echo '</li>';
+                    }
+                }
+
+                ?>
             </ul>
         </div>
         <li class="menuD_accout">
             <span class="menuD_AccoutTitle"></span>
             <span class="menuD_AccoutNum">总计</span>
-            <span class="menuD_AccoutPrice">￥7.00</span>
+            <span class="menuD_AccoutPrice">$<?php echo $totalcost; ?></span>
         </li>
         <li class="menuD_balance">
             <span class="menuD_AccoutTitle">余额</span>
             <span class="menuD_AccoutNum"></span>
-            <span class="menuD_AccoutPrice">￥7.00</span>
+            <span class="menuD_AccoutPrice">$<?php echo $balance; ?></span>
         </li>
         <li class="menuD_pay">
             <span class="passPay">支付密码</span>
