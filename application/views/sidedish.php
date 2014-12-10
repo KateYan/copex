@@ -67,7 +67,7 @@
     </ul>
     <div class="clear"></div>
     <div class="dSales_btnTo">
-        <a class="btn_footer moreDinner" href="#">修改密码</a>
+        <a class="btn_footer moreDinner" href="../userlogincontroller/changePassword">修改密码</a>
         <a href="#" class="btn_footer notInUTSC">忘记密码</a>
         <div class="clear"></div>
     </div>

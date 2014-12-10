@@ -25,8 +25,6 @@ class Userlogincontroller extends MY_Controller{
     public function setUser(){
         if(!isset($_COOKIE['uid'])){
             $cid = $this->input->post('cid');
-//            echo $this->input->post('cid');
-//            return false;
 
             $this->load->model('user');
             $ip = $_SERVER['REMOTE_ADDR'];
@@ -34,7 +32,6 @@ class Userlogincontroller extends MY_Controller{
             //set properties array to get new user object and create new user into database
             $properties = array('cid'=>$cid,'ip'=>$ip,'uhash'=>$uhash,'ordered'=>'0');
             $newUser = $this->user->newUser($properties);
-//
             $this->user->login($newUser);//set cookies and sessions for new user
         }
         elseif(isset($_POST['cid'])&&isset($_SESSION['uid'])){
@@ -50,5 +47,29 @@ class Userlogincontroller extends MY_Controller{
             //accident loged in user
         }
         redirect('marketcontroller/showDailyMenu');
+    }
+
+    /*
+     * load vip log in page
+     */
+    public function showVipLogin(){
+        $this->load->view('viplogin');
+    }
+    /*
+     * vip user first log in
+     */
+    public function vipLogin(){
+        if(!empty($_POST['phoneNumber'])){
+            $phoneNumber = $this->input->post('phoneNumber');//get input phone number
+            $this->load->model('user');
+            $vipUser = $this->user->vipUser($phoneNumber); //use phone number to find if related vip exists
+            if($vipUser){
+                $this->user->login($vipUser);
+                return redirect('marketcontroller/showDailyMenu');
+            }
+            echo "Not vailid vip user";
+            return false;
+        }
+        echo "Please input phone number";
     }
 }

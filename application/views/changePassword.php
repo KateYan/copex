@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: kunyan
- * Date: 12/1/2014
- * Time: 5:54 PM
+ * Date: 12/10/2014
+ * Time: 12:11 PM
  */
 ?>
 <!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
@@ -16,23 +16,24 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style" />
     <meta content="telephone=no" name="format-detection" />
     <meta name="viewport" content="width=device-width; maximum-scale=1.0;  user-scalable=no; initial-scale=1.0" />
-    <title>会员登录</title>
+    <title>更改密码</title>
     <link href="../../css/masterpage.css" rel="stylesheet" type="text/css" />
     <link href="../../css/viplogin.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<strong><img src="../../css/images/memberLogin@2x.png" width="100" /></strong>
-    <?php
-    $attributes=array('class'=>'login_form','id'=>'viplogin');
-    echo form_open('userlogincontroller/vipLogin',$attributes);
-    ?>
-	<span class="loginTextBox">
-    	<input name="phoneNumber" type="tel" class="login_telText" placeholder="请输入手机号"/>
+<form class="resetPSW_form">
+	<span class="loginTextBox resetPSW useInput">
+    	<input type="tel" class="login_telText" placeholder="手机号"/>
     </span>
-    <button form="viplogin" class="btn_login">登录</button>
-<div class="login_footer">
-    <a class="btn_loginFoot inotMemb" href="../marketcontroller/showDailyMenu">我还不是会员</a>
-    <a class="btn_loginFoot whyResMember">为什么要成为会员</a>
-</div>
+    <span class="loginTextBox resetPSW">
+    	<input type="tel" class="login_telText" placeholder="旧密码"/>
+    </span>
+    <span class="loginTextBox resetPSW">
+    	<input type="tel" class="login_telText" placeholder="新密码"/>
+    </span>
+    <div class="btn_resetOrder">
+        <a class="btn_submitOrder btn_prevPage">回到上页</a><a class="btn_submitOrder btn_sumbitRet">提交修改</a><div class="clear"></div>
+    </div>
+</form>
 </body>
 </html>

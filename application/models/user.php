@@ -80,6 +80,28 @@ class User extends CI_Model {
         $this->db->query($sql);
         $this->oldUser($uid);
         return $this;
+    }
 
+    /*
+     * find vip user by using input phone number
+     */
+    public function vipUser($uphone){
+        $sql = "SELECT * FROM user WHERE uphone='".$uphone."'";
+        $query = $this->db->query($sql);
+        if($query->num_rows()==1){
+            $vip = $query->row(0);
+
+            $this->uid = $vip->uid;
+            $this->cid = $vip->cid;
+            $this->vipid = $vip->vipid;
+            $this->uphone = $vip->uphone;
+            $this->ip = $vip->ip;
+            $this->uhash = $vip->uhash;
+            $this->last_login = $vip->last_login;
+            $this->ordered = $vip->ordered;
+            $this->created = $vip->created;
+
+            return $this;
+        }return false;//if can not find vip user exits or more vip user sharing one phone number, return false
     }
 }
