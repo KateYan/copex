@@ -40,7 +40,7 @@
         <p>校园美味 自成一派</p>
     </div>
     <span class="select_Campus">
-    	<input type="tel" class="campus" placeholder="请选择校区" disabled="disabled" id="Campus_id" />
+    	<input type="tel" class="campus" placeholder=" 请选择校区" disabled="disabled" id="Campus_id" />
     </span>
 
     <!--    <ul class="campus_list">-->
@@ -52,14 +52,17 @@
 
     foreach ($result as $campus) {
         echo '<input type="radio" name="cid" id="'.$campus->cid.'" value="'.$campus->cid.'" style="display:none;">';
-        echo '<label for="'.$campus->cid.'"><li>';
+        echo '<label for="'.$campus->cid.'"><li>'."  ";
         echo $campus->cname;
         echo '</li></label>';
     }
 
     echo '</ul>';
-    echo '<div class="btn_loginArea"><button class="btn_login"">'."去看看有什么好吃的".'</button></div>';
+    echo '<div class="btn_loginArea"><button style="border: none;" class="btn_login"">'."去看看有什么好吃的".'</button></div>';
     ?>
+    <div class="btn_loginArea">
+        <button style="border: none;" href="../userlogincontroller/showVipLogin" class="btn_login"">会员登录</button>
+    </div>
 
 </div>
 </body>
