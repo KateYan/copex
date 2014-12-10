@@ -51,9 +51,10 @@
     echo '<ul class="campus_list">';
 
     foreach ($result as $campus) {
-        echo '<li><span><input type="radio" name="cid" value="'.$campus->cid.'">';
+        echo '<input type="radio" name="cid" id="'.$campus->cid.'" value="'.$campus->cid.'" style="display:none;">';
+        echo '<label for="'.$campus->cid.'"><li>';
         echo $campus->cname;
-        echo '</span></li>';
+        echo '</li></label>';
     }
 
     echo '</ul>';

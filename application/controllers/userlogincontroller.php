@@ -17,7 +17,7 @@ class Userlogincontroller extends MY_Controller{
         $data['title'] = '选择你所在的校区';
         $this->load->model('market');
         $data['result'] = $this->market->getCampusList();
-        $this->load->view('campus',$data);
+        $this->load->view('campuslist',$data);
     }
     /*
      * set cookies and sessions for user
