@@ -21,9 +21,8 @@ class Userstatuscontroller extends MY_Controller
             }
             else {//illegal user
                 setcookie('uid','',time()-3600);
-                unset($_COOKIE['uid']);
+                delete_cookie('uid');
                 return redirect('userlogincontroller/loadCampus');
-                return false;
             }
         }
         return redirect('userlogincontroller/loadCampus');
