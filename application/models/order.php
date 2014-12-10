@@ -18,7 +18,7 @@ class Order extends CI_Model {
     public $totalcost;
 
 // generating vip user's order by using uid
-    public function vipOrder($uid,$cid,$odate,$food,$sidedish,$totalcost,$balance,$ispaid){
+    public function vipOrder($uid,$cid,$odate,$food,$sidedish,$totalcost,$ispaid,$balance){
 
         $this->uid = $uid;
         $this->cid = $cid;
@@ -34,41 +34,23 @@ class Order extends CI_Model {
         $this->oid = $this->db->insert_id();//get order's id
 
 
-        if(!empty($this->orderitem['food'])){//count food part's cost
+        if(!empty($this->orderitem['food'])){//create rows of orderitems for orderitem table
             $num = count($this->orderitem['food']);
 
-            $foodcost = 0;
             for($i = 0 ;$i<$num;$i++){
-                $sql = "SELECT * FROM food WHERE fid='".$this->orderitem['food'][$i]."'";
-                $query = $this->db->query($sql);
-                $fooditem = $query->row(0);
-
-                $sql1 = "INSERT INTO orderitem(oid,dishid,dishtype) VALUES('".$this->oid."','".$this->orderitem['food'][$i]."','0') ";
-                $this->db->query($sql1);
-
-                $foodcost += $fooditem->fprice;
+                $sql = "INSERT INTO orderitem(oid,dishid,dishtype) VALUES('".$this->oid."','".$this->orderitem['food'][$i]."','0') ";
+                $this->db->query($sql);
             }
-        }else $foodcost = 0;
+        }
 
         if(!empty($this->orderitem['sidedish'])){//count sidedish part's cost
             $num = count($this->orderitem['sidedish']);
 
-            $sidedishcost = 0;
             for($i = 0 ;$i<$num;$i++){
-                $sql = "SELECT * FROM sidedish WHERE sid='".$this->orderitem['sidedish'][$i]."'";
-                $query = $this->db->query($sql);
-                $sidedishitem = $query->row(0);
-
-                $sql1 = "INSERT INTO orderitem(oid,dishid,dishtype) VALUES('".$this->oid."','".$this->orderitem['sidedish'][$i]."','1') ";
-                $this->db->query($sql1);
-
-                $sidedishcost += $sidedishitem->sprice;
+                $sql = "INSERT INTO orderitem(oid,dishid,dishtype) VALUES('".$this->oid."','".$this->orderitem['sidedish'][$i]."','1') ";
+                $this->db->query($sql);
             }
-        }else $sidedishcost = 0;
-
-        // count total cost of an order
-        $this->totalcost = $foodcost + $sidedishcost;
-
+        }
         return $this;
     }
 

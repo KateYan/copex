@@ -34,25 +34,15 @@
         <div class="menu_list_li">
             <ul>
                 <?php
-                foreach($orderedFood as $foodArray){
-                    if(!empty($foodArray)){
+                foreach($orderedDishes as $dish){
+                    if(!empty($dish)){
                         echo '<li>';
-                        echo '<span class="menuD_AccoutTitle">'.$foodArray['name'].'</span>';
-                        echo '<span class="menuD_AccoutNum">'.$foodArray['qty']."份".'</span>';
-                        echo '<span class="menuD_AccoutPrice">'."$".$foodArray['cost'].'</span>';
+                        echo '<span class="menuD_AccoutTitle">'.$dish['name'].'</span>';
+                        echo '<span class="menuD_AccoutNum">'.$dish['qty']."份".'</span>';
+                        echo '<span class="menuD_AccoutPrice">'."$".$dish['cost'].'</span>';
                         echo '</li>';
                     }
                 }
-                foreach($orderedSidedish as $sideArray){
-                    if(!empty($sideArray)){
-                        echo '<li>';
-                        echo '<span class="menuD_AccoutTitle">'.$sideArray['name'].'</span>';
-                        echo '<span class="menuD_AccoutNum">'.$sideArray['qty']."份".'</span>';
-                        echo '<span class="menuD_AccoutPrice">'."$".$sideArray['cost'].'</span>';
-                        echo '</li>';
-                    }
-                }
-
                 ?>
             </ul>
         </div>
@@ -66,9 +56,13 @@
             <span class="menuD_AccoutNum"></span>
             <span class="menuD_AccoutPrice">$<?php echo $balance; ?></span>
         </li>
+        <?php
+        $attributes = array('class'=>'formcontrol', 'id'=>'viporder');
+        echo form_open('marketcontroller/vipOrderGenerate',$attributes);
+        ?>
         <li class="menuD_pay">
             <span class="passPay">支付密码</span>
-            <input type="password" class="passWord" />
+            <input form="viporder" name="password" type="password" class="passWord" />
         </li>
     </ul>
     <div class="clear"></div>
@@ -81,7 +75,7 @@
 </div>
 <Footer id="Footer">
     <div class="btn_resetOrder">
-        <a href="showDailyMenu" class="btn_submitOrder btn_rest">重新选择</a><a class="btn_submitOrder btn_nowOrder">立刻下单</a><div class="clear"></div>
+        <a href="showDailyMenu" class="btn_submitOrder btn_rest">重新选择</a><button form="viporder" class="btn_submitOrder btn_nowOrder">立刻下单</button><div class="clear"></div>
     </div>
 </Footer>
 <div class="layer">
