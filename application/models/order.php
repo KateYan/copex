@@ -18,17 +18,18 @@ class Order extends CI_Model {
     public $totalcost;
 
 // generating vip user's order by using uid
-    public function vipOrder($uid,$cid,$odate,$food,$sidedish,$totalcost,$balance){
+    public function vipOrder($uid,$cid,$odate,$food,$sidedish,$totalcost,$balance,$ispaid){
 
         $this->uid = $uid;
         $this->cid = $cid;
         $this->odate = $odate;
-        $this->oispaid = $oispaid;
+        $this->oispaid = $ispaid;
         $this->ostatus = '0';
+        $this->totalcost = $totalcost;
         $this->orderitem = array('food'=>$food,'sidedish'=>$sidedish);
 
         //insert new order
-        $sql = "INSERT INTO `order`(`uid`,`odate`,`ostatus`,`oispaid`,`totalcost`) VALUES (".$this->db->escape($this->uid).",".$this->db->escape($this->odate).",".$this->db->escape($this->ostatus).",".$this->db->escape($this->oispaid).",".$this->db->escape($this->totalcost).") ";
+        $sql = "INSERT INTO `order`(`uid`,`cid`,`odate`,`ostatus`,`oispaid`,`totalcost`) VALUES (".$this->db->escape($this->uid).",".$this->db->escape($this->cid).",".$this->db->escape($this->odate).",".$this->db->escape($this->ostatus).",".$this->db->escape($this->oispaid).",".$this->db->escape($this->totalcost).") ";
         $this->db->query($sql);
         $this->oid = $this->db->insert_id();//get order's id
 

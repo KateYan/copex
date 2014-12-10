@@ -20,6 +20,7 @@ class Userstatuscontroller extends MY_Controller
                 return redirect('marketcontroller/showDailyMenu');
             }
             else {//illegal user
+                setcookie('uid','',time()-3600);
                 unset($_COOKIE['uid']);
                 return redirect('userlogincontroller/loadCampus');
                 return false;
