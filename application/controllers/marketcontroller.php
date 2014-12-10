@@ -33,6 +33,17 @@ class Marketcontroller extends MY_Controller{
         $data['recomdItem'] = $this->menuitem->recomdItem($_SESSION['cid'],$data['date']);
         $data['saleItem'] = $this->menuitem->saleItem($_SESSION['cid'],$data['date']);
 
+        // create session to store all three dishes' information
+        $_SESSION['food1-name'] = $data['recomdItem']->fname;
+        $_SESSION['food1-price'] = $data['recomdItem']->fprice;
+        $_SESSION['food2-name'] = $data['saleItem'][0]->fname;
+        $_SESSION['food2-price'] = $data['saleItem'][0]->fprice;
+        $_SESSION['food3-name'] = $data['saleItem'][1]->fname;
+        $_SESSION['food3-price'] = $data['saleItem'][1]->fprice;
+//
+//        var_dump($_SESSION['food1-price']);
+
+
         //show campus name for user to switch favor-campus
         $this->load->model('market');
         $campus = $this->market->getCampusById($_SESSION['cid']);
@@ -56,137 +67,147 @@ class Marketcontroller extends MY_Controller{
         if(!isset($_SESSION['vipid'])){
             return redirect('userstatuscontroller/checkUserStatus');
         }
-        // given a start value of total cost
+        // 1.given a start value of total cost
         $totalcost = 0;
-        // get dishes information that posted from vipmenu
+        // 2.given food-id-list as an array to be updated later
+        // $foodList will be stored as session for generating order later
+        $foodList = array();
+        // 3.given ordered food information array to be updated later
+        // $data['orderedFood'] is used to show ordered food information in sidedish page's lower list
+        $data['orderedFood'] = array();
+
         // if user chosed first menuitem, get the posted id and amount
         if(true){ //if(isset($_POST['fid1']))
-            $fid1 = '10001';//$this->input->post('fid1');
-            $amount1 = '1';//$this->input->post('amount1');
-            // creat an arry to store amount of the food's fid
-            $food1 = array();
-            for($i = 0;$i<$amount1;$i++){
-                $food1[$i] = $fid1;
-            }
+            $fid1 = '10003';//$this->input->post('fid1');
+            $amount1 = '2';//$this->input->post('amount1');
 
-            //get names and costs of the food that user just chose from vip-menu
-            $this->load->model('market');
-            $Item1 = $this->market->getFoodById($fid1);
-            $cost1 = $Item1->fprice * $amount1;
-            $totalcost+=$cost1;//update totalcost
+            //get costs of the food that user just chose from vip-menu
+            $cost1 = $_SESSION['food1-price'] * $amount1;
 
             // store user ordered food's name,qty and total cost as an array
-            $order1 = array('name'=>$Item1->fname,'qty'=>$amount1,'cost'=>$cost1);
+            $food1 = array('name'=>$_SESSION['food1-name'],'qty'=>$amount1,'cost'=>$cost1);
 
-        }else{ //if user didn't order this food, set the id array as empty array
-            $food1= array();
-            $order1 = array();
+            //update totalcost
+            $totalcost+=$cost1;
+            //update foodList
+            for($i = 0;$i<$amount1;$i++){
+                $foodList[] = $fid1;
+            }
+            //update food information array
+            $data['orderedFood'][] = $food1;
         }
 
         // if user chosed second menuitem, get the posted id and amount
         if(true){
-            $fid2 = '10004'; //$this->input->post('fid2');
-            $amount2 = '3'; //$this->input->post('amount2');
-            // creat an arry to store amount of the food's fid
-            $food2 = array();
-            for($i = 0;$i<$amount2;$i++){
-                $food2[$i] = $fid2;
-            }
+            $fid2 = '10001'; //$this->input->post('fid2');
+            $amount2 = '1'; //$this->input->post('amount2');
 
-            //get names and costs of the food that user just chose from vip-menu
-            $this->load->model('market');
-            $Item2 = $this->market->getFoodById($fid2);
-            $cost2 = $Item2->fprice * $amount2;
-            $totalcost+=$cost2;//update totalcost
+            //get costs of the food that user just chose from vip-menu
+            $cost2 = $_SESSION['food2-price']  * $amount2;
 
             // store user ordered food's name,qty and total cost as an array
-            $order2 = array('name'=>$Item2->fname,'qty'=>$amount2,'cost'=>$cost2);
+            $food2 = array('name'=>$_SESSION['food2-name'],'qty'=>$amount2,'cost'=>$cost2);
 
-        }else{ //if user didn't order this food, set the id array as empty array
-            $food2 = array();
-            $order2 = array();
+            //update totalcost
+            $totalcost+=$cost2;
+            //update foodList
+            for($i = 0;$i<$amount2;$i++){
+                $foodList[] = $fid2;
+            }
+            //update food information array
+            $data['orderedFood'][] = $food2;
         }
 
         // if user chosed third menuitem, get the posted id and amount
-        if(false){
+        if(isset($_POST['fid3'])){
             $fid3 = $this->input->post('fid3');
             $amount3 = $this->input->post('amount3');
-            // creat an arry to store amount of the food's fid
-            $food3 = array();
-            for($i = 0;$i<$amount3;$i++){
-                $food3[$i] = $fid3;
-            }
 
-            //get names and costs of the food that user just chose from vip-menu
-            $this->load->model('market');
-            $Item3 = $this->market->getFoodById($fid3);
-            $cost3 = $Item3->fprice * $amount3;
-            $totalcost+=$cost3;//update totalcost
+            //get costs of the food that user just chose from vip-menu
+            $cost3 = $_SESSION['food3-price']  * $amount3;
 
             // store user ordered food's name,qty and total cost as an array
-            $order3 = array('name'=>$Item3->fname,'qty'=>$amount3,'cost'=>$cost3);
+            $food3 = array('name'=>$_SESSION['food3-name'],'qty'=>$amount3,'cost'=>$cost3);
 
-        }else{ //if user didn't order this food, set the id array as empty array
-            $food3= array();
-            $order3 = array();
+            //update totalcost
+            $totalcost+=$cost3;
+            //update foodList
+            for($i = 0;$i<$amount3;$i++){
+                $foodList[] = $fid3;
+            }
+            //update food information array
+            $data['orderedFood'][] = $food3;
         }
 
-        // get all above information array into food array
-        // session food array is used for later generating vip-order
-        $_SESSION['food'] = array_merge($food1,$food2,$food3);
+        // array $foodList is stored as session for generating vip-order later
+        $_SESSION['foodList'] = $foodList;
 
-        // for sidedish page to show food user just ordered
-        $data['orderedFood'] = array('order1'=>$order1,'order2'=>$order2,'order3'=>$order3);
+
+
+        // initiate ordered sidedish id-list array and information array
+        $sideDishList = array();
+        // $data['orderedSidedish'] will be used to show ordered sidedishes' information in sidedish page's lower list area
+        $data['orderedSidedish'] = array();
 
         // if user also chosed some side dishes, get the information of them
-        if(isset($_POST['sid1'])){// for first side dish
-            $sid1 = $this->input->post('sid1');
-            $this->load->model('market');
-            $sdish1 = $this->market->getSidedishById($sid1);
-            $sideorder1 = array('name'=>$sdish1->sname,'qty'=>'1','cost'=>$sdish1->sprice);
-            $totalcost+=$sdish1->sprice;//update totalcost
-        }else{//if user didn't order this sidedish, set the id  and information array as empty
-            $sid1 = '';
-            $sideorder1 = array();
+        if(true){// for first side dish
+            $sid1 ='50001'; //$this->input->post('sid1');
+
+            // store user ordered sidedish's name,qty and cost as an array
+            $sidedish1 = array('name'=>$_SESSION['sidedish1-name'],'qty'=>'1','cost'=>$_SESSION['sidedish1-price']);
+
+            // update ordered sidedish's id list for generating order later
+            $sideDishList[] = $sid1;
+            // update ordered sidedish's information array
+            $data['orderedSidedish'][] = $sidedish1;
+            //update totalcost
+            $totalcost+=$_SESSION['sidedish1-price'];
         }
 
         if(isset($_POST['sid2'])){// for second side dish
             $sid2 = $this->input->post('sid2');
-            $this->load->model('market');
-            $sdish1 = $this->market->getSidedishById($sid2);
-            $sideorder2 = array('name'=>$sdish2->sname,'qty'=>'1','cost'=>$sdish2->sprice);
-            $totalcost+=$sdish2->sprice;//update totalcost
-        }else{//if user didn't order this sidedish, set the id  and information array as empty
-            $sid2 = '';
-            $sideorder2 = array();
+
+            // store user ordered sidedish's name,qty and cost as an array
+            $sidedish2 = array('name'=>$_SESSION['sidedish2']->sname,'qty'=>'1','cost'=>$_SESSION['sidedish2']->sprice);
+
+            // update ordered sidedish's id list for generating order later
+            $sideDishList[] = $sid2;
+            // update ordered sidedish's information array
+            $data['orderedSidedish'][] = $sidedish2;
+            //update totalcost
+            $totalcost+=$_SESSION['sidedish2']->sprice;
         }
 
-        if(true){// for third side dish
-            $sid3 = '50003';//$this->input->post('sid3');
-            $this->load->model('market');
-            $sdish3 = $this->market->getSidedishById($sid3);
-            $sideorder3 = array('name'=>$sdish3->sname,'qty'=>'1','cost'=>$sdish3->sprice);
-            $totalcost+=$sdish3->sprice;//update totalcost
-        }else{//if user didn't order this sidedish, set the id  and information array as empty
-            $sid3 = '';
-            $sideorder3 = array();
+        if(isset($_POST['sid3'])){// for third side dish
+            $sid3 = $this->input->post('sid3');
+
+            // store user ordered sidedish's name,qty and cost as an array
+            $sidedish3 = array('name'=>$_SESSION['sidedish3']->sname,'qty'=>'1','cost'=>$_SESSION['sidedish3']->sprice);
+
+            // update ordered sidedish's id list for generating order later
+            $sideDishList[] = $sid3;
+            // update ordered sidedish's information array
+            $data['orderedSidedish'][] = $sidedish3;
+            //update totalcost
+            $totalcost+=$_SESSION['sidedish3']->sprice;
         }
 
-        if(isset($_POST['sid4'])){ // for fourth side dish
+        if(isset($_POST['sid4'])){// for third side dish
             $sid4 = $this->input->post('sid4');
-            $this->load->model('market');
-            $sdish4 = $this->market->getSidedishById($sid4);
-            $sideorder4 = array('name'=>$sdish4->sname,'qty'=>'1','cost'=>$sdish4->sprice);
-            $totalcost+=$sdish4->sprice;//update totalcost
-        }else{//if user didn't order this sidedish, set the id  and information array as empty
-            $sid4 = '';
-            $sideorder4 = array();
+
+            // store user ordered sidedish's name,qty and cost as an array
+            $sidedish4 = array('name'=>$_SESSION['sidedish4']->sname,'qty'=>'1','cost'=>$_SESSION['sidedish4']->sprice);
+
+            // update ordered sidedish's id list for generating order later
+            $sideDishList[] = $sid4;
+            // update ordered sidedish's information array
+            $data['orderedSidedish'][] = $sidedish4;
+            //update totalcost
+            $totalcost+=$_SESSION['sidedish4']->sprice;
         }
 
-        //get session of ordered sidedishes's id as an array
-        $_SESSION['sidedish'] = array_filter(array($sid1,$sid2,$sid3,$sid4));
-        $data['orderedSidedish'] = array('sideorder1'=>$sideorder1,'sideorder2'=>$sideorder2,'sideorder3'=>$sideorder3,'sideorder4'=>$sideorder4);
-
+        // array $sideDishList is stored as session for generating vip-order later
+        $_SESSION['sideDishList'] = $sideDishList;
         // get the total cost of all the dishes user just ordered
         $data['totalcost'] = $totalcost;
 
@@ -209,6 +230,7 @@ class Marketcontroller extends MY_Controller{
         $data['title'] = '精选小食';
         $this->load->view('partials/header',$data);
         $this->load->view('sidedish',$data);
+//        var_dump($_SESSION['sidedish1-price']);
     }
 
     /*
@@ -219,13 +241,11 @@ class Marketcontroller extends MY_Controller{
         $odate = date('Y-m-d');
 
         //for non-vip user generating order
-        if(!isset($_SESSION['vipid'])){
-            //load model "order"
-            $this->load->model('order');
+        //load model "order"
+        $this->load->model('order');
 
-            $orderItemId = $this->input->post('fid');
-            $order = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$orderItemId);
-        }
+        $orderItemId = $this->input->post('fid');
+        $order = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$orderItemId);
 
         // get order's number and date for showing order page
         $data['orderNumber'] = $order->oid;
@@ -244,7 +264,6 @@ class Marketcontroller extends MY_Controller{
         $data['timeend'] = $pickupRule->timeend;
 
         $this->load->view('ordersuccess',$data);
-
     }
 
 
@@ -257,22 +276,40 @@ class Marketcontroller extends MY_Controller{
 
         //load model "order"
         $this->load->model('order');
-        if(isset($_SESSION['vipid'])){
-            //for vip user generating order
-            //1. check if the password is match or not by user method validatePassword()
-            if(validatePassword($_SESSION['vipid'],$this->input->post('password'))){
-                // check if the balance is enouth to pay for all the dishes just ordered
-                if($_SESSION['balance']>=$_SESSION['totalcost']){
-                    // create new vip order for user
-                    $this->load->model('order');
-                    $order = $this->order->vipOrder($uid,$_SESSION['cid'],$odate,$_SESSION['food'],$_SESSION['sidedish'],$_SESSION['totalcost']);
-                }
-                echo "not enough balance!!!";//balance is not enough to pay
-                return false;
+        //for vip user generating order
+        //1. check if the password is match or not by user method validatePassword()
+        if(validatePassword($_SESSION['vipid'],$this->input->post('password'))){
+            // check if the balance is enouth to pay for all the dishes just ordered
+            if($_SESSION['balance']>=$_SESSION['totalcost']){ //user will use vipcard to pay for the order
+                // create new vip order for user
+                $this->load->model('order');
+                $ispaid = 1;
+                $order = $this->order->vipOrder($uid,$_SESSION['cid'],$odate,$_SESSION['food'],$_SESSION['sidedish'],$_SESSION['totalcost'],$ispaid);
             }
-            echo "error!!!!!!";//entered not match password
+            echo "not enough balance!!!";//balance is not enough to pay
+            return false;
+        } else{
+            echo "error!!!!!!";//entered not matched password
             return false;
         }
+        // get order's number and date for showing order page
+        $data['orderNumber'] = $order->oid;
+        $data['date'] = $order->odate;
+
+        // get campus address using session['cid]
+        $this->load->model('market');
+        $campus = $this->market->getCampusById($order->cid);
+        $data['address'] = $campus->caddr;
+
+        // get user's pickup time range by getting an rule object
+        // from 'rules' class using it's name and date
+        $this->load->model('rules');
+        $pickupRule = $this->rules->getPickupTime('pickupTime',$data['date']);
+        $data['timestart'] = $pickupRule->timestart;
+        $data['timeend'] = $pickupRule->timeend;
+
+        $this->load->view('ordersuccess',$data);
+
     }
 
     // using user's vipid to find his vipcard's password,
