@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2014 at 12:05 AM
+-- Generation Time: Dec 10, 2014 at 06:25 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -114,16 +114,16 @@ CREATE TABLE IF NOT EXISTS `dailymenu` (
 --
 
 INSERT INTO `dailymenu` (`mid`, `cid`, `mdate`, `mstatus`) VALUES
-(10001, 10001, '2014-12-03', 1),
-(10002, 10002, '2014-12-03', 1),
-(10003, 10003, '2014-12-03', 1),
-(10004, 10004, '2014-12-03', 1),
+(10001, 10001, '2014-12-03', 0),
+(10002, 10002, '2014-12-03', 0),
+(10003, 10003, '2014-12-03', 0),
+(10004, 10004, '2014-12-03', 0),
 (10005, 10001, '2014-12-09', 1),
 (10006, 10002, '2014-12-09', 1),
-(10007, 10001, '2014-12-05', 1),
-(10008, 10002, '2014-12-05', 1),
-(10009, 10003, '2014-12-05', 1),
-(10010, 10004, '2014-12-05', 1),
+(10007, 10001, '2014-12-05', 0),
+(10008, 10002, '2014-12-05', 0),
+(10009, 10003, '2014-12-05', 0),
+(10010, 10004, '2014-12-05', 0),
 (10011, 10003, '2014-12-09', 1),
 (10012, 10004, '2014-12-09', 1);
 
@@ -253,7 +253,7 @@ CREATE TABLE IF NOT EXISTS `order` (
   PRIMARY KEY (`oid`),
   KEY `uid` (`uid`),
   KEY `cid` (`cid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2753497 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2753498 ;
 
 --
 -- Dumping data for table `order`
@@ -290,7 +290,8 @@ INSERT INTO `order` (`oid`, `uid`, `cid`, `odate`, `ostatus`, `oispaid`, `totalc
 (2753493, 10182, 10004, '2014-12-09', 0, 0, 6.99),
 (2753494, 10183, 10003, '2014-12-09', 0, 0, 0),
 (2753495, 10183, 10003, '2014-12-09', 0, 0, 6.99),
-(2753496, 10183, 10003, '2014-12-09', 0, 0, 6.99);
+(2753496, 10183, 10003, '2014-12-09', 0, 0, 6.99),
+(2753497, 10184, 10003, '2014-12-09', 0, 0, 19.99);
 
 -- --------------------------------------------------------
 
@@ -305,7 +306,7 @@ CREATE TABLE IF NOT EXISTS `orderitem` (
   `dishtype` tinyint(1) NOT NULL,
   PRIMARY KEY (`oitemid`),
   KEY `oid` (`oid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10056 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10057 ;
 
 --
 -- Dumping data for table `orderitem`
@@ -337,7 +338,8 @@ INSERT INTO `orderitem` (`oitemid`, `oid`, `dishid`, `dishtype`) VALUES
 (10052, 2753492, 10004, 0),
 (10053, 2753493, 10003, 0),
 (10054, 2753495, 10002, 0),
-(10055, 2753496, 10003, 0);
+(10055, 2753496, 10003, 0),
+(10056, 2753497, 10001, 0);
 
 -- --------------------------------------------------------
 
@@ -447,7 +449,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`uid`),
   KEY `cid` (`cid`,`vipid`),
   KEY `vipid` (`vipid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10184 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10185 ;
 
 --
 -- Dumping data for table `user`
@@ -515,7 +517,7 @@ INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `
 (10180, 10002, NULL, NULL, 'af6f2b93ebf8b416e004d711a6e01baf26b8bb11df244b357eba1fa7ddf4f706', '::1', 1, '2014-12-09 06:16:08', NULL),
 (10181, 10003, NULL, NULL, '9dff5b1b71330496432ff39cc992fa64ec35c3be581bb8f511958b52b8eb60a5', '::1', 1, '2014-12-09 07:11:29', NULL),
 (10182, 10004, NULL, NULL, 'e187c25df3c7f7fc821573da81d32a1b196216912ad6c4c8c597a5e1bea31421', '::1', 1, '2014-12-09 07:21:40', NULL),
-(10183, 10004, 10141, NULL, '8de19b1ab7b24e91bb9eb90aefa0b1d723a6b03802f99a4f3df147dee81b5df3', '::1', 1, '2014-12-09 15:10:45', NULL);
+(10184, 10003, 10141, NULL, 'c39eb1e187b03d280bb82a422622e1d5f322d5415ea0a8e053ea78cb2e0c11b8', '::1', 1, '2014-12-10 03:29:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -540,7 +542,7 @@ CREATE TABLE IF NOT EXISTS `vipcard` (
 INSERT INTO `vipcard` (`vipid`, `uid`, `vnumber`, `vpassword`, `vbalance`) VALUES
 (10001, 10001, 4592, 'qweqwe', 50),
 (10005, 10150, 45612, 'yuanyi', 50),
-(10141, 10183, 4975, '', 46.72),
+(10141, 10184, 4975, '', 46.72),
 (32716, 10002, 9874, 'asdfas', 50);
 
 --

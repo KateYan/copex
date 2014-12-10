@@ -30,8 +30,8 @@ class Marketcontroller extends MY_Controller{
         $data['uphone'] = $_SESSION['uphone'];
 
         //using cid and date to find menuitems
-        $data['recomdItem'] = $this->menuitem->recomdItem($_SESSION['cid'],$data['date']);
-        $data['saleItem'] = $this->menuitem->saleItem($_SESSION['cid'],$data['date']);
+        $data['recomdItem'] = $this->menuitem->recomdItem($_SESSION['cid']);
+        $data['saleItem'] = $this->menuitem->saleItem($_SESSION['cid']);
 
         // create session to store all three dishes' information
         $_SESSION['food1-name'] = $data['recomdItem']->fname;
@@ -276,7 +276,7 @@ class Marketcontroller extends MY_Controller{
 
         //load model "order"
         $this->load->model('order');
-        //for vip user generating order
+
         //1. check if the password is match or not by user method validatePassword()
         if(validatePassword($_SESSION['vipid'],$this->input->post('password'))){
             // check if the balance is enouth to pay for all the dishes just ordered
