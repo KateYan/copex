@@ -29,7 +29,7 @@
 	<span class="loginTextBox">
     	<input name="phoneNumber" type="tel" class="login_telText" placeholder="请输入手机号"/>
     </span>
-    <button form="viplogin" class="btn_login">登录</button>
+    <button style="border:none;" form="viplogin" class="btn_login">登录</button>
 <div class="login_footer">
     <a class="btn_loginFoot inotMemb" href="../marketcontroller/showDailyMenu">我还不是会员</a>
     <a class="btn_loginFoot whyResMember">为什么要成为会员</a>
