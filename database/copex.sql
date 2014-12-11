@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2014 at 09:24 PM
+-- Generation Time: Dec 11, 2014 at 08:33 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -41,8 +41,8 @@ CREATE TABLE IF NOT EXISTS `basicrule` (
 --
 
 INSERT INTO `basicrule` (`ruleid`, `rulename`, `timestart`, `timeend`, `date`, `risvip`) VALUES
-(16180, 'pickupTime', '11:30:00', '13:30:00', '2014-12-10', 0),
-(16181, 'vipPickupTime', '11:00:00', '14:00:00', '2014-12-10', 1);
+(16180, 'pickupTime', '11:30:00', '13:30:00', '2014-12-11', 0),
+(16181, 'vipPickupTime', '11:00:00', '14:00:00', '2014-12-11', 1);
 
 -- --------------------------------------------------------
 
@@ -253,7 +253,7 @@ CREATE TABLE IF NOT EXISTS `order` (
   PRIMARY KEY (`oid`),
   KEY `uid` (`uid`),
   KEY `cid` (`cid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2753515 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2753519 ;
 
 --
 -- Dumping data for table `order`
@@ -308,7 +308,11 @@ INSERT INTO `order` (`oid`, `uid`, `cid`, `odate`, `ostatus`, `oispaid`, `totalc
 (2753511, 10185, 10004, '2014-12-10', 0, 1, 40.96),
 (2753512, 10185, 10004, '2014-12-10', 0, 1, 40.96),
 (2753513, 10185, 10004, '2014-12-10', 0, 1, 40.96),
-(2753514, 10186, 10002, '2014-12-10', 0, 0, 0);
+(2753514, 10186, 10002, '2014-12-10', 0, 0, 0),
+(2753515, 10195, 10003, '2014-12-10', 0, 0, 6.99),
+(2753516, 10185, 10004, '2014-12-11', 0, 1, 40.96),
+(2753517, 10185, 10004, '2014-12-11', 0, 1, 40.96),
+(2753518, 10185, 10004, '2014-12-11', 0, 1, 40.96);
 
 -- --------------------------------------------------------
 
@@ -323,7 +327,7 @@ CREATE TABLE IF NOT EXISTS `orderitem` (
   `dishtype` tinyint(1) NOT NULL,
   PRIMARY KEY (`oitemid`),
   KEY `oid` (`oid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10104 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10117 ;
 
 --
 -- Dumping data for table `orderitem`
@@ -403,7 +407,20 @@ INSERT INTO `orderitem` (`oitemid`, `oid`, `dishid`, `dishtype`) VALUES
 (10100, 2753513, 10003, 0),
 (10101, 2753513, 10003, 0),
 (10102, 2753513, 10001, 0),
-(10103, 2753513, 50001, 1);
+(10103, 2753513, 50001, 1),
+(10104, 2753515, 10002, 0),
+(10105, 2753516, 10003, 0),
+(10106, 2753516, 10003, 0),
+(10107, 2753516, 10001, 0),
+(10108, 2753516, 50001, 1),
+(10109, 2753517, 10003, 0),
+(10110, 2753517, 10003, 0),
+(10111, 2753517, 10001, 0),
+(10112, 2753517, 50001, 1),
+(10113, 2753518, 10003, 0),
+(10114, 2753518, 10003, 0),
+(10115, 2753518, 10001, 0),
+(10116, 2753518, 50001, 1);
 
 -- --------------------------------------------------------
 
@@ -513,7 +530,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`uid`),
   KEY `cid` (`cid`,`vipid`),
   KEY `vipid` (`vipid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10189 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10206 ;
 
 --
 -- Dumping data for table `user`
@@ -583,9 +600,9 @@ INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `
 (10182, 10004, NULL, NULL, 'e187c25df3c7f7fc821573da81d32a1b196216912ad6c4c8c597a5e1bea31421', '::1', 1, '2014-12-09 07:21:40', NULL),
 (10184, 10003, 10141, NULL, 'c39eb1e187b03d280bb82a422622e1d5f322d5415ea0a8e053ea78cb2e0c11b8', '::1', 1, '2014-12-10 03:29:29', NULL),
 (10185, 10004, 10142, '6131231234', '208795b584c83f3bae579f721868d1cbd4884783362387f95f50e35f810a3f50', '::1', 1, '2014-12-10 15:38:21', NULL),
-(10186, 10002, NULL, NULL, '3f45e181c85a72f450710f116ac23ec5716cbac45209897220a282bbae1b392b', '::1', 0, '2014-12-10 17:50:57', NULL),
-(10187, 10003, NULL, NULL, '5fd2f4768a56c70b8b0ffd805b8616366dbe912dbaaff003940ce8acdec1a56e', '::1', 0, '2014-12-10 19:38:30', NULL),
-(10188, 10002, NULL, NULL, '5b2fb7ee17f880ffd3452bb0b0b8d4d88e0b637eacfc0f97ca1d4f7c87c21241', '::1', 0, '2014-12-10 20:19:31', NULL);
+(10203, 10002, NULL, NULL, '8726ad15a3cff1ff4ae283263c66ebffccc750bec91e8755cc493632af0b7eda', '::1', 0, '2014-12-11 00:56:29', NULL),
+(10204, 10002, NULL, NULL, 'c38fcbd1b472f52a1d4687f428f0eb24b9b75c76a6176f68012ee8cccfe95e14', '::1', 0, '2014-12-11 00:57:05', NULL),
+(10205, 10003, NULL, NULL, 'b7da29ad6ad3d9766b61b60eefe32518f6ef8dafc50d86633e456c9f4c89639f', '::1', 0, '2014-12-11 01:21:46', NULL);
 
 -- --------------------------------------------------------
 
@@ -611,7 +628,7 @@ INSERT INTO `vipcard` (`vipid`, `uid`, `vnumber`, `vpassword`, `vbalance`) VALUE
 (10001, 10001, 4592, 'qweqwe', 50),
 (10005, 10150, 45612, 'yuanyi', 50),
 (10141, 10184, 4975, '', 46.72),
-(10142, 10185, 9645, 'abcd', 78.12),
+(10142, 10185, 9645, 'qwer', 78.12),
 (32716, 10002, 9874, 'asdfas', 50);
 
 --
