@@ -23,7 +23,7 @@ class Userlogincontroller extends MY_Controller{
      * set cookies and sessions for user
      */
     public function setUser(){
-        if(!isset($_COOKIE['uid'])){
+        if(!($this->input->cookie('uid'))){
             $cid = $this->input->post('cid');
 
             $this->load->model('user');
