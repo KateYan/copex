@@ -62,7 +62,25 @@ class Market extends CI_Model {
 
         //return the result set as an array;
         return $query->row(0);
+    }
 
+    // using user's vipid to find his vipcard's password,
+    // if the input password is not equal to the one get from database, return false
+    // if they are same to each other then return true
+
+    public  function validatePassword($vipid,$password){
+        $this->load->model('market');
+        $vipCard = $this->market->getVipCard($vipid);
+        if($password==$vipCard->vpassword){
+            return true;
+        }
+        return false;
+    }
+
+    // store new password
+    public function updatePassword($vipid,$newPassword){
+        $sql = "UPDATE vipcard SET vpassword='".$newPassword."' WHERE vipid='".$vipid."'";
+        $this->db->query($sql);
     }
 
 

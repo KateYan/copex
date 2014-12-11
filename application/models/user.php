@@ -104,4 +104,5 @@ class User extends CI_Model {
             return $this;
         }return false;//if can not find vip user exits or more vip user sharing one phone number, return false
     }
+
 }

@@ -197,7 +197,6 @@ class Marketcontroller extends MY_Controller{
         // 4. vipcard's password
         $_SESSION['totalcost'] = $totalcost;
         $_SESSION['balance'] = $vipCard->vbalance;
-        $_SESSION['password'] = $vipCard->vpassword;
 
         $this->load->model('market');
         $data['sideDish'] = $this->market->getSideDish($_SESSION['cid']);
@@ -248,8 +247,9 @@ class Marketcontroller extends MY_Controller{
             $odate = date('Y-m-d');
             $this->load->model('order');
 
-            //1. check if the password is match or not by user method validatePassword()
-            $password = $this->validatePassword($_SESSION['vipid'],$this->input->post('password'));
+            //1. check if the password is match or not by market moder's method validatePassword()
+            $this->load->model('market');
+            $password = $this->market->validatePassword($_SESSION['vipid'],$this->input->post('password'));
             if($password){
                 // check if the balance is enouth to pay for all the dishes just ordered
                 if($_SESSION['balance']>=$_SESSION['totalcost']){ //user will use vipcard to pay for the order
@@ -288,16 +288,4 @@ class Marketcontroller extends MY_Controller{
         return redirect('marketcontroller/showSideDish');
     }
 
-    // using user's vipid to find his vipcard's password,
-    // if the input password is not equal to the one get from database, return false
-    // if they are same to each other then return true
-
-    private function validatePassword($vipid,$password){
-        $this->load->model('market');
-        $vipCard = $this->market->getVipCard($vipid);
-        if($password==$vipCard->vpassword){
-            return true;
-        }
-        return false;
-    }
 }

@@ -21,18 +21,20 @@
     <link href="../../css/viplogin.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<form class="resetPSW_form">
+<form class="resetPSW_form" method="post" action="../userlogincontroller/changePassword">
 	<span class="loginTextBox resetPSW useInput">
-    	<input type="tel" class="login_telText" placeholder="手机号"/>
+    	<input name="phoneNumber" type="tel" class="login_telText" placeholder="手机号"/>
     </span>
     <span class="loginTextBox resetPSW">
-    	<input type="tel" class="login_telText" placeholder="旧密码"/>
+    	<input name="oldPassword" type="password" class="login_telText" placeholder="旧密码"/>
     </span>
     <span class="loginTextBox resetPSW">
-    	<input type="tel" class="login_telText" placeholder="新密码"/>
+    	<input name="newPassword" type="password" class="login_telText" placeholder="新密码"/>
     </span>
     <div class="btn_resetOrder">
-        <a class="btn_submitOrder btn_prevPage">回到上页</a><a class="btn_submitOrder btn_sumbitRet">提交修改</a><div class="clear"></div>
+        <a class="btn_submitOrder btn_prevPage" href="../marketcontroller/showSideDish">回到上页</a>
+        <button style="border:none;" class="btn_submitOrder btn_sumbitRet">提交修改</button>
+        <div class="clear"></div>
     </div>
 </form>
 </body>

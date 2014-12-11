@@ -72,4 +72,47 @@ class Userlogincontroller extends MY_Controller{
         }
         echo "Please input phone number";
     }
+
+    /*
+     * change vip pay password
+     */
+    public function showChangePassword(){
+        $this->load->view('changePassword');
+    }
+    /*
+     * using input phone number, old password and new password
+     * to change vip user's old password
+     */
+    public function changePassword(){
+        if(!empty($_POST['phoneNumber'])&&!empty($_POST['oldPassword'])&&!empty($_POST['newPassword'])){
+            //get posted data
+            $phoneNumber = $this->input->post('phoneNumber');
+            $oldPassword = $this->input->post('oldPassword');
+            $newPassword = $this->input->post('newPassword');
+
+            $this->load->model('user');
+            $vipUser = $this->user->oldUser($_SESSION['uid']);
+            if($phoneNumber==$vipUser->uphone){ // user entered his account related phone number
+                $this->load->model('market');
+                $vipCard = $this->market->getVipCard($vipUser->vipid);
+
+                // user entered right old password
+                if($oldPassword==$vipCard->vpassword){
+                    // entered new password is not same with the old one
+                    if($newPassword!=$vipCard->vpassword){
+                        $this->market->updatePassword($vipUser->vipid,$newPassword);
+                        return redirect('marketcontroller/showSideDish');
+                    }
+                    echo "Please do not enter same password";
+                    return false;
+                }
+                echo "Wrong Password";
+                return false;
+            }
+            echo "Not your Phone Number!";
+            return false;
+        }
+        echo "Please fulfill all blanks!";
+        return false;
+    }
 }
