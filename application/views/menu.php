@@ -86,7 +86,7 @@
     <div class="layer_summary">
         <p>对不起，已经超过<span class="sorry">0:00了哦，你可以</span></p>
         <ul>
-            <li><a class="btn_again">A加入会员延长订餐时间</a></li>
+            <li><a class="btn_again" href="../userlogincontroller/showVipLogin">A加入会员延长订餐时间</a></li>
             <li><a class="btn_again">B明天中午12:00后再订餐</a></li>
         </ul>
     </div>
