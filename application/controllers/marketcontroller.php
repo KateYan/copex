@@ -241,51 +241,75 @@ class Marketcontroller extends MY_Controller{
      * generate order for vipuser
      */
     public function vipOrderGenerate(){
-        // check if user typed in password or not
-        if(!empty($_POST['password'])){  // user did enter password
-            $uid = $_SESSION['uid'];
-            $odate = date('Y-m-d');
-            $this->load->model('order');
+        // if in order time-range then generate vip order
+        if($this->testTime()){
+            // check if user typed in password or not
+            if(!empty($_POST['password'])){  // user did enter password
+                $uid = $_SESSION['uid'];
+                $odate = date('Y-m-d');
+                $this->load->model('order');
 
-            //1. check if the password is match or not by market moder's method validatePassword()
-            $this->load->model('market');
-            $password = $this->market->validatePassword($_SESSION['vipid'],$this->input->post('password'));
-            if($password){
-                // check if the balance is enouth to pay for all the dishes just ordered
-                if($_SESSION['balance']>=$_SESSION['totalcost']){ //user will use vipcard to pay for the order
-                    // create new vip order for user
-                    $this->load->model('order');
-                    $ispaid ='1';
-                    $balance = $_SESSION['balance'] - $_SESSION['totalcost'];
-                    $order = $this->order->vipOrder($uid,$_SESSION['cid'],$odate,$_SESSION['foodList'],$_SESSION['sideDishList'],$_SESSION['totalcost'],$ispaid,$balance);
-                }else{
-                    echo "not enough balance!!!";//balance is not enough to pay
+                //1. check if the password is match or not by market moder's method validatePassword()
+                $this->load->model('market');
+                $password = $this->market->validatePassword($_SESSION['vipid'],$this->input->post('password'));
+                if($password){
+                    // check if the balance is enouth to pay for all the dishes just ordered
+                    if($_SESSION['balance']>=$_SESSION['totalcost']){ //user will use vipcard to pay for the order
+                        // create new vip order for user
+                        $this->load->model('order');
+                        $ispaid ='1';
+                        $balance = $_SESSION['balance'] - $_SESSION['totalcost'];
+                        $order = $this->order->vipOrder($uid,$_SESSION['cid'],$odate,$_SESSION['foodList'],$_SESSION['sideDishList'],$_SESSION['totalcost'],$ispaid,$balance);
+                    }else{
+                        echo "not enough balance!!!";//balance is not enough to pay
+                        return false;
+                    }
+                } else{
+                    echo "password error!";//entered not matched password
                     return false;
                 }
-            } else{
-                echo "password error!";//entered not matched password
-                return false;
+                // get order's number and date for showing order page
+                $data['orderNumber'] = $order->oid;
+                $data['date'] = $order->odate;
+
+                // get campus address using session['cid]
+                $this->load->model('market');
+                $campus = $this->market->getCampusById($order->cid);
+                $data['address'] = $campus->caddr;
+
+                // get user's pickup time range by getting an rule object
+                // from 'rules' class using it's name and date
+                $this->load->model('rules');
+                $pickupRule = $this->rules->getPickupTime('vipPickupTime',$data['date']);
+                $data['timestart'] = $pickupRule->timestart;
+                $data['timeend'] = $pickupRule->timeend;
+
+                $this->load->view('ordersuccess',$data);
+                return true;
             }
-            // get order's number and date for showing order page
-            $data['orderNumber'] = $order->oid;
-            $data['date'] = $order->odate;
-
-            // get campus address using session['cid]
-            $this->load->model('market');
-            $campus = $this->market->getCampusById($order->cid);
-            $data['address'] = $campus->caddr;
-
-            // get user's pickup time range by getting an rule object
-            // from 'rules' class using it's name and date
-            $this->load->model('rules');
-            $pickupRule = $this->rules->getPickupTime('vipPickupTime',$data['date']);
-            $data['timestart'] = $pickupRule->timestart;
-            $data['timeend'] = $pickupRule->timeend;
-
-            $this->load->view('ordersuccess',$data);
-            return true;
+            return redirect('marketcontroller/showSideDish');
         }
-        return redirect('marketcontroller/showSideDish');
+
+        // out of order time range, then load timeout page
+        $this->load->view('timeout');
+
+    }
+
+
+    /*
+     * time check for user order dishes
+     */
+    public function testTime(){
+        $time = time(); //get timestamp for check if still in order time-range
+
+        // get order timerange from database
+
+        // if in order time-range return true, else return false
+//        if($time>=$starttime&&$time<=$endtime){
+//            return ture;
+//        }return false;
+
+        return true;
     }
 
 }
