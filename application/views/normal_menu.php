@@ -76,8 +76,8 @@
 </div>
 <footer id="Footer">
     <div class="dinnerS_fMain">
-        <input type="tel" class="telephone" name="uphone" placeholder="输入手机号" value="<?php echo $uphone; ?>" />
-        <button class="btn_submitOrder btn_nowOrder">立刻下单</button>
+        <input type="tel" class="telephone" name="uphone" placeholder="请输入手机号" value="<?php echo $uphone; ?>" />
+        <button class="btn_submitOrder btn_nowOrder" style="border:none;">立刻下单</button>
     </div>
 </footer>
 <div class="layer">

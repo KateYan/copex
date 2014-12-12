@@ -210,30 +210,42 @@ class Marketcontroller extends MY_Controller{
      * generate order for non-vip user
      */
     public function orderGenerate(){
-        $uid = $_SESSION['uid'];
-        $odate = date('Y-m-d');
+        // if user didn't enter phonenumber or choose a dish befor making an order
+        // order won't be generated
+        if(empty($_POST['uphone'])||empty($_POST['fid'])) {
 
-        $this->load->model('order');
+            return redirect('marketcontroller/showDailyMenu');
+        }else{
+            // get posted user's  phone number
+            // no matter used had a phone number before or not
+            // this will be used to update user's account's related phone number
+            $uphone = $this->input->post('uphone');
+            $orderItemId = $this->input->post('fid');
 
-        $orderItemId = $this->input->post('fid');
-        $order = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$orderItemId);
+            $uid = $_SESSION['uid'];
+            $odate = date('Y-m-d');
 
-        $data['orderNumber'] = $order->oid;
-        $data['date'] = $order->odate;
+            $this->load->model('order');
+            $order = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$orderItemId,$uphone);
 
-        // get campus address using session['cid]
-        $this->load->model('market');
-        $campus = $this->market->getCampusById($order->cid);
-        $data['address'] = $campus->caddr;
+            $data['orderNumber'] = $order->oid;
+            $data['date'] = $order->odate;
 
-        // get user's pickup time range by getting an rule object
-        // from 'rules' class using it's name and date
-        $this->load->model('rules');
-        $pickupRule = $this->rules->getPickupTime('pickupTime',$data['date']);
-        $data['timestart'] = $pickupRule->timestart;
-        $data['timeend'] = $pickupRule->timeend;
+            // get campus address using session['cid]
+            $this->load->model('market');
+            $campus = $this->market->getCampusById($order->cid);
+            $data['address'] = $campus->caddr;
 
-        $this->load->view('ordersuccess',$data);
+            // get user's pickup time range by getting an rule object
+            // from 'rules' class using it's name and date
+            $this->load->model('rules');
+            $pickupRule = $this->rules->getPickupTime('pickupTime',$data['date']);
+            $data['timestart'] = $pickupRule->timestart;
+            $data['timeend'] = $pickupRule->timeend;
+
+            $this->load->view('ordersuccess',$data);
+            return true;
+        }
     }
 
 

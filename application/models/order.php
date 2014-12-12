@@ -58,7 +58,7 @@ class Order extends CI_Model {
     /*
      * using userid, date, and the foodid the user chosed to create order for non-vip user
      */
-    public function userOrder($uid,$cid,$odate,$orderItemId){
+    public function userOrder($uid,$cid,$odate,$orderItemId,$uphone){
         // set order object's properties' known values
         $this->uid = $uid;
         $this->cid = $cid;
@@ -91,8 +91,8 @@ class Order extends CI_Model {
         $sqlCost = "UPDATE `order` SET `totalcost`='".$this->totalcost."' WHERE `oid`='".$this->oid."'";
         $this->db->query($sqlCost);
 
-        // update the user's order-status into '1'
-        $sqlOrdered = "UPDATE user SET ordered = '1' WHERE uid = '".$this->uid."'";
+        // update the user's order-status into '1' and his phone number into new entered phone number
+        $sqlOrdered = "UPDATE user SET ordered = '1' AND uphone='".$uphone."' WHERE uid = '".$this->uid."'";
         $this->db->query($sqlOrdered);
 
         return $this;
