@@ -12,11 +12,11 @@ a{ color:#666; text-decoration:none;}
 body{ font-size:15px; font-family: arial, Microsoft YaHei, Microsoft YaHei, Apple LiSung Light; color:#666;}
 input{ outline:none; border:none;}
 /* header */
-#Header{ text-align:center; color:#fff; background-color:#ff885f; border-bottom:1px solid #f37c53; line-height:44px; height:44px; font-size:18px;}
+#main_title{ text-align:center; color:#fff; background-color:#ff885f; border-bottom:1px solid #f37c53; line-height:44px; height:44px; font-size:18px;}
 #Contenter{ border-top:1px solid #e3e3e3;}
 #Footer{padding:8px 0; position:fixed; bottom:0; left:0; width:100%; height:33px; z-index:1; line-height:33px; background-color:#fcfaf5;}
 /* btn */
-.btn_submitOrder{ width:100px; height:33px; line-height:33px; text-align:center; font-size:14px; color:#fff; background-color:#ff885f; border-radius:5px; float:right; box-shadow:-1px -3px 3px rgba(229, 99, 55, 0.4) inset }
+.btn_submitOrder{ /* width:100px; */ /* height:33px; */ line-height: 18px; text-align:center; font-size:14px; color:#fff; background-color:#ff885f; border-radius: 5px; float:right; box-shadow: -1px -2px 1px rgba(229, 99, 55, 0.4) inset; padding: 6px;}
 .btn_submitOrder:active{ background-color:#ff6540; box-shadow:-1px -3px 3px rgba(161, 81, 56, 0.4) inset }
 /* layer */
 .layer{ position:fixed; left:0; top:0; width:100%; height:100%; display:none; z-index:2}

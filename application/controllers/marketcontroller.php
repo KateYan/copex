@@ -55,7 +55,7 @@ class Marketcontroller extends MY_Controller{
             $this->load->view('vipmenu',$data);
             return false;
         }
-        $this->load->view('menu',$data);
+        $this->load->view('normal_menu',$data);
     }
 
     /*

@@ -17,7 +17,7 @@
 </head>
 
 <body>
-<header id="Header"><?php echo $date; ?> 午餐菜单</header>
+<header id="main_title"><?php echo $date; ?> 午餐菜单</header>
 <?php
     $attributes = array('class'=>'formcontrol', 'id'=>'menuItem');
     echo form_open('marketcontroller/orderGenerate',$attributes);
@@ -36,7 +36,7 @@
     echo '<input type="radio" id="recomdItem" name="fid" value="'.$recomdItem->fid.'">';
     echo '<label for="recomdItem">';
     echo '<div class="manaRecom_menu">';
-    echo ' <img src="'.$recomdItem->fpicture.'" width="100%" height="100%" alt>';
+    echo ' <img src="'.$recomdItem->fpicture.'" width="100%" >';
     ?>
         <ul>
             <li><?php echo $recomdItem->fname;?><i class="borderWidth"></i></li>
@@ -50,21 +50,20 @@
     <div class="tdySal_menu">
         <?php
             foreach($saleItem as $sale){
-                echo '<div class="tdyS_m_block">';
                 /* add food's id sending element-><input>
                  * and add a label for it, so once the input is checked
                  * the border of label will pop out to high light which food
                  * the user just chose
                  */
-                echo '<input type="radio" id="'.$sale->fid.'" name="fid" value="'.$sale->fid.'">';
-                echo '<label for="'.$sale->fid.'">';
+                echo '<div class="tdySal_menu_item"><input type="radio" id="'.$sale->fid.'" name="fid" value="'.$sale->fid.'">';
+                echo '<label class="tdyS_m_block" for="'.$sale->fid.'">';
                 echo '<span class="tdyS_m_img">';
                 echo '<img src="';
-                echo $sale->fpicture.'" width="100%" height="100%">';
-                echo '<span class="menu_title">'.$sale->fname.'</span>';
+                echo $sale->fpicture.'" width="100%">';
                 echo '</span>';
-                echo '</label>';
-                echo '</div>';
+                echo '<span class="menu_title">'.$sale->fname.'</span>';
+                echo '</label> </div>';
+
             }
         ?>
         <div class="clear"></div>
