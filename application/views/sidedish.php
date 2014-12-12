@@ -18,17 +18,23 @@
 <body>
 <header id="Header">四款精选小食</header>
 <div id="Contenter" class="selectedDinner">
+    <form action="marketcontroller/showSideDish" method="post">
     <ul class="menu_list">
         <?php
-        foreach($sideDish as $sideItem){
-            echo '<li><span class="menuD_img"><img src="';
-            echo $sideItem->spicture;
-            echo '" width="100%" height="100%" /></span>';
-            echo '<span class="menuD_title">'.$sideItem->sname.'</span>';
-            echo '<span class="menuD_price">$'.$sideItem->sprice.'</span></li>';
+        $num = count($sideDish);
+        for($i=0;$i<$num;$i++){
+            echo '<li>';
+            echo '<input type="radio" id="'.$sideDish[$i]->sid.'" name="sid'.$i.'" style="display:none;">';
+            echo '<label for="'.$sideDish[$i]->sid.'">';
+            echo '<span class="menuD_img"><img src="';
+            echo $sideDish[$i]->spicture;
+            echo '" width="100%" height="100%" /></span></label>';
+            echo '<span class="menuD_title">'.$sideDish[$i]->sname.'</span>';
+            echo '<span class="menuD_price">$'.$sideDish[$i]->sprice.'</span></li>';
         }
         ?>
     </ul>
+    </form>
 
     <ul class="memu_accout">
         <div class="menu_list_li">

@@ -101,11 +101,8 @@ class Marketcontroller extends MY_Controller{
         if(true){
             $fid2 = '10001';
             $amount2 = '1';
-
             $cost2 = $_SESSION['food2-price']  * $amount2;
-
             $food2 = array('name'=>$_SESSION['food2-name'],'qty'=>$amount2,'cost'=>$cost2);
-
             $totalcost+=$cost2;
             for($i = 0;$i<$amount2;$i++){
                 $foodList[] = $fid2;
@@ -117,11 +114,8 @@ class Marketcontroller extends MY_Controller{
         if(isset($_POST['fid3'])){
             $fid3 = $this->input->post('fid3');
             $amount3 = $this->input->post('amount3');
-
             $cost3 = $_SESSION['food3-price']  * $amount3;
-
             $food3 = array('name'=>$_SESSION['food3-name'],'qty'=>$amount3,'cost'=>$cost3);
-
             $totalcost+=$cost3;
             for($i = 0;$i<$amount3;$i++){
                 $foodList[] = $fid3;
@@ -152,9 +146,7 @@ class Marketcontroller extends MY_Controller{
 
         if(isset($_POST['sid2'])){// for second side dish
             $sid2 = $this->input->post('sid2');
-
             $sidedish2 = array('name'=>$_SESSION['sidedish2']->sname,'qty'=>'1','cost'=>$_SESSION['sidedish2']->sprice);
-
             $sideDishList[] = $sid2;
             $data['orderedDishes'][] = $sidedish2;
             $totalcost+=$_SESSION['sidedish2']->sprice;
@@ -162,9 +154,7 @@ class Marketcontroller extends MY_Controller{
 
         if(isset($_POST['sid3'])){// for third side dish
             $sid3 = $this->input->post('sid3');
-
             $sidedish3 = array('name'=>$_SESSION['sidedish3']->sname,'qty'=>'1','cost'=>$_SESSION['sidedish3']->sprice);
-
             $sideDishList[] = $sid3;
             $data['orderedDishes'][] = $sidedish3;
             $totalcost+=$_SESSION['sidedish3']->sprice;
@@ -172,9 +162,7 @@ class Marketcontroller extends MY_Controller{
 
         if(isset($_POST['sid4'])){// for third side dish
             $sid4 = $this->input->post('sid4');
-
             $sidedish4 = array('name'=>$_SESSION['sidedish4']->sname,'qty'=>'1','cost'=>$_SESSION['sidedish4']->sprice);
-
             $sideDishList[] = $sid4;
             $data['orderedDishes'][] = $sidedish4;
             $totalcost+=$_SESSION['sidedish4']->sprice;
