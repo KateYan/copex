@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2014 at 01:47 AM
--- Server version: 5.6.17
+-- Generation Time: 2014-12-13 19:15:43
+-- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -19,11 +19,35 @@ SET time_zone = "+00:00";
 --
 -- Database: `copex`
 --
+
 use copex;
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `basicrule`
+-- 表的结构 `basic`
+--
+
+CREATE TABLE IF NOT EXISTS `basic` (
+  `key` varchar(50) NOT NULL,
+  `value` varchar(100) NOT NULL,
+  PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `basic`
+--
+
+INSERT INTO `basic` (`key`, `value`) VALUES
+('user_pickup_end', '13:30:00'),
+('user_pickup_start', '11:30:00'),
+('vip_pickup_end', '14:00:00'),
+('vip_pickup_start', '11:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `basicrule`
 --
 
 CREATE TABLE IF NOT EXISTS `basicrule` (
@@ -31,23 +55,22 @@ CREATE TABLE IF NOT EXISTS `basicrule` (
   `rulename` varchar(20) NOT NULL,
   `timestart` time NOT NULL,
   `timeend` time NOT NULL,
-  `date` date NOT NULL,
   `risvip` tinyint(1) NOT NULL,
   PRIMARY KEY (`ruleid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16182 ;
 
 --
--- Dumping data for table `basicrule`
+-- 转存表中的数据 `basicrule`
 --
 
-INSERT INTO `basicrule` (`ruleid`, `rulename`, `timestart`, `timeend`, `date`, `risvip`) VALUES
-(16180, 'pickupTime', '11:30:00', '13:30:00', '2014-12-12', 0),
-(16181, 'vipPickupTime', '11:00:00', '14:00:00', '2014-12-12', 1);
+INSERT INTO `basicrule` (`ruleid`, `rulename`, `timestart`, `timeend`, `risvip`) VALUES
+(16180, 'pickupTime', '11:30:00', '13:30:00', 0),
+(16181, 'vipPickupTime', '11:00:00', '14:00:00', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `campus`
+-- 表的结构 `campus`
 --
 
 CREATE TABLE IF NOT EXISTS `campus` (
@@ -58,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `campus` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10005 ;
 
 --
--- Dumping data for table `campus`
+-- 转存表中的数据 `campus`
 --
 
 INSERT INTO `campus` (`cid`, `cname`, `caddr`) VALUES
@@ -70,7 +93,7 @@ INSERT INTO `campus` (`cid`, `cname`, `caddr`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `coperationline`
+-- 表的结构 `coperationline`
 --
 
 CREATE TABLE IF NOT EXISTS `coperationline` (
@@ -83,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `coperationline` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10007 ;
 
 --
--- Dumping data for table `coperationline`
+-- 转存表中的数据 `coperationline`
 --
 
 INSERT INTO `coperationline` (`lineid`, `cid`, `did`) VALUES
@@ -96,7 +119,7 @@ INSERT INTO `coperationline` (`lineid`, `cid`, `did`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dailymenu`
+-- 表的结构 `dailymenu`
 --
 
 CREATE TABLE IF NOT EXISTS `dailymenu` (
@@ -110,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `dailymenu` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10013 ;
 
 --
--- Dumping data for table `dailymenu`
+-- 转存表中的数据 `dailymenu`
 --
 
 INSERT INTO `dailymenu` (`mid`, `cid`, `mdate`, `mstatus`) VALUES
@@ -130,7 +153,7 @@ INSERT INTO `dailymenu` (`mid`, `cid`, `mdate`, `mstatus`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `diner`
+-- 表的结构 `diner`
 --
 
 CREATE TABLE IF NOT EXISTS `diner` (
@@ -143,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `diner` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10003 ;
 
 --
--- Dumping data for table `diner`
+-- 转存表中的数据 `diner`
 --
 
 INSERT INTO `diner` (`did`, `dname`, `daddr`, `demail`, `dphone`) VALUES
@@ -153,7 +176,7 @@ INSERT INTO `diner` (`did`, `dname`, `daddr`, `demail`, `dphone`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `food`
+-- 表的结构 `food`
 --
 
 CREATE TABLE IF NOT EXISTS `food` (
@@ -168,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `food` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10005 ;
 
 --
--- Dumping data for table `food`
+-- 转存表中的数据 `food`
 --
 
 INSERT INTO `food` (`fid`, `did`, `fname`, `fdes`, `fprice`, `fpicture`) VALUES
@@ -180,7 +203,7 @@ INSERT INTO `food` (`fid`, `did`, `fname`, `fdes`, `fprice`, `fpicture`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `menuitem`
+-- 表的结构 `menuitem`
 --
 
 CREATE TABLE IF NOT EXISTS `menuitem` (
@@ -195,7 +218,7 @@ CREATE TABLE IF NOT EXISTS `menuitem` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10043 ;
 
 --
--- Dumping data for table `menuitem`
+-- 转存表中的数据 `menuitem`
 --
 
 INSERT INTO `menuitem` (`mitemid`, `fid`, `mid`, `isrecomd`) VALUES
@@ -239,7 +262,7 @@ INSERT INTO `menuitem` (`mitemid`, `fid`, `mid`, `isrecomd`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order`
+-- 表的结构 `order`
 --
 
 CREATE TABLE IF NOT EXISTS `order` (
@@ -256,7 +279,7 @@ CREATE TABLE IF NOT EXISTS `order` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2753526 ;
 
 --
--- Dumping data for table `order`
+-- 转存表中的数据 `order`
 --
 
 INSERT INTO `order` (`oid`, `uid`, `cid`, `odate`, `ostatus`, `oispaid`, `totalcost`) VALUES
@@ -324,7 +347,7 @@ INSERT INTO `order` (`oid`, `uid`, `cid`, `odate`, `ostatus`, `oispaid`, `totalc
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orderitem`
+-- 表的结构 `orderitem`
 --
 
 CREATE TABLE IF NOT EXISTS `orderitem` (
@@ -337,7 +360,7 @@ CREATE TABLE IF NOT EXISTS `orderitem` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10125 ;
 
 --
--- Dumping data for table `orderitem`
+-- 转存表中的数据 `orderitem`
 --
 
 INSERT INTO `orderitem` (`oitemid`, `oid`, `dishid`, `dishtype`) VALUES
@@ -440,7 +463,7 @@ INSERT INTO `orderitem` (`oitemid`, `oid`, `dishid`, `dishtype`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sidedish`
+-- 表的结构 `sidedish`
 --
 
 CREATE TABLE IF NOT EXISTS `sidedish` (
@@ -455,7 +478,7 @@ CREATE TABLE IF NOT EXISTS `sidedish` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10005 ;
 
 --
--- Dumping data for table `sidedish`
+-- 转存表中的数据 `sidedish`
 --
 
 INSERT INTO `sidedish` (`sid`, `did`, `sname`, `sdes`, `sprice`, `spicture`) VALUES
@@ -467,7 +490,7 @@ INSERT INTO `sidedish` (`sid`, `did`, `sname`, `sdes`, `sprice`, `spicture`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sidemenu`
+-- 表的结构 `sidemenu`
 --
 
 CREATE TABLE IF NOT EXISTS `sidemenu` (
@@ -480,7 +503,7 @@ CREATE TABLE IF NOT EXISTS `sidemenu` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10006 ;
 
 --
--- Dumping data for table `sidemenu`
+-- 转存表中的数据 `sidemenu`
 --
 
 INSERT INTO `sidemenu` (`sideMenuID`, `cid`, `sideMenuDate`, `sideMenuStatus`) VALUES
@@ -492,7 +515,7 @@ INSERT INTO `sidemenu` (`sideMenuID`, `cid`, `sideMenuDate`, `sideMenuStatus`) V
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sidemenuitem`
+-- 表的结构 `sidemenuitem`
 --
 
 CREATE TABLE IF NOT EXISTS `sidemenuitem` (
@@ -505,7 +528,7 @@ CREATE TABLE IF NOT EXISTS `sidemenuitem` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
--- Dumping data for table `sidemenuitem`
+-- 转存表中的数据 `sidemenuitem`
 --
 
 INSERT INTO `sidemenuitem` (`sideItemID`, `sid`, `sideMenuID`) VALUES
@@ -529,7 +552,7 @@ INSERT INTO `sidemenuitem` (`sideItemID`, `sid`, `sideMenuID`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- 表的结构 `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
@@ -548,51 +571,51 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10215 ;
 
 --
--- Dumping data for table `user`
+-- 转存表中的数据 `user`
 --
 
-INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `created`, `last_login`) VALUES
-(10151, 10004, NULL, NULL, '3a538bb5f530c15cce7e6b840645000fc8697a194532812a19652710a8ef5509', '::1', 0, '2014-12-06 05:37:16', '2014-12-12 21:06:58'),
-(10152, 10002, 10006, NULL, '1195b4cdc64e4e248ff388680d34774a10e40a5facff17681a8a645d8434bf7c', '::1', 0, '2014-12-06 20:58:25', '2014-12-12 21:06:58'),
-(10153, 10004, 10009, NULL, '50c7071738f9d9ce3ad497f2ee444a2b52653aa75572c1636d6b7f4cf8c7ecb5', '::1', 0, '2014-12-06 22:41:50', '2014-12-12 21:06:58'),
-(10163, 10004, NULL, NULL, 'ce7772fd360297e9f0455ca7bb4ac784a8e83c97186471bdb8837a024f2a5f5e', '::1', 0, '2014-12-07 02:34:41', '2014-12-12 21:06:58'),
-(10164, 10004, NULL, NULL, 'e5b862407ff79f180276e1f6dddbcdd6823dfe32c6342aae6d89edd6a3427e89', '::1', 0, '2014-12-07 02:39:39', '2014-12-12 21:06:58'),
-(10166, 10004, 10010, NULL, '2f19e1106c94fcd552cbd8f4c354bf7c463715dd7b07b0359272ec47b22fcda0', '::1', 0, '2014-12-07 02:59:41', '2014-12-12 21:06:58'),
-(10167, 10002, NULL, NULL, '6d19021e3fcd8075eac58f7d78d7e275e0d8a6ad4febe883af4364a288155273', '::1', 0, '2014-12-07 16:30:18', '2014-12-12 21:06:58'),
-(10168, 10002, NULL, NULL, '65db06b543a510cc1c7d4ec5bab2add717070f55775d457af4a2bdcf5efdccdc', '::1', 0, '2014-12-07 23:02:04', '2014-12-12 21:06:58'),
-(10169, 10004, NULL, NULL, 'ac5d499580e05f70dc2d6e1ef4d970b8e1502b8468a3a17ed1f5eab02f5a00dd', '::1', 0, '2014-12-07 23:56:02', '2014-12-12 21:06:58'),
-(10170, 10001, NULL, NULL, 'e941ce2cfbfe77a7edcff4a19dd65db92bdf47f1f6d1804f3b80d25280f35509', '::1', 0, '2014-12-08 01:07:45', '2014-12-12 21:06:58'),
-(10171, 10003, NULL, NULL, 'a67debf9b55d648530627997abf54d0d6a30926b0946833d0a612e777801a886', '::1', 0, '2014-12-08 01:27:24', '2014-12-12 21:06:58'),
-(10172, 10002, NULL, NULL, 'bc439d9d676688e9d5e563039474a9830992af172b682bcff339da0699c4534d', '::1', 0, '2014-12-08 01:30:29', '2014-12-12 21:06:58'),
-(10173, 10002, NULL, NULL, '08393c4e8ba73a1b14f0cfbbe489d708c5566259170ea85ebaa7920f03ce9361', '::1', 0, '2014-12-08 01:31:58', '2014-12-12 21:06:58'),
-(10174, 10002, NULL, NULL, '271b3f1de56770a20d8c8a25e4ec16bed58deb805fee1f90f852ce1a18bac40c', '::1', 0, '2014-12-08 01:32:28', '2014-12-12 21:06:58'),
-(10175, 10002, NULL, NULL, '1418976f52fa9512ffaecb0ab43c351d3543d2411444d45b86ef237cfcad1d15', '::1', 0, '2014-12-08 01:35:08', '2014-12-12 21:06:58'),
-(10176, 10002, NULL, NULL, '4394ca83de46028cce19b586b1a3d7fef635d4ebd50c9c7fcec74b4ab1377a95', '::1', 1, '2014-12-08 05:59:14', '2014-12-12 21:06:58'),
-(10177, 10001, NULL, NULL, 'a54a878797df75406d98c00d107499f0ef7f54c02e7951e9fcf812533ee33126', '::1', 1, '2014-12-08 06:11:55', '2014-12-12 21:06:58'),
-(10178, 10001, NULL, NULL, '4e1a67348631f82e22bcf8a1cbfe252a9cc2bc9a7df10e6b290cfe1b1189f6f8', '::1', 1, '2014-12-08 06:13:48', '2014-12-12 21:06:58'),
-(10179, 10001, 10101, NULL, 'c9638f6f221a6be6fe46745bfe9edb4436784c08647da00cf65a8951b4fc69e4', '::1', 0, '2014-12-08 19:41:19', '2014-12-12 21:06:58'),
-(10180, 10002, NULL, NULL, 'af6f2b93ebf8b416e004d711a6e01baf26b8bb11df244b357eba1fa7ddf4f706', '::1', 1, '2014-12-09 06:16:08', '2014-12-12 21:06:58'),
-(10181, 10003, NULL, NULL, '9dff5b1b71330496432ff39cc992fa64ec35c3be581bb8f511958b52b8eb60a5', '::1', 1, '2014-12-09 07:11:29', '2014-12-12 21:06:58'),
-(10182, 10004, NULL, NULL, 'e187c25df3c7f7fc821573da81d32a1b196216912ad6c4c8c597a5e1bea31421', '::1', 1, '2014-12-09 07:21:40', '2014-12-12 21:06:58'),
-(10184, 10003, 10141, NULL, 'c39eb1e187b03d280bb82a422622e1d5f322d5415ea0a8e053ea78cb2e0c11b8', '::1', 1, '2014-12-10 03:29:29', '2014-12-12 21:06:58'),
-(10185, 10004, 10142, '6131231234', '208795b584c83f3bae579f721868d1cbd4884783362387f95f50e35f810a3f50', '::1', 1, '2014-12-10 15:38:21', '2014-12-13 00:07:45'),
-(10203, 10002, NULL, NULL, '8726ad15a3cff1ff4ae283263c66ebffccc750bec91e8755cc493632af0b7eda', '::1', 0, '2014-12-11 00:56:29', '2014-12-12 21:06:58'),
-(10204, 10002, NULL, NULL, 'c38fcbd1b472f52a1d4687f428f0eb24b9b75c76a6176f68012ee8cccfe95e14', '::1', 0, '2014-12-11 00:57:05', '2014-12-12 21:06:58'),
-(10205, 10003, NULL, NULL, 'b7da29ad6ad3d9766b61b60eefe32518f6ef8dafc50d86633e456c9f4c89639f', '::1', 0, '2014-12-11 01:21:46', '2014-12-12 21:06:58'),
-(10206, 10004, NULL, NULL, '123c551bc0603235e4caa45bd89e6934ac67cff416c2bcac9bcfb0777762e24a', '::1', 0, '2014-12-11 20:03:09', '2014-12-12 21:06:58'),
-(10207, 10003, NULL, NULL, '8fe37e80692f22c6ffdaff4ee61bddf213811ccd801d658521ad67187a209c3e', '::1', NULL, '2014-12-12 19:28:51', '2014-12-12 21:06:58'),
+INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `last_login`, `created`) VALUES
+(10151, 10004, NULL, NULL, '3a538bb5f530c15cce7e6b840645000fc8697a194532812a19652710a8ef5509', '::1', 0, '2014-12-12 21:06:58', '2014-12-06 05:37:16'),
+(10152, 10002, 10006, NULL, '1195b4cdc64e4e248ff388680d34774a10e40a5facff17681a8a645d8434bf7c', '::1', 0, '2014-12-12 21:06:58', '2014-12-06 20:58:25'),
+(10153, 10004, 10009, NULL, '50c7071738f9d9ce3ad497f2ee444a2b52653aa75572c1636d6b7f4cf8c7ecb5', '::1', 0, '2014-12-12 21:06:58', '2014-12-06 22:41:50'),
+(10163, 10004, NULL, NULL, 'ce7772fd360297e9f0455ca7bb4ac784a8e83c97186471bdb8837a024f2a5f5e', '::1', 0, '2014-12-12 21:06:58', '2014-12-07 02:34:41'),
+(10164, 10004, NULL, NULL, 'e5b862407ff79f180276e1f6dddbcdd6823dfe32c6342aae6d89edd6a3427e89', '::1', 0, '2014-12-12 21:06:58', '2014-12-07 02:39:39'),
+(10166, 10004, 10010, NULL, '2f19e1106c94fcd552cbd8f4c354bf7c463715dd7b07b0359272ec47b22fcda0', '::1', 0, '2014-12-12 21:06:58', '2014-12-07 02:59:41'),
+(10167, 10002, NULL, NULL, '6d19021e3fcd8075eac58f7d78d7e275e0d8a6ad4febe883af4364a288155273', '::1', 0, '2014-12-12 21:06:58', '2014-12-07 16:30:18'),
+(10168, 10002, NULL, NULL, '65db06b543a510cc1c7d4ec5bab2add717070f55775d457af4a2bdcf5efdccdc', '::1', 0, '2014-12-12 21:06:58', '2014-12-07 23:02:04'),
+(10169, 10004, NULL, NULL, 'ac5d499580e05f70dc2d6e1ef4d970b8e1502b8468a3a17ed1f5eab02f5a00dd', '::1', 0, '2014-12-12 21:06:58', '2014-12-07 23:56:02'),
+(10170, 10001, NULL, NULL, 'e941ce2cfbfe77a7edcff4a19dd65db92bdf47f1f6d1804f3b80d25280f35509', '::1', 0, '2014-12-12 21:06:58', '2014-12-08 01:07:45'),
+(10171, 10003, NULL, NULL, 'a67debf9b55d648530627997abf54d0d6a30926b0946833d0a612e777801a886', '::1', 0, '2014-12-12 21:06:58', '2014-12-08 01:27:24'),
+(10172, 10002, NULL, NULL, 'bc439d9d676688e9d5e563039474a9830992af172b682bcff339da0699c4534d', '::1', 0, '2014-12-12 21:06:58', '2014-12-08 01:30:29'),
+(10173, 10002, NULL, NULL, '08393c4e8ba73a1b14f0cfbbe489d708c5566259170ea85ebaa7920f03ce9361', '::1', 0, '2014-12-12 21:06:58', '2014-12-08 01:31:58'),
+(10174, 10002, NULL, NULL, '271b3f1de56770a20d8c8a25e4ec16bed58deb805fee1f90f852ce1a18bac40c', '::1', 0, '2014-12-12 21:06:58', '2014-12-08 01:32:28'),
+(10175, 10002, NULL, NULL, '1418976f52fa9512ffaecb0ab43c351d3543d2411444d45b86ef237cfcad1d15', '::1', 0, '2014-12-12 21:06:58', '2014-12-08 01:35:08'),
+(10176, 10002, NULL, NULL, '4394ca83de46028cce19b586b1a3d7fef635d4ebd50c9c7fcec74b4ab1377a95', '::1', 1, '2014-12-12 21:06:58', '2014-12-08 05:59:14'),
+(10177, 10001, NULL, NULL, 'a54a878797df75406d98c00d107499f0ef7f54c02e7951e9fcf812533ee33126', '::1', 1, '2014-12-12 21:06:58', '2014-12-08 06:11:55'),
+(10178, 10001, NULL, NULL, '4e1a67348631f82e22bcf8a1cbfe252a9cc2bc9a7df10e6b290cfe1b1189f6f8', '::1', 1, '2014-12-12 21:06:58', '2014-12-08 06:13:48'),
+(10179, 10001, 10101, NULL, 'c9638f6f221a6be6fe46745bfe9edb4436784c08647da00cf65a8951b4fc69e4', '::1', 0, '2014-12-12 21:06:58', '2014-12-08 19:41:19'),
+(10180, 10002, NULL, NULL, 'af6f2b93ebf8b416e004d711a6e01baf26b8bb11df244b357eba1fa7ddf4f706', '::1', 1, '2014-12-12 21:06:58', '2014-12-09 06:16:08'),
+(10181, 10003, NULL, NULL, '9dff5b1b71330496432ff39cc992fa64ec35c3be581bb8f511958b52b8eb60a5', '::1', 1, '2014-12-12 21:06:58', '2014-12-09 07:11:29'),
+(10182, 10004, NULL, NULL, 'e187c25df3c7f7fc821573da81d32a1b196216912ad6c4c8c597a5e1bea31421', '::1', 1, '2014-12-12 21:06:58', '2014-12-09 07:21:40'),
+(10184, 10003, 10141, NULL, 'c39eb1e187b03d280bb82a422622e1d5f322d5415ea0a8e053ea78cb2e0c11b8', '::1', 1, '2014-12-12 21:06:58', '2014-12-10 03:29:29'),
+(10185, 10004, 10142, '6131231234', '208795b584c83f3bae579f721868d1cbd4884783362387f95f50e35f810a3f50', '::1', 1, '2014-12-13 17:40:58', '2014-12-10 15:38:21'),
+(10203, 10002, NULL, NULL, '8726ad15a3cff1ff4ae283263c66ebffccc750bec91e8755cc493632af0b7eda', '::1', 0, '2014-12-12 21:06:58', '2014-12-11 00:56:29'),
+(10204, 10002, NULL, NULL, 'c38fcbd1b472f52a1d4687f428f0eb24b9b75c76a6176f68012ee8cccfe95e14', '::1', 0, '2014-12-12 21:06:58', '2014-12-11 00:57:05'),
+(10205, 10003, NULL, NULL, 'b7da29ad6ad3d9766b61b60eefe32518f6ef8dafc50d86633e456c9f4c89639f', '::1', 0, '2014-12-12 21:06:58', '2014-12-11 01:21:46'),
+(10206, 10004, NULL, NULL, '123c551bc0603235e4caa45bd89e6934ac67cff416c2bcac9bcfb0777762e24a', '::1', 0, '2014-12-12 21:06:58', '2014-12-11 20:03:09'),
+(10207, 10003, NULL, NULL, '8fe37e80692f22c6ffdaff4ee61bddf213811ccd801d658521ad67187a209c3e', '::1', NULL, '2014-12-12 21:06:58', '2014-12-12 19:28:51'),
 (10208, 10002, NULL, '6134564567', '', NULL, NULL, '2014-12-12 20:45:03', '2014-12-12 20:45:03'),
-(10209, 10004, NULL, NULL, 'c4ac73add7c1d626ddb4a8691bc4fcef6ebdd10df24c601f59edb5bcd20945ed', '::1', 0, '2014-12-12 21:05:51', '2014-12-12 21:06:58'),
+(10209, 10004, NULL, NULL, 'c4ac73add7c1d626ddb4a8691bc4fcef6ebdd10df24c601f59edb5bcd20945ed', '::1', 0, '2014-12-12 21:06:58', '2014-12-12 21:05:51'),
 (10210, 10003, NULL, NULL, 'd1db330b8a74df12271bb9781e6792add0619443a5db50c44b9fc61d3fcdce59', '::1', 0, '2014-12-12 21:10:10', '2014-12-12 21:10:10'),
-(10211, 10004, NULL, NULL, '7bfd3922c27a4ea0e97c1b3da9649a977aa1dd07850d90b5bcb3b356ca9b53c8', '::1', 0, '2014-12-12 21:10:41', '2014-12-12 21:31:04'),
-(10212, 10003, NULL, NULL, '322ff3a5897807e517ca142ec42b253171f377311a185071a858d9f90ff6710e', '::1', NULL, '2014-12-12 23:09:43', '2014-12-13 00:04:55'),
-(10213, 10003, NULL, NULL, 'b7e06a757a729840220e7f448377ff7cdc1164aacd313c65b767daa61eb309a1', '::1', 0, '0000-00-00 00:00:00', '2014-12-13 00:44:12'),
-(10214, 10003, NULL, NULL, 'ec61da0b6202f24dabeb74007dacb88fe24fed6c32aa195a954c4bec39cc679d', '::1', 0, '2014-12-13 00:45:58', '2014-12-13 00:45:58');
+(10211, 10004, NULL, NULL, '7bfd3922c27a4ea0e97c1b3da9649a977aa1dd07850d90b5bcb3b356ca9b53c8', '::1', 0, '2014-12-12 21:31:04', '2014-12-12 21:10:41'),
+(10212, 10003, NULL, NULL, '322ff3a5897807e517ca142ec42b253171f377311a185071a858d9f90ff6710e', '::1', NULL, '2014-12-13 00:04:55', '2014-12-12 23:09:43'),
+(10213, 10003, NULL, NULL, 'b7e06a757a729840220e7f448377ff7cdc1164aacd313c65b767daa61eb309a1', '::1', 0, '2014-12-13 00:44:12', '0000-00-00 00:00:00'),
+(10214, 10004, NULL, NULL, 'ec61da0b6202f24dabeb74007dacb88fe24fed6c32aa195a954c4bec39cc679d', '::1', 0, '2014-12-13 04:44:17', '2014-12-13 00:45:58');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `vipcard`
+-- 表的结构 `vipcard`
 --
 
 CREATE TABLE IF NOT EXISTS `vipcard` (
@@ -606,7 +629,7 @@ CREATE TABLE IF NOT EXISTS `vipcard` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32717 ;
 
 --
--- Dumping data for table `vipcard`
+-- 转存表中的数据 `vipcard`
 --
 
 INSERT INTO `vipcard` (`vipid`, `uid`, `vnumber`, `vpassword`, `vbalance`) VALUES
@@ -617,68 +640,68 @@ INSERT INTO `vipcard` (`vipid`, `uid`, `vnumber`, `vpassword`, `vbalance`) VALUE
 (32716, NULL, 9874, 'asdfas', 50);
 
 --
--- Constraints for dumped tables
+-- 限制导出的表
 --
 
 --
--- Constraints for table `coperationline`
+-- 限制表 `coperationline`
 --
 ALTER TABLE `coperationline`
   ADD CONSTRAINT `linecid` FOREIGN KEY (`cid`) REFERENCES `campus` (`cid`) ON DELETE CASCADE,
   ADD CONSTRAINT `linedid` FOREIGN KEY (`did`) REFERENCES `diner` (`did`) ON DELETE CASCADE;
 
 --
--- Constraints for table `dailymenu`
+-- 限制表 `dailymenu`
 --
 ALTER TABLE `dailymenu`
   ADD CONSTRAINT `dailymenucid` FOREIGN KEY (`cid`) REFERENCES `campus` (`cid`) ON DELETE SET NULL;
 
 --
--- Constraints for table `food`
+-- 限制表 `food`
 --
 ALTER TABLE `food`
   ADD CONSTRAINT `fooddid` FOREIGN KEY (`did`) REFERENCES `diner` (`did`) ON DELETE CASCADE;
 
 --
--- Constraints for table `menuitem`
+-- 限制表 `menuitem`
 --
 ALTER TABLE `menuitem`
   ADD CONSTRAINT `mitemfid` FOREIGN KEY (`fid`) REFERENCES `food` (`fid`) ON DELETE SET NULL,
   ADD CONSTRAINT `mitemmid` FOREIGN KEY (`mid`) REFERENCES `dailymenu` (`mid`) ON DELETE CASCADE;
 
 --
--- Constraints for table `orderitem`
+-- 限制表 `orderitem`
 --
 ALTER TABLE `orderitem`
   ADD CONSTRAINT `orderitem-oid` FOREIGN KEY (`oid`) REFERENCES `order` (`oid`) ON DELETE CASCADE;
 
 --
--- Constraints for table `sidedish`
+-- 限制表 `sidedish`
 --
 ALTER TABLE `sidedish`
   ADD CONSTRAINT `sidedid` FOREIGN KEY (`did`) REFERENCES `diner` (`did`) ON DELETE CASCADE;
 
 --
--- Constraints for table `sidemenu`
+-- 限制表 `sidemenu`
 --
 ALTER TABLE `sidemenu`
   ADD CONSTRAINT `campus-sidemenu` FOREIGN KEY (`cid`) REFERENCES `campus` (`cid`) ON DELETE SET NULL;
 
 --
--- Constraints for table `sidemenuitem`
+-- 限制表 `sidemenuitem`
 --
 ALTER TABLE `sidemenuitem`
   ADD CONSTRAINT `side-menu-item` FOREIGN KEY (`sid`) REFERENCES `sidedish` (`sid`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `menu-item` FOREIGN KEY (`sideMenuID`) REFERENCES `sidemenu` (`sideMenuID`) ON DELETE CASCADE;
 
 --
--- Constraints for table `user`
+-- 限制表 `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `usercid` FOREIGN KEY (`cid`) REFERENCES `campus` (`cid`) ON DELETE SET NULL;
 
 --
--- Constraints for table `vipcard`
+-- 限制表 `vipcard`
 --
 ALTER TABLE `vipcard`
   ADD CONSTRAINT `vipcarduid` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE SET NULL;

@@ -13,6 +13,10 @@ class Userstatuscontroller extends MY_Controller {
 	/* wechat enterence to copex
 	 * judge cookie to enter different controller-methods
 	 */
+	public function index() {
+		return redirect('userstatuscontroller/checkUserStatus');
+	}
+
 	public function checkUserStatus() {
 		if ($this->input->cookie('uid')) {
 			$oldUser = $this->validateUser($this->input->cookie('uid'), $this->input->cookie('uhash'));
