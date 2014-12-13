@@ -21,6 +21,13 @@ class User extends CI_Model {
      * create a new user object
      * $properties format
      */
+    //if $name is property of user class then set value to it
+    public function __set($name,$value){
+        if(isset($this->$name)){
+            $this->$name = $value;
+        }
+    }
+
     public function newUser($properties){
         foreach ($properties as $key => $value) {
             $this->$key = $value;//__set() will be used automaticlly to check if the $key is property of user class
@@ -30,12 +37,6 @@ class User extends CI_Model {
         $this->db->query($sql);
         $this->uid = $this->db->insert_id();
         return $this;
-    }
-    //if $name is property of user class then set value to it
-    public function __set($name,$value){
-        if(isset($this->$name)){
-            $this->$name = $value;
-        }
     }
     /*
      * user varible 'uid' to return an old user object
@@ -64,6 +65,8 @@ class User extends CI_Model {
     }
     /*
      * set sessions and cookies for loged in user
+     * SESSION: uid, cid, uphone, vipid(optional)
+     * Cookie: uid, uhash
      */
     public function login($user){
         if(isset($user->vipid)){
@@ -80,8 +83,8 @@ class User extends CI_Model {
      * update specific user's property's value
      * return updated user object
      */
-    public function updateUser($uid,$name,$value){
-        $sql = "UPDATE user SET ".$name." = '".$value."' WHERE uid='$uid'";
+    public function updateUser($uid,$prop,$value){
+        $sql = "UPDATE user SET ".$prop." = '".$value."' WHERE uid='$uid'";
         $this->db->query($sql);
         $this->oldUser($uid);
         return $this;
