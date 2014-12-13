@@ -35,5 +35,17 @@ class Menuitem extends CI_Model {
         return false;
     }
 
+    /*
+     * store session for menu-dishes
+     */
+    public function storeInSession($recomdItem,$saleItem){
+        $_SESSION['food1'] = array('name' => $recomdItem->fname, 'price' => $recomdItem->fprice);
+
+        $_SESSION['food2'] = array('name' => $saleItem[0]->fname, 'price' => $saleItem[0]->fprice);
+
+        $_SESSION['food3'] = array('name' => $saleItem[1]->fname, 'price' => $saleItem[1]->fprice);
+
+    }
+
 
 }

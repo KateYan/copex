@@ -24,13 +24,13 @@ h3{ color:#676767; font-weight:lighter; padding-left:36px; height:40px; line-hei
 .tdySales h3{ background:url(images/2@2x.png) no-repeat 8px center; background-size:20px auto;}
 .manaRecom_menu, .tdyS_m_img{ margin: 3px;position:relative;}
 .manaRecom_menu{ border-radius: 3px; overflow:hidden;}
-.manaRecom_menu img, .tdyS_m_img img{ /* float:left; */ overflow: hidden;}
+.manaRecom_menu img, .tdyS_m_img img{ /* float:left; */ height:inherit;overflow: hidden;}
 .manaRecom_menu ul, .menu_title{ position:absolute; width:100%; bottom:0; left:0; height:32px; line-height:32px; text-align:center; color:#fff; font-size:15px; background-color:rgba(28,28,28,0.4)}
 .manaRecom_menu ul li{ width:50%; float:left;}
 .borderWidth{ width:1px; height:32px; float:right; background-color:rgba(255,255,255,0.4)}
 
 .tdySal_menu{ /* padding:10px 15px; */}
-.tdyS_m_img{ margin:0; /* width:100%; */ /* height:100%; */ float:left; margin: 3px;}
+.tdyS_m_img{ margin:0; /* width:100%; */ height:100%; float:left; margin: 3px;}
 .moreDinner{ float:left;}
 .notInUTSC{ float:right;}
 .telephone{ width:150px; height:20px; line-height:20px; border:1px solid #d4d4d4; border-radius:5px; padding:6px; float:left}
