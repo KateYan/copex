@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2014 at 01:36 AM
+-- Generation Time: Dec 13, 2014 at 01:47 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -540,12 +540,12 @@ CREATE TABLE IF NOT EXISTS `user` (
   `uhash` varchar(128) NOT NULL,
   `ip` varchar(20) DEFAULT NULL,
   `ordered` tinyint(4) DEFAULT NULL,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created` timestamp NOT NULL,
   `last_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`uid`),
   KEY `cid` (`cid`,`vipid`),
   KEY `vipid` (`vipid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10213 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10215 ;
 
 --
 -- Dumping data for table `user`
@@ -585,7 +585,9 @@ INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `
 (10209, 10004, NULL, NULL, 'c4ac73add7c1d626ddb4a8691bc4fcef6ebdd10df24c601f59edb5bcd20945ed', '::1', 0, '2014-12-12 21:05:51', '2014-12-12 21:06:58'),
 (10210, 10003, NULL, NULL, 'd1db330b8a74df12271bb9781e6792add0619443a5db50c44b9fc61d3fcdce59', '::1', 0, '2014-12-12 21:10:10', '2014-12-12 21:10:10'),
 (10211, 10004, NULL, NULL, '7bfd3922c27a4ea0e97c1b3da9649a977aa1dd07850d90b5bcb3b356ca9b53c8', '::1', 0, '2014-12-12 21:10:41', '2014-12-12 21:31:04'),
-(10212, 10003, NULL, NULL, '322ff3a5897807e517ca142ec42b253171f377311a185071a858d9f90ff6710e', '::1', NULL, '2014-12-12 23:09:43', '2014-12-13 00:04:55');
+(10212, 10003, NULL, NULL, '322ff3a5897807e517ca142ec42b253171f377311a185071a858d9f90ff6710e', '::1', NULL, '2014-12-12 23:09:43', '2014-12-13 00:04:55'),
+(10213, 10003, NULL, NULL, 'b7e06a757a729840220e7f448377ff7cdc1164aacd313c65b767daa61eb309a1', '::1', 0, '0000-00-00 00:00:00', '2014-12-13 00:44:12'),
+(10214, 10003, NULL, NULL, 'ec61da0b6202f24dabeb74007dacb88fe24fed6c32aa195a954c4bec39cc679d', '::1', 0, '2014-12-13 00:45:58', '2014-12-13 00:45:58');
 
 -- --------------------------------------------------------
 

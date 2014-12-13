@@ -26,7 +26,7 @@ class User extends CI_Model {
             $this->$key = $value;//__set() will be used automaticlly to check if the $key is property of user class
         }
 
-        $sql = "INSERT INTO user(cid,vipid,uphone,uhash,ip,ordered) VALUES(".$this->db->escape($this->cid).",".$this->db->escape($this->vipid).",".$this->db->escape($this->uphone).",".$this->db->escape($this->uhash).",".$this->db->escape($this->ip).",".$this->db->escape($this->ordered).")";
+        $sql = "INSERT INTO user(cid,vipid,uphone,uhash,ip,ordered,created) VALUES(".$this->db->escape($this->cid).",".$this->db->escape($this->vipid).",".$this->db->escape($this->uphone).",".$this->db->escape($this->uhash).",".$this->db->escape($this->ip).",".$this->db->escape($this->ordered).",".$this->db->escape($this->created).")";
         $this->db->query($sql);
         $this->uid = $this->db->insert_id();
         return $this;
