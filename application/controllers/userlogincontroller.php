@@ -106,7 +106,9 @@ class Userlogincontroller extends MY_Controller{
                     // entered new password is not same with the old one
                     if($newPassword!=$vipCard->vpassword){
                         $this->market->updatePassword($vipUser->vipid,$newPassword);
-                        return redirect('marketcontroller/showSideDish');
+                        // show password changed successful page
+                        $this->load->view('finishedPasswordChange');
+                        return true;
                     }
                     echo "Please do not enter same password";
                     return false;
