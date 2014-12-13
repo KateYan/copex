@@ -17,7 +17,7 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style" />
     <meta content="telephone=no" name="format-detection" />
     <meta name="viewport" content="width=device-width; maximum-scale=1.0;  user-scalable=no; initial-scale=1.0" />
-    <title>login</title>
+    <title>选择你所在的校区</title>
     <link href="../../css/login.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../../js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript">

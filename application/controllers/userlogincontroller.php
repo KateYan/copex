@@ -24,34 +24,38 @@ class Userlogincontroller extends MY_Controller{
      */
     public function setUser(){
         // make usre user did choose one campus
-        if(!empty($_POST['cid'])){
-            if(!($this->input->cookie('uid'))){
-                $cid = $this->input->post('cid');
-
-                $this->load->model('user');
-                $ip = $_SERVER['REMOTE_ADDR'];
-                $uhash = hash('sha256',rand(10000,99999));
-                $created = date("Y-m-d H:i:s");
-                //set properties array to get new user object and create new user into database
-                $properties = array('cid'=>$cid,'ip'=>$ip,'uhash'=>$uhash,'ordered'=>'0','created'=>$created);
-                $newUser = $this->user->newUser($properties);
-                $this->user->login($newUser);//set cookies and sessions for new user
-            }
-            elseif(isset($_POST['cid'])&&isset($_SESSION['uid'])){
-                //for existing user to change campus
-                $this->load->model('user');
-                $name = 'cid';
-                $value = $this->input->post('cid');
-                $updateUser = $this->user->updateUser($_SESSION['uid'],$name,$value);
-                //update user's cid session's value
-                $this->user->login($updateUser);
-            }
-            else{
-                //accident loged in user
-            }
-            redirect('marketcontroller/showDailyMenu');
+        if(empty($_POST['cid'])){
+            return redirect('userlogincontroller/loadCampus');
         }
-        return redirect('userlogincontroller/loadCampus');
+
+        if(!($this->input->cookie('uid'))){
+            //for new users:
+
+            $cid = $this->input->post('cid');
+            $this->load->model('user');
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $uhash = hash('sha256',rand(10000,99999));
+            $created = date("Y-m-d H:i:s");
+                //set properties array to get new user object and create new user into database
+            $properties = array('cid'=>$cid,'ip'=>$ip,'uhash'=>$uhash,'ordered'=>'0','created'=>$created);
+            $newUser = $this->user->newUser($properties);
+                $this->user->login($newUser);//set cookies and sessions for new user
+
+        }elseif($this->input->post('cid') && isset($_SESSION['uid'])){
+            //for existing user wants to change campus:
+            $this->load->model('user');
+            $name = 'cid';
+            $value = $this->input->post('cid');
+            $updateUser = $this->user->updateUser($_SESSION['uid'],$name,$value);
+                //update user's cid session's value
+            $this->user->login($updateUser);
+        }else{
+                //accident loged in user
+            redirect('marketcontroller/showDailyMenu');
+            }
+
+        redirect('marketcontroller/showDailyMenu');
+
 
     }
 

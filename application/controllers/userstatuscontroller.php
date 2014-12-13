@@ -26,7 +26,7 @@ class Userstatuscontroller extends MY_Controller {
 				$this->user->login($oldUser);
 				return redirect('marketcontroller/showDailyMenu');
 			} else {
-//illegal user
+				//illegal user
 				setcookie('uid', '', time() - 3600,'/');
 				delete_cookie('uid');
 				return redirect('userlogincontroller/loadCampus');
