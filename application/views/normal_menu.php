@@ -36,7 +36,7 @@
     echo '<input type="radio" id="recomdItem" name="fid" value="'.$recomdItem->fid.'">';
     echo '<label for="recomdItem">';
     echo '<div class="manaRecom_menu">';
-    echo ' <img src="../../upload/'.$recomdItem->fpicture.'" width="100%" >';
+    echo ' <img src="../../upload/'.$recomdItem->fpicture.'.jpg" width="100%" >';
     ?>
         <ul>
             <li><?php echo $recomdItem->fname;?><i class="borderWidth"></i></li>
@@ -59,7 +59,7 @@
                 echo '<label class="tdyS_m_block" for="'.$sale->fid.'">';
                 echo '<span class="tdyS_m_img">';
                 echo '<img src="../../upload/';
-                echo $sale->fpicture.'" width="100%">';
+                echo $sale->fpicture.'.jpg" width="100%">';
                 echo '</span>';
                 echo '<span class="menu_title">'.$sale->fname.'</span>';
                 echo '</label> </div>';

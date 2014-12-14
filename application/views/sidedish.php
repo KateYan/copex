@@ -28,7 +28,7 @@
             echo '<label for="'.$sideDish[$i]->sid.'">';
             echo '<span class="menuD_img"><img src="../../upload/';
             echo $sideDish[$i]->spicture;
-            echo '" width="100%" height="100%" /></span></label>';
+            echo '.jpg" width="100%" height="100%" /></span></label>';
             echo '<span class="menuD_title">'.$sideDish[$i]->sname.'</span>';
             echo '<span class="menuD_price">$'.$sideDish[$i]->sprice.'</span></li>';
         }
