@@ -36,7 +36,6 @@ class Marketcontroller extends MY_Controller{
         // create session to store all three food's information
         $this->menuitem->storeFoodInSession($data['recomdItem'],$data['saleItem']);
 
-
         //show campus name for user to switch favor-campus
         $this->load->model('market');
         $campus = $this->market->getCampusById($_SESSION['cid']);
@@ -45,6 +44,9 @@ class Marketcontroller extends MY_Controller{
         $this->load->view('partials/header',$data);
         //if user is vip->he has vipid session then load vipmenu
         if(!empty($_SESSION['vipid'])){
+            $data['menu_items'] = [$data['recomdItem'], $data['saleItem'][0], $data['saleItem'][1]];
+            unset($data['recomdItem']);
+            unset($data['saleItem']);
             $this->load->view('vipmenu',$data);
         }
         else{

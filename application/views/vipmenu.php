@@ -48,7 +48,7 @@
     echo form_open('showSideDish',$attributes);
     ?>
 
-    <div class="menu_block">
+<!--     <div class="menu_block">
         <span class="menuD_img"><img src="../../upload/<?php echo $recomdItem->fpicture; ?>.jpg" width="100%" /></span>
         <span class="menuD_summary">
         	<h4><?php echo $recomdItem->fname; ?></h4>
@@ -60,10 +60,10 @@
                 <a class="btn_add" onclick="addRoom(this)"></a>
             </span>
         </span>
-    </div>
+    </div> -->
 
     <?php
-    foreach($saleItem as $sale){
+    foreach($menu_items as $sale){
         echo '<div class="menu_block">';
         echo '<span class="menuD_img"><img src="../../upload/'.$sale->fpicture.'.jpg" width="100%" /></span>';
         echo '<span class="menuD_summary">';
