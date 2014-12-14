@@ -26,7 +26,7 @@
             echo '<li>';
             echo '<input type="radio" id="'.$sideDish[$i]->sid.'" name="sid'.$i.'" style="display:none;">';
             echo '<label for="'.$sideDish[$i]->sid.'">';
-            echo '<span class="menuD_img"><img src="';
+            echo '<span class="menuD_img"><img src="../../upload/';
             echo $sideDish[$i]->spicture;
             echo '" width="100%" height="100%" /></span></label>';
             echo '<span class="menuD_title">'.$sideDish[$i]->sname.'</span>';

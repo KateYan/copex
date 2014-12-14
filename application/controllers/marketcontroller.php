@@ -33,16 +33,8 @@ class Marketcontroller extends MY_Controller{
         $data['recomdItem'] = $this->menuitem->recomdItem($_SESSION['cid']);
         $data['saleItem'] = $this->menuitem->saleItem($_SESSION['cid']);
 
-        // create session to store all three dishes' information
+        // create session to store all three food's information
         $this->menuitem->storeInSession($data['recomdItem'],$data['saleItem']);
-//        $_SESSION['food1-name'] = $data['recomdItem']->fname;
-//        $_SESSION['food1-price'] = $data['recomdItem']->fprice;
-//        $_SESSION['food2-name'] = $data['saleItem'][0]->fname;
-//        $_SESSION['food2-price'] = $data['saleItem'][0]->fprice;
-//        $_SESSION['food3-name'] = $data['saleItem'][1]->fname;
-//        $_SESSION['food3-price'] = $data['saleItem'][1]->fprice;
-//
-//        var_dump($_SESSION['food1']);
 
 
         //show campus name for user to switch favor-campus
@@ -84,10 +76,10 @@ class Marketcontroller extends MY_Controller{
             $amount1 = '2';//$this->input->post('amount1');
 
             //get costs of the food that user just chose from vip-menu
-            $cost1 = $_SESSION['food1-price'] * $amount1;
+            $cost1 = $_SESSION['food1']['price'] * $amount1;
 
             // store user ordered food's name,qty and total cost as an array
-            $food1 = array('name'=>$_SESSION['food1-name'],'qty'=>$amount1,'cost'=>$cost1);
+            $food1 = array('name'=>$_SESSION['food1']['name'],'qty'=>$amount1,'cost'=>$cost1);
 
             //update totalcost
             $totalcost+=$cost1;
@@ -103,8 +95,8 @@ class Marketcontroller extends MY_Controller{
         if(true){
             $fid2 = '10001';
             $amount2 = '1';
-            $cost2 = $_SESSION['food2-price']  * $amount2;
-            $food2 = array('name'=>$_SESSION['food2-name'],'qty'=>$amount2,'cost'=>$cost2);
+            $cost2 = $_SESSION['food2']['price']  * $amount2;
+            $food2 = array('name'=>$_SESSION['food2']['name'],'qty'=>$amount2,'cost'=>$cost2);
             $totalcost+=$cost2;
             for($i = 0;$i<$amount2;$i++){
                 $foodList[] = $fid2;
@@ -116,8 +108,8 @@ class Marketcontroller extends MY_Controller{
         if(isset($_POST['fid3'])){
             $fid3 = $this->input->post('fid3');
             $amount3 = $this->input->post('amount3');
-            $cost3 = $_SESSION['food3-price']  * $amount3;
-            $food3 = array('name'=>$_SESSION['food3-name'],'qty'=>$amount3,'cost'=>$cost3);
+            $cost3 = $_SESSION['food3']['price'] * $amount3;
+            $food3 = array('name'=>$_SESSION['food3']['name'],'qty'=>$amount3,'cost'=>$cost3);
             $totalcost+=$cost3;
             for($i = 0;$i<$amount3;$i++){
                 $foodList[] = $fid3;
@@ -188,8 +180,8 @@ class Marketcontroller extends MY_Controller{
         $_SESSION['totalcost'] = $totalcost;
         $_SESSION['balance'] = $vipCard->vbalance;
 
-        $this->load->model('market');
-        $data['sideDish'] = $this->market->getSideDish($_SESSION['cid']);
+        $this->load->model('menuitem');
+        $data['sideDish'] = $this->menuitem->getSideDish($_SESSION['cid']);
         $data['title'] = '精选小食';
         $this->load->view('partials/header',$data);
         $this->load->view('sidedish',$data);

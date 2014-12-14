@@ -49,7 +49,7 @@
     ?>
 
     <div class="menu_block">
-        <span class="menuD_img"><img src="<?php echo $recomdItem->fpicture; ?>" width="100%" /></span>
+        <span class="menuD_img"><img src="../../upload/<?php echo $recomdItem->fpicture; ?>" width="100%" /></span>
         <span class="menuD_summary">
         	<h4><?php echo $recomdItem->fname; ?></h4>
             <p class="menuDP">$<?php echo $recomdItem->fprice; ?></p>
@@ -65,7 +65,7 @@
     <?php
     foreach($saleItem as $sale){
         echo '<div class="menu_block">';
-        echo '<span class="menuD_img"><img src="'.$sale->fpicture.'" width="100%" /></span>';
+        echo '<span class="menuD_img"><img src="../../upload/'.$sale->fpicture.'" width="100%" /></span>';
         echo '<span class="menuD_summary">';
         echo '<h4>'.$sale->fname.'</h4>';
         echo '<p class="menuDP">$'.$sale->fprice.'</p>';

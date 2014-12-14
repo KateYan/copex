@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2014 at 05:45 AM
+-- Generation Time: Dec 14, 2014 at 03:20 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -185,15 +185,15 @@ CREATE TABLE IF NOT EXISTS `food` (
 --
 
 INSERT INTO `food` (`fid`, `did`, `fname`, `fdes`, `fprice`, `fpicture`) VALUES
-(10001, 10001, '红烧鸭子', NULL, 19.99, '../../upload/1_04img01.jpg'),
-(10002, 10002, '地三鲜', NULL, 6.99, '../../upload/disanxian.jpg'),
-(10003, 10001, '蜜辣烤翅', NULL, 6.99, '../../upload/1_04img02.jpg'),
-(10004, 10002, '清蒸鲤鱼', NULL, 9.99, '../../upload/4_03img02.jpg'),
-(10005, 10001, '口水鸡', NULL, 12.69, '../../upload/koushuiji.jpg'),
-(10006, 10001, '芋头牛腩煲', NULL, 14.99, '../../upload/niunanbao.jpg'),
-(10007, 10001, '招牌粉蒸肉', NULL, 9.99, '../../upload/fenzhengrou.jpg'),
-(10008, 10002, '宫保鸡丁', NULL, 11.69, '../../upload/gongbaojiding.jpg'),
-(10009, 10001, '酸辣牛肚', NULL, 12.99, '../../upload/niudu.jpg');
+(10001, 10001, '红烧鸭子', NULL, 19.99, '1_04img01.jpg'),
+(10002, 10002, '地三鲜', NULL, 6.99, 'disanxian.jpg'),
+(10003, 10001, '蜜辣烤翅', NULL, 6.99, '1_04img02.jpg'),
+(10004, 10002, '清蒸鲤鱼', NULL, 9.99, '4_03img02.jpg'),
+(10005, 10001, '口水鸡', NULL, 12.69, 'koushuiji.jpg'),
+(10006, 10001, '芋头牛腩煲', NULL, 14.99, 'niunanbao.jpg'),
+(10007, 10001, '招牌粉蒸肉', NULL, 9.99, 'fenzhengrou.jpg'),
+(10008, 10002, '宫保鸡丁', NULL, 11.69, 'gongbaojiding.jpg'),
+(10009, 10001, '酸辣牛肚', NULL, 12.99, 'niudu.jpg');
 
 -- --------------------------------------------------------
 
@@ -453,10 +453,10 @@ CREATE TABLE IF NOT EXISTS `sidedish` (
 --
 
 INSERT INTO `sidedish` (`sid`, `did`, `sname`, `sdes`, `sprice`, `spicture`) VALUES
-(50001, 10001, '麻辣热干面', NULL, 6.99, '../../css/images/4_03img01.jpg'),
-(50002, 10002, '成都冒菜', NULL, 6.99, '../../css/images/4_03img03.jpg'),
-(50003, 10002, '鲜肉叉烧包', NULL, 6.99, '../../css/images/3_08.jpg'),
-(50004, 10002, '东北小菜', NULL, 5.99, '../../css/images/4_03img04.jpg');
+(50001, 10001, '麻辣热干面', NULL, 6.99, '4_03img01.jpg'),
+(50002, 10002, '成都冒菜', NULL, 6.99, '4_03img03.jpg'),
+(50003, 10002, '鲜肉叉烧包', NULL, 6.99, '3_08.jpg'),
+(50004, 10002, '东北小菜', NULL, 5.99, '4_03img04.jpg');
 
 -- --------------------------------------------------------
 
@@ -539,7 +539,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`uid`),
   KEY `cid` (`cid`,`vipid`),
   KEY `vipid` (`vipid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10216 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10217 ;
 
 --
 -- Dumping data for table `user`
@@ -582,7 +582,8 @@ INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `
 (10212, 10003, NULL, NULL, '322ff3a5897807e517ca142ec42b253171f377311a185071a858d9f90ff6710e', '::1', NULL, '2014-12-13 00:04:55', '2014-12-12 23:09:43'),
 (10213, 10003, NULL, NULL, 'b7e06a757a729840220e7f448377ff7cdc1164aacd313c65b767daa61eb309a1', '::1', 0, '2014-12-13 00:44:12', '0000-00-00 00:00:00'),
 (10214, 10004, NULL, NULL, 'ec61da0b6202f24dabeb74007dacb88fe24fed6c32aa195a954c4bec39cc679d', '::1', 0, '2014-12-13 04:44:17', '2014-12-13 00:45:58'),
-(10215, 10003, NULL, NULL, '00deb198efcd0b916591df25be7d16ed21da9bfb38f7fa8dbb825168fd7b22b7', '::1', 0, '2014-12-14 04:41:56', '2014-12-13 19:06:56');
+(10215, 10003, NULL, NULL, '00deb198efcd0b916591df25be7d16ed21da9bfb38f7fa8dbb825168fd7b22b7', '::1', 0, '2014-12-14 04:41:56', '2014-12-13 19:06:56'),
+(10216, 10003, NULL, NULL, 'b841314f665bb44d5aeea2d40a193c17', '::1', 0, '2014-12-14 06:05:01', '2014-12-14 06:05:01');
 
 -- --------------------------------------------------------
 
