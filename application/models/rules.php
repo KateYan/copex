@@ -39,11 +39,4 @@ class Rules extends CI_Model {
         }return false;//if the rule doesn't exist then return false
     }
 
-
-// using the time of user clicking "order confirm" button to check
-//if the user is allowed to order at that time
-    public function validateOrderTime($time){
-
-    }
-
 }

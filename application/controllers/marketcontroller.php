@@ -198,7 +198,7 @@ class Marketcontroller extends MY_Controller{
      */
     public function orderGenerate(){
         // test if still in order time range
-        if($this->testTime()){
+        if($this->checkTime()){
             // if user didn't enter phonenumber or choose a dish befor making an order
             // order won't be generated
             if(empty($_POST['uphone'])||empty($_POST['fid'])) {
@@ -245,7 +245,7 @@ class Marketcontroller extends MY_Controller{
      */
     public function vipOrderGenerate(){
         // if in order time-range then generate vip order
-        if($this->testTime()){
+        if($this->checkTime()){
             // check if user typed in password or not
             if(!empty($_POST['password'])){  // user did enter password
                 $uid = $_SESSION['uid'];
@@ -302,17 +302,19 @@ class Marketcontroller extends MY_Controller{
     /*
      * time check for user order dishes
      */
-    public function testTime(){
-        $time = time(); //get timestamp for check if still in order time-range
+    public function checkTime(){
+        $time = date('H:i:s'); //get timestamp for check if still in order time-range
+        // get order time range
+        $this->load->model('market');
+        $orderTimeRange = $this->market->orderTimeRange();
 
-        // get order timerange from database
+        if($time>=$orderTimeRange['orderStart']&&$time<=$orderTimeRange['orderEnd']){
+            return true;
+        }
+        else{
+            return false;
+        }
 
-        // if in order time-range return true, else return false
-//        if($time>=$starttime&&$time<=$endtime){
-//            return ture;
-//        }return false;
-
-        return false;
     }
 
 }

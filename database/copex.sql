@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2014 at 05:44 PM
+-- Generation Time: Dec 14, 2014 at 07:40 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `copex`
 --
-
-use copex;
 
 -- --------------------------------------------------------
 
@@ -39,8 +37,12 @@ CREATE TABLE IF NOT EXISTS `basic` (
 --
 
 INSERT INTO `basic` (`key`, `value`) VALUES
+('user_order_end', '23:59:59'),
+('user_order_start', '12:00:00'),
 ('user_pickup_end', '13:30:00'),
 ('user_pickup_start', '11:30:00'),
+('vip_order_end', '06:00:00'),
+('vip_order_start', '12:00:00'),
 ('vip_pickup_end', '14:00:00'),
 ('vip_pickup_start', '11:00:00');
 

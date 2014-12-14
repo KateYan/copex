@@ -71,5 +71,33 @@ class Market extends CI_Model {
         return $query->result();
     }
 
+    // get order time range for user
+    public function orderTimeRange(){
+        if(!empty($_SESSION['vipid'])){
+            $sql1 = "SELECT value FROM basic WHERE key='user_order_start'";
+            $query1 = $this->db->query($sql1);
+            $timeStart = $query1->row(0);
+
+            $sql2 = "SELECT value FROM basic WHERE key='user_order_end'";
+            $timeEnd = $this->db->query($sql2);
+
+            $orderTimeRange = array('orderStart'=>$timeStart[0],'orderEnd'=>$timeEnd[0]);
+
+            return $orderTimeRange;
+        }
+        else{
+            $sql1 = "SELECT value FROM basic WHERE key='vip_order_start'";
+            $query1 = $this->db->query($sql1);
+            $timeStart = $query1->row(0);
+
+            $sql2 = "SELECT value FROM basic WHERE key='vip_order_end'";
+            $timeEnd = $this->db->query($sql2);
+
+            $orderTimeRange = array('orderStart'=>$timeStart[0],'orderEnd'=>$timeEnd[0]);
+
+            return $orderTimeRange;
+        }
+    }
+
 
 }
