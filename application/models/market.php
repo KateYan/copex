@@ -63,5 +63,13 @@ class Market extends CI_Model {
         $this->db->query($sql);
     }
 
+    // select all sidemenu item from database where the side menu is activated
+    // and store their information into session
+    public function getSideDish($cid){
+        $sql="SELECT sidemenu.cid, sidemenuitem.sideItemID, sidemenuitem.sid, sidedish.sname, sidedish.sdes, sidedish.sprice, sidedish.spicture FROM(sidemenu JOIN sidemenuitem ON sidemenu.sideMenuID=sidemenuitem.sideMenuID)JOIN sidedish ON sidedish.sid=sidemenuitem.sid WHERE sidemenu.cid='".$cid."'AND sidemenu.sideMenuStatus='1'";
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+
 
 }

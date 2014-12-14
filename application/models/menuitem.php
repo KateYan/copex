@@ -37,7 +37,7 @@ class Menuitem extends CI_Model {
 
 
      // store session for menu-dishes
-    public function storeInSession($recomdItem,$saleItem){
+    public function storeFoodInSession($recomdItem,$saleItem){
         $_SESSION['food1'] = array('name' => $recomdItem->fname, 'price' => $recomdItem->fprice);
 
         $_SESSION['food2'] = array('name' => $saleItem[0]->fname, 'price' => $saleItem[0]->fprice);
@@ -46,21 +46,20 @@ class Menuitem extends CI_Model {
 
     }
 
+    // store session for sidedishes
+    public function storeSidedishInSession($sideDish){
 
-    // select all sidemenu item from database where the side menu is activated
-    // and store their information into session
-    public function getSideDish($cid){
-        $sql="SELECT sidemenu.cid, sidemenuitem.sideItemID, sidemenuitem.sid, sidedish.sname, sidedish.sdes, sidedish.sprice, sidedish.spicture FROM(sidemenu JOIN sidemenuitem ON sidemenu.sideMenuID=sidemenuitem.sideMenuID)JOIN sidedish ON sidedish.sid=sidemenuitem.sid WHERE sidemenu.cid='".$cid."'AND sidemenu.sideMenuStatus='1'";
-        $query = $this->db->query($sql);
+        $_SESSION['sidedish1'] = array('name'=>$sideDish[0]->sname,'price'=>$sideDish[0]->sprice);
 
-        //store each row as session value
-        $_SESSION['sidedish1'] = array('name'=>$query->row(0)->sname,'price'=>$query->row(0)->sprice);
-        $_SESSION['sidedish2'] = array('name'=>$query->row(1)->sname,'price'=>$query->row(1)->sprice);
-        $_SESSION['sidedish3'] = array('name'=>$query->row(2)->sname,'price'=>$query->row(2)->sprice);
-        $_SESSION['sidedish4'] = array('name'=>$query->row(3)->sname,'price'=>$query->row(3)->sprice);
+        $_SESSION['sidedish2'] = array('name'=>$sideDish[1]->sname,'price'=>$sideDish[1]->sprice);
 
-        return $query->result();
+        $_SESSION['sidedish3'] = array('name'=>$sideDish[2]->sname,'price'=>$sideDish[2]->sprice);
+
+        $_SESSION['sidedish4'] = array('name'=>$sideDish[3]->sname,'price'=>$sideDish[3]->sprice);
     }
+
+
+
 
 
 }

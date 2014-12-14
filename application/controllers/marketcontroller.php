@@ -34,7 +34,7 @@ class Marketcontroller extends MY_Controller{
         $data['saleItem'] = $this->menuitem->saleItem($_SESSION['cid']);
 
         // create session to store all three food's information
-        $this->menuitem->storeInSession($data['recomdItem'],$data['saleItem']);
+        $this->menuitem->storeFoodInSession($data['recomdItem'],$data['saleItem']);
 
 
         //show campus name for user to switch favor-campus
@@ -128,38 +128,38 @@ class Marketcontroller extends MY_Controller{
             $sid1 ='50001'; //$this->input->post('sid1');
 
             // store user ordered sidedish's name,qty and cost as an array
-            $sidedish1 = array('name'=>$_SESSION['sidedish1-name'],'qty'=>'1','cost'=>$_SESSION['sidedish1-price']);
+            $sidedish1 = array('name'=>$_SESSION['sidedish1']['name'],'qty'=>'1','cost'=>$_SESSION['sidedish1']['price']);
 
             // update ordered sidedish's id list for generating order later
             $sideDishList[] = $sid1;
             // update ordered sidedish's information array
             $data['orderedDishes'][] = $sidedish1;
             //update totalcost
-            $totalcost+=$_SESSION['sidedish1-price'];
+            $totalcost+=$_SESSION['sidedish1']['price'];
         }
 
         if(isset($_POST['sid2'])){// for second side dish
             $sid2 = $this->input->post('sid2');
-            $sidedish2 = array('name'=>$_SESSION['sidedish2']->sname,'qty'=>'1','cost'=>$_SESSION['sidedish2']->sprice);
+            $sidedish2 = array('name'=>$_SESSION['sidedish2']['name'],'qty'=>'1','cost'=>$_SESSION['sidedish2']['price']);
             $sideDishList[] = $sid2;
             $data['orderedDishes'][] = $sidedish2;
-            $totalcost+=$_SESSION['sidedish2']->sprice;
+            $totalcost+=$_SESSION['sidedish2']['price'];
         }
 
         if(isset($_POST['sid3'])){// for third side dish
             $sid3 = $this->input->post('sid3');
-            $sidedish3 = array('name'=>$_SESSION['sidedish3']->sname,'qty'=>'1','cost'=>$_SESSION['sidedish3']->sprice);
+            $sidedish3 = array('name'=>$_SESSION['sidedish3']['name'],'qty'=>'1','cost'=>$_SESSION['sidedish3']['price']);
             $sideDishList[] = $sid3;
             $data['orderedDishes'][] = $sidedish3;
-            $totalcost+=$_SESSION['sidedish3']->sprice;
+            $totalcost+=$_SESSION['sidedish3']['price'];
         }
 
         if(isset($_POST['sid4'])){// for third side dish
             $sid4 = $this->input->post('sid4');
-            $sidedish4 = array('name'=>$_SESSION['sidedish4']->sname,'qty'=>'1','cost'=>$_SESSION['sidedish4']->sprice);
+            $sidedish4 = array('name'=>$_SESSION['sidedish4']['name'],'qty'=>'1','cost'=>$_SESSION['sidedish4']['price']);
             $sideDishList[] = $sid4;
             $data['orderedDishes'][] = $sidedish4;
-            $totalcost+=$_SESSION['sidedish4']->sprice;
+            $totalcost+=$_SESSION['sidedish4']['price'];
         }
 
         // array $sideDishList is stored as session for generating vip-order later
@@ -180,12 +180,15 @@ class Marketcontroller extends MY_Controller{
         $_SESSION['totalcost'] = $totalcost;
         $_SESSION['balance'] = $vipCard->vbalance;
 
+        $this->load->model('market');
+        $data['sideDish'] = $this->market->getSideDish($_SESSION['cid']);
+        // store sidedish's session
         $this->load->model('menuitem');
-        $data['sideDish'] = $this->menuitem->getSideDish($_SESSION['cid']);
+        $this->menuitem->storeSidedishInSession($data['sideDish']);
+
         $data['title'] = '精选小食';
         $this->load->view('partials/header',$data);
         $this->load->view('sidedish',$data);
-//        var_dump($_SESSION['sidedish1-price']);
     }
 
     /*
