@@ -19,6 +19,6 @@
     <title><?php echo $title; ?></title>
     <link href="../../css/common.css" rel="stylesheet" type="text/css" />
     <link href="../../css/masterpage.css" rel="stylesheet" type="text/css" />
-    <link href="../../css/dinner.css" rel="stylesheet" type="text/css" />
-    <link href="../../css/Gooddinner.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/dinner.css?v=1232" rel="stylesheet" type="text/css" />
+    <!-- <link href="../../css/Gooddinner.css" rel="stylesheet" type="text/css" /> -->
     <script type="text/javascript" src="../../js/jquery-1.7.2.min.js"></script>

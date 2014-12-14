@@ -38,28 +38,19 @@ class Menuitem extends CI_Model {
 
      // store session for menu-dishes
     public function storeFoodInSession($recomdItem,$saleItem){
-        $_SESSION['food1'] = array('name' => $recomdItem->fname, 'price' => $recomdItem->fprice);
+        $_SESSION['food1'] = array('id' => $recomdItem->fid, 'name' => $recomdItem->fname, 'price' => $recomdItem->fprice);
 
-        $_SESSION['food2'] = array('name' => $saleItem[0]->fname, 'price' => $saleItem[0]->fprice);
+        $_SESSION['food2'] = array('id' => $saleItem[0]->fid, 'name' => $saleItem[0]->fname, 'price' => $saleItem[0]->fprice);
 
-        $_SESSION['food3'] = array('name' => $saleItem[1]->fname, 'price' => $saleItem[1]->fprice);
+        $_SESSION['food3'] = array('id' => $saleItem[1]->fid, 'name' => $saleItem[1]->fname, 'price' => $saleItem[1]->fprice);
 
     }
 
     // store session for sidedishes
     public function storeSidedishInSession($sideDish){
 
-        $_SESSION['sidedish1'] = array('name'=>$sideDish[0]->sname,'price'=>$sideDish[0]->sprice);
-
-        $_SESSION['sidedish2'] = array('name'=>$sideDish[1]->sname,'price'=>$sideDish[1]->sprice);
-
-        $_SESSION['sidedish3'] = array('name'=>$sideDish[2]->sname,'price'=>$sideDish[2]->sprice);
-
-        $_SESSION['sidedish4'] = array('name'=>$sideDish[3]->sname,'price'=>$sideDish[3]->sprice);
+        for ($i = 1; $i <= 4 ; $i++) {
+            $_SESSION["sidedish$i"] = array('id'=>$sideDish[0]->sid, 'name'=>$sideDish[0]->sname,'price'=>$sideDish[0]->sprice);
+        }
     }
-
-
-
-
-
 }

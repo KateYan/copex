@@ -1,7 +1,7 @@
 body{background-color:#fcfaf5; }
 .menu_block{ padding:7px 8px; border-bottom:1px solid #e3e3e3; background-color:#fff;}
 .menuD_img{ border-radius:10px; border:1px solid #dfdfdf; width:34%; height:116px; margin-right:10px; overflow:hidden}
-.menuD_img img{ float:left;}
+/*.menuD_img img{ float:left;}*/
 .menuD_summary, .menuD_img, .btn_showNum, .btn_plus, .btn_add{ display:inline-block; vertical-align:middle}
 .menuD_summary h4{ color:#262626; font-weight:300}
 .menuDP{ color:#db3f3f; padding:1px 0 5px}
@@ -11,7 +11,16 @@ body{background-color:#fcfaf5; }
 .btn_plus:active{ background-image:url(images/plusActive@2x.png); background-size:22px 22px;}
 .btn_add{ background-image:url(images/add@2x.png); background-size:22px;}
 .btn_add:active{ background-image:url(images/addActive@2x%27.png);background-size:22px 22px;}
-.btn_showNum{ width:68px; height:20px; border:1px solid #e3e3e3; border-radius:5px; text-align:center; line-height:20px; margin:0 6px;}
+.btn_showNum{ width:50px; height:20px; border:1px solid #e3e3e3; border-radius:5px; text-align:center; line-height:20px; margin:0 6px;}
+
+.btn_showNum input[type="text"]{
+    width: 100%;
+    text-align: center;
+}
+
+.btn_showNum input[type="text"]:disabled{
+    background-color: white;
+}
 
 .btn_footer{ background:url(images/arrow@2x.png) no-repeat left center; background-size:10px auto; padding-left:15px; font-size:12px; color:#545454;}
 .changeArea{ float:left; margin-left:12px}

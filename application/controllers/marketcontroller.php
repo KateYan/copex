@@ -69,7 +69,7 @@ class Marketcontroller extends MY_Controller{
             return redirect('userstatuscontroller/checkUserStatus');
         }
         // 1.given a start value of total cost
-        $totalcost = 0;
+        $totalCost = 0;
         // 2.given food-id-list as an array to be updated later
         // $foodList will be stored as session for generating order later
         $foodList = array();
@@ -77,54 +77,25 @@ class Marketcontroller extends MY_Controller{
         // $data['orderedFood'] is used to show ordered food information in sidedish page's lower list
         $data['orderedDishes'] = array();
 
-        // if user chosed first menuitem, get the posted id and amount
-        if(true){ //if(isset($_POST['fid1']))
-            $fid1 = '10003';//$this->input->post('fid1');
-            $amount1 = '2';//$this->input->post('amount1');
+        for ($i = 1; $i <= 3; $i++) {
+            $amt = $this->input->post("amt$i");
+            if($amt > 0 && $amt <= 50){
+                $fid = $_SESSION["food$i"]['id'];
+                $name = $_SESSION["food$i"]['name'];
+                $cost = $_SESSION["food$i"]['price'] * $amt;
+                $totalCost += $cost;
 
-            //get costs of the food that user just chose from vip-menu
-            $cost1 = $_SESSION['food1']['price'] * $amount1;
-
-            // store user ordered food's name,qty and total cost as an array
-            $food1 = array('name'=>$_SESSION['food1']['name'],'qty'=>$amount1,'cost'=>$cost1);
-
-            //update totalcost
-            $totalcost+=$cost1;
-            //update foodList
-            for($i = 0;$i<$amount1;$i++){
-                $foodList[] = $fid1;
+                //update foodList
+                for($j = 0; $j<$amt; $j++){
+                    $foodList[] = $fid;
+                }
+                $data['orderedDishes'][] = array('name'=>$name,'qty'=>$amt,'cost'=>$cost);
             }
-            //update food information array
-            $data['orderedDishes'][] = $food1;
-        }
-
-        // if user chosed second menuitem, get the posted id and amount
-        if(true){
-            $fid2 = '10001';
-            $amount2 = '1';
-            $cost2 = $_SESSION['food2']['price']  * $amount2;
-            $food2 = array('name'=>$_SESSION['food2']['name'],'qty'=>$amount2,'cost'=>$cost2);
-            $totalcost+=$cost2;
-            for($i = 0;$i<$amount2;$i++){
-                $foodList[] = $fid2;
-            }
-            $data['orderedDishes'][] = $food2;
-        }
-
-        // if user chosed third menuitem, get the posted id and amount
-        if(isset($_POST['fid3'])){
-            $fid3 = $this->input->post('fid3');
-            $amount3 = $this->input->post('amount3');
-            $cost3 = $_SESSION['food3']['price'] * $amount3;
-            $food3 = array('name'=>$_SESSION['food3']['name'],'qty'=>$amount3,'cost'=>$cost3);
-            $totalcost+=$cost3;
-            for($i = 0;$i<$amount3;$i++){
-                $foodList[] = $fid3;
-            }
-            $data['orderedDishes'][] = $food3;
         }
 
         $_SESSION['foodList'] = $foodList;
+
+
 
 
         // initiate ordered sidedish id-list array and information array
