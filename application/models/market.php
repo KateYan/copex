@@ -88,7 +88,7 @@ class Market extends CI_Model {
         $timeStart = $query1->row(0);
         $query2 = $this->db->query($sql2);
         $timeEnd = $query2->row(0);
-        
+
         // return order time range
         $orderTimeRange = array('orderStart'=>$timeStart->value,'orderEnd'=>$timeEnd->value);
         return $orderTimeRange;

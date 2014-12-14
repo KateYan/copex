@@ -41,6 +41,11 @@ class Marketcontroller extends MY_Controller{
         $campus = $this->market->getCampusById($_SESSION['cid']);
         $data['cname'] = $campus->cname;
 
+        // get orderTimeRange
+        $orderTimeRange = $this->market->orderTimeRange();
+        $data['orderStart'] = $orderTimeRange['orderStart'];
+        $data['orderEnd'] = $orderTimeRange['orderEnd'];
+
         $this->load->view('partials/header',$data);
         //if user is vip->he has vipid session then load vipmenu
         if(!empty($_SESSION['vipid'])){
