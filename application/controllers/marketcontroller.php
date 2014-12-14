@@ -41,8 +41,15 @@ class Marketcontroller extends MY_Controller{
         $campus = $this->market->getCampusById($_SESSION['cid']);
         $data['cname'] = $campus->cname;
 
+        // get user type for getting different order time range
+        if(!empty($_SESSION['vipid'])){
+            $userType = 'user';
+        }else{
+            $userType = 'vip';
+        }
+
         // get orderTimeRange
-        $orderTimeRange = $this->market->orderTimeRange();
+        $orderTimeRange = $this->market->orderTimeRange($userType);
         $data['orderStart'] = $orderTimeRange['orderStart'];
         $data['orderEnd'] = $orderTimeRange['orderEnd'];
 
@@ -280,9 +287,15 @@ class Marketcontroller extends MY_Controller{
      */
     public function checkTime(){
         $time = date('H:i:s'); //get timestamp for check if still in order time-range
+        // get user type
+        if(!empty($_SESSION['vipid'])){
+            $userType = 'user';
+        }else{
+            $userType = 'vip';
+        }
         // get order time range
         $this->load->model('market');
-        $orderTimeRange = $this->market->orderTimeRange();
+        $orderTimeRange = $this->market->orderTimeRange($userType);
 
         if($time>=$orderTimeRange['orderStart']&&$time<=$orderTimeRange['orderEnd']){
             return true;
