@@ -72,17 +72,10 @@ class Market extends CI_Model {
     }
 
     // get order time range for user
-    public function orderTimeRange(){
-        if(!empty($_SESSION['vipid'])){//select non-vip user's order time range
-            $sql1 = "SELECT `value` FROM `basic` WHERE `key`='user_order_start'";
+    public function orderTimeRange($userType){
+        $sql1 = "SELECT `value` FROM `basic` WHERE `key`='".$userType."_order_start'";
 
-            $sql2 = "SELECT `value` FROM `basic` WHERE `key`='user_order_end'";
-        }
-        else{//select vip user's order time range
-            $sql1 = "SELECT `value` FROM `basic` WHERE `key`='vip_order_start'";
-
-            $sql2 = "SELECT `value` FROM `basic` WHERE `key`='vip_order_end'";
-        }
+        $sql2 = "SELECT `value` FROM `basic` WHERE `key`='".$userType."_order_end'";
 
         $query1 = $this->db->query($sql1);
         $timeStart = $query1->row(0);
