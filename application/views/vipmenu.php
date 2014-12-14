@@ -42,10 +42,12 @@
 <body>
 <header id="Header"><?php echo $date; ?> 午餐菜单</header>
 <div id="Contenter" class="dinner_cont">
+
     <?php
     $attributes = array('class'=>'formcontrol', 'id'=>'vipmenuitem');
     echo form_open('showSideDish',$attributes);
     ?>
+
     <div class="menu_block">
         <span class="menuD_img"><img src="<?php echo $recomdItem->fpicture; ?>" width="100%" /></span>
         <span class="menuD_summary">
@@ -54,11 +56,12 @@
             <span class="dinnerAddPuls">
             	数量
             	<a class="btn_plus" onclick="plusRoom(this)"></a>
-                <span class="btn_showNum">0</span>
+                <span class="btn_showNum">2</span>
                 <a class="btn_add" onclick="addRoom(this)"></a>
             </span>
         </span>
-    </div><!-- end of menu_block -->
+    </div>
+
     <?php
     foreach($saleItem as $sale){
         echo '<div class="menu_block">';
@@ -67,10 +70,11 @@
         echo '<h4>'.$sale->fname.'</h4>';
         echo '<p class="menuDP">$'.$sale->fprice.'</p>';
         echo '<span class="dinnerAddPuls">'."数量".'<a class="btn_plus" onclick="plusRoom(this)"></a>';
-        echo '<span class="btn_showNum">0</span>';
+        echo '<span class="btn_showNum">2</span>';
         echo '<a class="btn_add" onclick="addRoom(this)"></a></span></span></div>';
     }
     ?>
+
 </div>
 <footer id="Footer">
     <a href="../userlogincontroller/loadCampus" class="btn_footer changeArea">更改校区</a>
