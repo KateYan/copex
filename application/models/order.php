@@ -18,15 +18,30 @@ class Order extends CI_Model {
     public $totalcost;
 
 // generating vip user's order by using uid
-    public function vipOrder($uid,$cid,$odate,$food,$sidedish,$totalcost,$ispaid,$balance){
+    public function vipOrder($uid,$cid,$odate,$food,$sidedish,$totalcost){
 
         $this->uid = $uid;
         $this->cid = $cid;
         $this->odate = $odate;
-        $this->oispaid = $ispaid;
         $this->ostatus = '0';
         $this->totalcost = $totalcost;
         $this->orderitem = array('food'=>$food,'sidedish'=>$sidedish);
+
+        // double check if the user can use vip card to pay order
+        $sql = "SELECT vbalance FROM vipcard WHERE uid='$uid'";
+        $query = $this->db->query($sql);
+        $result = $query->row(0);
+        $balance = $result->vbalance;
+
+        if($balance < $this->totalcost){ // balance is not enough to pay order
+            return false;
+        }
+
+        $this->oispaid = '1';
+        //update new balance of vipcard
+        $balance -= $totalcost;
+        $sql = "UPDATE vipcard SET vbalance='".$balance."' WHERE uid='".$uid."'";
+        $this->db->query($sql);
 
         //insert new order
         $sql = "INSERT INTO `order`(`uid`,`cid`,`odate`,`ostatus`,`oispaid`,`totalcost`) VALUES (".$this->db->escape($this->uid).",".$this->db->escape($this->cid).",".$this->db->escape($this->odate).",".$this->db->escape($this->ostatus).",".$this->db->escape($this->oispaid).",".$this->db->escape($this->totalcost).") ";
@@ -51,10 +66,6 @@ class Order extends CI_Model {
                 $this->db->query($sql);
             }
         }
-
-        //update new balance of vipcard
-        $sql = "UPDATE vipcard SET vbalance='".$balance."' WHERE uid='".$uid."'";
-        $this->db->query($sql);
 
         return $this;
     }

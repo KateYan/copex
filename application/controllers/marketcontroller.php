@@ -164,9 +164,9 @@ class Marketcontroller extends MY_Controller{
      */
     public function vipOrderGenerate(){
 
-        var_dump($_POST);
-
-        die();
+//        var_dump($_POST);
+//
+//        die();
 
         // if in order time-range then generate vip order
         if(!$this->checkTime()){
@@ -180,46 +180,49 @@ class Marketcontroller extends MY_Controller{
         // user did enter password
         $uid = $_SESSION['uid'];
         $odate = date('Y-m-d');
-
+        
         //1. check if the password is match or not by market moder's method validatePassword()
         $this->load->model('market');
         $password = $this->market->validatePassword($_SESSION['vipid'],$this->input->post('password'));
-        if($password){
-            // check if the balance is enouth to pay for all the dishes just ordered
-            if($_SESSION['balance']>=$_SESSION['totalcost']){
 
-                $this->load->model('order');
-                $ispaid ='1';
-                $balance = $_SESSION['balance'] - $_SESSION['totalcost'];// new balance of vipcard
-                $order = $this->order->vipOrder($uid,$_SESSION['cid'],$odate,$_SESSION['foodList'],$_SESSION['sideDishList'],$_SESSION['totalcost'],$ispaid,$balance);
-                $_SESSION['orderId'] = $order->oid;
-                // show order
-                return redirect('marketcontroller/succeedOrdered');
-            }
-            else{// Not enough money in vipcard to pay for this order
-                return redirect('marketcontroller/showSideDish');
-            }
-        } else{//entered wrong password
-            return redirect('marketcontroller/showSideDish');
+        if(!$password){
+            return redirect('marketcontroller/showSideDish');// wrong password
         }
-        // get order's number and date for showing order page
-        $data['orderNumber'] = $order->oid;
-        $data['date'] = $order->odate;
+        // begin to calculate total cost
+        $num = count($_POST);
+        $totalCost = 0;
+        // for posted side dish
+        $sideDishList = array();
+        for($i = 0;$i < 4;$i++){
+            if(isset($_POST["sd$i"])&&$_POST["sd$i"]=='on'){
+                // update sidedishlist
+                $sideDishList[] = $_SESSION["sidedish$i"]['id'];
 
-        // get campus address using session['cid]
-        $this->load->model('market');
-        $campus = $this->market->getCampusById($order->cid);
-        $data['address'] = $campus->caddr;
+                //update total cost
+                $totalCost += $_SESSION["sidedish$i"]['price'];
+            }
+        }
 
-        // get user's pickup time range by getting an rule object
-        // from 'rules' class using it's name and date
-        $this->load->model('rules');
-        $pickupRule = $this->rules->getPickupTime('vipPickupTime',$data['date']);
-        $data['timestart'] = $pickupRule->timestart;
-        $data['timeend'] = $pickupRule->timeend;
+        //for posted food
+        $foodList = array();
+        for($i = 0; $i < 3; $i++){
+            if(isset($_POST["amt$i"])){
+                //update foodList
+                $foodList[] = $_SESSION["food$i"]['id'];
+                //update totalcost
+                $totalCost += $_SESSION["food$i"]['price']*$_POST["amt$i"];
+            }
+        }
 
-        $this->load->view('ordersuccess',$data);
-        return true;
+        // generate order
+        $this->load->model('order');
+        $order = $this->order->vipOrder($uid,$_SESSION['cid'],$odate,$foodList,$sideDishList,$totalCost);
+        // store order's id
+        if($order){ // create order successfully
+            $_SESSION['orderId'] = $order->oid;
+            // show order
+            return redirect('marketcontroller/succeedOrdered');
+        }
     }
 
 
