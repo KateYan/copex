@@ -9,7 +9,21 @@
 
     <script type="text/javascript">
         $(function(){
+            $("form#side-dishes-list :input[type='checkbox']").change(function(){
+                    var name = $(this).next('label').children('.sd_title').html(), price = $(this).next('label').find('.sd_price_num').html() - 0, oriTotal = $("#total-cost").html() - 0;
+               if($(this).attr('checked')){
+                //add item
+                    var html = '<li><div class="order-list-title sidedish">'+ name +'</div><div class="order-list-amt">1份</div><div class="order-list-cost">$'+ price +'</div></li>';
+                    $('#order_list ul').append(html);
+                //total price
+                    $("#total-cost").html((oriTotal + price).toFixed(2));
+               }else{
+                //remove item
+                $('#order_list>ul>li>div.sidedish:contains('+ name +')').parent('li').remove();
+                    $("#total-cost").html((oriTotal - price).toFixed(2));
+               }
 
+            })
         })
     </script>
 </head>
@@ -28,14 +42,14 @@
             echo $sideDish[$i]->spicture;
             echo '.jpg" width="100%" height="100%" /></div>';
             echo '<div class="menuD_title sd_title">'.$sideDish[$i]->sname.'</div>';
-            echo '<div class="menuD_price sd_price">$'.$sideDish[$i]->sprice.'</div></label></li>';
+            echo '<div class="menuD_price sd_price">$<span class="sd_price_num">'.$sideDish[$i]->sprice.'</span></div></label></li>';
         }
         ?>
     </ul>
     </form>
 
     <div class="memu_accout">
-        <div class="order_list">
+        <div class="order_list" id="order_list">
             <ul>
                 <?php
                 foreach($orderedDishes as $dish){
@@ -54,7 +68,7 @@
         <ul><li>
             <div class="order-list-title">&nbsp;</div>
             <div class="order-list-amt">总计</div>
-            <div class="order-list-cost">$<?php echo $totalcost; ?></div>
+            <div class="order-list-cost">$<span id="total-cost"><?php echo $totalcost; ?></span></div>
         </ul></li>
         </div>
         <div class="order_list" style="border:none">
