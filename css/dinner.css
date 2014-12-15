@@ -80,3 +80,73 @@ input[type="radio"]:checked+label{
 	float: left;
 	overflow: hidden;
 }
+
+input[type="checkbox"].side-dish+label{
+    height: 65px;
+    overflow: hidden;
+    border: 2px solid #DDD;
+}
+
+input[type="checkbox"].side-dish:checked+label{
+    border-radius:3px;
+    overflow:hidden;
+    border:2px solid #FF885F;
+}
+
+li.side-dish-list div{
+    display: inline-block;
+    float: left;
+    height: 65px;
+    line-height: 65px;
+    border-left: 1px solid #DDD;
+}
+
+.sd_img{
+    border-radius: 0;
+    margin: 0;
+}
+
+.sd_title, .order_list ul li div{
+    display: inline-block;
+    width: 33%;
+    text-align: center;
+    float: left;
+}
+
+.sd_price{
+    width: 30%;
+    text-align: center;
+    color: #FF885F;
+}
+
+.order_list ul li{
+    padding: 7px 0;
+    overflow: hidden;
+}
+
+.order_list ul li div.order-list-title {
+    width: 30%;
+    text-align: left;
+    padding-left: 3%;
+}
+
+
+.order_list {
+    border-bottom: 1px solid #CCC;
+}
+
+div.order_password{
+    padding: 7px 0;
+}
+div.order_password .passPay{
+    padding-left: 3%;
+    display: inline-block;
+    width: 33%;
+}
+
+div.order_password input{
+    border:1px solid #CCC;
+    border-radius: 7px 5px;
+    padding: 5px;
+    width: 50%;
+}

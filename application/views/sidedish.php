@@ -9,68 +9,71 @@
 
     <script type="text/javascript">
         $(function(){
-            var _W = document.documentElement.clientWidth;
-            $(".menuD_img").css("height", parseInt((_W-18)*0.47*145/288)+"px");
 
         })
     </script>
 </head>
 <body>
 <header id="Header">四款精选小食</header>
-<div id="Contenter" class="selectedDinner">
-    <form action="marketcontroller/showSideDish" method="post">
+<div id="Contenter" style="margin:5px;">
+    <form id="side-dishes-list">
     <ul class="menu_list">
         <?php
-        $num = count($sideDish);
-        for($i=0;$i<$num;$i++){
-            echo '<li>';
-            echo '<input type="radio" id="'.$sideDish[$i]->sid.'" name="sid'.$i.'" style="display:none;">';
-            echo '<label for="'.$sideDish[$i]->sid.'">';
-            echo '<span class="menuD_img"><img src="../../upload/';
+        for($i = 0;$i <= 3; $i++){
+            $id = $i + 1;
+            echo '<li class="side-dish-list">';
+            echo "<input type='checkbox' id='sd$id' name='sd$id' style='display:none;' class='side-dish'>";
+            echo "<label for='sd$id' >";
+            echo '<div class="menuD_img sd_img"><img src="../../upload/';
             echo $sideDish[$i]->spicture;
-            echo '.jpg" width="100%" height="100%" /></span></label>';
-            echo '<span class="menuD_title">'.$sideDish[$i]->sname.'</span>';
-            echo '<span class="menuD_price">$'.$sideDish[$i]->sprice.'</span></li>';
+            echo '.jpg" width="100%" height="100%" /></div>';
+            echo '<div class="menuD_title sd_title">'.$sideDish[$i]->sname.'</div>';
+            echo '<div class="menuD_price sd_price">$'.$sideDish[$i]->sprice.'</div></label></li>';
         }
         ?>
     </ul>
     </form>
 
-    <ul class="memu_accout">
-        <div class="menu_list_li">
+    <div class="memu_accout">
+        <div class="order_list">
             <ul>
                 <?php
                 foreach($orderedDishes as $dish){
                     if(!empty($dish)){
                         echo '<li>';
-                        echo '<span class="menuD_AccoutTitle">'.$dish['name'].'</span>';
-                        echo '<span class="menuD_AccoutNum">'.$dish['qty']."份".'</span>';
-                        echo '<span class="menuD_AccoutPrice">'."$".$dish['cost'].'</span>';
+                        echo '<div class="order-list-title">'.$dish['name'].'</div>';
+                        echo '<div class="order-list-amt">'.$dish['qty']."份".'</div>';
+                        echo '<div class="order-list-cost">'."$".$dish['cost'].'</div>';
                         echo '</li>';
                     }
                 }
                 ?>
             </ul>
         </div>
-        <li class="menuD_accout">
-            <span class="menuD_AccoutTitle"></span>
-            <span class="menuD_AccoutNum">总计</span>
-            <span class="menuD_AccoutPrice">$<?php echo $totalcost; ?></span>
-        </li>
-        <li class="menuD_balance">
-            <span class="menuD_AccoutTitle">余额</span>
-            <span class="menuD_AccoutNum"></span>
-            <span class="menuD_AccoutPrice">$<?php echo $balance; ?></span>
-        </li>
+        <div class="order_list">
+        <ul><li>
+            <div class="order-list-title">&nbsp;</div>
+            <div class="order-list-amt">总计</div>
+            <div class="order-list-cost">$<?php echo $totalcost; ?></div>
+        </ul></li>
+        </div>
+        <div class="order_list" style="border:none">
+        <ul><li>
+            <div class="order-list-title">余额</div>
+            <div class="order-list-amt">&nbsp;</div>
+            <div class="order-list-cost">$<?php echo $balance; ?></div>
+        </ul></li>
+        </div>
         <?php
         $attributes = array('class'=>'formcontrol', 'id'=>'viporder');
         echo form_open('marketcontroller/vipOrderGenerate',$attributes);
         ?>
-        <li class="menuD_pay">
-            <span class="passPay">支付密码</span>
+
+        <div class="order_password">
+            <div class="passPay">支付密码</div>
             <input form="viporder" name="password" type="password" class="passWord" />
-        </li>
-    </ul>
+        </div>
+    </div>
     <div class="clear"></div>
     <div class="dSales_btnTo">
         <a class="btn_footer moreDinner" href="../userlogincontroller/showChangePassword">修改密码</a>
