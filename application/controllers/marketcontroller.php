@@ -174,7 +174,7 @@ class Marketcontroller extends MY_Controller{
             $this->load->model('order');
             $order = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$orderItemId,$uphone);
 
-            $_SESSION['order']= array('orderId'=>$order->oid,'campus'=>$order->cid);
+            $_SESSION['orderId']= $order->oid;
 
             return redirect('marketcontroller/succeedOrdered');
         }
@@ -270,8 +270,8 @@ class Marketcontroller extends MY_Controller{
     public function succeedOrdered(){
         // get campus address using session['cid]
         $this->load->model('market');
-        $data['orderNumber'] = $_SESSION['order']['orderId'];
-        $campus = $this->market->getCampusById($_SESSION['order']['campus']);
+        $data['orderNumber'] = $_SESSION['orderId'];
+        $campus = $this->market->getCampusById($_SESSION['cid']);
         $data['address'] = $campus->caddr;
         $data['date'] = date('m月d日');
 
