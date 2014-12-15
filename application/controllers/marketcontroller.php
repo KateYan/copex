@@ -152,46 +152,32 @@ class Marketcontroller extends MY_Controller{
      */
     public function orderGenerate(){
         // test if still in order time range
-        if($this->checkTime()){
-            // if user didn't enter phonenumber or choose a dish befor making an order
-            // order won't be generated
-            if(empty($_POST['uphone'])||empty($_POST['fid'])) {
-
-                return redirect('marketcontroller/showDailyMenu');
-            }else{
-                // get posted user's  phone number
-                // no matter used had a phone number before or not
-                // this will be used to update user's account's related phone number
-                $uphone = $this->input->post('uphone');
-                $orderItemId = $this->input->post('fid');
-
-                $uid = $_SESSION['uid'];
-                $odate = date('Y-m-d');
-
-                $this->load->model('order');
-                $order = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$orderItemId,$uphone);
-
-                $data['orderNumber'] = $order->oid;
-                $data['date'] = $order->odate;
-
-                // get campus address using session['cid]
-                $this->load->model('market');
-                $campus = $this->market->getCampusById($order->cid);
-                $data['address'] = $campus->caddr;
-
-                // get user's pickup time range by getting an rule object
-                // from 'rules' class using it's name and date
-                $this->load->model('market');
-                $userType = 'user';
-                $pickupTimeRange = $this->market->getPickupTime($userType);
-                $data['timestart'] = $pickupTimeRange['pickupStart'];
-                $data['timeend'] = $pickupTimeRange['pickupEnd'];
-
-                $this->load->view('ordersuccess',$data);
-                return true;
-            }
+        if(!$this->checkTime()){
+            return redirect('marketcontroller/showDailyMenu');
         }
-        return redirect('marketcontroller/showDailyMenu');
+
+        // if user didn't enter phonenumber or choose a dish befor making an order
+        // order won't be generated
+        if(empty($_POST['uphone'])||empty($_POST['fid'])) {
+
+            return redirect('marketcontroller/showDailyMenu');
+        }else{
+            // get posted user's  phone number
+            // no matter used had a phone number before or not
+            // this will be used to update user's account's related phone number
+            $uphone = $this->input->post('uphone');
+            $orderItemId = $this->input->post('fid');
+
+            $uid = $_SESSION['uid'];
+            $odate = date('Y-m-d');
+
+            $this->load->model('order');
+            $order = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$orderItemId,$uphone);
+
+            $_SESSION['order']= array('orderId'=>$order->oid,'campus'=>$order->cid);
+
+            return redirect('marketcontroller/succeedOrdered');
+        }
     }
 
 
@@ -276,6 +262,32 @@ class Marketcontroller extends MY_Controller{
             return false;
         }
 
+    }
+
+    /*
+     * order Successfully created page
+     */
+    public function succeedOrdered(){
+        // get campus address using session['cid]
+        $this->load->model('market');
+        $data['orderNumber'] = $_SESSION['order']['orderId'];
+        $campus = $this->market->getCampusById($_SESSION['order']['campus']);
+        $data['address'] = $campus->caddr;
+        $data['date'] = date('m月d日');
+
+        // get user's pickup time range by getting an rule object
+        // from 'rules' class using it's name and date
+        $this->load->model('market');
+        if(!empty($_SESSION['vipid'])){
+            $userType = 'vip';
+        }else{
+            $userType = 'user';
+        }
+        $pickupTimeRange = $this->market->getPickupTime($userType);
+        $data['timestart'] = $pickupTimeRange['pickupStart'];
+        $data['timeend'] = $pickupTimeRange['pickupEnd'];
+
+        $this->load->view('ordersuccess',$data);
     }
 
 }
