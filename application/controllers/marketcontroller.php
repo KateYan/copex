@@ -78,18 +78,26 @@ class Marketcontroller extends MY_Controller{
             return redirect('userstatuscontroller/checkUserStatus');
         }
 
+
         $totalCost = 0;
         $data['orderedDishes'] = array();
+
+        $selected = false;
 
         for ($i = 1; $i <= 3; $i++) {
             $amt = $this->input->post("amt$i");
             if($amt > 0 && $amt <= 50){
+                $selected = true;
                 $fid = $_SESSION["food$i"]['id'];
                 $name = $_SESSION["food$i"]['name'];
                 $cost = $_SESSION["food$i"]['price'] * $amt;
                 $totalCost += $cost;
                 $data['orderedDishes'][] = array('inputName'=>"amt$i", 'name'=>$name,'qty'=>$amt,'cost'=>$cost);
             }
+        }
+
+        if(!$selected){
+            return redirect('marketcontroller/showDailyMenu');
         }
 
         //get sidedishes:
