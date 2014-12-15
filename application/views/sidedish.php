@@ -100,7 +100,7 @@
 
         <div class="order_password">
             <div class="passPay">支付密码</div>
-            <input name="password" type="password" class="passWord" required/>
+            <input name="password" type="password" class="passWord" required />
         </div>
     </div>
     <div class="clear"></div>

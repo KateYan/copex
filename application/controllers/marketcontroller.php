@@ -117,10 +117,14 @@ class Marketcontroller extends MY_Controller{
         $this->load->model('market');
         $vipCard = $this->market->getVipCard($_SESSION['vipid']);
         $data['balance'] = $vipCard->vbalance;
-
         $_SESSION['balance'] = $vipCard->vbalance;
 
         $data['title'] = '精选小食';
+        //get error message
+        if(isset($_SESSION['error'])){
+            $data['error'] = $_SESSION['error'];
+        }
+
         $this->load->view('partials/header',$data);
         $this->load->view('sidedish',$data);
     }
@@ -163,11 +167,6 @@ class Marketcontroller extends MY_Controller{
      * generate order for vipuser
      */
     public function vipOrderGenerate(){
-
-//        var_dump($_POST);
-//
-//        die();
-
         // if in order time-range then generate vip order
         if(!$this->checkTime()){
             // out of order time range, then load timeout page
@@ -175,6 +174,8 @@ class Marketcontroller extends MY_Controller{
         }
 
         if(empty($_POST['password'])){        //user didn't type in password
+//            $err_msg = '没有填写支付密码！';
+//            $_SESSION['error'] = $err_msg;
             return redirect('marketcontroller/showSideDish');
         }
 
@@ -183,6 +184,8 @@ class Marketcontroller extends MY_Controller{
         $password = $this->market->validatePassword($_SESSION['vipid'],$this->input->post('password'));
 
         if(!$password){
+//            $err_msg = '密码错误！';
+//            $_SESSION['error'] = $err_msg;
             return redirect('marketcontroller/showSideDish');// wrong password
         }
 
@@ -193,24 +196,26 @@ class Marketcontroller extends MY_Controller{
         $totalCost = 0;
         //for posted food
         $foodList = array();
-        for($i = 0; $i < 3; $i++){
+        for($i = 1; $i <= 3; $i++){
             if(isset($_POST["amt$i"])){
-                //update foodList
-                $foodList[] = $_SESSION["food$i"]['id'];
                 //update totalcost
                 $totalCost += $_SESSION["food$i"]['price']*$_POST["amt$i"];
+                //update foodList
+                for($j=1;$j<=$_POST["amt$i"];$j++){
+                    $foodList[] = $_SESSION["food$i"]['id'];
+                }
             }
         }
-        
+
         // for posted side dish
         $sideDishList = array();
-        for($i = 0;$i < 4;$i++){
-            if(isset($_POST["sd$i"])&&$_POST["sd$i"]=='on'){
+        for($k = 1;$k <= 4; $k++){
+            if(isset($_POST["sd$k"])){
                 // update sidedishlist
-                $sideDishList[] = $_SESSION["sidedish$i"]['id'];
+                $sideDishList[] = $_SESSION["sidedish$k"]['id'];
 
                 //update total cost
-                $totalCost += $_SESSION["sidedish$i"]['price'];
+                $totalCost += $_SESSION["sidedish$k"]['price'];
             }
         }
 
