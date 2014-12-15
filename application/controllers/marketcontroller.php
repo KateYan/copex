@@ -252,16 +252,30 @@ class Marketcontroller extends MY_Controller{
         $data['orderNumber'] = $_SESSION['orderId'];
         $campus = $this->market->getCampusById($_SESSION['cid']);
         $data['address'] = $campus->caddr;
-        $data['date'] = date('m月d日');
 
-        // get user's pickup time range by getting an rule object
-        // from 'rules' class using it's name and date
-        $this->load->model('market');
+        // get user type for getting different order time range
+        // and show different pickup date based on order time;
         if(!empty($_SESSION['vipid'])){
             $userType = 'vip';
-        }else{
-            $userType = 'user';
+            $this->load->model('market');
+            $orderTimeRange = $this->market->orderTimeRange($userType);
+            $time = date('H:i:s');
+            if($time>=$orderTimeRange['orderStart']){
+                $data['date'] = date('m月d日',strtotime('+1 day'));
+            }elseif($time<=$orderTimeRange['orderEnd']){
+                $data['date'] = date('m月d日');
+            }
         }
+        // for non-vip user,the confirm page will show pickup date
+        //as the next day of order's create date
+        else{
+            $userType = 'user';
+            $this->load->model('market');
+            $data['date'] = date('m月d日',strtotime('+1 day'));
+        }
+
+        // get user's pickup time range based on user's type
+
         $pickupTimeRange = $this->market->getPickupTime($userType);
         $data['timestart'] = $pickupTimeRange['pickupStart'];
         $data['timeend'] = $pickupTimeRange['pickupEnd'];
