@@ -18,7 +18,7 @@ class Market extends CI_Model {
 
     // get campus's address by using session['cid']
     public function getCampusById($cid){
-        $sql = "SELECT * FROM campus WHERE cid='".$cid."'";
+        $sql = "SELECT * FROM campus WHERE cid='$cid'";
         $query = $this->db->query($sql);
 
         // return the result set as an array
@@ -28,7 +28,7 @@ class Market extends CI_Model {
 
     // get sidedish's information by using it's sid
     public function getSidedishById($sid){
-        $sql = "SELECT * FROM sidedish WHERE sid='".$sid."'";
+        $sql = "SELECT * FROM sidedish WHERE sid='$sid'";
         $query = $this->db->query($sql);
 
         // return the result set as an array
@@ -37,7 +37,7 @@ class Market extends CI_Model {
 
     // get vip user's vipcard's information by using his vipid
     public function getVipCard($vipid){
-        $sql = "SELECT * FROM vipcard WHERE vipid='".$vipid."'";
+        $sql = "SELECT * FROM vipcard WHERE vipid='$vipid'";
         $query = $this->db->query($sql);
 
         //return the result set as an array;
@@ -59,7 +59,7 @@ class Market extends CI_Model {
 
     // store new password
     public function updatePassword($vipid,$newPassword){
-        $sql = "UPDATE vipcard SET vpassword='".$newPassword."' WHERE vipid='".$vipid."'";
+        $sql = "UPDATE vipcard SET vpassword='$newPassword' WHERE vipid='$vipid'";
         $this->db->query($sql);
     }
 

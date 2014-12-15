@@ -177,10 +177,7 @@ class Marketcontroller extends MY_Controller{
         if(empty($_POST['password'])){        //user didn't type in password
             return redirect('marketcontroller/showSideDish');
         }
-        // user did enter password
-        $uid = $_SESSION['uid'];
-        $odate = date('Y-m-d');
-        
+
         //1. check if the password is match or not by market moder's method validatePassword()
         $this->load->model('market');
         $password = $this->market->validatePassword($_SESSION['vipid'],$this->input->post('password'));
@@ -188,9 +185,23 @@ class Marketcontroller extends MY_Controller{
         if(!$password){
             return redirect('marketcontroller/showSideDish');// wrong password
         }
+
+        // user did enter password
+        $uid = $_SESSION['uid'];
+        $odate = date('Y-m-d');
         // begin to calculate total cost
-        $num = count($_POST);
         $totalCost = 0;
+        //for posted food
+        $foodList = array();
+        for($i = 0; $i < 3; $i++){
+            if(isset($_POST["amt$i"])){
+                //update foodList
+                $foodList[] = $_SESSION["food$i"]['id'];
+                //update totalcost
+                $totalCost += $_SESSION["food$i"]['price']*$_POST["amt$i"];
+            }
+        }
+        
         // for posted side dish
         $sideDishList = array();
         for($i = 0;$i < 4;$i++){
@@ -203,17 +214,9 @@ class Marketcontroller extends MY_Controller{
             }
         }
 
-        //for posted food
-        $foodList = array();
-        for($i = 0; $i < 3; $i++){
-            if(isset($_POST["amt$i"])){
-                //update foodList
-                $foodList[] = $_SESSION["food$i"]['id'];
-                //update totalcost
-                $totalCost += $_SESSION["food$i"]['price']*$_POST["amt$i"];
-            }
+        if($_SESSION['balance']<$totalCost){// vipcard is not enough to pay order
+            return redirect('marketcontroller/showSideDish');
         }
-
         // generate order
         $this->load->model('order');
         $order = $this->order->vipOrder($uid,$_SESSION['cid'],$odate,$foodList,$sideDishList,$totalCost);
