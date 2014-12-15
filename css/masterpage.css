@@ -140,6 +140,7 @@ input{
     background-color:#ff885f;
     box-shadow:0px -2px 0px rgba(88,156,184,0.4) inset;
     border-radius:5px;  display:block;
+    cursor: pointer;
 }
 .layer_summary ul li a:active{
     background-color:#ff6540;

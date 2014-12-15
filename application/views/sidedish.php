@@ -23,8 +23,24 @@
                     $("#total-cost").html((oriTotal - price).toFixed(2));
                }
 
-            })
-        })
+            });
+
+            $("form#side-dishes-list").submit(function(){
+                var total = $("#total-cost").html() - 0, balance = $("#balance").html() - 0;
+                if(total > balance){
+                    $('.layer').show();
+                    return false;
+                }else{
+                    $(this).submit();
+                }
+            });
+        });
+
+        function cashOrder(){
+                var html = "<input type='hidden' name='by_cash' value='true' />";
+                $("form#side-dishes-list").unbind('submit').append(html).submit();
+            }
+
     </script>
 </head>
 <body>
@@ -78,7 +94,7 @@
         <ul><li>
             <div class="order-list-title">余额</div>
             <div class="order-list-amt">&nbsp;</div>
-            <div class="order-list-cost">$<?php echo $balance; ?></div>
+            <div class="order-list-cost">$<span id="balance"><?php echo $balance; ?></span></div>
         </ul></li>
         </div>
 
@@ -108,9 +124,9 @@
     <div class="layer_summary">
         <p>余额不足<span class="sorry">现在你可以：</span></p>
         <ul class="finishLay">
-            <li><a class="btn_again">A重新点餐</a></li>
-            <li><a class="btn_again">B现金点餐</a></li>
-            <li><a class="btn_again">B暂不点餐</a></li>
+            <li><a href="showDailyMenu"  class="btn_again" >A重新点餐</a></li>
+            <li><a class="btn_again" onclick="cashOrder()">B现金点餐</a></li>
+            <li><a href="showDailyMenu" class="btn_again">C暂不点餐</a></li>
         </ul>
     </div>
 </div>
