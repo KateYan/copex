@@ -230,6 +230,8 @@ class Marketcontroller extends MY_Controller{
             $_SESSION['orderId'] = $order->oid;
             // show order
             return redirect('marketcontroller/succeedOrdered');
+        }else{
+            return redirect('marketcontroller/showSideDish');
         }
     }
 
