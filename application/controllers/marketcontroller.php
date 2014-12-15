@@ -77,13 +77,8 @@ class Marketcontroller extends MY_Controller{
         if(!isset($_SESSION['vipid'])){
             return redirect('userstatuscontroller/checkUserStatus');
         }
-        // 1.given a start value of total cost
+
         $totalCost = 0;
-        // 2.given food-id-list as an array to be updated later
-        // $foodList will be stored as session for generating order later
-        $foodList = array();
-        // 3.given ordered food information array to be updated later
-        // $data['orderedFood'] is used to show ordered food information in sidedish page's lower list
         $data['orderedDishes'] = array();
 
         for ($i = 1; $i <= 3; $i++) {
@@ -93,16 +88,11 @@ class Marketcontroller extends MY_Controller{
                 $name = $_SESSION["food$i"]['name'];
                 $cost = $_SESSION["food$i"]['price'] * $amt;
                 $totalCost += $cost;
-
-                //update foodList
-                for($j = 0; $j<$amt; $j++){
-                    $foodList[] = [$fid, 0];
-                }
                 $data['orderedDishes'][] = array('inputName'=>"amt$i", 'name'=>$name,'qty'=>$amt,'cost'=>$cost);
             }
         }
 
-        //For sidedishes:
+        //get sidedishes:
 
         $this->load->model('menuitem');
         $data['sideDish'] = $this->menuitem->getSideDish($_SESSION['cid']);
@@ -110,18 +100,6 @@ class Marketcontroller extends MY_Controller{
         if (empty($_SESSION["sidedish1"])) {
             // store sidedish's session
             $this->menuitem->storeSidedishInSession($data['sideDish']);
-        }
-
-
-        for ($i = 1; $i <= 4 ; $i++) {
-            if($this->input->post("sd$i")){
-                $sid = $_SESSION["sidedish$i"]['id'];
-                $name = $_SESSION["sidedish$i"]['name'];
-                $cost = $_SESSION["sidedish$i"]['price'];
-                $foodList[] = [$fid, 1];
-                $data['orderedDishes'][] = array('inputName'=>"sd$i", 'name'=>$name,'qty'=> '1' ,'cost'=>$cost);
-                $totalCost += $cost;
-            }
         }
 
         // get the total cost of all the dishes user just ordered
@@ -132,15 +110,7 @@ class Marketcontroller extends MY_Controller{
         $vipCard = $this->market->getVipCard($_SESSION['vipid']);
         $data['balance'] = $vipCard->vbalance;
 
-        // get needed session ready for generating order
-        // 1. total cost
-        // 2. vipcard's balance
-        // 3. food and sidedishes's id list -> set bebore already
-        // 4. vipcard's password
-        $_SESSION['totalcost'] = $totalCost;
         $_SESSION['balance'] = $vipCard->vbalance;
-        $_SESSION['foodList'] = $foodList;
-
 
         $data['title'] = '精选小食';
         $this->load->view('partials/header',$data);
@@ -185,11 +155,15 @@ class Marketcontroller extends MY_Controller{
      * generate order for vipuser
      */
     public function vipOrderGenerate(){
+
+        var_dump($_POST);
+
+        die();
+
         // if in order time-range then generate vip order
         if(!$this->checkTime()){
-            $this->load->view('timeout');
             // out of order time range, then load timeout page
-            return false;
+            return $this->load->view('timeout');
         }
 
         if(empty($_POST['password'])){        //user didn't type in password

@@ -29,8 +29,8 @@
 </head>
 <body>
 <header id="Header">四款精选小食</header>
+<form id="side-dishes-list" action ='vipOrderGenerate' method="POST">
 <div id="Contenter" style="margin:5px;">
-    <form id="side-dishes-list">
     <ul class="menu_list">
         <?php
         for($i = 0;$i <= 3; $i++){
@@ -46,19 +46,22 @@
         }
         ?>
     </ul>
-    </form>
+
 
     <div class="memu_accout">
         <div class="order_list" id="order_list">
             <ul>
                 <?php
-                foreach($orderedDishes as $dish){
+                foreach($orderedDishes as $key => $dish){
+                    $id = $key + 1;
                     if(!empty($dish)){
                         echo '<li>';
                         echo '<div class="order-list-title">'.$dish['name'].'</div>';
                         echo '<div class="order-list-amt">'.$dish['qty']."份".'</div>';
                         echo '<div class="order-list-cost">'."$".$dish['cost'].'</div>';
                         echo '</li>';
+                        echo "<input type='hidden' name='".$dish['inputName']."' value=".$dish['qty'].">";
+                        ;
                     }
                 }
                 ?>
@@ -78,14 +81,10 @@
             <div class="order-list-cost">$<?php echo $balance; ?></div>
         </ul></li>
         </div>
-        <?php
-        $attributes = array('class'=>'formcontrol', 'id'=>'viporder');
-        echo form_open('marketcontroller/vipOrderGenerate',$attributes);
-        ?>
 
         <div class="order_password">
             <div class="passPay">支付密码</div>
-            <input form="viporder" name="password" type="password" class="passWord" />
+            <input name="password" type="password" class="passWord" required/>
         </div>
     </div>
     <div class="clear"></div>
@@ -99,9 +98,11 @@
 <Footer id="Footer">
     <div class="btn_resetOrder">
         <a href="showDailyMenu" class="btn_submitOrder btn_rest">重新选择</a>
-        <button form="viporder" class="btn_submitOrder btn_nowOrder" style="border: none;">立刻下单</button><div class="clear"></div>
+        <button type="submit" class="btn_submitOrder btn_nowOrder" style="border: none;">立刻下单</button>
+        <div class="clear"></div>
     </div>
 </Footer>
+</form>
 <div class="layer">
     <div class="black_layer"></div>
     <div class="layer_summary">

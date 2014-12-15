@@ -55,7 +55,7 @@
         echo '<p class="menuDP">$'.$sale->fprice.'</p>';
         echo '<span class="dinnerAddPuls">'."数量".'<a class="btn_plus" onclick="minRoom(this)"></a>';
         echo '<span class="btn_showNum">';
-        echo "<input type='text' name='amt$id' value='2' readonly='readonly'/></span>";
+        echo "<input type='text' name='amt$id' value='0' readonly='readonly'/></span>";
         echo '<a class="btn_add" onclick="addRoom(this)"></a></span></div></div>';
     }
     ?>
