@@ -186,57 +186,58 @@ class Marketcontroller extends MY_Controller{
      */
     public function vipOrderGenerate(){
         // if in order time-range then generate vip order
-        if($this->checkTime()){
-            // check if user typed in password or not
-            if(!empty($_POST['password'])){  // user did enter password
-                $uid = $_SESSION['uid'];
-                $odate = date('Y-m-d');
-                $this->load->model('order');
-
-                //1. check if the password is match or not by market moder's method validatePassword()
-                $this->load->model('market');
-                $password = $this->market->validatePassword($_SESSION['vipid'],$this->input->post('password'));
-                if($password){
-                    // check if the balance is enouth to pay for all the dishes just ordered
-                    if($_SESSION['balance']>=$_SESSION['totalcost']){ //user will use vipcard to pay for the order
-                        // create new vip order for user
-                        $this->load->model('order');
-                        $ispaid ='1';
-                        $balance = $_SESSION['balance'] - $_SESSION['totalcost'];
-                        $order = $this->order->vipOrder($uid,$_SESSION['cid'],$odate,$_SESSION['foodList'],$_SESSION['sideDishList'],$_SESSION['totalcost'],$ispaid,$balance);
-                    }else{
-                        echo "not enough balance!!!";//balance is not enough to pay
-                        return false;
-                    }
-                } else{
-                    echo "password error!";//entered not matched password
-                    return false;
-                }
-                // get order's number and date for showing order page
-                $data['orderNumber'] = $order->oid;
-                $data['date'] = $order->odate;
-
-                // get campus address using session['cid]
-                $this->load->model('market');
-                $campus = $this->market->getCampusById($order->cid);
-                $data['address'] = $campus->caddr;
-
-                // get user's pickup time range by getting an rule object
-                // from 'rules' class using it's name and date
-                $this->load->model('rules');
-                $pickupRule = $this->rules->getPickupTime('vipPickupTime',$data['date']);
-                $data['timestart'] = $pickupRule->timestart;
-                $data['timeend'] = $pickupRule->timeend;
-
-                $this->load->view('ordersuccess',$data);
-                return true;
-            }
-            return redirect('marketcontroller/showSideDish');
+        if(!$this->checkTime()){
+            $this->load->view('timeout');
+            // out of order time range, then load timeout page
+            return false;
         }
 
-        // out of order time range, then load timeout page
-        $this->load->view('timeout');
+        if(empty($_POST['password'])){        //user didn't type in password
+            return redirect('marketcontroller/showSideDish');
+        }
+        // user did enter password
+        $uid = $_SESSION['uid'];
+        $odate = date('Y-m-d');
 
+        //1. check if the password is match or not by market moder's method validatePassword()
+        $this->load->model('market');
+        $password = $this->market->validatePassword($_SESSION['vipid'],$this->input->post('password'));
+        if($password){
+            // check if the balance is enouth to pay for all the dishes just ordered
+            if($_SESSION['balance']>=$_SESSION['totalcost']){
+
+                $this->load->model('order');
+                $ispaid ='1';
+                $balance = $_SESSION['balance'] - $_SESSION['totalcost'];// new balance of vipcard
+                $order = $this->order->vipOrder($uid,$_SESSION['cid'],$odate,$_SESSION['foodList'],$_SESSION['sideDishList'],$_SESSION['totalcost'],$ispaid,$balance);
+                $_SESSION['orderId'] = $order->oid;
+                // show order
+                return redirect('marketcontroller/succeedOrdered');
+            }
+            else{// Not enough money in vipcard to pay for this order
+                return redirect('marketcontroller/showSideDish');
+            }
+        } else{//entered wrong password
+            return redirect('marketcontroller/showSideDish');
+        }
+        // get order's number and date for showing order page
+        $data['orderNumber'] = $order->oid;
+        $data['date'] = $order->odate;
+
+        // get campus address using session['cid]
+        $this->load->model('market');
+        $campus = $this->market->getCampusById($order->cid);
+        $data['address'] = $campus->caddr;
+
+        // get user's pickup time range by getting an rule object
+        // from 'rules' class using it's name and date
+        $this->load->model('rules');
+        $pickupRule = $this->rules->getPickupTime('vipPickupTime',$data['date']);
+        $data['timestart'] = $pickupRule->timestart;
+        $data['timeend'] = $pickupRule->timeend;
+
+        $this->load->view('ordersuccess',$data);
+        return true;
     }
 
 
@@ -248,17 +249,21 @@ class Marketcontroller extends MY_Controller{
         // get user type
         if(!empty($_SESSION['vipid'])){
             $userType = 'vip';
+            // get order time range
+            $this->load->model('market');
+            $orderTimeRange = $this->market->orderTimeRange($userType);
+            $result = $time>=$orderTimeRange['orderStart']||$time<=$orderTimeRange['orderEnd'];
         }else{
             $userType = 'user';
+            // get order time range
+            $this->load->model('market');
+            $orderTimeRange = $this->market->orderTimeRange($userType);
+            $result = $time>=$orderTimeRange['orderStart']&&$time<=$orderTimeRange['orderEnd'];
         }
-        // get order time range
-        $this->load->model('market');
-        $orderTimeRange = $this->market->orderTimeRange($userType);
 
-        if($time>=$orderTimeRange['orderStart']&&$time<=$orderTimeRange['orderEnd']){
+        if($result){
             return true;
-        }
-        else{
+        } else{
             return false;
         }
 

@@ -51,6 +51,11 @@ class Order extends CI_Model {
                 $this->db->query($sql);
             }
         }
+
+        //update new balance of vipcard
+        $sql = "UPDATE vipcard SET vbalance='".$balance."' WHERE uid='".$uid."'";
+        $this->db->query($sql);
+
         return $this;
     }
 
