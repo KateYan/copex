@@ -154,9 +154,9 @@ class Marketcontroller extends MY_Controller{
             $odate = date('Y-m-d');
 
             $this->load->model('order');
-            $order = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$orderItemId,$uphone);
+            $orderId = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$orderItemId,$uphone);
 
-            $_SESSION['orderId']= $order->oid;
+            $_SESSION['orderId']= $orderId;
 
             return redirect('marketcontroller/succeedOrdered');
         }
@@ -224,10 +224,10 @@ class Marketcontroller extends MY_Controller{
         }
         // generate order
         $this->load->model('order');
-        $order = $this->order->vipOrder($uid,$_SESSION['cid'],$odate,$foodList,$sideDishList,$totalCost);
+        $orderId = $this->order->vipOrder($uid,$_SESSION['cid'],$odate,$foodList,$sideDishList,$totalCost);
         // store order's id
-        if($order){ // create order successfully
-            $_SESSION['orderId'] = $order->oid;
+        if($orderId){ // create order successfully
+            $_SESSION['orderId'] = $orderId;
             // show order
             return redirect('marketcontroller/succeedOrdered');
         }else{

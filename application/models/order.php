@@ -8,24 +8,12 @@
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Order extends CI_Model {
-    public  $oid;
-    public $uid;
-    public $cid;   //if user made two order to two different campus in a very short time, using cid will help to ditermin which order is to which campus
-    public $odate;
-    public $ostatus;
-    public $oispaid;
-    public $orderitem = array();
-    public $totalcost;
 
 // generating vip user's order by using uid
     public function vipOrder($uid,$cid,$odate,$food,$sidedish,$totalcost){
 
-        $this->uid = $uid;
-        $this->cid = $cid;
-        $this->odate = $odate;
-        $this->ostatus = '0';
-        $this->totalcost = $totalcost;
-        $this->orderitem = array('food'=>$food,'sidedish'=>$sidedish);
+        $ostatus = '0';
+        $orderitem = array('food'=>$food,'sidedish'=>$sidedish);
 
         // double check if the user can use vip card to pay order
         $sql = "SELECT vbalance FROM vipcard WHERE uid='$uid'";
@@ -33,41 +21,40 @@ class Order extends CI_Model {
         $result = $query->row(0);
         $balance = $result->vbalance;
 
-        if($balance < $this->totalcost){ // balance is not enough to pay order
+        if($balance < $totalcost){ // balance is not enough to pay order
             return false;
         }
 
-        $this->oispaid = '1';
+        $oispaid = '1';
         //update new balance of vipcard
         $balance -= $totalcost;
         $sql = "UPDATE vipcard SET vbalance='".$balance."' WHERE uid='".$uid."'";
         $this->db->query($sql);
 
         //insert new order
-        $sql = "INSERT INTO `order`(`uid`,`cid`,`odate`,`ostatus`,`oispaid`,`totalcost`) VALUES (".$this->db->escape($this->uid).",".$this->db->escape($this->cid).",".$this->db->escape($this->odate).",".$this->db->escape($this->ostatus).",".$this->db->escape($this->oispaid).",".$this->db->escape($this->totalcost).") ";
+        $sql = "INSERT INTO `order`(`uid`,`cid`,`odate`,`ostatus`,`oispaid`,`totalcost`) VALUES (".$this->db->escape($uid).",".$this->db->escape($cid).",".$this->db->escape($odate).",".$this->db->escape($ostatus).",".$this->db->escape($oispaid).",".$this->db->escape($totalcost).") ";
         $this->db->query($sql);
-        $this->oid = $this->db->insert_id();//get order's id
+        $oid = $this->db->insert_id();//get order's id
 
 
-        if(!empty($this->orderitem['food'])){//create rows of orderitems for orderitem table
-            $num = count($this->orderitem['food']);
+        if(!empty($orderitem['food'])){//create rows of orderitems for orderitem table
+            $num = count($orderitem['food']);
 
             for($i = 0 ;$i<$num;$i++){
-                $sql = "INSERT INTO orderitem(oid,dishid,dishtype) VALUES('".$this->oid."','".$this->orderitem['food'][$i]."','0') ";
+                $sql = "INSERT INTO orderitem(oid,dishid,dishtype) VALUES('$oid','".$orderitem['food'][$i]."','0') ";
                 $this->db->query($sql);
             }
         }
 
-        if(!empty($this->orderitem['sidedish'])){//count sidedish part's cost
-            $num = count($this->orderitem['sidedish']);
+        if(!empty($orderitem['sidedish'])){//count sidedish part's cost
+            $num = count($orderitem['sidedish']);
 
             for($i = 0 ;$i<$num;$i++){
-                $sql = "INSERT INTO orderitem(oid,dishid,dishtype) VALUES('".$this->oid."','".$this->orderitem['sidedish'][$i]."','1') ";
+                $sql = "INSERT INTO orderitem(oid,dishid,dishtype) VALUES('$oid','".$orderitem['sidedish'][$i]."','1') ";
                 $this->db->query($sql);
             }
         }
-
-        return $this;
+        return $oid;
     }
 
 
@@ -75,21 +62,16 @@ class Order extends CI_Model {
      * using userid, date, and the foodid the user chosed to create order for non-vip user
      */
     public function userOrder($uid,$cid,$odate,$orderItemId,$uphone){
-        // set order object's properties' known values
-        $this->uid = $uid;
-        $this->cid = $cid;
-        $this->odate = $odate;
-        $this->orderitem = $orderItemId;
 
         // insert into order table a new row
-        $sql = "INSERT INTO `order`(`uid`,`cid`,`odate`) VALUES (".$this->db->escape($this->uid).",".$this->db->escape($this->cid).",".$this->db->escape($this->odate).")";
+        $sql = "INSERT INTO `order`(`uid`,`cid`,`odate`) VALUES (".$this->db->escape($uid).",".$this->db->escape($cid).",".$this->db->escape($odate).")";
         $this->db->query($sql);
 
         // set the order's object's oid equal to the last insert's order's id
-        $this->oid = $this->db->insert_id();
+        $oid = $this->db->insert_id();
 
         // find the food's information from food table using food's fid
-        $sqlFood = "SELECT * FROM food WHERE fid='".$this->orderitem."'";
+        $sqlFood = "SELECT * FROM food WHERE fid='$orderItemId'";
         $query = $this->db->query($sqlFood);
 
         // $query is a set of results, so it can't be used directly
@@ -97,21 +79,21 @@ class Order extends CI_Model {
         $food = $query->row(0);
 
         // get the food's price and asign it's value to the order's total cost
-        $this->totalcost = $food->fprice;
+        $totalcost = $food->fprice;
 
         //insert the order's food into orderitem table
-        $sqlItem = "INSERT INTO orderitem(oid,dishid,dishtype) VALUES(".$this->db->escape($this->oid).",".$this->db->escape($food->fid).",'0')";
+        $sqlItem = "INSERT INTO orderitem(oid,dishid,dishtype) VALUES(".$this->db->escape($oid).",".$this->db->escape($orderItemId).",'0')";
         $this->db->query($sqlItem);
 
         // update the totalcost's value which is just inserted into order table
-        $sqlCost = "UPDATE `order` SET `totalcost`='".$this->totalcost."' WHERE `oid`='".$this->oid."'";
+        $sqlCost = "UPDATE `order` SET `totalcost`='$totalcost' WHERE `oid`='$oid'";
         $this->db->query($sqlCost);
 
         // update the user's order-status into '1' and his phone number into new entered phone number
-        $sqlOrdered = "UPDATE user SET ordered = '1' AND uphone='".$uphone."' WHERE uid = '".$this->uid."'";
+        $sqlOrdered = "UPDATE user SET ordered = '1' AND uphone='$uphone' WHERE uid = '$uid'";
         $this->db->query($sqlOrdered);
 
-        return $this;
+        return $oid;
     }
 
 
