@@ -79,5 +79,21 @@ class Market extends CI_Model {
         return $orderTimeRange;
     }
 
+    // using user's type to get pickup time range
+    public function getPickupTime($userType){
+        $sql1 = "SELECT `value` FROM `basic` WHERE `key`='".$userType."_pickup_start'";
+
+        $sql2 = "SELECT `value` FROM `basic` WHERE `key`='".$userType."_pickup_end'";
+
+        $query1 = $this->db->query($sql1);
+        $timeStart = $query1->row(0);
+        $query2 = $this->db->query($sql2);
+        $timeEnd = $query2->row(0);
+
+        // return pickup time range
+        $pickupTimeRange = array('pickupStart'=>$timeStart->value,'pickupEnd'=>$timeEnd->value);
+        return $pickupTimeRange;
+    }
+
 
 }

@@ -181,10 +181,11 @@ class Marketcontroller extends MY_Controller{
 
                 // get user's pickup time range by getting an rule object
                 // from 'rules' class using it's name and date
-                $this->load->model('rules');
-                $pickupRule = $this->rules->getPickupTime('pickupTime',$data['date']);
-                $data['timestart'] = $pickupRule->timestart;
-                $data['timeend'] = $pickupRule->timeend;
+                $this->load->model('market');
+                $userType = 'user';
+                $pickupTimeRange = $this->market->getPickupTime($userType);
+                $data['timestart'] = $pickupTimeRange['pickupStart'];
+                $data['timeend'] = $pickupTimeRange['pickupEnd'];
 
                 $this->load->view('ordersuccess',$data);
                 return true;
