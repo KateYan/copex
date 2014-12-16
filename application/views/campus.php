@@ -63,9 +63,11 @@
     <?php
     if(!isset($_SESSION['vipid'])){
         echo '<div class="btn_loginArea">';
-        echo '<a style="border: none;" href="../userlogincontroller/showVipLogin" class="btn_login"">';
+        echo '<button onclick="window.location =';
+	echo "'showVipLogin';";
+	echo '" class="btn_login" style="border: none;">';
         echo "会员登录";
-        echo '</a></div>';
+        echo '</button></div>';
     }
     ?>
 

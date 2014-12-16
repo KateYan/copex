@@ -45,7 +45,7 @@ h3{ color:#676767; font-weight:lighter; padding-left:36px; height:40px; line-hei
 .telephone{ width:150px; height:20px; line-height:20px; border:1px solid #d4d4d4; border-radius:5px; padding:6px; float:left}
 .dinnerS_fMain{ padding: 0 7px;}
 /*.dSales_btnTo{ padding:0px 19px 61px;}*/
-.btn_nowOrder{ margin-right:0;}
+.btn_nowOrder{ margin-right:5px;}
 
 /*let the label be a block so it will contain a div with image and list*/
 label{
