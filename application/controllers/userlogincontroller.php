@@ -90,6 +90,24 @@ class Userlogincontroller extends MY_Controller{
         if(!isset($_SESSION['vipid'])){
             return redirect('userstatuscontroller/checkUserStatus');
         }
+        // show input phone error on change password page
+        if(isset($_GET['error_uphone'])){
+            $data['uphone'] = $_GET['error_uphone'];
+            $this->load->view('changePassword',$data);
+            return true;
+        }
+        // show input old password error on change password page
+        if(isset($_GET['error_oldpassword'])){
+            $data['oldpassword'] = $_GET['error_oldpassword'];
+            $this->load->view('changePassword',$data);
+            return true;
+        }
+        // show input new password error on change password page
+        if(isset($_GET['error_newpassword'])){
+            $data['newpassword'] = $_GET['error_newpassword'];
+            $this->load->view('changePassword',$data);
+            return true;
+        }
         $this->load->view('changePassword');
     }
     /*
@@ -115,37 +133,31 @@ class Userlogincontroller extends MY_Controller{
         $vipUser = $this->user->oldUser($_SESSION['uid']);
 
         // user entered phone number that is not related to his own account
-        $error_msg['uphone'] = null;
-        $error_msg['oldpassword'] = null;
-        $error_msg['newpassword'] = null;
+        $error_msg = null;
+
         if($phoneNumber!=$vipUser->uphone){
             // alert that user entered wrong phone number
-            $error_msg['uphone'] = "手机号无效，请输入您账户关联的手机号";
-            $this->load->view('changePassword',$error_msg);
-            return true;
+            $error_msg = "手机号有误！请输入您账号关联的手机号";
+
+            $url = site_url("userlogincontroller/showChangePassword?error_uphone=$error_msg");
+            header('Location:'.$url);
         }
         // user entered his account related phone number
         $this->load->model('market');
         // user entered wrong old password
         if(!$this->market->validatePassword($vipUser->vipid,$oldPassword)){
-            $error_msg['oldpassword'] = "请输入正确的现有密码";
-            $this->load->view('changePassword',$error_msg);
-            return true;
+            $error_msg = "请输入正确的现有密码";
+
+            $url = site_url("userlogincontroller/showChangePassword?error_oldpassword=$error_msg");
+            header('Location:'.$url);
         }
         // old password is right and
         // entered new password is same as the old one
         if($newPassword==$oldPassword){
-            //if there is old error session, unset it
-            if(isset($_SESSION['error_msg_phone'])){
-                unset($_SESSION['error_msg_phone']);
-            }
-            //if there is old error session, unset it
-            if(isset($_SESSION['error_msg_oldpassword'])){
-                unset($_SESSION['error_msg_oldpassword']);
-            }
-            $error_msg['newpassword'] = "请不要输入现有密码";
-            $this->load->view('changePassword',$error_msg);
-            return true;
+            $error_msg = "请不要输入现有密码";
+
+            $url = site_url("userlogincontroller/showChangePassword?error_newpassword=$error_msg");
+            header('Location:'.$url);
         }
         $this->market->updatePassword($vipUser->vipid,$newPassword);
         // show password changed successful page
