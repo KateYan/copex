@@ -139,8 +139,7 @@ class Userlogincontroller extends MY_Controller{
             // alert that user entered wrong phone number
             $error_msg = "手机号有误！请输入您账号关联的手机号";
 
-            $url = site_url("userlogincontroller/showChangePassword?error_uphone=$error_msg");
-            header('Location:'.$url);
+            return redirect('userlogincontroller/showChangePassword/1');
         }
         // user entered his account related phone number
         $this->load->model('market');
@@ -148,16 +147,14 @@ class Userlogincontroller extends MY_Controller{
         if(!$this->market->validatePassword($vipUser->vipid,$oldPassword)){
             $error_msg = "请输入正确的现有密码";
 
-            $url = site_url("userlogincontroller/showChangePassword?error_oldpassword=$error_msg");
-            header('Location:'.$url);
+            return redirect('userlogincontroller/showChangePassword/2');
         }
         // old password is right and
         // entered new password is same as the old one
         if($newPassword==$oldPassword){
             $error_msg = "请不要输入现有密码";
 
-            $url = site_url("userlogincontroller/showChangePassword?error_newpassword=$error_msg");
-            header('Location:'.$url);
+            return redirect('userlogincontroller/showChangePassword/3');
         }
         $this->market->updatePassword($vipUser->vipid,$newPassword);
         // show password changed successful page
