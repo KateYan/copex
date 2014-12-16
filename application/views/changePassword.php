@@ -23,13 +23,13 @@
 <body>
 <form class="resetPSW_form" method="post" action="../userlogincontroller/changePassword">
 	<span class="loginTextBox resetPSW useInput">
-    	<input name="phoneNumber" type="tel" class="login_telText" placeholder="手机号"/>
+    	<input name="phoneNumber" type="tel" class="login_telText" placeholder="<?php if(isset($_SESSION['error_msg_phone'])){echo $_SESSION['error_msg_phone'];} else{echo "手机号";} ?>" required />
     </span>
     <span class="loginTextBox resetPSW">
-    	<input name="oldPassword" type="password" class="login_telText" placeholder="旧密码"/>
+    	<input name="oldPassword" type="password" class="login_telText" placeholder="<?php if(isset($_SESSION['error_msg_oldpassword'])){echo $_SESSION['error_msg_oldpassword'];} else{echo "旧密码";} ?>" required />
     </span>
     <span class="loginTextBox resetPSW">
-    	<input name="newPassword" type="password" class="login_telText" placeholder="新密码"/>
+    	<input name="newPassword" type="password" class="login_telText" placeholder="<?php if(isset($_SESSION['error_msg_newpassword'])){echo $_SESSION['error_msg_newpassword'];} else{echo "新密码";} ?>" required />
     </span>
     <div class="btn_resetOrder">
         <a class="btn_submitOrder btn_prevPage" href="../marketcontroller/showSideDish">回到上页</a>

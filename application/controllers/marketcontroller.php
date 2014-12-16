@@ -187,9 +187,9 @@ class Marketcontroller extends MY_Controller{
 
         //1. check if the password is match or not by market moder's method validatePassword()
         $this->load->model('market');
-        $password = $this->market->validatePassword($_SESSION['vipid'],$this->input->post('password'));
+        $passwordStatus = $this->market->validatePassword($_SESSION['vipid'],$this->input->post('password'));
 
-        if(!$password){
+        if(!$passwordStatus){
 //            $err_msg = '密码错误！';
 //            $_SESSION['error'] = $err_msg;
             return redirect('marketcontroller/showSideDish');// wrong password

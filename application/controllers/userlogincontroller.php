@@ -93,37 +93,54 @@ class Userlogincontroller extends MY_Controller{
      * to change vip user's old password
      */
     public function changePassword(){
-        if(!empty($_POST['phoneNumber'])&&!empty($_POST['oldPassword'])&&!empty($_POST['newPassword'])){
-            //get posted data
-            $phoneNumber = $this->input->post('phoneNumber');
-            $oldPassword = $this->input->post('oldPassword');
-            $newPassword = $this->input->post('newPassword');
-
-            $this->load->model('user');
-            $vipUser = $this->user->oldUser($_SESSION['uid']);
-            if($phoneNumber==$vipUser->uphone){ // user entered his account related phone number
-                $this->load->model('market');
-                $vipCard = $this->market->getVipCard($vipUser->vipid);
-
-                // user entered right old password
-                if($oldPassword==$vipCard->vpassword){
-                    // entered new password is not same with the old one
-                    if($newPassword!=$vipCard->vpassword){
-                        $this->market->updatePassword($vipUser->vipid,$newPassword);
-                        // show password changed successful page
-                        $this->load->view('finishedPasswordChange');
-                        return true;
-                    }
-                    echo "Please do not enter same password";
-                    return false;
-                }
-                echo "Wrong Password";
-                return false;
-            }
-            echo "Not your Phone Number!";
+        if(empty($_POST['phoneNumber'])||empty($_POST['oldPassword'])||empty($_POST['newPassword'])){ // user leaved blank
+            echo "Please fulfill all blanks!";
             return false;
         }
-        echo "Please fulfill all blanks!";
-        return false;
+        //get posted data
+        $phoneNumber = $this->input->post('phoneNumber');
+        $oldPassword = $this->input->post('oldPassword');
+        $newPassword = $this->input->post('newPassword');
+
+        $this->load->model('user');
+        $vipUser = $this->user->oldUser($_SESSION['uid']);
+        // user entered phone number that is not related to his own account
+        if($phoneNumber!=$vipUser->uphone){
+            // alert that user entered wrong phone number
+            $error_msg = '手机号无效，请输入您账户关联的手机号。';
+            $_SESSION['error_msg_phone'] = $error_msg;
+            return redirect('userlogincontroller/showChangePassword');
+        }
+        // user entered his account related phone number
+        $this->load->model('market');
+        // user entered wrong old password
+        if(!$this->market->validatePassword($vipUser->vipid,$oldPassword)){
+            //if there is old error session, unset it
+            if(isset($_SESSION['error_msg_phone'])){
+                unset($_SESSION['error_msg_phone']);
+            }
+            $error_msg = '请输入正确的现有密码。';
+            $_SESSION['error_msg_oldpassword'] = $error_msg;
+            return redirect('userlogincontroller/showChangePassword');
+        }
+        // old password is right and
+        // entered new password is same as the old one
+        if($newPassword==$oldPassword){
+            //if there is old error session, unset it
+            if(isset($_SESSION['error_msg_phone'])){
+                unset($_SESSION['error_msg_phone']);
+            }
+            //if there is old error session, unset it
+            if(isset($_SESSION['error_msg_oldpassword'])){
+                unset($_SESSION['error_msg_oldpassword']);
+            }
+            $error_msg = '请不要输入现有密码。';
+            $_SESSION['error_msg_newpassword'] = $error_msg;
+            return redirect('userlogincontroller/showChangePassword');
+        }
+        $this->market->updatePassword($vipUser->vipid,$newPassword);
+        // show password changed successful page
+        $this->load->view('finishedPasswordChange');
+        return true;
     }
 }

@@ -49,9 +49,10 @@ class Market extends CI_Model {
     // if they are same to each other then return true
 
     public  function validatePassword($vipid,$password){
-        $this->load->model('market');
-        $vipCard = $this->market->getVipCard($vipid);
-        if($password==$vipCard->vpassword){
+        // encrypt input password to check if it is match the one stored in database
+        $encryptedPassword = md5($password);
+        $vipCard = $this->getVipCard($vipid);
+        if($encryptedPassword==$vipCard->vpassword){
             return true;
         }
         return false;
@@ -59,7 +60,9 @@ class Market extends CI_Model {
 
     // store new password
     public function updatePassword($vipid,$newPassword){
-        $sql = "UPDATE vipcard SET vpassword='$newPassword' WHERE vipid='$vipid'";
+        // encrypt input new password
+        $encryptedNewPassword = md5($newPassword);
+        $sql = "UPDATE vipcard SET vpassword='$encryptedNewPassword' WHERE vipid='$vipid'";
         $this->db->query($sql);
     }
 
