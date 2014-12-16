@@ -230,11 +230,17 @@ class Marketcontroller extends MY_Controller{
         $balance = $vipCard->vbalance;
 
         if($balance<$totalCost){// vipcard is not enough to pay order
-            return redirect('marketcontroller/showSideDish');
+            if(!isset($_POST['by_cash'])){
+                return redirect('marketcontroller/showSideDish');
+            }
+            $this->load->model('order');
+            $orderId = $this->order->vipOrderByCash($uid,$_SESSION['cid'],$odate,$foodList,$sideDishList,$totalCost);
+        }else{
+            // generate order
+            $this->load->model('order');
+            $orderId = $this->order->vipOrderByCard($uid,$_SESSION['cid'],$odate,$foodList,$sideDishList,$totalCost);
         }
-        // generate order
-        $this->load->model('order');
-        $orderId = $this->order->vipOrder($uid,$_SESSION['cid'],$odate,$foodList,$sideDishList,$totalCost);
+
         // store order's id
         if($orderId){ // create order successfully
             $_SESSION['orderId'] = $orderId;
