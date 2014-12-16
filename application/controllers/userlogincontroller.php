@@ -113,24 +113,24 @@ class Userlogincontroller extends MY_Controller{
 
         $this->load->model('user');
         $vipUser = $this->user->oldUser($_SESSION['uid']);
+
         // user entered phone number that is not related to his own account
+        $error_msg['uphone'] = null;
+        $error_msg['oldpassword'] = null;
+        $error_msg['newpassword'] = null;
         if($phoneNumber!=$vipUser->uphone){
             // alert that user entered wrong phone number
-            $error_msg = '手机号无效，请输入您账户关联的手机号。';
-            $_SESSION['error_msg_phone'] = $error_msg;
-            return redirect('userlogincontroller/showChangePassword');
+            $error_msg['uphone'] = "手机号无效，请输入您账户关联的手机号";
+            $this->load->view('changePassword',$error_msg);
+            return true;
         }
         // user entered his account related phone number
         $this->load->model('market');
         // user entered wrong old password
         if(!$this->market->validatePassword($vipUser->vipid,$oldPassword)){
-            //if there is old error session, unset it
-            if(isset($_SESSION['error_msg_phone'])){
-                unset($_SESSION['error_msg_phone']);
-            }
-            $error_msg = '请输入正确的现有密码。';
-            $_SESSION['error_msg_oldpassword'] = $error_msg;
-            return redirect('userlogincontroller/showChangePassword');
+            $error_msg['oldpassword'] = "请输入正确的现有密码";
+            $this->load->view('changePassword',$error_msg);
+            return true;
         }
         // old password is right and
         // entered new password is same as the old one
@@ -143,9 +143,9 @@ class Userlogincontroller extends MY_Controller{
             if(isset($_SESSION['error_msg_oldpassword'])){
                 unset($_SESSION['error_msg_oldpassword']);
             }
-            $error_msg = '请不要输入现有密码。';
-            $_SESSION['error_msg_newpassword'] = $error_msg;
-            return redirect('userlogincontroller/showChangePassword');
+            $error_msg['newpassword'] = "请不要输入现有密码";
+            $this->load->view('changePassword',$error_msg);
+            return true;
         }
         $this->market->updatePassword($vipUser->vipid,$newPassword);
         // show password changed successful page
