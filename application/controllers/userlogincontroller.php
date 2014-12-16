@@ -85,30 +85,23 @@ class Userlogincontroller extends MY_Controller{
     /*
      * change vip pay password
      */
-    public function showChangePassword(){
+    public function showChangePassword($errorCode = null){
         // forbid non-vip user to check this method using url directly
         if(!isset($_SESSION['vipid'])){
             return redirect('userstatuscontroller/checkUserStatus');
         }
-        // show input phone error on change password page
-        if(isset($_GET['error_uphone'])){
-            $data['uphone'] = $_GET['error_uphone'];
-            $this->load->view('changePassword',$data);
-            return true;
+
+        $eMsg = array(
+                'wrongphone' => "手机号有误！请输入您账号关联的手机号",
+                'wrongpw' => "请输入正确的现有密码",
+                'samepw' => "请不要输入现有密码"
+        );
+        
+        if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+            $data['msg'] = $eMsg["$errorCode"]
         }
-        // show input old password error on change password page
-        if(isset($_GET['error_oldpassword'])){
-            $data['oldpassword'] = $_GET['error_oldpassword'];
-            $this->load->view('changePassword',$data);
-            return true;
-        }
-        // show input new password error on change password page
-        if(isset($_GET['error_newpassword'])){
-            $data['newpassword'] = $_GET['error_newpassword'];
-            $this->load->view('changePassword',$data);
-            return true;
-        }
-        $this->load->view('changePassword');
+        
+        $this->load->view('changePassword', $data);
     }
     /*
      * using input phone number, old password and new password
@@ -132,29 +125,20 @@ class Userlogincontroller extends MY_Controller{
         $this->load->model('user');
         $vipUser = $this->user->oldUser($_SESSION['uid']);
 
-        // user entered phone number that is not related to his own account
-        $error_msg = null;
-
         if($phoneNumber!=$vipUser->uphone){
             // alert that user entered wrong phone number
-            $error_msg = "手机号有误！请输入您账号关联的手机号";
-
-            return redirect('userlogincontroller/showChangePassword/1');
+            return redirect('userlogincontroller/showChangePassword/wrongphone');
         }
         // user entered his account related phone number
         $this->load->model('market');
         // user entered wrong old password
         if(!$this->market->validatePassword($vipUser->vipid,$oldPassword)){
-            $error_msg = "请输入正确的现有密码";
-
-            return redirect('userlogincontroller/showChangePassword/2');
+            return redirect('userlogincontroller/showChangePassword/wrongpw');
         }
         // old password is right and
         // entered new password is same as the old one
         if($newPassword==$oldPassword){
-            $error_msg = "请不要输入现有密码";
-
-            return redirect('userlogincontroller/showChangePassword/3');
+            return redirect('userlogincontroller/showChangePassword/samepw');
         }
         $this->market->updatePassword($vipUser->vipid,$newPassword);
         // show password changed successful page
