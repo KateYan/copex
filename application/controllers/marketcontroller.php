@@ -123,7 +123,7 @@ class Marketcontroller extends MY_Controller{
         $this->load->model('market');
         $vipCard = $this->market->getVipCard($_SESSION['vipid']);
         $data['balance'] = $vipCard->vbalance;
-        $_SESSION['balance'] = $vipCard->vbalance;
+
 
         $data['title'] = '精选小食';
         //get error message
@@ -224,8 +224,12 @@ class Marketcontroller extends MY_Controller{
                 $totalCost += $_SESSION["sidedish$k"]['price'];
             }
         }
+        // using user's vipid to get vip user's vip card's balance to show
+        $this->load->model('market');
+        $vipCard = $this->market->getVipCard($_SESSION['vipid']);
+        $balance = $vipCard->vbalance;
 
-        if($_SESSION['balance']<$totalCost){// vipcard is not enough to pay order
+        if($balance<$totalCost){// vipcard is not enough to pay order
             return redirect('marketcontroller/showSideDish');
         }
         // generate order
@@ -253,15 +257,17 @@ class Marketcontroller extends MY_Controller{
             // get order time range
             $this->load->model('market');
             $orderTimeRange = $this->market->orderTimeRange($userType);
-            $result = $time>=$orderTimeRange['orderStart']||$time<=$orderTimeRange['orderEnd'];
         }else{
             $userType = 'user';
             // get order time range
             $this->load->model('market');
             $orderTimeRange = $this->market->orderTimeRange($userType);
-            $result = $time>=$orderTimeRange['orderStart']&&$time<=$orderTimeRange['orderEnd'];
         }
-
+        if($orderTimeRange['orderStart']<=$orderTimeRange['orderEnd']){
+            $result = $time>=$orderTimeRange['orderStart']&&$time<=$orderTimeRange['orderEnd'];
+        }else{
+            $result = $time>=$orderTimeRange['orderStart']||$time<=$orderTimeRange['orderEnd'];
+        }
         if($result){
             return true;
         } else{
