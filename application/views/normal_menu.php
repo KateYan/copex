@@ -12,7 +12,28 @@
             $(".manaRecom_menu").css("height", parseInt((_W - 18)*256/606)+"px");
             $(".tdyS_m_block").css("height", parseInt((_W - 18)*0.46*317/266)+"px");
 
-        })
+        var startTime = $('#timestart').val().split(":"), endTime = $('#timeend').val().split(":");
+        var s = new Date(), e = new Date(), n = new Date();
+
+        s.setHours(startTime[0]);
+        s.setMinutes(startTime[1]);
+        s.setSeconds(startTime[2]);
+
+
+        e.setHours((endTime[0] <=startTime[0])? (endTime[0] + 24): endTime[0]);
+        e.setMinutes(endTime[1]);
+        e.setSeconds(endTime[2]);
+
+            $("form#menuItem").submit(function(){
+                if(!((s<n)&&(n<e))){
+                    $('.layer').show();
+                    return false;
+                }
+
+            });
+
+
+    })
     </script>
 </head>
 
@@ -23,7 +44,8 @@
     echo form_open('marketcontroller/orderGenerate',$attributes);
 
 ?>
-
+<input type="hidden" id="timestart" value="<?php echo $orderStart ?>" >
+<input type="hidden" id="timeend" value="<?php echo $orderEnd ?>" >
 <div class="manaRecommends">
     <h3>店长推荐</h3>
     <?php
@@ -76,17 +98,18 @@
 </div>
 <footer id="Footer">
     <div class="dinnerS_fMain">
-        <input type="tel" class="telephone" name="uphone" placeholder="请输入手机号" value="<?php echo $uphone; ?>" />
-        <button class="btn_submitOrder btn_nowOrder" style="border:none;">立刻下单</button>
+        <input type="tel" class="telephone" name="uphone" placeholder="请输入手机号" value="<?php echo $uphone; ?>" required/>
+        <button class="btn_submitOrder btn_nowOrder" id="submit_form" style="border:none;">立刻下单</button>
     </div>
 </footer>
+</form>
 <div class="layer">
     <div class="black_layer"></div>
     <div class="layer_summary">
         <p>对不起，已经超过<span class="sorry">0:00了哦，你可以</span></p>
         <ul>
             <li><a class="btn_again" href="../userlogincontroller/showVipLogin">A加入会员延长订餐时间</a></li>
-            <li><a class="btn_again">B明天中午12:00后再订餐</a></li>
+            <li><a class="btn_again" href="showDailyMenu">B明天中午12:00后再订餐</a></li>
         </ul>
     </div>
 </div>
