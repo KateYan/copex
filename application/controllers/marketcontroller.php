@@ -25,7 +25,13 @@ class Marketcontroller extends MY_Controller{
      */
     public function showDailyMenu(){
         $this->load->model('menuitem');
-        $data['date'] = date('Y-m-d');
+        $time = date('H:i:s');
+        if($time>='00:00:00'&&$time<'12:00:00'){
+            $data['date'] = date('m月d日');
+        }else{
+            $data['date'] = date('m月d日',strtotime('+1 day'));
+        }
+
         $data['title'] = '午餐菜单';
         $data['uphone'] = $_SESSION['uphone'];
 
