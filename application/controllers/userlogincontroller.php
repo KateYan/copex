@@ -86,6 +86,10 @@ class Userlogincontroller extends MY_Controller{
      * change vip pay password
      */
     public function showChangePassword(){
+        // forbid non-vip user to check this method using url directly
+        if(!isset($_SESSION['vipid'])){
+            return redirect('userstatuscontroller/checkUserStatus');
+        }
         $this->load->view('changePassword');
     }
     /*
@@ -93,6 +97,11 @@ class Userlogincontroller extends MY_Controller{
      * to change vip user's old password
      */
     public function changePassword(){
+        // forbid non-vip user to check this method using url directly
+        if(!isset($_SESSION['vipid'])){
+            return redirect('userstatuscontroller/checkUserStatus');
+        }
+
         if(empty($_POST['phoneNumber'])||empty($_POST['oldPassword'])||empty($_POST['newPassword'])){ // user leaved blank
             echo "Please fulfill all blanks!";
             return false;
