@@ -113,7 +113,7 @@
 </div>
 <Footer id="Footer">
     <div class="btn_resetOrder">
-        <a href="showDailyMenu" class="btn_submitOrder btn_rest">重新选择</a>
+        <a href="showDailyMenu" class="btn_submitOrder btn_rest" style="float:left;">重新选择</a>
         <button type="submit" class="btn_submitOrder btn_nowOrder" style="border: none;">立刻下单</button>
         <div class="clear"></div>
     </div>
