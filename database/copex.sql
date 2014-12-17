@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2014 at 01:39 AM
+-- Generation Time: Dec 17, 2014 at 02:37 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -581,7 +581,7 @@ CREATE TABLE IF NOT EXISTS `vipcard` (
 
 INSERT INTO `vipcard` (`vipid`, `uid`, `vnumber`, `vpassword`, `vbalance`) VALUES
 (10141, 10184, 4975, '', 150),
-(10142, 10185, 9645, '912ec803b2ce49e4a541068d495ab570', 117.33);
+(10142, 10185, 9645, '912ec803b2ce49e4a541068d495ab570', 500);
 
 --
 -- Constraints for dumped tables
