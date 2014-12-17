@@ -17,11 +17,11 @@
     <meta content="telephone=no" name="format-detection" />
     <meta name="viewport" content="width=device-width; maximum-scale=1.0;  user-scalable=no; initial-scale=1.0" />
     <title>更改密码</title>
-    <link href="../../css/masterpage.css" rel="stylesheet" type="text/css" />
-    <link href="../../css/viplogin.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url();?>css/masterpage.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url();?>css/viplogin.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<form class="resetPSW_form" method="post" action="../userlogincontroller/changePassword">
+<form class="resetPSW_form" method="post" action="<?php echo base_url();?>index.php/userlogincontroller/changePassword">
 	<span class="loginTextBox resetPSW useInput">
         <?php
         echo '<input name="phoneNumber" type="tel" class="login_telText" placeholder="';
