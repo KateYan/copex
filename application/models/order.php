@@ -149,4 +149,11 @@ class Order extends CI_Model {
         }
         return $query->result();
     }
+
+    public function allOrders(){
+        $sql = "SELECT `order`.oid as orderNumber,`campus`.cname as campus,`order`.odate as orderDate,`order`.ostatus as isPickedup, `order`.oispaid as isPaid, `order`.totalcost as totalCost FROM `order`,`campus` WHERE `order`.cid = `campus`.cid ";
+
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
 }
