@@ -96,7 +96,7 @@ class Order extends CI_Model {
             $sql = "INSERT INTO orderitem(oid,dishid,dishtype) VALUES";
 
             for($i = 0 ;$i<$num;$i++){
-                $sql .= "('$oid','".$orderitem['sidedish'][$i]."','0')";
+                $sql .= "('$oid','".$orderitem['sidedish'][$i]."','1')";
                 $sql .= ($i == ($num-1))? ';' : ',';
             }
             $this->db->query($sql);
@@ -151,9 +151,26 @@ class Order extends CI_Model {
     }
 
     public function allOrders(){
-        $sql = "SELECT `order`.oid as orderNumber,`campus`.cname as campus,`order`.odate as orderDate,`order`.ostatus as isPickedup, `order`.oispaid as isPaid, `order`.totalcost as totalCost FROM `order`,`campus` WHERE `order`.cid = `campus`.cid ";
+        $sql = "SELECT `order`.oid as orderNumber,`order`.uid as userId,`campus`.cname as campus,`order`.odate as orderDate,`order`.ostatus as isPickedup, `order`.oispaid as isPaid, `order`.totalcost as totalCost FROM `order`,`campus` WHERE `order`.cid = `campus`.cid ";
 
         $query = $this->db->query($sql);
         return $query->result();
     }
+
+    // find order detail
+
+    public function orderFoodDetail($orderId){
+    $sql = "SELECT `order`.oid, `order`.totalcost, orderitem.dishtype,food.fname,food.fprice FROM (`order` LEFT JOIN orderitem ON `order`.oid=orderitem.oid)LEFT JOIN food ON orderitem.dishid=food.fid WHERE orderitem.dishtype='0' AND order.oid='$orderId'";
+
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+
+    public function orderSidedishDetail($orderId){
+        $sql = "SELECT `order`.oid, `order`.totalcost, orderitem.dishtype,sidedish.sname,sidedish.sprice FROM (`order` LEFT JOIN orderitem ON `order`.oid=orderitem.oid)LEFT JOIN sidedish ON orderitem.dishid=sidedish.sid WHERE orderitem.dishtype='1' AND order.oid='$orderId'";
+
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+
 }

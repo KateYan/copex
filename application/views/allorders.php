@@ -16,9 +16,7 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style" />
     <meta content="telephone=no" name="format-detection" />
     <meta name="viewport" content="width=device-width; maximum-scale=1.0;  user-scalable=no; initial-scale=1.0" />
-    <title>我的订单</title>
-    <link href="../../css/masterpage.css" rel="stylesheet" type="text/css" />
-    <link href="../../css/viplogin.css" rel="stylesheet" type="text/css" />
+    <title>所有订单</title>
 </head>
 <body>
 <strong><h1>所有订单</h1></strong>
@@ -26,6 +24,7 @@
 <table border ="1">
     <tr>
         <th>订单号</th>
+        <th>下单用户</th>
         <th>校区</th>
         <th>订餐日期</th>
         <th>是否已取餐</th>
@@ -35,7 +34,9 @@
     <?php
     foreach($orders as $order){
         echo '<tr>';
-        echo '<td>'.$order->orderNumber.'</td>';
+        echo '<td><a href="showOrderDetail/'.$order->orderNumber.'">';
+        echo $order->orderNumber.'</a>';
+        echo '<td>'.$order->userId.'</td>';
         echo '<td>'.$order->campus.'</td>';
         echo '<td>'.$order->orderDate.'</td>';
 

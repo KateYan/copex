@@ -68,7 +68,7 @@
     </label>
 </div>
 <div class="tdySales">
-    <h3>今日6.99特价</h3>
+    <h3>今日特价</h3>
     <div class="tdySal_menu">
         <?php
             foreach($saleItem as $sale){
@@ -83,7 +83,7 @@
                 echo '<img src="../../upload/';
                 echo $sale->fpicture.'.jpg" width="100%">';
                 echo '</span>';
-                echo '<span class="menu_title">'.$sale->fname.'</span>';
+                echo '<span class="menu_title">'.$sale->fname." $".$sale->fprice.'</span>';
                 echo '</label> </div>';
 
             }

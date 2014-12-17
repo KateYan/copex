@@ -18,4 +18,18 @@ class Admin extends MY_Controller{
         $data['orders'] = $this->order->allOrders();
         $this->load->view('allorders',$data);
     }
+
+    public function showOrderDetail($orderId=null){
+        $this->load->model('order');
+        if(!empty($orderId)){
+            $data['orderFood'] = $this->order->orderFoodDetail($orderId);
+            $data['orderSidedish'] = $this->order->orderSidedishDetail($orderId);
+//            var_dump($data['orderFood']);
+//            var_dump($data['orderSidedish']);
+//            die();
+            $this->load->view('orderdetail',$data);
+        }
+        return false;
+
+    }
 }
