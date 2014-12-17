@@ -96,12 +96,14 @@ class Userlogincontroller extends MY_Controller{
                 'wrongpw' => "请输入正确的现有密码",
                 'samepw' => "请不要输入现有密码"
         );
+
+
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
-            $data["$errorCode"] = $eMsg["$errorCode"];
-            $this->load->view('changePassword', $data);
-        }else{
-            $this->load->view('changePassword');
+            $data["emsg"] = $eMsg["$errorCode"];
         }
+        $data['title'] = "更改密码";
+        $this->load->view('partials/header',$data);
+        $this->load->view('changePassword', $data);
     }
     /*
      * using input phone number, old password and new password
