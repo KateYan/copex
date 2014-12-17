@@ -144,7 +144,7 @@ class Order extends CI_Model {
         $sql = "SELECT `order`.oid as orderNumber,`campus`.cname as campus,`order`.odate as orderDate,`order`.ostatus as isPickedup, `order`.oispaid as isPaid, `order`.totalcost as totalCost FROM `order`,`campus` WHERE `order`.cid = `campus`.cid AND `order`.uid='$uid'";
 
         $query = $this->db->query($sql);
-        if($query-num_rows()==0){
+        if($query->num_rows()==0){
             return false;
         }
         return $query->result();

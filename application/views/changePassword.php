@@ -6,19 +6,19 @@
  * Time: 12:11 PM
  */
 ?>
-<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="Cache-control" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta content="yes" name="apple-mobile-web-app-capable" />
-    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
-    <meta content="telephone=no" name="format-detection" />
-    <meta name="viewport" content="width=device-width; maximum-scale=1.0;  user-scalable=no; initial-scale=1.0" />
-    <title>更改密码</title>
-    <link href="<?php echo base_url();?>css/masterpage.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url();?>css/viplogin.css" rel="stylesheet" type="text/css" />
+<!--<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">-->
+<!--<html>-->
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta http-equiv="Cache-control" />-->
+<!--    <meta name="format-detection" content="telephone=no" />-->
+<!--    <meta content="yes" name="apple-mobile-web-app-capable" />-->
+<!--    <meta content="black" name="apple-mobile-web-app-status-bar-style" />-->
+<!--    <meta content="telephone=no" name="format-detection" />-->
+<!--    <meta name="viewport" content="width=device-width; maximum-scale=1.0;  user-scalable=no; initial-scale=1.0" />-->
+<!--    <title>更改密码</title>-->
+<!--    <link href="--><?php //echo base_url();?><!--css/masterpage.css" rel="stylesheet" type="text/css" />-->
+<!--    <link href="--><?php //echo base_url();?><!--css/viplogin.css" rel="stylesheet" type="text/css" />-->
 </head>
 <body>
 <form class="resetPSW_form" method="post" action="<?php echo base_url();?>index.php/userlogincontroller/changePassword">

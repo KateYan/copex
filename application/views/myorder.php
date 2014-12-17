@@ -23,23 +23,41 @@
 <body>
 <strong><h1>我的订单</h1></strong>
 <?php
-$attributes=array('class'=>'login_form','id'=>'viplogin');
-echo form_open('userlogincontroller/vipLogin',$attributes);
+$attributes=array('class'=>'login_form','id'=>'check_status');
+echo form_open('userstatuscontroller/checkUserStatus',$attributes);
 ?>
-<span class="loginTextBox">
-    	<ul>
+<table border ="1">
+            <tr>
+                <th>订单号</th>
+                <th>校区</th>
+                <th>订餐日期</th>
+                <th>是否已取餐</th>
+                <th>是否已付款</th>
+                <th>总价</th>
+            </tr>
             <?php
-            foreach ($orders as $myOrder) {
-                
-            }
+            foreach($orders as $order){
+                echo '<tr>';
+                echo '<td>'.$order->orderNumber.'</td>';
+                echo '<td>'.$order->campus.'</td>';
+                echo '<td>'.$order->orderDate.'</td>';
 
+                if($order->isPickedup==0){
+                    echo '<td>'."否".'</td>';
+                }else{
+                    echo '<td>'."是".'</td>';
+                }
+
+                if($order->isPaid==0){
+                    echo '<td>'."否".'</td>';
+                }else{
+                    echo '<td>'."是".'</td>';
+                }
+                echo '<td>'.$order->totalCost.'</td>';
+                echo '</tr>';
+            }
             ?>
-    	</ul>
-</span>
-<button style="border:none;" form="viplogin" class="btn_login">登录</button>
-<div class="login_footer">
-    <a class="btn_loginFoot inotMemb" href="../marketcontroller/showDailyMenu">我还不是会员</a>
-    <a class="btn_loginFoot whyResMember">为什么要成为会员</a>
-</div>
+    	</table>
+<button style="border:none;" form="check_status" class="btn_login">去点餐</button>
 </body>
 </html>
