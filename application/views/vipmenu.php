@@ -63,6 +63,7 @@
 </div>
 <footer id="Footer">
     <a href="../userlogincontroller/loadCampus" class="btn_footer changeArea">更改校区</a>
+    <a href="../userlogincontroller/clearVip" class="btn_footer changeArea">注销会员</a>
     <button class="btn_submitOrder btn_nowOrder" style="border:none;">确认订单</button>
     <!-- <a class="btn_submitOrder" href="showSideDish">确认订单</a> -->
     <div class="clear"></div>

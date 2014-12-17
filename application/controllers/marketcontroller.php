@@ -154,13 +154,14 @@ class Marketcontroller extends MY_Controller{
             // no matter used had a phone number before or not
             // this will be used to update user's account's related phone number
             $uphone = $this->input->post('uphone');
+            $_SESSION['uphone'] = $uphone;
             $orderItemId = $this->input->post('fid');
 
             $uid = $_SESSION['uid'];
             $odate = date('Y-m-d');
 
             $this->load->model('order');
-            $orderId = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$orderItemId,$uphone);
+            $orderId = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$orderItemId,$_SESSION['uphone']);
 
             $_SESSION['orderId']= $orderId;
 

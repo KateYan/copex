@@ -27,7 +27,7 @@ class Order extends CI_Model {
 
         $oispaid = '1';
         //update new balance of vipcard
-        $sql = "UPDATE vipcard SET vbalance='".$balance."' WHERE uid='".$uid."'";
+        $sql = "UPDATE vipcard SET vbalance='$balance' WHERE uid='$uid'";
         $this->db->query($sql);
 
         //insert new order
@@ -133,7 +133,7 @@ class Order extends CI_Model {
         $this->db->query($sqlItem);
 
         // update the user's order-status into '1' and his phone number into new entered phone number
-        $sqlOrdered = "UPDATE user SET ordered = '1' AND uphone=".$this->db->escape($uphone)." WHERE uid = ".$this->db->escape($uid)."";
+        $sqlOrdered = "UPDATE `user` SET `uphone` = '$uphone', `ordered`='1' WHERE `uid` ='$uid'";
         $this->db->query($sqlOrdered);
 
         return $oid;

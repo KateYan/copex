@@ -147,4 +147,14 @@ class Userlogincontroller extends MY_Controller{
         $this->load->view('finishedPasswordChange');
         return true;
     }
+
+    // delete vip user's cookie and session
+    public function clearVip(){
+
+        delete_cookie('uid');
+        delete_cookie('uhash');
+        session_destroy();
+//
+        return redirect('userstatuscontroller/checkUserStatus');
+    }
 }

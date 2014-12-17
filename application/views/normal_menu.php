@@ -98,7 +98,7 @@
 </div>
 <footer id="Footer">
     <div class="dinnerS_fMain">
-        <input type="tel" class="telephone" name="uphone" placeholder="请输入手机号" value="<?php echo $uphone; ?>" required/>
+        <input type="tel" class="telephone" name="uphone" placeholder="<?php if(isset($_SESSION['uphone'])){echo $_SESSION['uphone']; }else{echo "请输入手机号";}?>" value="<?php echo $uphone; ?>" required/>
         <button class="btn_submitOrder btn_nowOrder" id="submit_form" style="border:none;">立刻下单</button>
     </div>
 </footer>

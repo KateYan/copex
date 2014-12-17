@@ -58,7 +58,7 @@ class User extends CI_Model {
 
         // update user's last_login status
         $last_login = date("Y-m-d H:i:s");
-        $sql = "UPDATE user SET last_login='".$last_login."' WHERE uid='".$this->uid."'";
+        $sql = "UPDATE user SET last_login='$last_login' WHERE uid='".$this->uid."'";
         $this->db->query($sql);
 
         return $this;
@@ -94,7 +94,7 @@ class User extends CI_Model {
      * find vip user by using input phone number
      */
     public function vipUser($uphone){
-        $sql = "SELECT * FROM user WHERE uphone='".$uphone."'";
+        $sql = "SELECT `user`.* FROM `user`,vipcard WHERE `user`.vipid = vipcard.vipid AND `user`.uphone='$uphone'";
         $query = $this->db->query($sql);
         if($query->num_rows()==1){
             $vip = $query->row(0);
