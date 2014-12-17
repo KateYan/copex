@@ -25,8 +25,8 @@
 	<span class="loginTextBox resetPSW useInput">
         <?php
         echo '<input name="phoneNumber" type="tel" class="login_telText" placeholder="';
-        if(isset($uphone)){
-            echo $uphone;
+        if(isset($wrongphone)){
+            echo $wrongphone;
         }else{
             echo "手机号";
         }
@@ -36,8 +36,8 @@
     <span class="loginTextBox resetPSW">
         <?php
         echo '<input name="oldPassword" type="password" class="login_telText" placeholder="';
-        if(isset($oldpassword)){
-            echo $oldpassword;
+        if(isset($wrongpw)){
+            echo $wrongpw;
         }else{
             echo "旧密码";
         }
@@ -47,8 +47,8 @@
     <span class="loginTextBox resetPSW">
           <?php
           echo '<input name="newPassword" type="password" class="login_telText" placeholder="';
-          if(isset($newpassword)){
-              echo $newpassword;
+          if(isset($samepw)){
+              echo $samepw;
           }else{
               echo "新密码";
           }

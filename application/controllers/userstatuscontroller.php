@@ -47,4 +47,15 @@ class Userstatuscontroller extends MY_Controller {
 		return false;
 
 	}
+    /*
+     * show user's all orders
+     */
+    public function showUserOrder(){
+        if(!isset($_COOKIE['uid'])){
+            return redirect('userstatuscontroller/checkUserStatus');
+        }
+        $this->load->model('order');
+        $data['orders'] = $this->order->findUserOrder($_COOKIE['uid']);
+        $this->load->view('myorder',$data);
+    }
 }
