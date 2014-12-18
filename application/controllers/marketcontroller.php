@@ -158,7 +158,7 @@ class Marketcontroller extends MY_Controller{
             $orderItemId = $this->input->post('fid');
 
             $uid = $_SESSION['uid'];
-            $odate = date('Y-m-d');
+            $odate = date('Y-m-d H:i:s');
 
             $this->load->model('order');
             $orderId = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$orderItemId,$_SESSION['uphone']);
@@ -198,7 +198,7 @@ class Marketcontroller extends MY_Controller{
 
         // user did enter password
         $uid = $_SESSION['uid'];
-        $odate = date('Y-m-d');
+        $odate = date('Y-m-d H:i:s');
         // begin to calculate total cost
         $totalCost = 0;
         //for posted food
