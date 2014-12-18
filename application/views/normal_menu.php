@@ -31,9 +31,14 @@
                 }
 
             });
-
-
     })
+        function closeWindow(){
+            $("#orderedLimit").hide();
+        }
+
+        function showWindow(){
+            $("#orderedLimit").show();
+        }
     </script>
 </head>
 
@@ -58,7 +63,7 @@
     echo '<input type="radio" id="recomdItem" name="fid" value="'.$recomdItem->fid.'">';
     echo '<label for="recomdItem">';
     echo '<div class="manaRecom_menu">';
-    echo ' <img src="../../upload/'.$recomdItem->fpicture.'.jpg" width="100%" >';
+    echo ' <img src="/copex/upload/'.$recomdItem->fpicture.'.jpg" width="100%" >';
     ?>
         <ul>
             <li><?php echo $recomdItem->fname;?><i class="borderWidth"></i></li>
@@ -80,7 +85,7 @@
                 echo '<div class="tdySal_menu_item"><input type="radio" id="'.$sale->fid.'" name="fid" value="'.$sale->fid.'">';
                 echo '<label class="tdyS_m_block" for="'.$sale->fid.'">';
                 echo '<span class="tdyS_m_img">';
-                echo '<img src="../../upload/';
+                echo '<img src="/copex/upload/';
                 echo $sale->fpicture.'.jpg" width="100%">';
                 echo '</span>';
                 echo '<span class="menu_title">'.$sale->fname." $".$sale->fprice.'</span>';
@@ -92,8 +97,14 @@
     </div>
 </div>
 <div class="dSales_btnTo">
-    <a class="btn_footer moreDinner" href="../userlogincontroller/showVipLogin">想多选？点这里</a>
-    <a href="../userlogincontroller/loadCampus" class="btn_footer notInUTSC">我不在<?php echo $cname; ?></a>
+    <?php
+    $attributes = array('class'=>'btn_footer moreDinner');
+    echo anchor('userlogincontroller/showVipLogin','想多选？点这里',$attributes);
+    ?>
+    <?php
+    $attributes = array('class'=>'btn_footer notInUTSC');
+    echo anchor('userlogincontroller/loadCampus',"我不在$cname",$attributes);
+    ?>
     <div class="clear"></div>
 </div>
 <footer id="Footer">
@@ -111,15 +122,32 @@
             <li>
                 <?php
                 $attributes = array('class'=>'btn_again');
-                echo anchor('userlogincontroller/showVipLogin','A加入会员延长订餐时间',$attributes);
+                echo anchor('userlogincontroller/showVipLogin','A. 加入会员延长订餐时间',$attributes);
                 ?>
             </li>
             <li>
                 <?php
                 $attributes = array('class'=>'btn_again');
-                echo anchor('marketcontroller/showDailyMenu','B明天中午12:00后再订餐',$attributes);
+                echo anchor('marketcontroller/showDailyMenu','B. 明天中午12:00后再订餐',$attributes);
                 ?>
             </li>
+        </ul>
+    </div>
+</div>
+<div id="orderedLimit" class="layer" <?php echo (isset($eMsg))?'style="display: block;"': ''; ?>>
+    <div class="black_layer"></div>
+    <div class="layer_summary">
+        <br />
+        <p><?php echo (isset($eMsg))?$eMsg: ''; ?></p>
+        <ul class="finishLay">
+            <li></li>
+            <li>
+                <?php
+                $attributes = array('class'=>'btn_again');
+                echo anchor('userlogincontroller/showVipLogin','A. 加入会员延长订餐时间',$attributes);
+                ?>
+            </li>
+            <li><a href="#" onclick = "closeWindow()">B. 回菜单浏览一下</a></li>
         </ul>
     </div>
 </div>

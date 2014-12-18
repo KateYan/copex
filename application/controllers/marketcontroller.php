@@ -30,7 +30,7 @@ class Marketcontroller extends MY_Controller{
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
-            $data["emsg"] = $eMsg["$errorCode"];
+            $data["eMsg"] = $eMsg["$errorCode"];
         }
 
         // header date change time setting
@@ -215,23 +215,17 @@ class Marketcontroller extends MY_Controller{
             return $this->load->view('timeout');
         }
 
-
         $_SESSION['POST'] = $_POST;
 
-        if(empty($_POST['password'])){        //user didn't type in password
-//            $err_msg = '没有填写支付密码！';
-//            $_SESSION['error'] = $err_msg;
+        if(empty($_POST['password'])){ //user didn't type in password
             return redirect('marketcontroller/showSideDish/nopw');
         }
-
         //1. check if the password is match or not by market moder's method validatePassword()
         $this->load->model('market');
         $passwordStatus = $this->market->validatePassword($_SESSION['vipid'],$this->input->post('password'));
 
-        if(!$passwordStatus){
-//            $err_msg = '密码错误！';
-//            $_SESSION['error'] = $err_msg;
-            return redirect('marketcontroller/showSideDish/wrongpw');// wrong password
+        if(!$passwordStatus){// wrong password
+            return redirect('marketcontroller/showSideDish/wrongpw');
         }
 
         // user did enter password

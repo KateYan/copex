@@ -21,7 +21,7 @@ class Userlogincontroller extends MY_Controller{
 
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
-            $data["emsg"] = $eMsg["$errorCode"];
+            $data["eMsg"] = $eMsg["$errorCode"];
         }
         $data['title'] = '选择你所在的校区';
         $this->load->model('market');
@@ -76,9 +76,8 @@ class Userlogincontroller extends MY_Controller{
             'wrongPhone'=> "您输入的的手机号并无对应的VIP账号！"
         );
 
-
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
-            $data["emsg"] = $eMsg["$errorCode"];
+            $data["eMsg"] = $eMsg["$errorCode"];
             $this->load->view('viplogin',$data);
         }else{
             $this->load->view('viplogin');
@@ -116,9 +115,8 @@ class Userlogincontroller extends MY_Controller{
                 'samepw' => "请不要输入现有密码"
         );
 
-
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
-            $data["emsg"] = $eMsg["$errorCode"];
+            $data["eMsg"] = $eMsg["$errorCode"];
         }
         $data['title'] = "更改密码";
         $this->load->view('partials/header',$data);

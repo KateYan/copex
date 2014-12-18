@@ -29,7 +29,7 @@
 	<span class="loginTextBox">
     	<input name="phoneNumber" type="tel" class="login_telText" placeholder="请输入手机号"/>
     </span>
-    <p style="color:red;z-index: 5000;"><?php echo (isset($emsg))? $emsg : '';  ?></p>
+    <p style="color:red;z-index: 5000;"><?php echo (isset($eMsg))? $eMsg : '';  ?></p>
     <button style="border:none;" form="viplogin" class="btn_login">登录</button>
 <div class="login_footer">
     <?php

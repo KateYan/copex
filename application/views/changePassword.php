@@ -14,7 +14,7 @@
     <span class="loginTextBox resetPSW">
         <input name="newPassword" type="password" class="login_telText" placeholder="新密码" required />
     </span>
-    <p style="color:red;"><?php echo (isset($emsg))? $emsg : '';  ?></p>
+    <p style="color:red;"><?php echo (isset($eMsg))? $eMsg : '';  ?></p>
     <div class="btn_resetOrder">
         <?php
         $attributes = array('class'=>'btn_submitOrder btn_prevPage');

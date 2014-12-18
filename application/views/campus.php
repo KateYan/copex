@@ -42,7 +42,7 @@
     <span class="select_Campus">
     	<input type="tel" class="campus" placeholder=" 请选择校区" disabled="disabled" id="Campus_id" />
     </span>
-    <p style="color:red;"><?php echo (isset($emsg))? $emsg : '';  ?></p>
+    <p style="color:red;"><?php echo (isset($eMsg))? $eMsg : '';  ?></p>
 
     <!--    <ul class="campus_list">-->
     <?php

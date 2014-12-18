@@ -163,7 +163,7 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
         </ul>
     </div>
 </div>
-<div id="wrong_password" class="layer" <?php echo (isset($eMsg))?'style="display: block"': ''; ?>>
+<div id="wrong_password" class="layer" <?php echo (isset($eMsg))?'style="display: block;"': ''; ?>>
     <div class="black_layer"></div>
     <div class="layer_summary">
         <br />
