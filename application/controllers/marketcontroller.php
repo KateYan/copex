@@ -77,7 +77,7 @@ class Marketcontroller extends MY_Controller{
     /*
      * show sidedish option for vipuser
      */
-    public function showSideDish(){
+    public function showSideDish($errorCode = null){
 
         //forbid non-vip user to see sidedish page
         if(!isset($_SESSION['vipid'])){
@@ -85,13 +85,26 @@ class Marketcontroller extends MY_Controller{
         }
 
 
+        $eMsg = array(
+            'nopw' => "密码不能为空",
+            'wrongpw'=> "您输入的密码不正确"
+        );
+
+        if(!empty($errorCode) && !isset($eMsg["$errorCode"])){
+            return redirect('marketcontroller/showDailyMenu');
+        }elseif(!empty($errorCode)){
+            $data['eMsg'] = $eMsg["$errorCode"];
+        }
+
         $totalCost = 0;
         $data['orderedDishes'] = array();
 
         $selected = false;
 
+
+
         for ($i = 1; $i <= 3; $i++) {
-            $amt = $this->input->post("amt$i");
+            $amt = empty($_SESSION['POST']["amt$i"])? $this->input->post("amt$i") : (int)$_SESSION['POST']["amt$i"];
             if($amt > 0 && $amt <= 50){
                 $selected = true;
                 $fid = $_SESSION["food$i"]['id'];
@@ -107,6 +120,14 @@ class Marketcontroller extends MY_Controller{
         }
 
         //get sidedishes:
+
+        for ($i = 1; $i <= 4; $i++) {
+            if(!empty($_SESSION['POST']["sd$i"])){
+                $data['selectedSd']["$i"] = true;
+            }
+        }
+
+        unset($_SESSION['POST']);
 
         $this->load->model('menuitem');
         $data['sideDish'] = $this->menuitem->getSideDish($_SESSION['cid']);
@@ -180,10 +201,13 @@ class Marketcontroller extends MY_Controller{
             return $this->load->view('timeout');
         }
 
+
+        $_SESSION['POST'] = $_POST;
+
         if(empty($_POST['password'])){        //user didn't type in password
 //            $err_msg = '没有填写支付密码！';
 //            $_SESSION['error'] = $err_msg;
-            return redirect('marketcontroller/showSideDish');
+            return redirect('marketcontroller/showSideDish/nopw');
         }
 
         //1. check if the password is match or not by market moder's method validatePassword()
@@ -193,7 +217,7 @@ class Marketcontroller extends MY_Controller{
         if(!$passwordStatus){
 //            $err_msg = '密码错误！';
 //            $_SESSION['error'] = $err_msg;
-            return redirect('marketcontroller/showSideDish');// wrong password
+            return redirect('marketcontroller/showSideDish/wrongpw');// wrong password
         }
 
         // user did enter password

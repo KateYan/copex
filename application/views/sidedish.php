@@ -25,10 +25,13 @@
 
             });
 
+            $("#side-dishes-list label.sd-selected").trigger('click');
+
+
             $("form#side-dishes-list").submit(function(){
                 var total = $("#total-cost").html() - 0, balance = $("#balance").html() - 0;
                 if(total > balance){
-                    $('.layer').show();
+                    $('#not_enough_balance').show();
                     return false;
                 }else{
                     $(this).submit();
@@ -41,11 +44,23 @@
                 $("form#side-dishes-list").unbind('submit').append(html).submit();
             }
 
+        function closeWindow(){
+            $("#wrong_password").hide();
+        }
+
+        function showWindow(){
+            $("#wrong_password").show();
+        }
     </script>
 </head>
 <body>
 <header id="Header">四款精选小食</header>
-<form id="side-dishes-list" action ='vipOrderGenerate' method="POST">
+
+<?php
+$attributes = array('id'=>'side-dishes-list');
+echo form_open('marketcontroller/vipOrderGenerate',$attributes);
+?>
+
 <div id="Contenter" style="margin:5px;">
     <ul class="menu_list">
         <?php
@@ -53,8 +68,9 @@
             $id = $i + 1;
             echo '<li class="side-dish-list">';
             echo "<input type='checkbox' id='sd$id' name='sd$id' style='display:none;' class='side-dish'>";
-            echo "<label for='sd$id' >";
-            echo '<div class="menuD_img sd_img"><img src="../../upload/';
+            echo "<label for='sd$id' class=";
+            echo (isset($selectedSd[$id]))?'"sd-selected"':'';
+            echo '><div class="menuD_img sd_img"><img src="/copex/upload/';
             echo $sideDish[$i]->spicture;
             echo '.jpg" width="100%" height="100%" /></div>';
             echo '<div class="menuD_title sd_title">'.$sideDish[$i]->sname.'</div>';
@@ -102,6 +118,7 @@
             <div class="passPay">支付密码</div>
             <input name="password" type="password" class="passWord" required />
         </div>
+        <p style="padding:7px 0 15px 3%; color:red;"></p>
     </div>
     <div class="clear"></div>
     <div class="dSales_btnTo">
@@ -119,7 +136,7 @@
     </div>
 </Footer>
 </form>
-<div class="layer">
+<div id="not_enough_balance" class="layer">
     <div class="black_layer"></div>
     <div class="layer_summary">
         <p>余额不足<span class="sorry">现在你可以：</span></p>
@@ -127,6 +144,18 @@
             <li><a href="showDailyMenu"  class="btn_again" >A重新点餐</a></li>
             <li><a class="btn_again" onclick="cashOrder()">B现金点餐</a></li>
             <li><a href="showDailyMenu" class="btn_again">C暂不点餐</a></li>
+        </ul>
+    </div>
+</div>
+<div id="wrong_password" class="layer" <?php echo (isset($eMsg))?'style="display: block"': ''; ?>>
+    <div class="black_layer"></div>
+    <div class="layer_summary">
+        <br />
+        <p><?php echo (isset($eMsg))?$eMsg: ''; ?></p>
+        <ul class="finishLay">
+            <li></li>
+            <li></li>
+            <li><a href="#" onclick = "closeWindow()">关闭</a></li>
         </ul>
     </div>
 </div>
