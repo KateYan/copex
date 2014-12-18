@@ -17,11 +17,11 @@
     <meta content="telephone=no" name="format-detection" />
     <meta name="viewport" content="width=device-width; maximum-scale=1.0;  user-scalable=no; initial-scale=1.0" />
     <title>会员登录</title>
-    <link href="../../css/masterpage.css" rel="stylesheet" type="text/css" />
-    <link href="../../css/viplogin.css" rel="stylesheet" type="text/css" />
+    <link href="/copex/css/masterpage.css" rel="stylesheet" type="text/css" />
+    <link href="/copex/css/viplogin.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<strong><img src="../../css/images/memberLogin@2x.png" width="100" /></strong>
+<strong><img src="/copex/css/images/memberLogin@2x.png" width="100" /></strong>
     <?php
     $attributes=array('class'=>'login_form','id'=>'viplogin');
     echo form_open('userlogincontroller/vipLogin',$attributes);
@@ -29,9 +29,13 @@
 	<span class="loginTextBox">
     	<input name="phoneNumber" type="tel" class="login_telText" placeholder="请输入手机号"/>
     </span>
+    <p style="color:red;z-index: 5000;"><?php echo (isset($emsg))? $emsg : '';  ?></p>
     <button style="border:none;" form="viplogin" class="btn_login">登录</button>
 <div class="login_footer">
-    <a class="btn_loginFoot inotMemb" href="../marketcontroller/showDailyMenu">我还不是会员</a>
+    <?php
+    $attributes = array('class'=>'btn_loginFoot inotMemb');
+    echo anchor('marketcontroller/showDailyMenu','我还不是会员',$attributes)
+    ?>
     <a class="btn_loginFoot whyResMember">为什么要成为会员</a>
 </div>
 </body>

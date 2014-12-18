@@ -16,7 +16,10 @@
     </span>
     <p style="color:red;"><?php echo (isset($emsg))? $emsg : '';  ?></p>
     <div class="btn_resetOrder">
-        <a class="btn_submitOrder btn_prevPage" href="../marketcontroller/showSideDish">回到上页</a>
+        <?php
+        $attributes = array('class'=>'btn_submitOrder btn_prevPage');
+        echo anchor('marketcontroller/showSideDish','回到上页',$attributes)
+        ?>
         <button style="border:none;" class="btn_submitOrder btn_sumbitRet">提交修改</button>
         <div class="clear"></div>
     </div>

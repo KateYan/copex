@@ -13,7 +13,16 @@ class Userlogincontroller extends MY_Controller{
     /*
      * load campus choosing page
      */
-    public function loadCampus(){
+    public function loadCampus($errorCode = null){
+        // if user didn't choose any campus, show error
+        $eMsg = array(
+            'noCampus' => "校区选择不能为空！"
+        );
+
+
+        if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+            $data["emsg"] = $eMsg["$errorCode"];
+        }
         $data['title'] = '选择你所在的校区';
         $this->load->model('market');
         $data['result'] = $this->market->getCampusList();
@@ -25,7 +34,7 @@ class Userlogincontroller extends MY_Controller{
     public function setUser(){
         // make usre user did choose one campus
         if(empty($_POST['cid'])){
-            return redirect('userlogincontroller/loadCampus');
+            return redirect('userlogincontroller/loadCampus/noCampus');
         }
 
         if(!($this->input->cookie('uid'))){
@@ -61,25 +70,35 @@ class Userlogincontroller extends MY_Controller{
     /*
      * load vip log in page
      */
-    public function showVipLogin(){
-        $this->load->view('viplogin');
+    public function showVipLogin($errorCode = null){
+        $eMsg = array(
+            'noPhone' => "手机号不能为空！",
+            'wrongPhone'=> "您输入的的手机号并无对应的VIP账号！"
+        );
+
+
+        if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+            $data["emsg"] = $eMsg["$errorCode"];
+            $this->load->view('viplogin',$data);
+        }else{
+            $this->load->view('viplogin');
+        }
     }
     /*
      * vip user first log in
      */
     public function vipLogin(){
-        if(!empty($_POST['phoneNumber'])){
-            $phoneNumber = $this->input->post('phoneNumber');//get input phone number
-            $this->load->model('user');
-            $vipUser = $this->user->vipUser($phoneNumber); //use phone number to find if related vip exists
-            if($vipUser){
-                $this->user->login($vipUser);
-                return redirect('marketcontroller/showDailyMenu');
-            }
-            echo "Not vailid vip user";
-            return false;
+        if(empty($_POST['phoneNumber'])){
+            return redirect('userlogincontroller/showVipLogin/noPhone');
         }
-        echo "Please input phone number";
+        $phoneNumber = $this->input->post('phoneNumber');//get input phone number
+        $this->load->model('user');
+        $vipUser = $this->user->vipUser($phoneNumber); //use phone number to find if related vip exists
+        if(!$vipUser){
+            return redirect('userlogincontroller/showVipLogin/wrongPhone');
+        }
+        $this->user->login($vipUser);
+        return redirect('marketcontroller/showDailyMenu');
     }
 
     /*
