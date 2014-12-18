@@ -346,5 +346,12 @@ class Marketcontroller extends MY_Controller{
 
         $this->load->view('ordersuccess',$data);
     }
-
+    // check if user has already ordered before within the same day
+    public function orderLimit(){
+        $time = date('Y-m-d H:i:s');
+        //find if user has ordered today
+        $this->load->model('order');
+        $allowOrder = $this->order->orderToday($_SESSION['uid']);
+        return $allowOrder;
+    }
 }
