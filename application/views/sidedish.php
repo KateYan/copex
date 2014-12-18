@@ -124,7 +124,7 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
     <div class="dSales_btnTo">
         <?php
         $attributes = array('class'=>'btn_footer moreDinner');
-        echo anchor('btn_footer moreDinner','修改密码',$attributes);
+        echo anchor('userlogincontroller/showChangePassword','修改密码',$attributes);
         ?>
         <a href="#" class="btn_footer notInUTSC">忘记密码</a>
         <div class="clear"></div>

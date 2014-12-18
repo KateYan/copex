@@ -60,7 +60,7 @@
             ?>
         </ul>
         <div class="btn_loginArea">
-            <button style="border: none;" class="btn_login"">去看看有什么好吃的</button>
+            <button style="border: none;" class="btn_login">去看看有什么好吃的</button>
         </div>
     <?php
     echo form_close();
