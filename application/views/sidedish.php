@@ -122,7 +122,10 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
     </div>
     <div class="clear"></div>
     <div class="dSales_btnTo">
-        <a class="btn_footer moreDinner" href="../userlogincontroller/showChangePassword">修改密码</a>
+        <?php
+        $attributes = array('class'=>'btn_footer moreDinner');
+        echo anchor('btn_footer moreDinner','修改密码',$attributes);
+        ?>
         <a href="#" class="btn_footer notInUTSC">忘记密码</a>
         <div class="clear"></div>
     </div>
@@ -130,7 +133,10 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
 </div>
 <Footer id="Footer">
     <div class="btn_resetOrder">
-        <a href="showDailyMenu" class="btn_submitOrder btn_rest" style="float:left;">重新选择</a>
+        <?php
+        $attributes = array('class'=>'btn_submitOrder btn_rest','style'=>'float:left;');
+        echo anchor('marketcontroller/showDailyMenu','重新选择',$attributes);
+        ?>
         <button type="submit" class="btn_submitOrder btn_nowOrder" style="border: none;">立刻下单</button>
         <div class="clear"></div>
     </div>
