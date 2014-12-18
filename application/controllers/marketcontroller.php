@@ -194,9 +194,10 @@ class Marketcontroller extends MY_Controller{
 
             $uid = $_SESSION['uid'];
             $odate = date('Y-m-d H:i:s');
+            $fordate = date('Y-m-d',strtotime('+1 day'));
 
             $this->load->model('order');
-            $orderId = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$orderItemId,$_SESSION['uphone']);
+            $orderId = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$fordate,$orderItemId,$_SESSION['uphone']);
 
             $_SESSION['orderId']= $orderId;
 

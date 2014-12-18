@@ -107,7 +107,7 @@ class Order extends CI_Model {
     /*
      * using userid, date, and the foodid the user chosed to create order for non-vip user
      */
-    public function userOrder($uid,$cid,$odate,$foodId,$uphone){
+    public function userOrder($uid,$cid,$odate,$fordate,$foodId,$uphone){
 
         // find the food's information from food table using food's fid
         $sqlFood = "SELECT * FROM food WHERE fid='$foodId'";
@@ -118,11 +118,12 @@ class Order extends CI_Model {
         // $query is a set of results, so it can't be used directly
         // using row(0) to get it as an array
         $food = $query->row(0);
+        $tax = round($food->fprice * 0.13,2);
 
-        $totalcost = $food->fprice;
+        $totalcost = round($food->fprice + $tax,2);;
 
         // insert into order table a new row
-        $sql = "INSERT INTO `order`(`uid`,`cid`,`odate`,`totalcost`) VALUES (".$this->db->escape($uid).",".$this->db->escape($cid).",".$this->db->escape($odate).",".$this->db->escape($totalcost).")";
+        $sql = "INSERT INTO `order`(uid,cid,odate,fordate,tax,totalcost) VALUES (".$this->db->escape($uid).",".$this->db->escape($cid).",".$this->db->escape($odate).",".$this->db->escape($fordate).",".$this->db->escape($tax).",".$this->db->escape($totalcost).")";
         $this->db->query($sql);
 
         // set the order's object's oid equal to the last insert's order's id
