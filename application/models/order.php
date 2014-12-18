@@ -157,20 +157,26 @@ class Order extends CI_Model {
         return $query->result();
     }
 
-    // find order detail
-
+    // find order's food's detail
     public function orderFoodDetail($orderId){
     $sql = "SELECT `order`.oid, `order`.totalcost, orderitem.dishtype,food.fname,food.fprice FROM (`order` LEFT JOIN orderitem ON `order`.oid=orderitem.oid)LEFT JOIN food ON orderitem.dishid=food.fid WHERE orderitem.dishtype='0' AND order.oid='$orderId'";
 
         $query = $this->db->query($sql);
         return $query->result();
     }
-
+    // find order's sidedishes' detail
     public function orderSidedishDetail($orderId){
         $sql = "SELECT `order`.oid, `order`.totalcost, orderitem.dishtype,sidedish.sname,sidedish.sprice FROM (`order` LEFT JOIN orderitem ON `order`.oid=orderitem.oid)LEFT JOIN sidedish ON orderitem.dishid=sidedish.sid WHERE orderitem.dishtype='1' AND order.oid='$orderId'";
 
         $query = $this->db->query($sql);
         return $query->result();
     }
-
+    // check if user has already ordered in the same day
+    public function orderToday($uid,$now,$orderStart){
+        $sql = "SELECT * FROM `order` WHERE `odate` < '$now' AND `odate` >= '$orderStart' AND uid='$uid'";
+        $query = $this->db->query($sql);
+        if($query->num_rows()>0){
+            return false;
+        }return true;
+    }
 }

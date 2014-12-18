@@ -24,7 +24,7 @@ class Marketcontroller extends MY_Controller{
      * for loading vipusers or non-vip users' menu
      */
     public function showDailyMenu(){
-        $this->load->model('menuitem');
+        // header date change time setting
         $time = date('H:i:s');
         if($time>='00:00:00'&&$time<'12:00:00'){
             $data['date'] = date('m月d日');
@@ -36,6 +36,7 @@ class Marketcontroller extends MY_Controller{
         $data['uphone'] = $_SESSION['uphone'];
 
         //using cid and date to find menuitems
+        $this->load->model('menuitem');
         $data['recomdItem'] = $this->menuitem->recomdItem($_SESSION['cid']);
         $data['saleItem'] = $this->menuitem->saleItem($_SESSION['cid']);
 
@@ -160,6 +161,9 @@ class Marketcontroller extends MY_Controller{
      * generate order for non-vip user
      */
     public function orderGenerate(){
+        if(!$this->ifOrderedToday()){
+            return redirect('marketcontroller/showDailyMenu');
+        }
         // test if still in order time range
         if(!$this->checkTime()){
             return redirect('marketcontroller/showDailyMenu');
@@ -347,11 +351,18 @@ class Marketcontroller extends MY_Controller{
         $this->load->view('ordersuccess',$data);
     }
     // check if user has already ordered before within the same day
-    public function orderLimit(){
-        $time = date('Y-m-d H:i:s');
+    public function ifOrderedToday(){
+        if(isset($_SESSION['vipid'])){
+            return false;
+        }
+        // find order start time
+        $userType = 'user';
+        $this->load->model('market');
+        $orderTimeRange = $this->market->orderTimeRange($userType);
+        $orderStart = $orderTimeRange['orderStart'];
+        $now = date('Y-m-d H:i:s');
         //find if user has ordered today
         $this->load->model('order');
-        $allowOrder = $this->order->orderToday($_SESSION['uid']);
-        return $allowOrder;
+        return $this->order->orderToday($_SESSION['uid'],$now,$orderStart);
     }
 }
