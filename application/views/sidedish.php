@@ -39,10 +39,10 @@
             });
         });
 
-        function cashOrder(){
-                var html = "<input type='hidden' name='by_cash' value='true' />";
-                $("form#side-dishes-list").unbind('submit').append(html).submit();
-            }
+//        function cashOrder(){
+//                var html = "<input type='hidden' name='by_cash' value='true' />";
+//                $("form#side-dishes-list").unbind('submit').append(html).submit();
+//            }
 
         function closeWindow(){
             $("#wrong_password").hide();
@@ -141,9 +141,25 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
     <div class="layer_summary">
         <p>余额不足<span class="sorry">现在你可以：</span></p>
         <ul class="finishLay">
-            <li><a href="showDailyMenu"  class="btn_again" >A重新点餐</a></li>
-            <li><a class="btn_again" onclick="cashOrder()">B现金点餐</a></li>
-            <li><a href="showDailyMenu" class="btn_again">C暂不点餐</a></li>
+            <li>
+                <?php
+                $attributes = array('class'=>'btn_again');
+                echo anchor('marketcontroller/showDailyMenu','A重新点餐',$attributes);
+                ?>
+            </li>
+            <li>
+                <?php
+                $attributes = array('class'=>'btn_again');
+                echo anchor('userlogincontroller/clearVip','B现金点餐',$attributes);
+                ?>
+            </li>
+<!--            <li><a class="btn_again" onclick="cashOrder()">B现金点餐</a></li>-->
+            <li>
+                <?php
+                $attributes = array('class'=>'btn_again');
+                echo anchor('marketcontroller/showDailyMenu','C暂不点餐',$attributes);
+                ?>
+            </li>
         </ul>
     </div>
 </div>
