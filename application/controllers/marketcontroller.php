@@ -23,7 +23,16 @@ class Marketcontroller extends MY_Controller{
      * to find validate menuitem
      * for loading vipusers or non-vip users' menu
      */
-    public function showDailyMenu(){
+    public function showDailyMenu($errorCode = null){
+        // error message for user has already ordered at the same day
+        $eMsg = array(
+            'orderlimit' => "您今天已经下过单了！"
+        );
+
+        if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+            $data["emsg"] = $eMsg["$errorCode"];
+        }
+
         // header date change time setting
         $time = date('H:i:s');
         if($time>='00:00:00'&&$time<'12:00:00'){
@@ -161,12 +170,13 @@ class Marketcontroller extends MY_Controller{
      * generate order for non-vip user
      */
     public function orderGenerate(){
-        if(!$this->ifOrderedToday()){
-            return redirect('marketcontroller/showDailyMenu');
-        }
         // test if still in order time range
         if(!$this->checkTime()){
             return redirect('marketcontroller/showDailyMenu');
+        }
+        // check if user has ordered before within the same day
+        if(!$this->ifOrderedToday()){
+            return redirect('marketcontroller/showDailyMenu/orderlimit');
         }
 
         // if user didn't enter phonenumber or choose a dish befor making an order
@@ -349,6 +359,7 @@ class Marketcontroller extends MY_Controller{
         $data['timeend'] = $pickupTimeRange['pickupEnd'];
 
         $this->load->view('ordersuccess',$data);
+        session_destroy();
     }
     // check if user has already ordered before within the same day
     public function ifOrderedToday(){

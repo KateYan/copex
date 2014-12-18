@@ -109,10 +109,16 @@
         <p>对不起，已经超过<span class="sorry">0:00了哦，你可以</span></p>
         <ul>
             <li>
-                <a class="btn_again" href="../userlogincontroller/showVipLogin">A加入会员延长订餐时间</a>
+                <?php
+                $attributes = array('class'=>'btn_again');
+                echo anchor('userlogincontroller/showVipLogin','A加入会员延长订餐时间',$attributes);
+                ?>
             </li>
             <li>
-                <a class="btn_again" href="showDailyMenu">B明天中午12:00后再订餐</a>
+                <?php
+                $attributes = array('class'=>'btn_again');
+                echo anchor('marketcontroller/showDailyMenu','B明天中午12:00后再订餐',$attributes);
+                ?>
             </li>
         </ul>
     </div>
