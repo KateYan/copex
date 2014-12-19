@@ -10,7 +10,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Admincontroller extends MY_Controller{
 
     public function index() {
-        return redirect('admin/showAdminLogin');
+        return redirect('admincontroller/showAdminLogin');
     }
     // admin login page
     public function showAdminLogin($errorCode = null){
@@ -20,6 +20,7 @@ class Admincontroller extends MY_Controller{
             'wrongadmin'=>"该管理员不存在！",
             'wrongpsw'=>"管理员密码不正确！"
         );
+
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
             $data["eMsg"] = $eMsg["$errorCode"];
             $this->load->view('adminlogin',$data);
@@ -48,8 +49,25 @@ class Admincontroller extends MY_Controller{
             return redirect('admincontroller/showAdminLogin/wrongpsw');
         }
 
-        $this->load->view('dashboard');
+        $_SESSION['username'] = $username;
+        return redirect('admincontroller/showAdminPanel');
+    }
 
+    // load admin Panel page
+    public function showAdminPanel(){
+        if(!isset($_SESSION['username'])){// fobid non-loged user to see admin panel
+            return redirect('admincontroller/showAdminLogin');
+        }
+        $data['username'] = $_SESSION['username'];
+        $this->load->view('partials/adminHeader');
+        $this->load->view('adminPanel',$data);
+    }
+
+    //
+    public function showOrderManage(){
+        $data['username'] = $_SESSION['username'];
+        $this->load->view('partials/adminHeader');
+        $this->load->view('orderManage',$data);
     }
 
     /*
