@@ -9,11 +9,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Copex | 控制面板</title>
+    <title><?php echo $title; ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!--    <!-- Bootstrap Docs -->-->
+    <!-- Bootstrap Docs -->
 <!--    <link href="http://getbootstrap.com/docs-assets/css/docs.css" rel="stylesheet" media="screen">-->
 
     <!-- Bootstrap -->

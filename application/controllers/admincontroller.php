@@ -58,6 +58,7 @@ class Admincontroller extends MY_Controller{
         if(!isset($_SESSION['username'])){// fobid non-loged user to see admin panel
             return redirect('admincontroller/showAdminLogin');
         }
+        $data['title'] = "Copex | 控制面板";
         $data['username'] = $_SESSION['username'];
         $this->load->view('partials/adminHeader');
         $this->load->view('adminPanel',$data);
@@ -65,8 +66,9 @@ class Admincontroller extends MY_Controller{
 
     //
     public function showOrderManage(){
+        $data['title'] = "Copex | 订单管理";
         $data['username'] = $_SESSION['username'];
-        $this->load->view('partials/adminHeader');
+        $this->load->view('partials/adminHeader',$data);
         $this->load->view('orderManage',$data);
     }
 
