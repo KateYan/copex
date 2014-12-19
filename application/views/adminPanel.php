@@ -70,12 +70,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="collapse navbar-collapse">
-<!--                    <ul class="nav navbar-nav navbar-left bootstrap-admin-theme-change-size">-->
-<!--                        <li class="text">页面显示比例:</li>-->
-<!--                        <li><a class="size-changer small">小</a></li>-->
-<!--                        <li><a class="size-changer large active">大</a></li>-->
-<!--                    </ul>-->
-<!--                    <ul class="nav navbar-nav navbar-right">-->
+                    <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> <?php echo $username; ?> <i class="caret"></i></a>
                             <ul class="dropdown-menu">
@@ -85,7 +80,7 @@
                                 <li>
                                     <?php
                                     $attributes = array('class'=>'log_out');
-                                    echo anchor('admincontroller/showAdminLogin','退出登录',$attributes);
+                                    echo anchor('admincontroller/showAdminPanel','退出登录',$attributes);
                                     ?>
                                 </li>
                             </ul>

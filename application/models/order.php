@@ -60,7 +60,7 @@ class Order extends CI_Model {
             $sql = "INSERT INTO orderitem(oid,dishid,dishtype) VALUES";
 
             for($i = 0 ;$i<$num;$i++){
-                $sql .= "('$oid','".$orderitem['sidedish'][$i]."','0')";
+                $sql .= "('$oid','".$orderitem['sidedish'][$i]."','1')";
                 $sql .= ($i == ($num-1))? ';' : ',';
             }
             $this->db->query($sql);
@@ -125,7 +125,7 @@ class Order extends CI_Model {
      */
     // for admin to mange order's show today's orders
     public function orderByDate($date){
-        $sql = "SELECT `order`.oid as orderNumber,`campus`.cname as campus,`order`.fordate as forDate,`order`.totalcost as totalCost,`user`.uphone as userPhone,`user`.vipid as vipId,`user`.uid as userId FROM (`order`JOIN campus ON `order`.cid = `campus`.cid) JOIN user ON  `order`.uid = `user`.uid WHERE `order`.fordate='$date'";
+        $sql = "SELECT `order`.oid as orderNumber,`order`.oispaid as isPaid,`campus`.cname as campus,`order`.fordate as forDate,`order`.odate as orderDate,`order`.totalcost as totalCost,`user`.uphone as userPhone,`user`.vipid as vipId,`user`.uid as userId FROM (`order`JOIN campus ON `order`.cid = `campus`.cid) JOIN user ON  `order`.uid = `user`.uid WHERE `order`.fordate='$date' ORDER BY `order`.odate DESC";
 
         $query = $this->db->query($sql);
         if($query->num_rows()==0){
@@ -136,7 +136,7 @@ class Order extends CI_Model {
 
     // find all orders to show order history for user
     public function allOrders(){
-        $sql = "SELECT `order`.oid as orderNumber,`campus`.cname as campus,`order`.fordate as forDate,`order`.totalcost as totalCost,`user`.uphone as userPhone,`user`.vipid as vipId,`user`.uid as userId FROM (`order`JOIN campus ON `order`.cid = `campus`.cid) JOIN user ON  `order`.uid = `user`.uid ORDER BY `order`.fordate DESC";
+        $sql = "SELECT `order`.oid as orderNumber,`campus`.cname as campus,`order`.fordate as forDate,`order`.odate as orderDate,`order`.totalcost as totalCost,`user`.uphone as userPhone,`user`.vipid as vipId,`user`.uid as userId FROM (`order`JOIN campus ON `order`.cid = `campus`.cid) JOIN user ON  `order`.uid = `user`.uid ORDER BY `order`.fordate DESC,`order`.odate DESC";
 
         $query = $this->db->query($sql);
         if($query->num_rows()==0){
@@ -147,14 +147,14 @@ class Order extends CI_Model {
 
     // find order's food's detail
     public function orderFoodDetail($orderId){
-    $sql = "SELECT `order`.oid, `order`.totalcost, orderitem.dishtype,food.fname,food.fprice FROM (`order` LEFT JOIN orderitem ON `order`.oid=orderitem.oid)LEFT JOIN food ON orderitem.dishid=food.fid WHERE orderitem.dishtype='0' AND order.oid='$orderId'";
+    $sql = "SELECT `order`.*,campus.cname, `user`.uid,`user`.uphone,`user`.vipid,orderitem.dishtype,food.fname,food.fprice,diner.dname FROM (((((`order` JOIN campus ON `order`.cid=campus.cid)JOIN `user` ON `order`.uid=`user`.uid)JOIN orderitem ON `order`.oid=orderitem.oid) JOIN food ON orderitem.dishid=food.fid) JOIN diner ON food.did=diner.did)WHERE orderitem.dishtype='0' AND order.oid='$orderId'";
 
         $query = $this->db->query($sql);
         return $query->result();
     }
     // find order's sidedishes' detail
     public function orderSidedishDetail($orderId){
-        $sql = "SELECT `order`.oid, `order`.totalcost, orderitem.dishtype,sidedish.sname,sidedish.sprice FROM (`order` LEFT JOIN orderitem ON `order`.oid=orderitem.oid)LEFT JOIN sidedish ON orderitem.dishid=sidedish.sid WHERE orderitem.dishtype='1' AND order.oid='$orderId'";
+        $sql = "SELECT `order`.*,campus.cname, `user`.uid,`user`.uphone,`user`.vipid,orderitem.dishtype,sidedish.sname,sidedish.sprice,diner.dname FROM (((((`order` JOIN campus ON `order`.cid=campus.cid)JOIN `user` ON `order`.uid=`user`.uid)JOIN orderitem ON `order`.oid=orderitem.oid) JOIN sidedish ON orderitem.dishid=sidedish.sid) JOIN diner ON sidedish.did=diner.did)WHERE orderitem.dishtype='1' AND order.oid='$orderId'";
 
         $query = $this->db->query($sql);
         return $query->result();

@@ -18,12 +18,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="collapse navbar-collapse">
-<!--                    <ul class="nav navbar-nav navbar-left bootstrap-admin-theme-change-size">-->
-<!--                        <li class="text">页面显示比例:</li>-->
-<!--                        <li><a class="size-changer small">小</a></li>-->
-<!--                        <li><a class="size-changer large active">大</a></li>-->
-<!--                    </ul>-->
-<!--                    <ul class="nav navbar-nav navbar-right">-->
+                    <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> <?php echo $username; ?> <i class="caret"></i></a>
                             <ul class="dropdown-menu">
@@ -53,7 +48,7 @@
                 <div class="navbar-header">
                     <?php
                     $attributes = array('class'=>'navbar-brand');
-                    echo anchor('admincontroller/showAdminLogin','Copex 订餐系统-控制面板',$attributes);
+                    echo anchor('admincontroller/showAdminPanel','Copex 订餐系统-控制面板',$attributes);
                     ?>
                 </div>
             </div>
@@ -117,7 +112,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <div class="text-muted bootstrap-admin-box-title">今日订单</div>
+                <div class="text-muted bootstrap-admin-box-title">预备订单--(点击订单号查看详情)</div>
             </div>
             <div class="bootstrap-admin-panel-content">
                 <table class="table table-striped">
@@ -129,17 +124,20 @@
                         <th>用户类型</th>
                         <th>用户电话</th>
                         <th>取餐日期</th>
+                        <th>下单时间</th>
                         <th>总价</th>
+                        <th>已付款？</th>
+                        <th>确认付款</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php
-                    if(!isset($todayOrder)){
+                    if(!isset($prepareOrder)){
                         echo "暂时还没有用户点今天的菜，请稍等片刻后刷新看看。";
                     }
-                    foreach($todayOrder as $order){
+                    foreach($prepareOrder as $order){
                         echo '<tr>';
-                        echo '<td><a>';
+                        echo '<td><a href="showOrderDetail/'.$order->orderNumber.'">';
                         echo $order->orderNumber;
                         echo '</a></td>';
                         echo '<td>'.$order->campus.'</td>';
@@ -151,7 +149,16 @@
                         }
                         echo '<td>'.$order->userPhone.'</td>';
                         echo '<td>'.$order->forDate.'</td>';
+                        echo '<td>'.$order->orderDate.'</td>';
                         echo '<td>'."$".$order->totalCost.'</td>';
+                        if($order->isPaid==0){
+                            echo '<td>'."否".'</td>';
+                            echo '<td><input type="checkbox" /></td>';
+                        }elseif($order->isPaid==1){
+                            echo '<td>'."是".'</td>';
+                            echo '<td><input type="hidden" /></td>';
+                        }
+
                         echo '</tr>';
                     }
                     ?>
@@ -166,7 +173,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <div class="text-muted bootstrap-admin-box-title">订单历史</div>
+                <div class="text-muted bootstrap-admin-box-title">订单历史--(点击订单号查看详情)</div>
             </div>
             <div class="bootstrap-admin-panel-content">
                 <table class="table table-striped">
@@ -178,6 +185,7 @@
                         <th>用户类型</th>
                         <th>用户电话</th>
                         <th>取餐日期</th>
+                        <th>下单时间</th>
                         <th>总价</th>
                     </tr>
                     </thead>
@@ -200,6 +208,7 @@
                         }
                         echo '<td>'.$order->userPhone.'</td>';
                         echo '<td>'.$order->forDate.'</td>';
+                        echo '<td>'.$order->orderDate.'</td>';
                         echo '<td>'."$".$order->totalCost.'</td>';
                         echo '</tr>';
                     }
@@ -769,7 +778,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <footer role="contentinfo">
-                    <p class="left">Bootstrap 3.x Admin Theme</p>
+                    <p class="left">Copex 订餐管理系统</p>
                     <p class="right">&copy; 2013 <a href="http://www.meritoo.pl" target="_blank">Meritoo.pl</a></p>
                 </footer>
             </div>

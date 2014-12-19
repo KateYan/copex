@@ -20,7 +20,6 @@ class Admincontroller extends MY_Controller{
             'wrongadmin'=>"该管理员不存在！",
             'wrongpsw'=>"管理员密码不正确！"
         );
-
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
             $data["eMsg"] = $eMsg["$errorCode"];
             $this->load->view('adminlogin',$data);
@@ -60,20 +59,25 @@ class Admincontroller extends MY_Controller{
         }
         $data['title'] = "Copex | 控制面板";
         $data['username'] = $_SESSION['username'];
-        $this->load->view('partials/adminHeader');
+        $this->load->view('partials/adminHeader',$data);
         $this->load->view('adminPanel',$data);
     }
 
-    //
+    //show orders on the way and history orders
     public function showOrderManage(){
         $data['title'] = "Copex | 订单管理";
         $data['username'] = $_SESSION['username'];
         // show today's order that needed to prepare
         $this->load->model('order');
-        $today = date("Y-m-d");
+        $time = date("H:i:s");
+        if($time>='00:00:00'&&$time<='12:00:00'){
+            $date = date('Y-m-d');
+        }else{
+            $date = date('Y-m-d',strtotime('+1 day'));
+        }
         // only if there is more than 0 order is made
-        if($this->order->orderByDate($today)){// only if there is more than 0 order is made
-            $data['todayOrder'] = $this->order->orderByDate($today);
+        if($this->order->orderByDate($date)){// only if there is more than 0 order is made
+            $data['prepareOrder'] = $this->order->orderByDate($date);
         }
         // find all orders for admin
         if($this->order->allOrders()){
@@ -94,6 +98,7 @@ class Admincontroller extends MY_Controller{
     }
 
     public function showOrderDetail($orderId=null){
+
         $this->load->model('order');
         if(!empty($orderId)){
             $data['orderFood'] = $this->order->orderFoodDetail($orderId);
@@ -101,7 +106,10 @@ class Admincontroller extends MY_Controller{
 //            var_dump($data['orderFood']);
 //            var_dump($data['orderSidedish']);
 //            die();
-            $this->load->view('orderdetail',$data);
+            $data['username'] = $_SESSION['username'];
+            $data['title'] = "Copex | 订单详情";
+            $this->load->view('partials/adminHeader',$data);
+            $this->load->view('orderDetails');
         }
         return false;
 
