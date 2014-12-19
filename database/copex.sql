@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 19, 2014 at 06:34 AM
+-- Generation Time: Dec 19, 2014 at 07:16 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `diner` (
   `demail` varchar(25) NOT NULL,
   `dphone` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`did`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10003 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10005 ;
 
 --
 -- Dumping data for table `diner`
@@ -162,7 +162,9 @@ CREATE TABLE IF NOT EXISTS `diner` (
 
 INSERT INTO `diner` (`did`, `dname`, `daddr`, `demail`, `dphone`) VALUES
 (10001, 'T&T', '', 'tt123@gmail.com', '647-310-6789'),
-(10002, 'benben resturaunt', '', 'benben@hotmail.com', '647-123-4567');
+(10002, 'benben resturaunt', '', 'benben@hotmail.com', '647-123-4567'),
+(10003, 'UTSG餐厅', '', 'utsg@gmail.com', NULL),
+(10004, 'YouK餐厅', '', 'youk@gmail.com', NULL);
 
 -- --------------------------------------------------------
 
@@ -250,16 +252,17 @@ CREATE TABLE IF NOT EXISTS `order` (
   PRIMARY KEY (`oid`),
   KEY `uid` (`uid`),
   KEY `cid` (`cid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2753626 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2753631 ;
 
 --
 -- Dumping data for table `order`
 --
 
 INSERT INTO `order` (`oid`, `uid`, `cid`, `odate`, `fordate`, `ostatus`, `oispaid`, `tax`, `totalcost`) VALUES
-(2753623, 10257, 10002, '2014-12-18 17:50:17', '2014-12-19', 0, 0, 1.2987, 11.2887),
-(2753624, 10258, 10004, '2014-12-18 17:53:53', '2014-12-19', 0, 0, 1.2987, 11.2887),
-(2753625, 10259, 10003, '2014-12-18 17:58:43', '2014-12-19', 0, 0, 1.65, 14.34);
+(2753623, 10257, 10002, '2014-12-18 17:50:17', '2014-12-19', 0, 0, 1.3, 11.29),
+(2753624, 10258, 10004, '2014-12-18 17:53:53', '2014-12-19', 0, 0, 1.3, 11.29),
+(2753625, 10259, 10003, '2014-12-18 17:58:43', '2014-12-19', 0, 0, 1.65, 14.34),
+(2753630, 10185, 10003, '2014-12-19 13:14:07', '2014-12-20', 0, 1, 3.47, 30.14);
 
 -- --------------------------------------------------------
 
@@ -274,7 +277,7 @@ CREATE TABLE IF NOT EXISTS `orderitem` (
   `dishtype` tinyint(1) NOT NULL,
   PRIMARY KEY (`oitemid`),
   KEY `oid` (`oid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10318 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10335 ;
 
 --
 -- Dumping data for table `orderitem`
@@ -283,7 +286,10 @@ CREATE TABLE IF NOT EXISTS `orderitem` (
 INSERT INTO `orderitem` (`oitemid`, `oid`, `dishid`, `dishtype`) VALUES
 (10315, 2753623, 10004, 0),
 (10316, 2753624, 10007, 0),
-(10317, 2753625, 10005, 0);
+(10317, 2753625, 10005, 0),
+(10332, 2753630, 10005, 0),
+(10333, 2753630, 10003, 0),
+(10334, 2753630, 10003, 0);
 
 -- --------------------------------------------------------
 
@@ -403,7 +409,7 @@ INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `
 (10181, 10003, NULL, NULL, '9dff5b1b71330496432ff39cc992fa64ec35c3be581bb8f511958b52b8eb60a5', '::1', 1, '2014-12-12 21:06:58', '2014-12-09 07:11:29'),
 (10182, 10004, NULL, NULL, 'e187c25df3c7f7fc821573da81d32a1b196216912ad6c4c8c597a5e1bea31421', '::1', 1, '2014-12-12 21:06:58', '2014-12-09 07:21:40'),
 (10184, 10003, 10141, NULL, 'c39eb1e187b03d280bb82a422622e1d5f322d5415ea0a8e053ea78cb2e0c11b8', '::1', 1, '2014-12-12 21:06:58', '2014-12-10 03:29:29'),
-(10185, 10003, 10142, '6131231234', '208795b584c83f3bae579f721868d1cbd4884783362387f95f50e35f810a3f50', '::1', 1, '2014-12-19 04:06:26', '2014-12-10 15:38:21'),
+(10185, 10003, 10142, '6131231234', '208795b584c83f3bae579f721868d1cbd4884783362387f95f50e35f810a3f50', '::1', 1, '2014-12-19 18:13:26', '2014-12-10 15:38:21'),
 (10216, 10003, NULL, NULL, 'b841314f665bb44d5aeea2d40a193c17', '::1', 0, '2014-12-14 06:05:01', '2014-12-14 06:05:01'),
 (10217, 10003, NULL, NULL, 'c12115d24bfb31afa25ae90da0d05620', '::1', 0, '2014-12-14 19:11:07', '2014-12-14 19:11:07'),
 (10218, 10003, NULL, NULL, 'd749404b6d46b10202ec2fe499e538dc', '::1', 0, '2014-12-14 19:58:23', '2014-12-14 19:58:23'),
@@ -462,7 +468,7 @@ CREATE TABLE IF NOT EXISTS `vipcard` (
 
 INSERT INTO `vipcard` (`vipid`, `uid`, `vnumber`, `vpassword`, `vbalance`) VALUES
 (10141, 10184, 4975, '', 150),
-(10142, 10185, 9645, '912ec803b2ce49e4a541068d495ab570', 326.49);
+(10142, 10185, 9645, '912ec803b2ce49e4a541068d495ab570', 183.32);
 
 --
 -- Constraints for dumped tables

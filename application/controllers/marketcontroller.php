@@ -148,7 +148,7 @@ class Marketcontroller extends MY_Controller{
         }
 
         // get the total cost of all the dishes user just ordered
-        $data['totalcost'] = $totalCost;
+        $data['totalcost_befortax'] = $totalCost;
 
         // using user's vipid to get vip user's vip card's balance to show
         $this->load->model('market');
@@ -233,14 +233,28 @@ class Marketcontroller extends MY_Controller{
         // user did enter password
         $uid = $_SESSION['uid'];
         $odate = date('Y-m-d H:i:s');
+
+        // get user type for getting different order time range
+        // and show different pickup date based on order time;
+
+        $userType = 'vip';
+        $this->load->model('market');
+        $orderTimeRange = $this->market->orderTimeRange($userType);
+        $time = date('H:i:s');
+        if($time>=$orderTimeRange['orderStart']){
+            $fordate = date('Y-m-d',strtotime('+1 day'));
+        }elseif($time<=$orderTimeRange['orderEnd']){
+            $fordate = date('Y-m-d');
+        }
+
         // begin to calculate total cost
-        $totalCost = 0;
+        $totalCost_beforTax = 0;
         //for posted food
         $foodList = array();
         for($i = 1; $i <= 3; $i++){
             if(isset($_POST["amt$i"])){
                 //update totalcost
-                $totalCost += $_SESSION["food$i"]['price']*$_POST["amt$i"];
+                $totalCost_beforTax += $_SESSION["food$i"]['price']*$_POST["amt$i"];
                 //update foodList
                 for($j=1;$j<=$_POST["amt$i"];$j++){
                     $foodList[] = $_SESSION["food$i"]['id'];
@@ -256,7 +270,7 @@ class Marketcontroller extends MY_Controller{
                 $sideDishList[] = $_SESSION["sidedish$k"]['id'];
 
                 //update total cost
-                $totalCost += $_SESSION["sidedish$k"]['price'];
+                $totalCost_beforTax += $_SESSION["sidedish$k"]['price'];
             }
         }
         // using user's vipid to get vip user's vip card's balance to show
@@ -264,16 +278,16 @@ class Marketcontroller extends MY_Controller{
         $vipCard = $this->market->getVipCard($_SESSION['vipid']);
         $balance = $vipCard->vbalance;
 
-        if($balance<$totalCost){// vipcard is not enough to pay order
+        if($balance<round($totalCost_beforTax*1.13,2)){// vipcard is not enough to pay order
             if(!isset($_POST['by_cash'])){
                 return redirect('marketcontroller/showSideDish');
             }
             $this->load->model('order');
-            $orderId = $this->order->vipOrderByCash($uid,$_SESSION['cid'],$odate,$foodList,$sideDishList,$totalCost);
+            $orderId = $this->order->vipOrderByCash($uid,$_SESSION['cid'],$odate,$fordate,$foodList,$sideDishList,$totalCost_beforTax);
         }else{
             // generate order
             $this->load->model('order');
-            $orderId = $this->order->vipOrderByCard($uid,$_SESSION['cid'],$odate,$foodList,$sideDishList,$totalCost);
+            $orderId = $this->order->vipOrderByCard($uid,$_SESSION['cid'],$odate,$fordate,$foodList,$sideDishList,$totalCost_beforTax);
         }
 
         // store order's id

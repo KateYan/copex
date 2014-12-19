@@ -10,7 +10,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Order extends CI_Model {
 
 // generating vip user's order by using uid
-    public function vipOrderByCard($uid,$cid,$odate,$food,$sidedish,$totalcost){
+    public function vipOrderByCard($uid,$cid,$odate,$fordate,$food,$sidedish,$totalCost_beforTax){
         $orderitem = array('food'=>$food,'sidedish'=>$sidedish);
 
         // double check if the user can use vip card to pay order
@@ -18,8 +18,10 @@ class Order extends CI_Model {
         $query = $this->db->query($sql);
         $result = $query->row(0);
         $balance = $result->vbalance;
+        $totalCost = round($totalCost_beforTax*1.13,2);
+        $tax = round($totalCost_beforTax*0.13,2);
 
-        $balance -= $totalcost;
+        $balance -= $totalCost;
 
         if($balance < 0){ // balance is not enough to pay order
             return false;
@@ -31,7 +33,7 @@ class Order extends CI_Model {
         $this->db->query($sql);
 
         //insert new order
-        $sql = "INSERT INTO `order`(`uid`,`cid`,`odate`,`oispaid`,`totalcost`) VALUES (".$this->db->escape($uid).",".$this->db->escape($cid).",".$this->db->escape($odate).",".$this->db->escape($oispaid).",".$this->db->escape($totalcost).") ";
+        $sql = "INSERT INTO `order`(uid,cid,odate,fordate,oispaid,tax,totalcost) VALUES (".$this->db->escape($uid).",".$this->db->escape($cid).",".$this->db->escape($odate).",".$this->db->escape($fordate).",".$this->db->escape($oispaid).",".$this->db->escape($tax).",".$this->db->escape($totalCost).") ";
         $this->db->query($sql);
         $oid = $this->db->insert_id();//get order's id
 
@@ -66,43 +68,6 @@ class Order extends CI_Model {
         return $oid;
     }
 
-    // generate vip order which will be paid by cash
-    public function vipOrderByCash($uid,$cid,$odate,$food,$sidedish,$totalcost){
-        $orderitem = array('food'=>$food,'sidedish'=>$sidedish);
-
-        $sql = "INSERT INTO `order`(`uid`,`cid`,`odate`,`totalcost`) VALUES (".$this->db->escape($uid).",".$this->db->escape($cid).",".$this->db->escape($odate).",".$this->db->escape($totalcost).") ";
-        $this->db->query($sql);
-        $oid = $this->db->insert_id();//get order's id
-
-        // update the user's order-status into '1' and his phone number into new entered phone number
-        $sqlOrdered = "UPDATE user SET ordered = '1' WHERE uid = '$uid'";
-        $this->db->query($sqlOrdered);
-
-        if(!empty($orderitem['food'])){//create rows of orderitems for orderitem table
-            $num = count($orderitem['food']);
-
-            $sql = "INSERT INTO orderitem(oid,dishid,dishtype) VALUES";
-
-            for($i = 0 ;$i<$num;$i++){
-                $sql .= "('$oid','".$orderitem['food'][$i]."','0')";
-                $sql .= ($i == ($num-1))? ';' : ',';
-            }
-            $this->db->query($sql);
-        }
-
-        if(!empty($orderitem['sidedish'])){//count sidedish part's cost
-            $num = count($orderitem['sidedish']);
-
-            $sql = "INSERT INTO orderitem(oid,dishid,dishtype) VALUES";
-
-            for($i = 0 ;$i<$num;$i++){
-                $sql .= "('$oid','".$orderitem['sidedish'][$i]."','1')";
-                $sql .= ($i == ($num-1))? ';' : ',';
-            }
-            $this->db->query($sql);
-        }
-        return $oid;
-    }
 
     /*
      * using userid, date, and the foodid the user chosed to create order for non-vip user
@@ -150,11 +115,33 @@ class Order extends CI_Model {
         }
         return $query->result();
     }
-
-    public function allOrders(){
-        $sql = "SELECT `order`.oid as orderNumber,`order`.uid as userId,`campus`.cname as campus,`order`.odate as orderDate,`order`.ostatus as isPickedup, `order`.oispaid as isPaid, `order`.totalcost as totalCost FROM `order`,`campus` WHERE `order`.cid = `campus`.cid ";
+    /*
+     *
+     *
+     * Functions below are used for admin control
+     *
+     *
+     *
+     */
+    // for admin to mange order's show today's orders
+    public function orderByDate($date){
+        $sql = "SELECT `order`.oid as orderNumber,`campus`.cname as campus,`order`.fordate as forDate,`order`.totalcost as totalCost,`user`.uphone as userPhone,`user`.vipid as vipId,`user`.uid as userId FROM (`order`JOIN campus ON `order`.cid = `campus`.cid) JOIN user ON  `order`.uid = `user`.uid WHERE `order`.fordate='$date'";
 
         $query = $this->db->query($sql);
+        if($query->num_rows()==0){
+            return false;
+        }
+        return $query->result();
+    }
+
+    // find all orders to show order history for user
+    public function allOrders(){
+        $sql = "SELECT `order`.oid as orderNumber,`campus`.cname as campus,`order`.fordate as forDate,`order`.totalcost as totalCost,`user`.uphone as userPhone,`user`.vipid as vipId,`user`.uid as userId FROM (`order`JOIN campus ON `order`.cid = `campus`.cid) JOIN user ON  `order`.uid = `user`.uid ORDER BY `order`.fordate DESC";
+
+        $query = $this->db->query($sql);
+        if($query->num_rows()==0){
+            return false;
+        }
         return $query->result();
     }
 

@@ -68,6 +68,17 @@ class Admincontroller extends MY_Controller{
     public function showOrderManage(){
         $data['title'] = "Copex | 订单管理";
         $data['username'] = $_SESSION['username'];
+        // show today's order that needed to prepare
+        $this->load->model('order');
+        $today = date("Y-m-d");
+        // only if there is more than 0 order is made
+        if($this->order->orderByDate($today)){// only if there is more than 0 order is made
+            $data['todayOrder'] = $this->order->orderByDate($today);
+        }
+        // find all orders for admin
+        if($this->order->allOrders()){
+            $data['hitoryOrder'] = $this->order->allOrders();
+        }
         $this->load->view('partials/adminHeader',$data);
         $this->load->view('orderManage',$data);
     }

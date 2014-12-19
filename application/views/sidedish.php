@@ -109,21 +109,21 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
         <ul><li>
             <div class="order-list-title">&nbsp;</div>
             <div class="order-list-amt">合计</div>
-            <div class="order-list-cost">$<span id="total-cost"><?php echo $totalcost; ?></span></div>
+            <div class="order-list-cost">$<span id="total-cost"><?php echo $totalcost_befortax; ?></span></div>
         </ul></li>
         </div>
         <div class="order_list">
         <ul><li>
             <div class="order-list-title">&nbsp;</div>
             <div class="order-list-amt">HST(13%)</div>
-            <div class="order-list-cost">$<span id="tax"><?php echo round($totalcost * 0.13, 2); ?></span></div>
+            <div class="order-list-cost">$<span id="tax"><?php echo round($totalcost_befortax * 0.13, 2); ?></span></div>
         </ul></li>
         </div>
         <div class="order_list">
         <ul><li>
             <div class="order-list-title">&nbsp;</div>
             <div class="order-list-amt">总额</div>
-            <div class="order-list-cost">$<span id="total-amt"><?php echo  round($totalcost * 1.13, 2); ?></span></div>
+            <div class="order-list-cost">$<span id="total-amt"><?php echo  round($totalcost_befortax * 1.13, 2); ?></span></div>
         </ul></li>
         </div>
         <div class="order_list" style="border:none">

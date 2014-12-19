@@ -18,12 +18,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-left bootstrap-admin-theme-change-size">
-                        <li class="text">页面显示比例:</li>
-                        <li><a class="size-changer small">小</a></li>
-                        <li><a class="size-changer large active">大</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
+<!--                    <ul class="nav navbar-nav navbar-left bootstrap-admin-theme-change-size">-->
+<!--                        <li class="text">页面显示比例:</li>-->
+<!--                        <li><a class="size-changer small">小</a></li>-->
+<!--                        <li><a class="size-changer large active">大</a></li>-->
+<!--                    </ul>-->
+<!--                    <ul class="nav navbar-nav navbar-right">-->
                         <li class="dropdown">
                             <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> <?php echo $username; ?> <i class="caret"></i></a>
                             <ul class="dropdown-menu">
@@ -120,39 +120,97 @@
                 <div class="text-muted bootstrap-admin-box-title">今日订单</div>
             </div>
             <div class="bootstrap-admin-panel-content">
-                <table class="table">
+                <table class="table table-striped">
                     <thead>
                     <tr>
                         <th>订单号</th>
                         <th>收货校区</th>
-                        <th>配送餐厅</th>
+                        <th>用户ID</th>
+                        <th>用户类型</th>
                         <th>用户电话</th>
-                        <th>完成状态</th>
+                        <th>取餐日期</th>
+                        <th>总价</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    </tbody>
-                    <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
+                    <?php
+                    if(!isset($todayOrder)){
+                        echo "暂时还没有用户点今天的菜，请稍等片刻后刷新看看。";
+                    }
+                    foreach($todayOrder as $order){
+                        echo '<tr>';
+                        echo '<td><a>';
+                        echo $order->orderNumber;
+                        echo '</a></td>';
+                        echo '<td>'.$order->campus.'</td>';
+                        echo '<td>'.$order->userId.'</td>';
+                        if(empty($order->vipId)){
+                            echo '<td>'."普通用户".'</td>';
+                        }else{
+                            echo '<td>'."VIP用户".'</td>';
+                        }
+                        echo '<td>'.$order->userPhone.'</td>';
+                        echo '<td>'.$order->forDate.'</td>';
+                        echo '<td>'."$".$order->totalCost.'</td>';
+                        echo '</tr>';
+                    }
+                    ?>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="text-muted bootstrap-admin-box-title">订单历史</div>
+            </div>
+            <div class="bootstrap-admin-panel-content">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>订单号</th>
+                        <th>收货校区</th>
+                        <th>用户ID</th>
+                        <th>用户类型</th>
+                        <th>用户电话</th>
+                        <th>取餐日期</th>
+                        <th>总价</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    if(!isset($hitoryOrder)){
+                        echo "订单历史为空。";
+                    }
+                    foreach($hitoryOrder as $order){
+                        echo '<tr>';
+                        echo '<td><a>';
+                        echo $order->orderNumber;
+                        echo '</a></td>';
+                        echo '<td>'.$order->campus.'</td>';
+                        echo '<td>'.$order->userId.'</td>';
+                        if(empty($order->vipId)){
+                            echo '<td>'."普通用户".'</td>';
+                        }else{
+                            echo '<td>'."VIP用户".'</td>';
+                        }
+                        echo '<td>'.$order->userPhone.'</td>';
+                        echo '<td>'.$order->forDate.'</td>';
+                        echo '<td>'."$".$order->totalCost.'</td>';
+                        echo '</tr>';
+                    }
+                    ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="row">
     <div class="col-lg-12">
@@ -275,47 +333,7 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="text-muted bootstrap-admin-box-title">Striped Table</div>
-            </div>
-            <div class="bootstrap-admin-panel-content">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 
 <div class="row">
