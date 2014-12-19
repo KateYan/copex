@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 19, 2014 at 12:00 AM
+-- Generation Time: Dec 19, 2014 at 06:34 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -19,6 +19,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `copex`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE IF NOT EXISTS `admin` (
+  `adminId` int(5) NOT NULL,
+  `adminName` varchar(10) NOT NULL,
+  `adminPassword` varchar(128) NOT NULL,
+  UNIQUE KEY `adminName` (`adminName`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`adminId`, `adminName`, `adminPassword`) VALUES
+(20001, 'admin', '750d90bc8a9edcaac607461072175854');
 
 -- --------------------------------------------------------
 
@@ -373,7 +393,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`uid`),
   KEY `cid` (`cid`,`vipid`),
   KEY `vipid` (`vipid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10260 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10262 ;
 
 --
 -- Dumping data for table `user`
@@ -383,7 +403,7 @@ INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `
 (10181, 10003, NULL, NULL, '9dff5b1b71330496432ff39cc992fa64ec35c3be581bb8f511958b52b8eb60a5', '::1', 1, '2014-12-12 21:06:58', '2014-12-09 07:11:29'),
 (10182, 10004, NULL, NULL, 'e187c25df3c7f7fc821573da81d32a1b196216912ad6c4c8c597a5e1bea31421', '::1', 1, '2014-12-12 21:06:58', '2014-12-09 07:21:40'),
 (10184, 10003, 10141, NULL, 'c39eb1e187b03d280bb82a422622e1d5f322d5415ea0a8e053ea78cb2e0c11b8', '::1', 1, '2014-12-12 21:06:58', '2014-12-10 03:29:29'),
-(10185, 10003, 10142, '6131231234', '208795b584c83f3bae579f721868d1cbd4884783362387f95f50e35f810a3f50', '::1', 1, '2014-12-18 20:23:56', '2014-12-10 15:38:21'),
+(10185, 10003, 10142, '6131231234', '208795b584c83f3bae579f721868d1cbd4884783362387f95f50e35f810a3f50', '::1', 1, '2014-12-19 04:06:26', '2014-12-10 15:38:21'),
 (10216, 10003, NULL, NULL, 'b841314f665bb44d5aeea2d40a193c17', '::1', 0, '2014-12-14 06:05:01', '2014-12-14 06:05:01'),
 (10217, 10003, NULL, NULL, 'c12115d24bfb31afa25ae90da0d05620', '::1', 0, '2014-12-14 19:11:07', '2014-12-14 19:11:07'),
 (10218, 10003, NULL, NULL, 'd749404b6d46b10202ec2fe499e538dc', '::1', 0, '2014-12-14 19:58:23', '2014-12-14 19:58:23'),
@@ -416,7 +436,9 @@ INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `
 (10256, 10003, NULL, '1231234123', '38f31bfacb6f2fddbd10ade8b55e2f6f', '::1', 1, '2014-12-18 21:57:58', '2014-12-18 21:57:48'),
 (10257, 10002, NULL, '6134564567', '9dec88b3772c35708f47db386b2f487e', '::1', 1, '2014-12-18 22:51:51', '2014-12-18 22:50:08'),
 (10258, 10004, NULL, '4564567456', '1cac981fb61dc0e4a41e6a8508552803', '::1', 1, '2014-12-18 22:58:21', '2014-12-18 22:52:04'),
-(10259, 10003, NULL, '1231234123', '04766957db82a24eaa3006fb015798ba', '::1', 1, '2014-12-18 22:58:31', '2014-12-18 22:58:31');
+(10259, 10003, NULL, '1231234123', '04766957db82a24eaa3006fb015798ba', '::1', 1, '2014-12-18 23:07:17', '2014-12-18 22:58:31'),
+(10260, 10004, NULL, NULL, 'b8213dd6cdc0bfb7d1ca745b9aaf2ba2', '::1', 0, '2014-12-18 23:08:50', '2014-12-18 23:08:50'),
+(10261, 10003, NULL, NULL, '11cacfed4035ede9cfdc45762d47a8bf', '::1', 0, '2014-12-19 04:05:08', '2014-12-18 23:38:12');
 
 -- --------------------------------------------------------
 
@@ -440,7 +462,7 @@ CREATE TABLE IF NOT EXISTS `vipcard` (
 
 INSERT INTO `vipcard` (`vipid`, `uid`, `vnumber`, `vpassword`, `vbalance`) VALUES
 (10141, 10184, 4975, '', 150),
-(10142, 10185, 9645, '962012d09b8170d912f0669f6d7d9d07', 326.49);
+(10142, 10185, 9645, '912ec803b2ce49e4a541068d495ab570', 326.49);
 
 --
 -- Constraints for dumped tables
