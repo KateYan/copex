@@ -13,15 +13,21 @@
                     var name = $(this).next('label').children('.sd_title').html(), price = $(this).next('label').find('.sd_price_num').html() - 0, oriTotal = $("#total-cost").html() - 0;
                if($(this).attr('checked')){
                 //add item
-                    var html = '<li><div class="order-list-title sidedish">'+ name +'</div><div class="order-list-amt">1份</div><div class="order-list-cost">$'+ price +'</div></li>';
+                var html = '<li><div class="order-list-title sidedish">'+ name +'</div><div class="order-list-amt">1份</div><div class="order-list-cost">$'+ price +'</div></li>';
                     $('#order_list ul').append(html);
                 //total price
-                    $("#total-cost").html((oriTotal + price).toFixed(2));
+                var cost = (oriTotal + price).toFixed(2), tax = (cost*.13).toFixed(2), total = (cost - 0 + (tax - 0)).toFixed(2);
+
                }else{
                 //remove item
                 $('#order_list>ul>li>div.sidedish:contains('+ name +')').parent('li').remove();
-                    $("#total-cost").html((oriTotal - price).toFixed(2));
+                //total price
+                var cost = (oriTotal - price).toFixed(2), tax = (cost*.13).toFixed(2), total = (cost - 0 + (tax - 0)).toFixed(2);
                }
+
+                $("#total-cost").html(cost);
+                $("#tax").html(tax);
+                $("#total-amt").html(total);
 
             });
 
@@ -29,7 +35,7 @@
 
 
             $("form#side-dishes-list").submit(function(){
-                var total = $("#total-cost").html() - 0, balance = $("#balance").html() - 0;
+                var total = $("#total-amt").html() - 0, balance = $("#balance").html() - 0;
                 if(total > balance){
                     $('#not_enough_balance').show();
                     return false;
@@ -102,8 +108,22 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
         <div class="order_list">
         <ul><li>
             <div class="order-list-title">&nbsp;</div>
-            <div class="order-list-amt">总计</div>
+            <div class="order-list-amt">合计</div>
             <div class="order-list-cost">$<span id="total-cost"><?php echo $totalcost; ?></span></div>
+        </ul></li>
+        </div>
+        <div class="order_list">
+        <ul><li>
+            <div class="order-list-title">&nbsp;</div>
+            <div class="order-list-amt">HST(13%)</div>
+            <div class="order-list-cost">$<span id="tax"><?php echo round($totalcost * 0.13, 2); ?></span></div>
+        </ul></li>
+        </div>
+        <div class="order_list">
+        <ul><li>
+            <div class="order-list-title">&nbsp;</div>
+            <div class="order-list-amt">总额</div>
+            <div class="order-list-cost">$<span id="total-amt"><?php echo  round($totalcost * 1.13, 2); ?></span></div>
         </ul></li>
         </div>
         <div class="order_list" style="border:none">

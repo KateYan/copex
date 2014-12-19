@@ -122,6 +122,7 @@ class Marketcontroller extends MY_Controller{
                 $cost = $_SESSION["food$i"]['price'] * $amt;
                 $totalCost += $cost;
                 $data['orderedDishes'][] = array('inputName'=>"amt$i", 'name'=>$name,'qty'=>$amt,'cost'=>$cost);
+                $_SESSION['POST']["amt$i"] = $amt;
             }
         }
 
@@ -137,7 +138,6 @@ class Marketcontroller extends MY_Controller{
             }
         }
 
-        unset($_SESSION['POST']);
 
         $this->load->model('menuitem');
         $data['sideDish'] = $this->menuitem->getSideDish($_SESSION['cid']);
@@ -216,6 +216,7 @@ class Marketcontroller extends MY_Controller{
             return $this->load->view('timeout');
         }
 
+        unset($_SESSION['POST']);
         $_SESSION['POST'] = $_POST;
 
         if(empty($_POST['password'])){ //user didn't type in password
