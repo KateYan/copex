@@ -92,9 +92,11 @@ class Marketcontroller extends MY_Controller{
      * show sidedish option for vipuser
      */
     public function showSideDish($errorCode = null){
-
-        if($_POST['amt1']==0&&$_POST['amt2']==0&&$_POST['amt3']==0){
-            return redirect('marketcontroller/showDailyMenu/nofoodpicked');
+        // if there are posted food amount and their value are all equal to zero, then return error
+        if(isset($_POST['amt1'])&&isset($_POST['amt2'])&&isset($_POST['amt3'])){
+            if($_POST['amt1']==0&&$_POST['amt2']==0&&$_POST['amt3']==0){
+                return redirect('marketcontroller/showDailyMenu/nofoodpicked');
+            }
         }
         //forbid non-vip user to see sidedish page
         if(!isset($_SESSION['vipid'])){
