@@ -115,6 +115,15 @@ class Order extends CI_Model {
         }
         return $query->result();
     }
+
+    // check if user has already ordered in the same day
+    public function orderToday($uid,$now,$orderStart){
+        $sql = "SELECT * FROM `order` WHERE `odate` < '$now' AND `odate` >= '$orderStart' AND uid='$uid'";
+        $query = $this->db->query($sql);
+        if($query->num_rows()>0){
+            return false;
+        }return true;
+    }
     /*
      *
      *
@@ -125,7 +134,7 @@ class Order extends CI_Model {
      */
     // for admin to mange order's show today's orders
     public function orderByDate($date){
-        $sql = "SELECT `order`.oid as orderNumber,`order`.oispaid as isPaid,`campus`.cname as campus,`order`.fordate as forDate,`order`.odate as orderDate,`order`.totalcost as totalCost,`user`.uphone as userPhone,`user`.vipid as vipId,`user`.uid as userId FROM (`order`JOIN campus ON `order`.cid = `campus`.cid) JOIN user ON  `order`.uid = `user`.uid WHERE `order`.fordate='$date' ORDER BY `order`.odate DESC";
+        $sql = "SELECT `order`.oid as orderNumber,`order`.oispaid as isPaid,`order`.ostatus as isPickedup,`campus`.cname as campus,`order`.fordate as forDate,`order`.odate as orderDate,`order`.totalcost as totalCost,`user`.uphone as userPhone,`user`.vipid as vipId,`user`.uid as userId FROM (`order`JOIN campus ON `order`.cid = `campus`.cid) JOIN user ON  `order`.uid = `user`.uid WHERE `order`.fordate='$date' ORDER BY `order`.odate DESC";
 
         $query = $this->db->query($sql);
         if($query->num_rows()==0){
@@ -136,7 +145,7 @@ class Order extends CI_Model {
 
     // find all orders to show order history for user
     public function allOrders(){
-        $sql = "SELECT `order`.oid as orderNumber,`campus`.cname as campus,`order`.fordate as forDate,`order`.odate as orderDate,`order`.totalcost as totalCost,`user`.uphone as userPhone,`user`.vipid as vipId,`user`.uid as userId FROM (`order`JOIN campus ON `order`.cid = `campus`.cid) JOIN user ON  `order`.uid = `user`.uid ORDER BY `order`.fordate DESC,`order`.odate DESC";
+        $sql = "SELECT `order`.oid as orderNumber,`order`.oispaid as isPaid,`order`.ostatus as isPickedup,`campus`.cname as campus,`order`.fordate as forDate,`order`.odate as orderDate,`order`.totalcost as totalCost,`user`.uphone as userPhone,`user`.vipid as vipId,`user`.uid as userId FROM (`order`JOIN campus ON `order`.cid = `campus`.cid) JOIN user ON  `order`.uid = `user`.uid ORDER BY `order`.odate DESC";
 
         $query = $this->db->query($sql);
         if($query->num_rows()==0){
@@ -159,12 +168,14 @@ class Order extends CI_Model {
         $query = $this->db->query($sql);
         return $query->result();
     }
-    // check if user has already ordered in the same day
-    public function orderToday($uid,$now,$orderStart){
-        $sql = "SELECT * FROM `order` WHERE `odate` < '$now' AND `odate` >= '$orderStart' AND uid='$uid'";
-        $query = $this->db->query($sql);
-        if($query->num_rows()>0){
-            return false;
-        }return true;
+
+    // update order properties(oispaid & ostatus)
+    public function updateOrder($orderIdList,$columnName){
+        $num = count($orderIdList);
+        for($i=0;$i<$num;$i++){
+            $sql = "UPDATE `order` SET $columnName='1' WHERE oid ='$orderIdList[$i]'";
+            $this->db->query($sql);
+        }
     }
+
 }

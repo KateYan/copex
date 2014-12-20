@@ -97,6 +97,7 @@ class Admincontroller extends MY_Controller{
         $this->load->view('allorders',$data);
     }
 
+    // show one order's detail with order's id
     public function showOrderDetail($orderId=null){
 
         $this->load->model('order');
@@ -112,6 +113,41 @@ class Admincontroller extends MY_Controller{
             $this->load->view('orderDetails');
         }
         return false;
+    }
 
+    // change order's status into ispaid
+    public function confirmPaid(){
+        // get total preparedOrder's number
+        $orderNumber = $_POST['orderNumber'];
+        // store all order's which are needed to be updated as ispaid into an numnered array
+        $orderIdList = array();
+        for($i=0;$i<$orderNumber;$i++){
+            if(isset($_POST["order$i"])){
+                $orderIdList[] = $_POST["order$i"];
+            }
+        }
+        $columnName = "oispaid";
+        $this->load->model('order');
+        $this->order->updateOrder($orderIdList,$columnName);
+
+        return redirect('admincontroller/showOrderManage');
+    }
+
+    // change order's status into ispaid
+    public function confirmPickedup(){
+        // get total preparedOrder's number
+        $orderNumber = $_POST['orderNumber'];
+        // store all order's which are needed to be updated as ispaid into an numnered array
+        $orderIdList = array();
+        for($i=0;$i<$orderNumber;$i++){
+            if(isset($_POST["order$i"])){
+                $orderIdList[] = $_POST["order$i"];
+            }
+        }
+        $columnName = "ostatus";
+        $this->load->model('order');
+        $this->order->updateOrder($orderIdList,$columnName);
+
+        return redirect('admincontroller/showOrderManage');
     }
 }

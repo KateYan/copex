@@ -155,13 +155,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header bootstrap-admin-content-title">
-                        <h1>Bootstrap 3.x Admin's Theme</h1>
-                        <a href="https://github.com/meritoo/Bootstrap-3-Admin-Theme" class="action btn">
-                            Go to GitHub &raquo;
-                        </a>
-                        <a href="https://github.com/meritoo/Bootstrap-3-Admin-Theme/archive/master.zip" class="action">
-                            <button class="btn btn-success">Download (.zip)</button>
-                        </a>
+                        <h1>Copex 订餐管理系统</h1>
                     </div>
                 </div>
             </div>
@@ -219,31 +213,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="bs-docs-masthead">
-                        <a href="http://getbootstrap.com" target="_blank">
-                            <h1>Bootstrap</h1>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6 meritoo-logo">
-                    <a href="http://www.meritoo.pl" target="_blank">
-                        <img src="images/logo-meritoo.png" alt="Meritoo.pl">
-                        <span>Internet software house</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="row row-urls">
-                <div class="col-md-6">
-                    <a href="http://getbootstrap.com" target="_blank">Bootstrap 3.x</a>
-                </div>
-                <div class="col-md-6">
-                    <a href="http://www.meritoo.pl" target="_blank">Meritoo.pl</a>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -254,7 +223,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <footer role="contentinfo">
-                    <p class="left">Bootstrap 3.x Admin Theme</p>
+                    <p class="left">Copex 订餐管理系统</p>
                     <p class="right">&copy; 2013 <a href="http://www.meritoo.pl" target="_blank">Meritoo.pl</a></p>
                 </footer>
             </div>
