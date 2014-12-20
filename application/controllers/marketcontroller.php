@@ -26,11 +26,14 @@ class Marketcontroller extends MY_Controller{
     public function showDailyMenu($errorCode = null){
         // error message for user has already ordered at the same day
         $eMsg = array(
-            'orderlimit' => "您今天已经下过单了！"
+            'orderlimit' => "普通用户每天只能下一单哦！",
+            'nofulfill'=> "您还没有选择菜品或输入手机号！",
+            'nofoodpicked'=>"您还没有点任何一款主食哦！"
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
-            $data["eMsg"] = $eMsg["$errorCode"];
+            $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
+//            $data["eMsg"] = $eMsg["$errorCode"];
         }
 
         // header date change time setting
@@ -43,6 +46,8 @@ class Marketcontroller extends MY_Controller{
 
         $data['title'] = '午餐菜单';
         $data['uphone'] = $_SESSION['uphone'];
+
+        unset($_SESSION['POST']);
 
         //using cid and date to find menuitems
         $this->load->model('menuitem');
@@ -88,13 +93,16 @@ class Marketcontroller extends MY_Controller{
      * show sidedish option for vipuser
      */
     public function showSideDish($errorCode = null){
-
+        // if there is no food choose from vip menu
+        // return vip menu and show error alert
+        if(empty($_SESSION['POST'])){
+            return redirect('marketcontroller/showDailyMenu/nofoodpicked');
+        }
         //forbid non-vip user to see sidedish page
         if(!isset($_SESSION['vipid'])){
             return redirect('userstatuscontroller/checkUserStatus');
         }
-
-
+        // error message setting
         $eMsg = array(
             'nopw' => "密码不能为空",
             'wrongpw'=> "您输入的密码不正确"
@@ -110,7 +118,6 @@ class Marketcontroller extends MY_Controller{
         $data['orderedDishes'] = array();
 
         $selected = false;
-
 
 
         for ($i = 1; $i <= 3; $i++) {
@@ -183,7 +190,7 @@ class Marketcontroller extends MY_Controller{
         // order won't be generated
         if(empty($_POST['uphone'])||empty($_POST['fid'])) {
 
-            return redirect('marketcontroller/showDailyMenu');
+            return redirect('marketcontroller/showDailyMenu/nofulfill');
         }else{
             // get posted user's  phone number
             // no matter used had a phone number before or not

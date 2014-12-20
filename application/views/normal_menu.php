@@ -134,23 +134,29 @@
         </ul>
     </div>
 </div>
-<div id="orderedLimit" class="layer" <?php echo (isset($eMsg))?'style="display: block;"': ''; ?>>
+<div id="orderedLimit" class="layer" <?php echo (isset($eMsg['orderlimit']))?'style="display: block;"': ''; ?>>
     <div class="black_layer"></div>
     <div class="layer_summary">
         <br />
-        <p><?php echo (isset($eMsg))?$eMsg: ''; ?></p>
+        <p><?php echo (isset($eMsg['orderlimit']))?$eMsg['orderlimit']: ''; ?></p>
         <ul class="finishLay">
             <li></li>
             <li>
                 <?php
                 $attributes = array('class'=>'btn_again');
-                echo anchor('userlogincontroller/showVipLogin','A. 加入会员延长订餐时间',$attributes);
+                echo anchor('userlogincontroller/showVipLogin','A. 加入会员，立享无限下单',$attributes);
                 ?>
             </li>
-            <li><a href="#" onclick = "closeWindow()">B. 回菜单浏览一下</a></li>
+            <li>
+                <?php
+                $attributes = array('class'=>'btn_again','onclick'=>'closeWindow()');
+                echo anchor('marketcontroller/showDailyMenu','B. 继续留在当前页面看看',$attributes);
+                ?>
+            </li>
         </ul>
     </div>
 </div>
+
 </body>
 </html>
 

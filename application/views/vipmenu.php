@@ -32,24 +32,30 @@
             }
             $(thisd).prev("span").children('input').val(valueT);
         }
+
+        function closeWindow(){
+            $("#orderedLimit").hide();
+        }
+
+        function showWindow(){
+            $("#orderedLimit").show();
+        }
     </script>
 </head>
 <body>
 <header id="Header"><?php echo $date; ?> 午餐菜单</header>
+<?php
+$attributes = array('class'=>'formcontrol', 'id'=>'vipmenuitem');
+echo form_open('marketcontroller/showSideDish',$attributes);
+?>
+
 <div id="Contenter" class="dinner_cont">
-
-    <?php
-    $attributes = array('class'=>'formcontrol', 'id'=>'vipmenuitem');
-    echo form_open('marketcontroller/showSideDish',$attributes);
-    ?>
-
-
     <?php
     foreach($menu_items as $key => $sale){
         $id = $key+1;
         echo "<input type='hidden' name='fid$id' value='".$sale->fid."'>";
         echo '<div class="menu_block">';
-        echo '<div class="menuD_img"><img src="../../upload/'.$sale->fpicture.'.jpg" width="100%" /></div>';
+        echo '<div class="menuD_img"><img src="/copex/upload/'.$sale->fpicture.'.jpg" width="100%" /></div>';
         echo '<div class="menuD_summary">';
         echo '<h4>'.$sale->fname.'</h4>';
         echo '<p class="menuDP">$'.$sale->fprice.'</p>';
@@ -62,11 +68,39 @@
 
 </div>
 <footer id="Footer">
-    <a href="../userlogincontroller/loadCampus" class="btn_footer changeArea">更改校区</a>
-    <a href="../userlogincontroller/clearVip" class="btn_footer changeArea">注销会员</a>
+    <?php
+    $attributes = array('class'=>'btn_footer changeArea');
+    echo anchor('userlogincontroller/loadCampus','更改校区',$attributes);
+    ?>
+
+    <?php
+    $attributes = array('class'=>'btn_footer changeArea');
+    echo anchor('userlogincontroller/clearVip','注销会员',$attributes);
+    ?>
     <button class="btn_submitOrder btn_nowOrder" style="border:none;">确认订单</button>
-    <!-- <a class="btn_submitOrder" href="showSideDish">确认订单</a> -->
     <div class="clear"></div>
 </footer>
+<?php
+echo form_close();
+?>
+
+<div id="orderedLimit" class="layer" <?php echo (isset($eMsg['nofoodpicked']))?'style="display: block;"': ''; ?>>
+    <div class="black_layer"></div>
+    <div class="layer_summary">
+        <br />
+        <p><?php echo (isset($eMsg['nofoodpicked']))?$eMsg['nofoodpicked']: ''; ?></p>
+        <ul class="finishLay">
+            <li></li>
+            <li>
+                <?php
+                $attributes = array('class'=>'btn_again','onclick'=>'closeWindow()');
+                echo anchor('marketcontroller/showDailyMenu','去挑选美味主食去',$attributes);
+                ?>
+            </li>
+            <li></li>
+        </ul>
+    </div>
+</div>
+
 </body>
 </html>
