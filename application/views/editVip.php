@@ -99,7 +99,7 @@
                                     if($campus_choose->cid==$vipUser->cid){
                                         echo "checked";
                                     }
-                                    echo 'type="radio" name="campusId" value="'.$campus_choose->cid.'">';
+                                    echo ' type="radio" name="campusId" value="'.$campus_choose->cid.'"/>';
                                     echo "  ".$campus_choose->cname;
                                     echo '</label>';
                                 }
@@ -109,41 +109,35 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">联系电话</label>
                             <div class="col-lg-10">
-                                <input form="editVip" class="form-control" id="vip_phone" type="text" value="">
+                                <input form="editVip" class="form-control" type="text" name="vipPhone" value="<?php echo $vipUser->uphone; ?>"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">会员卡号</label>
                             <div class="col-lg-10">
-                                <input form="editVip" class="form-control" id="vip_phone" type="text" value="">
+                                <input form="editVip" class="form-control" type="text" name="vipNumber" value="<?php echo $vipUser->vnumber; ?>"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">会员卡余额</label>
                             <div class="col-lg-10">
-                                <input form="editVip" class="form-control" id="vip_phone" type="text" value="">
+                                <div class="input-group">
+                                    <span class="input-group-addon" style="border-bottom-right-radius:0px;border-top-right-radius: 0px; ">$</span>
+                                <input form="editVip" class="form-control" type="text" name="vipBalance" value="<?php echo $vipUser->vbalance; ?>"/>
+
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">重置会员支付密码</label>
                             <div class="col-lg-10">
-                                <input form="editVip" class="form-control" id="vip_phone" type="text" value="">
+                                <input form="editVip" class="form-control" type="password" name="newPassword" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-2 control-label" for="optionsCheckbox2">Disabled checkbox</label>
+                            <label class="col-lg-2 control-label">再次输入重置密码</label>
                             <div class="col-lg-10">
-                                <label>
-                                    <input type="checkbox" id="optionsCheckbox2" value="option1" disabled="">
-                                    This is a disabled checkbox
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group has-warning">
-                            <label class="col-lg-2 control-label" for="inputError">Input with warning</label>
-                            <div class="col-lg-10">
-                                <input type="text" id="inputWarning" class="form-control">
-                                <span class="help-block">Something may have gone wrong</span>
+                                <input form="editVip" class="form-control" type="password" name="checkNewPassword" />
                             </div>
                         </div>
                         <div class="form-group has-error">
@@ -153,225 +147,17 @@
                                 <span class="help-block">Please correct the error</span>
                             </div>
                         </div>
-                        <div class="form-group has-error">
-                            <label class="col-lg-2 control-label" for="inputError">Input group with error</label>
-                            <div class="col-lg-10">
-                                <div class="input-group">
-                                    <input type="text" id="inputError" class="form-control">
-                                    <span class="input-group-addon">%</span>
-                                </div>
-                                <span class="help-block">Please correct the error</span>
-                            </div>
-                        </div>
-                        <div class="form-group has-success">
-                            <label class="col-lg-2 control-label" for="inputError">Input with success</label>
-                            <div class="col-lg-10">
-                                <input type="text" id="inputSuccess" class="form-control">
-                                <span class="help-block">Woohoo!</span>
-                            </div>
-                        </div>
-                        <div class="form-group has-success">
-                            <label class="col-lg-2 control-label" for="selectError">Select with success</label>
-                            <div class="col-lg-10">
-                                <select id="selectError" class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
-                                <span class="help-block">Woohoo!</span>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                        <button type="reset" class="btn btn-default">Cancel</button>
+                        <button form="editVip" type="submit" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-inbox"> 保存修改</i>
+                        </button>
+                        <a type="reset" href="../showEditVip/<?php echo $vipUser->uid;?>" class="btn btn-default">
+                            <i class="glyphicon glyphicon-refresh"> 取消修改</i>
+                        </a>
+                        <a type="reset" href="../showVipPanel" class="btn btn-success">
+                            <i class="glyphicon glyphicon-backward"> 回VIP列表</i>
+                        </a>
                     </fieldset>
                 </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-12">
-        <div class="panel panel-default bootstrap-admin-no-table-panel">
-            <div class="panel-heading">
-                <div class="text-muted bootstrap-admin-box-title">Form Example</div>
-            </div>
-            <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
-                <form class="form-horizontal">
-                    <fieldset>
-                        <legend>Form Components</legend>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label" for="typeahead">Text input </label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control col-md-6" id="typeahead" autocomplete="off" data-provide="typeahead" data-items="4" data-source='["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]'>
-                                <p class="help-block">Start typing to activate auto complete!</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label" for="date01">Date input</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control datepicker" id="date01" value="02/16/12">
-                                <p class="help-block">In addition to freeform text, any HTML5 text-based input appears like so.</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label" for="optionsCheckbox">Checkbox</label>
-                            <div class="col-lg-10">
-                                <label class="uniform">
-                                    <input class="uniform_on" type="checkbox" id="optionsCheckbox" value="option1">
-                                    Option one is this and that&mdash;be sure to include why it's great
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label" for="select01">With Chosen plugin</label>
-                            <div class="col-lg-10">
-                                <select id="select01" class="chzn-select" style="width: 150px">
-                                    <option>something</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label" for="select02">With Selectize plugin</label>
-                            <div class="col-lg-10">
-                                <select id="select02" class="selectize-select" style="width: 150px">
-                                    <option value="1">something</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label" for="fileInput">File input</label>
-                            <div class="col-lg-10">
-                                <input class="form-control uniform_on" id="fileInput" type="file">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label" for="textarea-wysihtml5">Textarea WYSIWYG</label>
-                            <div class="col-lg-10">
-                                <textarea id="textarea-wysihtml5" class="form-control textarea-wysihtml5" placeholder="Enter text..." style="width: 100%; height: 200px"></textarea>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                        <button type="reset" class="btn btn-default">Cancel</button>
-                    </fieldset>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-12">
-        <div class="panel panel-default bootstrap-admin-no-table-panel">
-            <div class="panel-heading">
-                <div class="text-muted bootstrap-admin-box-title">Form Wizard</div>
-            </div>
-            <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
-                <div id="rootwizard">
-                    <div class="navbar">
-                        <div class="container">
-                            <ul>
-                                <li><a href="#tab1" data-toggle="tab">Step 1</a></li>
-                                <li><a href="#tab2" data-toggle="tab">Step 2</a></li>
-                                <li><a href="#tab3" data-toggle="tab">Step 3</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div id="bar" class="progress progress-striped active">
-                        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane" id="tab1">
-                            <form class="form-horizontal">
-                                <fieldset>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label" for="focusedInput1">Name</label>
-                                        <div class="col-lg-10">
-                                            <input class="form-control" id="focusedInput1" type="text" value="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label" for="focusedInput2">Email</label>
-                                        <div class="col-lg-10">
-                                            <input class="form-control" id="focusedInput2" type="text" value="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label" for="focusedInput3">Phone</label>
-                                        <div class="col-lg-10">
-                                            <input class="form-control" id="focusedInput3" type="text" value="">
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </form>
-                        </div>
-                        <div class="tab-pane" id="tab2">
-                            <form class="form-horizontal">
-                                <fieldset>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label" for="focusedInput4">Address</label>
-                                        <div class="col-lg-10">
-                                            <input class="form-control" id="focusedInput4" type="text" value="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label" for="focusedInput5">City</label>
-                                        <div class="col-lg-10">
-                                            <input class="form-control" id="focusedInput5" type="text" value="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label" for="focusedInput6">State</label>
-                                        <div class="col-lg-10">
-                                            <input class="form-control" id="focusedInput6" type="text" value="">
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </form>
-                        </div>
-                        <div class="tab-pane" id="tab3">
-                            <form class="form-horizontal">
-                                <fieldset>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label" for="focusedInput7">Company Name</label>
-                                        <div class="col-lg-10">
-                                            <input class="form-control" id="focusedInput7" type="text" value="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label" for="focusedInput8">Contact Name</label>
-                                        <div class="col-lg-10">
-                                            <input class="form-control" id="focusedInput8" type="text" value="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label" for="focusedInput9">Contact Phone</label>
-                                        <div class="col-lg-10">
-                                            <input class="form-control" id="focusedInput9" type="text" value="">
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </form>
-                        </div>
-                        <ul class="pager wizard">
-                            <li class="previous first" style="display:none;"><a href="javascript:void(0);">First</a></li>
-                            <li class="previous"><a href="javascript:void(0);">Previous</a></li>
-                            <li class="next last" style="display:none;"><a href="javascript:void(0);">Last</a></li>
-                            <li class="next"><a href="javascript:void(0);">Next</a></li>
-                            <li class="next finish" style="display:none;"><a href="javascript:;">Finish</a></li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

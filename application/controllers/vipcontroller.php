@@ -38,4 +38,14 @@ class Vipcontroller extends MY_Controller{
         $this->load->view('partials/adminHeader',$data);
         $this->load->view('editVip',$data);
     }
+
+    // save edit vip user's information
+    public function editVip(){
+        $this->load->model('user');
+        if(!empty($_POST['campusId'])){
+            $columnName = "cid";
+            $this->user->updateVip($columnName,$_POST['campusId']);
+        }
+        if
+    }
 }

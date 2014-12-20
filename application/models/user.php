@@ -129,7 +129,7 @@ class User extends CI_Model {
      *find vip user by using uid
      */
     public function findVip($uid){
-        $sql = "SELECT `user`.uid,`user`.cid,`user`.vipid,`user`.uphone,vipcard.vnumber,vipcard.vbalance FROM (`user` JOIN vipcard ON `user`.vipid=vipcard.vipid AND `user`.uid=vipcard.uid AND `user`.uid='$uid'";
+        $sql = "SELECT `user`.uid,`user`.cid,`user`.vipid,`user`.uphone,vipcard.vnumber,vipcard.vbalance FROM `user` JOIN vipcard ON `user`.vipid=vipcard.vipid AND `user`.uid=vipcard.uid AND `user`.uid='$uid'";
 
         $query = $this->db->query($sql);
         if($query->num_rows()!=1){
