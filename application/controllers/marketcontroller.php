@@ -24,6 +24,7 @@ class Marketcontroller extends MY_Controller{
      * for loading vipusers or non-vip users' menu
      */
     public function showDailyMenu($errorCode = null){
+        unset($_SESSION['POST']);
         // error message for user has already ordered at the same day
         $eMsg = array(
             'orderlimit' => "普通用户每天只能下一单哦！",
@@ -46,8 +47,6 @@ class Marketcontroller extends MY_Controller{
 
         $data['title'] = '午餐菜单';
         $data['uphone'] = $_SESSION['uphone'];
-
-        unset($_SESSION['POST']);
 
         //using cid and date to find menuitems
         $this->load->model('menuitem');
@@ -93,9 +92,8 @@ class Marketcontroller extends MY_Controller{
      * show sidedish option for vipuser
      */
     public function showSideDish($errorCode = null){
-        // if there is no food choose from vip menu
-        // return vip menu and show error alert
-        if(empty($_SESSION['POST'])){
+
+        if($_POST['amt1']==0&&$_POST['amt2']==0&&$_POST['amt3']==0){
             return redirect('marketcontroller/showDailyMenu/nofoodpicked');
         }
         //forbid non-vip user to see sidedish page

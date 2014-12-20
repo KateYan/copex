@@ -39,6 +39,10 @@
         function showWindow(){
             $("#orderedLimit").show();
         }
+
+        function closeWindowNofulfill(){
+            $("#nofulfill").hide();
+        }
     </script>
 </head>
 
@@ -150,6 +154,29 @@
             <li>
                 <?php
                 $attributes = array('class'=>'btn_again','onclick'=>'closeWindow()');
+                echo anchor('marketcontroller/showDailyMenu','B. 继续留在当前页面看看',$attributes);
+                ?>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div id="nofulfill" class="layer" <?php echo (isset($eMsg['nofulfill']))?'style="display: block;"': ''; ?>>
+    <div class="black_layer"></div>
+    <div class="layer_summary">
+        <br />
+        <p><?php echo (isset($eMsg['nofulfill']))?$eMsg['nofulfill']: ''; ?></p>
+        <ul class="finishLay">
+            <li></li>
+            <li>
+                <?php
+                $attributes = array('class'=>'btn_again');
+                echo anchor('userlogincontroller/showVipLogin','A. 加入会员，立享无限下单',$attributes);
+                ?>
+            </li>
+            <li>
+                <?php
+                $attributes = array('class'=>'btn_again','onclick'=>'closeWindowNofulfill()');
                 echo anchor('marketcontroller/showDailyMenu','B. 继续留在当前页面看看',$attributes);
                 ?>
             </li>
