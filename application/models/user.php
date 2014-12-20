@@ -113,4 +113,29 @@ class User extends CI_Model {
         }return false;//if can not find vip user exits or more vip user sharing one phone number, return false
     }
 
+    /*
+     * find all Vip user for administer to manage
+     */
+    public function allVip(){
+        $sql = "SELECT `user`.uid,campus.cname,`user`.vipid,`user`.uphone,`user`.ordered,`user`.created,vipcard.vnumber,vipcard.vbalance FROM (`user` JOIN campus ON `user`.cid=campus.cid)JOIN vipcard ON `user`.vipid=vipcard.vipid AND `user`.uid=vipcard.uid ORDER BY `user`.created DESC";
+
+        $query = $this->db->query($sql);
+
+        if($query->num_rows()>0){
+            return $query->result();
+        }return false;
+    }
+    /*
+     *find vip user by using uid
+     */
+    public function findVip($uid){
+        $sql = "SELECT `user`.uid,`user`.cid,`user`.vipid,`user`.uphone,vipcard.vnumber,vipcard.vbalance FROM (`user` JOIN vipcard ON `user`.vipid=vipcard.vipid AND `user`.uid=vipcard.uid AND `user`.uid='$uid'";
+
+        $query = $this->db->query($sql);
+        if($query->num_rows()!=1){
+            return false;
+        }
+        return $query->row(0);
+    }
+
 }

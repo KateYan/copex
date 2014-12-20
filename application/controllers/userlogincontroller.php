@@ -97,6 +97,10 @@ class Userlogincontroller extends MY_Controller{
             return redirect('userlogincontroller/showVipLogin/wrongPhone');
         }
         $this->user->login($vipUser);
+        // Check if vip has already choose campus
+        if(empty($_SESSION['cid'])){
+            return redirect('userlogincontroller/loadCampus');
+        }
         return redirect('marketcontroller/showDailyMenu');
     }
 

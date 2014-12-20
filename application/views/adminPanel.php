@@ -130,7 +130,7 @@
                     <a href="tables.html"><i class="glyphicon glyphicon-chevron-right"></i> 4. 菜单管理</a>
                 </li>
                 <li>
-                    <a href="tables.html"><i class="glyphicon glyphicon-chevron-right"></i> 5. 会员管理</a>
+                    <a href="../vipcontroller/showVipPanel"><i class="glyphicon glyphicon-chevron-right"></i> 5. 会员管理</a>
                 </li>
                 <li>
                     <a href="tables.html"><i class="glyphicon glyphicon-chevron-right"></i> 6. 基本管理</a>
