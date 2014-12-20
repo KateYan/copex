@@ -25,7 +25,7 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> <?php echo $username; ?> <i class="caret"></i></a>
+                            <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> <?php echo $_SESSION['username']; ?> <i class="caret"></i></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">更改用户名</a></li>
                                 <li><a href="#">更改登录密码</a></li>
@@ -81,13 +81,14 @@
                 <div class="text-muted bootstrap-admin-box-title">编辑会员</div>
             </div>
             <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
-                <form class="form-horizontal">
+                <div class="form-horizontal">
                     <fieldset>
-                        <legend>会员信息</legend>
+                        <legend>用户ID: <?php echo $_SESSION['vipUser']->uid;?>  ;会员ID: <?php echo $_SESSION['vipUser']->vipid;?></legend>
                         <?php
                         $attributes = array('id'=>'editVip');
                         echo form_open('vipcontroller/editVip',$attributes);
                         echo form_close();
+                        echo '<input form="editVip" type="hidden" name="userId" value="'.$_SESSION['vipUser']->uid.'">';
                         ?>
                         <div class="form-group">
                             <label class="col-lg-2 control-label" for="focusedInput">用户所在校区</label>
@@ -96,7 +97,7 @@
                                 foreach($campus as $campus_choose){
                                     echo '<label style="padding-right: 15px;">';
                                     echo '<input form="editVip"';
-                                    if($campus_choose->cid==$vipUser->cid){
+                                    if($campus_choose->cid==$_SESSION['vipUser']->cid){
                                         echo "checked";
                                     }
                                     echo ' type="radio" name="campusId" value="'.$campus_choose->cid.'"/>';
@@ -109,13 +110,13 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">联系电话</label>
                             <div class="col-lg-10">
-                                <input form="editVip" class="form-control" type="text" name="vipPhone" value="<?php echo $vipUser->uphone; ?>"/>
+                                <input form="editVip" class="form-control" type="text" name="vipPhone" value="<?php echo $_SESSION['vipUser']->uphone; ?>"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">会员卡号</label>
                             <div class="col-lg-10">
-                                <input form="editVip" class="form-control" type="text" name="vipNumber" value="<?php echo $vipUser->vnumber; ?>"/>
+                                <input form="editVip" class="form-control" type="text" name="vipNumber" value="<?php echo $_SESSION['vipUser']->vnumber; ?>"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -123,41 +124,39 @@
                             <div class="col-lg-10">
                                 <div class="input-group">
                                     <span class="input-group-addon" style="border-bottom-right-radius:0px;border-top-right-radius: 0px; ">$</span>
-                                <input form="editVip" class="form-control" type="text" name="vipBalance" value="<?php echo $vipUser->vbalance; ?>"/>
+                                <input form="editVip" class="form-control" type="text" name="vipBalance" value="<?php echo $_SESSION['vipUser']->vbalance; ?>"/>
 
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group<?php if(isset($eMsg)){echo " has-error";}?>">
                             <label class="col-lg-2 control-label">重置会员支付密码</label>
                             <div class="col-lg-10">
                                 <input form="editVip" class="form-control" type="password" name="newPassword" />
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group<?php if(isset($eMsg)){echo " has-error";}?>">
                             <label class="col-lg-2 control-label">再次输入重置密码</label>
                             <div class="col-lg-10">
                                 <input form="editVip" class="form-control" type="password" name="checkNewPassword" />
-                            </div>
-                        </div>
-                        <div class="form-group has-error">
-                            <label class="col-lg-2 control-label" for="inputError">Input with error</label>
-                            <div class="col-lg-10">
-                                <input type="text" id="inputError" class="form-control">
-                                <span class="help-block">Please correct the error</span>
+                                <?php
+                                if(isset($eMsg)){
+                                    echo '<span class="help-block">'.$eMsg.'</span>';
+                                }
+                                ?>
                             </div>
                         </div>
                         <button form="editVip" type="submit" class="btn btn-primary">
                             <i class="glyphicon glyphicon-inbox"> 保存修改</i>
                         </button>
-                        <a type="reset" href="../showEditVip/<?php echo $vipUser->uid;?>" class="btn btn-default">
+                        <a type="reset" href="../showEditVip/<?php echo $_SESSION['vipUser']->uid;?>" class="btn btn-default">
                             <i class="glyphicon glyphicon-refresh"> 取消修改</i>
                         </a>
                         <a type="reset" href="../showVipPanel" class="btn btn-success">
                             <i class="glyphicon glyphicon-backward"> 回VIP列表</i>
                         </a>
                     </fieldset>
-                </form>
+                </div>
             </div>
         </div>
     </div>

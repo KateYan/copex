@@ -84,7 +84,7 @@ class User extends CI_Model {
      * return updated user object
      */
     public function updateUser($uid,$prop,$value){
-        $sql = "UPDATE user SET ".$prop." = '".$value."' WHERE uid='$uid'";
+        $sql = "UPDATE user SET ".$prop." = '$value' WHERE uid='$uid'";
         $this->db->query($sql);
         $this->oldUser($uid);
         return $this;
@@ -136,6 +136,26 @@ class User extends CI_Model {
             return false;
         }
         return $query->row(0);
+    }
+    /*
+     * update vip user's basic information
+     */
+    public function updateVip($userId,$columnName,$value){
+        $sql = "UPDATE `user` SET ".$columnName."='$value' WHERE uid='$userId'";
+        $this->db->query($sql);
+        // check if the updating is successfully finished
+        $num = $this->db->affected_rows();
+
+    }
+    /*
+     * update vip card information
+     */
+    public function updateVipCard($userId,$columnName,$value){
+        $sql = "UPDATE `vipcard` SET ".$columnName."='$value' WHERE uid='$userId'";
+        $this->db->query($sql);
+        // check if the updating is successfully finished
+        $num = $this->db->affected_rows();
+
     }
 
 }

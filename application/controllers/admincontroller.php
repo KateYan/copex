@@ -58,15 +58,13 @@ class Admincontroller extends MY_Controller{
             return redirect('admincontroller/showAdminLogin');
         }
         $data['title'] = "Copex | 控制面板";
-        $data['username'] = $_SESSION['username'];
         $this->load->view('partials/adminHeader',$data);
-        $this->load->view('adminPanel',$data);
+        $this->load->view('adminPanel');
     }
 
     //show orders on the way and history orders
     public function showOrderManage(){
         $data['title'] = "Copex | 订单管理";
-        $data['username'] = $_SESSION['username'];
         // show today's order that needed to prepare
         $this->load->model('order');
         $time = date("H:i:s");
@@ -107,7 +105,6 @@ class Admincontroller extends MY_Controller{
 //            var_dump($data['orderFood']);
 //            var_dump($data['orderSidedish']);
 //            die();
-            $data['username'] = $_SESSION['username'];
             $data['title'] = "Copex | 订单详情";
             $this->load->view('partials/adminHeader',$data);
             $this->load->view('orderDetails');
