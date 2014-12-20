@@ -283,11 +283,11 @@ class Marketcontroller extends MY_Controller{
                 return redirect('marketcontroller/showSideDish');
             }
             $this->load->model('order');
-            $orderId = $this->order->vipOrderByCash($uid,$_SESSION['cid'],$odate,$fordate,$foodList,$sideDishList,$totalCost_beforTax);
+            $orderId = $this->order->vipOrderByCash($uid,$_SESSION['vipid'],$_SESSION['cid'],$odate,$fordate,$foodList,$sideDishList,$totalCost_beforTax);
         }else{
             // generate order
             $this->load->model('order');
-            $orderId = $this->order->vipOrderByCard($uid,$_SESSION['cid'],$odate,$fordate,$foodList,$sideDishList,$totalCost_beforTax);
+            $orderId = $this->order->vipOrderByCard($uid,$_SESSION['vipid'],$_SESSION['cid'],$odate,$fordate,$foodList,$sideDishList,$totalCost_beforTax);
         }
 
         // store order's id

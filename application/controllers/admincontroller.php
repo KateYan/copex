@@ -60,6 +60,7 @@ class Admincontroller extends MY_Controller{
         $data['title'] = "Copex | 控制面板";
         $this->load->view('partials/adminHeader',$data);
         $this->load->view('adminPanel');
+        $this->load->view('partials/adminFooter');
     }
 
     //show orders on the way and history orders
@@ -83,6 +84,7 @@ class Admincontroller extends MY_Controller{
         }
         $this->load->view('partials/adminHeader',$data);
         $this->load->view('orderManage',$data);
+        $this->load->view('partials/adminFooter');
     }
 
     /*
@@ -108,6 +110,7 @@ class Admincontroller extends MY_Controller{
             $data['title'] = "Copex | 订单详情";
             $this->load->view('partials/adminHeader',$data);
             $this->load->view('orderDetails');
+            $this->load->view('partials/adminFooter');
         }
         return false;
     }

@@ -10,11 +10,11 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Order extends CI_Model {
 
 // generating vip user's order by using uid
-    public function vipOrderByCard($uid,$cid,$odate,$fordate,$food,$sidedish,$totalCost_beforTax){
+    public function vipOrderByCard($uid,$vipid,$cid,$odate,$fordate,$food,$sidedish,$totalCost_beforTax){
         $orderitem = array('food'=>$food,'sidedish'=>$sidedish);
 
         // double check if the user can use vip card to pay order
-        $sql = "SELECT vbalance FROM vipcard WHERE uid='$uid'";
+        $sql = "SELECT vbalance FROM vipcard WHERE vipid='$vipid'";
         $query = $this->db->query($sql);
         $result = $query->row(0);
         $balance = $result->vbalance;
@@ -29,7 +29,7 @@ class Order extends CI_Model {
 
         $oispaid = '1';
         //update new balance of vipcard
-        $sql = "UPDATE vipcard SET vbalance='$balance' WHERE uid='$uid'";
+        $sql = "UPDATE vipcard SET vbalance='$balance' WHERE vipid='$vipid'";
         $this->db->query($sql);
 
         //insert new order

@@ -117,7 +117,7 @@ class User extends CI_Model {
      * find all Vip user for administer to manage
      */
     public function allVip(){
-        $sql = "SELECT `user`.uid,campus.cname,`user`.vipid,`user`.uphone,`user`.ordered,`user`.created,vipcard.vnumber,vipcard.vbalance FROM (`user` JOIN campus ON `user`.cid=campus.cid)JOIN vipcard ON `user`.vipid=vipcard.vipid AND `user`.uid=vipcard.uid ORDER BY `user`.created DESC";
+        $sql = "SELECT `user`.uid,campus.cname,`user`.vipid,`user`.uphone,`user`.ordered,`user`.created,vipcard.vnumber,vipcard.vbalance FROM (`user` JOIN campus ON `user`.cid=campus.cid)JOIN vipcard ON `user`.vipid=vipcard.vipid ORDER BY `user`.created DESC";
 
         $query = $this->db->query($sql);
 
@@ -129,7 +129,7 @@ class User extends CI_Model {
      *find vip user by using uid
      */
     public function findVip($uid){
-        $sql = "SELECT `user`.uid,`user`.cid,`user`.vipid,`user`.uphone,vipcard.vnumber,vipcard.vbalance FROM `user` JOIN vipcard ON `user`.vipid=vipcard.vipid AND `user`.uid=vipcard.uid AND `user`.uid='$uid'";
+        $sql = "SELECT `user`.uid,`user`.cid,`user`.vipid,`user`.uphone,vipcard.vnumber,vipcard.vbalance FROM `user` JOIN vipcard ON `user`.vipid=vipcard.vipid AND `user`.uid='$uid'";
 
         $query = $this->db->query($sql);
         if($query->num_rows()!=1){
@@ -155,6 +155,12 @@ class User extends CI_Model {
         $this->db->query($sql);
         // check if the updating is successfully finished
         $num = $this->db->affected_rows();
+
+    }
+    /*
+     * create new vip user
+     */
+    public function newVip(){
 
     }
 

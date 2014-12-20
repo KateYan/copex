@@ -19,6 +19,7 @@ class Vipcontroller extends MY_Controller{
         }
         $this->load->view('partials/adminHeader',$data);
         $this->load->view('vipPanel',$data);
+        $this->load->view('partials/adminFooter');
     }
 
     // show edit existing vip user
@@ -49,6 +50,7 @@ class Vipcontroller extends MY_Controller{
         }
         $this->load->view('partials/adminHeader',$data);
         $this->load->view('editVip',$data);
+        $this->load->view('partials/adminFooter');
     }
 
     // save edit vip user's information
@@ -84,5 +86,24 @@ class Vipcontroller extends MY_Controller{
             return redirect('vipcontroller/showEditVip/pswmiss');
         }
         return redirect('vipcontroller/showVipPanel');
+    }
+
+    // show add vip user's page
+    public function showAddVip(){
+        $data['title'] = "Copex | 添加会员";
+
+        $this->load->view('partials/adminHeader',$data);
+        $this->load->view('newVip');
+        $this->load->view('partials/adminFooter');
+    }
+
+    // using posted new vip information to add new vip
+    public function addVip(){
+        $this->load->model('user');
+        // if new vip want to choose campus
+        if(!empty($_POST['campusId'])){//update campus
+            $columnName = "cid";
+            $this->user->updateVip($userId,$columnName,$_POST['campusId']);
+        }
     }
 }
