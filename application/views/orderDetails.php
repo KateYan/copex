@@ -31,7 +31,7 @@
                                 <li>
                                     <?php
                                     $attributes = array('class'=>'log_out');
-                                    echo anchor('admincontroller/showAdminLogin','退出登录',$attributes);
+                                    echo anchor('admincontroller/logOut','退出登录',$attributes);
                                     ?>
                                 </li>
                             </ul>

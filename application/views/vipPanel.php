@@ -6,15 +6,6 @@
  * Time: 8:44 PM
  */
 ?>
-<?php
-/**
- * Created by PhpStorm.
- * User: kunyan
- * Date: 12/19/2014
- * Time: 12:07 AM
- */
-?>
-
 <!-- Datatables -->
 <link rel="stylesheet" media="screen" href="/copex/bootstrap/css/DT_bootstrap.css">
 
@@ -36,7 +27,7 @@
                                     <li>
                                         <?php
                                         $attributes = array('class'=>'log_out');
-                                        echo anchor('admincontroller/showAdminLogin','退出登录',$attributes);
+                                        echo anchor('admincontroller/logOut','退出登录',$attributes);
                                         ?>
                                     </li>
                                 </ul>
@@ -70,11 +61,17 @@
             <!-- left, vertical navbar -->
             <div class="col-md-2 bootstrap-admin-col-left">
                 <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
-                    <li class="active">
-                        <a href="showAdminPanel"><i class="glyphicon glyphicon-chevron-right"></i> 关于Copex</a>
+                    <li>
+                        <?php
+                        $attributes = array('id'=>'adminPanel');
+                        echo anchor('admincontroller/showAdminPanel','<i class="glyphicon glyphicon-chevron-right"></i> 关于Copex',$attributes);
+                        ?>
                     </li>
                     <li>
-                        <a href="showOrderManage"><i class="glyphicon glyphicon-chevron-right"></i> 1. 订单管理</a>
+                        <?php
+                        $attributes = array('id'=>'manageOrder');
+                        echo anchor('admincontroller/showOrderManage','<i class="glyphicon glyphicon-chevron-right"></i> 1. 订单管理',$attributes);
+                        ?>
                     </li>
                     <li>
                         <a href="forms.html"><i class="glyphicon glyphicon-chevron-right"></i> 2. 餐厅管理</a>
@@ -85,23 +82,11 @@
                     <li>
                         <a href="tables.html"><i class="glyphicon glyphicon-chevron-right"></i> 4. 菜单管理</a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="../vipcontroller/showVipPanel"><i class="glyphicon glyphicon-chevron-right"></i> 5. 会员管理</a>
                     </li>
                     <li>
                         <a href="tables.html"><i class="glyphicon glyphicon-chevron-right"></i> 6. 基本管理</a>
-                    </li>
-                    <li>
-                        <a href="buttons-and-icons.html"><i class="glyphicon glyphicon-chevron-right"></i> Buttons &amp; Icons</a>
-                    </li>
-                    <li>
-                        <a href="wysiwyg-editors.html"><i class="glyphicon glyphicon-chevron-right"></i> WYSIWYG Editors</a>
-                    </li>
-                    <li>
-                        <a href="ui-and-interface.html"><i class="glyphicon glyphicon-chevron-right"></i> UI &amp; Interface</a>
-                    </li>
-                    <li>
-                        <a href="error-pages.html"><i class="glyphicon glyphicon-chevron-right"></i> Error pages</a>
                     </li>
                 </ul>
             </div>
@@ -131,10 +116,11 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="text-muted bootstrap-admin-box-title">会员列表--(点击用户Id编辑VIP用户信息)
-                                    <a href="showAddVip" class="btn btn-sm btn-success" style="float: right;">
-                                        <i class="glyphicon glyphicon-plus"></i>
-                                         添加会员
-                                    </a>
+                                    <?php
+                                    $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;');
+                                    echo anchor('vipcontroller/showAddVip','<i class="glyphicon glyphicon-plus"></i>
+                                         添加会员',$attributes);
+                                    ?>
                                 </div>
                             </div>
                             <div class="bootstrap-admin-panel-content">

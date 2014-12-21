@@ -33,7 +33,7 @@
                                 <li>
                                     <?php
                                     $attributes = array('class'=>'log_out');
-                                    echo anchor('admincontroller/showAdminLogin','退出登录',$attributes);
+                                    echo anchor('admincontroller/logOut','退出登录',$attributes);
                                     ?>
                                 </li>
                             </ul>
@@ -152,9 +152,10 @@
                         <a type="reset" href="../showEditVip/<?php echo $_SESSION['vipUser']->uid;?>" class="btn btn-default">
                             <i class="glyphicon glyphicon-refresh"> 取消修改</i>
                         </a>
-                        <a type="reset" href="../showVipPanel" class="btn btn-success">
-                            <i class="glyphicon glyphicon-backward"> 回VIP列表</i>
-                        </a>
+                        <?php
+                        $attributes = array('class'=>'btn btn-success','type'=>'reset');
+                        echo anchor('vipcontroller/showVipPanel','<i class="glyphicon glyphicon-backward"> 回VIP列表</i>',$attributes);
+                        ?>
                     </fieldset>
                 </div>
             </div>

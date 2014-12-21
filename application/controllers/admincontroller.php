@@ -150,4 +150,10 @@ class Admincontroller extends MY_Controller{
 
         return redirect('admincontroller/showOrderManage');
     }
+    // log out administer
+    public function logOut(){
+        unset($_SESSION['vipUser']);
+        unset($_SESSION['username']);
+        return redirect('admincontroller/showAdminLogin');
+    }
 }

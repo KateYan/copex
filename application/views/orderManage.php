@@ -28,7 +28,7 @@
                                 <li>
                                     <?php
                                     $attributes = array('class'=>'log_out');
-                                    echo anchor('admincontroller/showAdminLogin','退出登录',$attributes);
+                                    echo anchor('admincontroller/logOut','退出登录',$attributes);
                                     ?>
                                 </li>
                             </ul>
@@ -62,11 +62,17 @@
 <!-- left, vertical navbar -->
 <div class="col-md-2 bootstrap-admin-col-left">
     <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
-        <li class="active">
-            <a href="showAdminPanel"><i class="glyphicon glyphicon-chevron-right"></i> 关于Copex</a>
-        </li>
         <li>
-            <a href="showOrderManage"><i class="glyphicon glyphicon-chevron-right"></i> 1. 订单管理</a>
+            <?php
+            $attributes = array('id'=>'adminPanel');
+            echo anchor('admincontroller/showAdminPanel','<i class="glyphicon glyphicon-chevron-right"></i> 关于Copex',$attributes);
+            ?>
+        </li>
+        <li class="active">
+            <?php
+            $attributes = array('id'=>'manageOrder');
+            echo anchor('admincontroller/showOrderManage','<i class="glyphicon glyphicon-chevron-right"></i> 1. 订单管理',$attributes);
+            ?>
         </li>
         <li>
             <a href="forms.html"><i class="glyphicon glyphicon-chevron-right"></i> 2. 餐厅管理</a>
@@ -82,18 +88,6 @@
         </li>
         <li>
             <a href="tables.html"><i class="glyphicon glyphicon-chevron-right"></i> 6. 基本管理</a>
-        </li>
-        <li>
-            <a href="buttons-and-icons.html"><i class="glyphicon glyphicon-chevron-right"></i> Buttons &amp; Icons</a>
-        </li>
-        <li>
-            <a href="wysiwyg-editors.html"><i class="glyphicon glyphicon-chevron-right"></i> WYSIWYG Editors</a>
-        </li>
-        <li>
-            <a href="ui-and-interface.html"><i class="glyphicon glyphicon-chevron-right"></i> UI &amp; Interface</a>
-        </li>
-        <li>
-            <a href="error-pages.html"><i class="glyphicon glyphicon-chevron-right"></i> Error pages</a>
         </li>
     </ul>
 </div>

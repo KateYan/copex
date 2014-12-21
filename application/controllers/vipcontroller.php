@@ -12,12 +12,11 @@ class Vipcontroller extends MY_Controller{
     public function __construct(){
         parent::__construct();
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('userPhone','Phone','trim|required|exact_lenght[10]|numeric');
+        $this->form_validation->set_rules('userPhone','Phone','trim|required|integer|numeric|exact_length[10]');
         $this->form_validation->set_rules('vipNumber','VipCardNumber','trim|required|integer|numeric|exact_length[4]');
-        $this->form_validation->set_rules('vipBalance','VipCardBalance','trim|required|is_natural');
+        $this->form_validation->set_rules('vipBalance','VipCardBalance','trim|required|greater_than[49]|less_than[301]');
         $this->form_validation->set_rules('newPassword','VipPassword','trim|required|min_length[6]|max_length[10]|alpha_dash');
         $this->form_validation->set_rules('checkNewPassword','AgainPassword','trim|required|min_length[6]|max_length[10]|alpha_dash');
-//        $this->form_validation->set_rules('abc','abc','trim|required|min_length[6]|max_length[10]|alpha_dash');
     }
     //show Vip user manage panel
     public function showVipPanel(){
@@ -54,8 +53,10 @@ class Vipcontroller extends MY_Controller{
             $userId = $_GET['vipUser'];
             // find vip user's information and store as session
             $this->load->model('user');
-            if($this->user->findVip($userId)){
-                $_SESSION['vipUser'] = $this->user->findVip($userId);
+            $table = "user";
+            $columnName = "uid";
+            if($this->user->findVip($table,$columnName,$userId)){
+                $_SESSION['vipUser'] = $this->user->findVip($table,$columnName,$userId);
             }
         }
         $this->load->view('partials/adminHeader',$data);
@@ -93,13 +94,27 @@ class Vipcontroller extends MY_Controller{
             $newPassword = md5($_POST['newPassword']);
             $this->user->updateVipCard($userId,$columnName,$newPassword);
         }elseif((!empty($_POST['newPassword'])&&empty($_POST['checkNewPassword']))||(empty($_POST['newPassword'])&&!empty($_POST['checkNewPassword']))){
-            return redirect('vipcontroller/showEditVip/pswmiss');
+            return redirect('vipcontroller/showEditVip/pswmiss');// didn't fulfill both password area
         }
+        unset($_SESSION['vipUser']);
         return redirect('vipcontroller/showVipPanel');
     }
 
     // show add vip user's page
-    public function showAddVip(){
+    public function showAddVip($errorCode = null){
+        // check if there is error code
+        $eMsg = array(
+            'wrong' => "请按照输入要求插入新VIP用户信息！",
+            'oldvip' => "该手机号已对应有存在的VIP用户！",
+            'oldcard' => "该会员卡已使用！",
+            'notmatch' => "两次输入的密码不匹配！",
+            'faild' => "添加会员失败！",
+            'success' => "会员已成功添加！"
+        );
+
+        if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+            $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
+        }
         $data['title'] = "Copex | 添加会员";
 
         $this->load->view('partials/adminHeader',$data);
@@ -109,40 +124,36 @@ class Vipcontroller extends MY_Controller{
 
     // using posted new vip information to add new vip
     public function addVip(){
-
+        // check all inputs validation
         if($this->form_validation->run()==FALSE){
-            echo "hellow";
-            var_dump($_POST);
-            die();
+            return redirect('vipcontroller/showAddVip/wrong');
         }
-        echo "wooo";
-//        $this->load->model('user');
-//        // if new vip want to choose campus
-//        $newVip = array();
-//        if($this->form_validation->run('phone')==TRUE){
-//            echo "he!";
-//            die();
-//        }
-//        if(!$this->form_validation->run('vipCardNumber')){
-//            echo "error!";
-//            die();
-//        }
-//        echo "hellow";
+        $this->load->model('user');
+        // check if phone number has already exit
+        $table = "user";
+        $columnName['uphone'] = "uphone";
+        if($this->user->findVip($table,$columnName['uphone'],$_POST['userPhone'])){
+            return redirect('vipcontroller/showAddVip/oldvip');
+        }
+        // check if vip card number has already exit
+        $table = "vipcard";
+        $columnName['vnumber'] = "vnumber";
+        if($this->user->findVip($table,$columnName['vnumber'],$this->input->post('vipNumber'))){
+            return redirect('vipcontroller/showAddVip/oldcard');
+        }
+        // check if two password are match
+        if($_POST['newPassword'] !=$_POST['checkNewPassword']){
+            return redirect('vipcontroller/showAddVip/notmatch');
+        }
+        $passWord = md5($_POST['newPassword']);
 
-
-
-//            $this->user->updateVip($newVip);
+        // create new VIP
+        $newVip = $this->user->newVip($_POST['userPhone'],$_POST['vipNumber'],$_POST['vipBalance'],$passWord);
+        if(!$newVip){
+            return redirect('vipcontroller/showAddVip/faild');
+        }
+        return redirect('vipcontroller/showAddVip/success');
 
     }
 
-
-    //
-    // vip card number validation
-    //
-    public function vipCardNumber(){
-
-        if(!$this->form_validation->run()){
-            return false;
-        }return true;
-    }
 }

@@ -128,8 +128,8 @@ class User extends CI_Model {
     /*
      *find vip user by using uid
      */
-    public function findVip($uid){
-        $sql = "SELECT `user`.uid,`user`.cid,`user`.vipid,`user`.uphone,vipcard.vnumber,vipcard.vbalance FROM `user` JOIN vipcard ON `user`.vipid=vipcard.vipid AND `user`.uid='$uid'";
+    public function findVip($table,$columnName,$value){
+        $sql = "SELECT `user`.uid,`user`.cid,`user`.vipid,`user`.uphone,vipcard.vnumber,vipcard.vbalance FROM `user` JOIN vipcard ON `user`.vipid=vipcard.vipid AND `$table`.$columnName='$value'";
 
         $query = $this->db->query($sql);
         if($query->num_rows()!=1){
@@ -160,7 +160,22 @@ class User extends CI_Model {
     /*
      * create new vip user
      */
-    public function newVip(){
+    public function newVip($uphone,$vnumber,$vbalance,$vpassword){
+        // first create new vipcard row
+        $sql1 = "INSERT INTO vipcard(vnumber,vbalance,vpassword) VALUES (".$this->db->escape($vnumber).",".$this->db->escape($vbalance).",".$this->db->escape($vpassword).")";
+        $this->db->query($sql1);
+        $vipid = $this->db->insert_id();
+
+        // create new vip user basic information
+
+        $sql2 = "INSERT INTO `user`(vipid,uphone) VALUES (".$this->db->escape($vipid).",".$this->db->escape($uphone).")";
+        $this->db->query($sql2);
+        $num = $this->db->affected_rows();
+
+        if($num == 1){
+            return true;
+        }
+        return false;
 
     }
 

@@ -6,14 +6,6 @@
  * Time: 1:45 PM
  */
 ?>
-<?php
-/**
- * Created by PhpStorm.
- * User: kunyan
- * Date: 12/19/2014
- * Time: 10:24 PM
- */
-?>
 <!-- Vendors -->
 <link rel="stylesheet" media="screen" href="/copex/bootstrap/vendors/bootstrap-datepicker/css/datepicker.css">
 <link rel="stylesheet" media="screen" href="/copex/bootstrap/css/datepicker.fixes.css">
@@ -41,7 +33,7 @@
                                 <li>
                                     <?php
                                     $attributes = array('class'=>'log_out');
-                                    echo anchor('admincontroller/showAdminLogin','退出登录',$attributes);
+                                    echo anchor('admincontroller/logOut','退出登录',$attributes);
                                     ?>
                                 </li>
                             </ul>
@@ -91,22 +83,46 @@
                         <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
                             <div class="form-horizontal">
                                 <fieldset>
-                                    <legend>请输入新会员信息</legend>
+                                    <?php
+                                    if(isset($eMsg['wrong'])){
+                                        echo '<legend style="color: #be2221;">'.$eMsg['wrong'].'</legend>';
+                                    } elseif(isset($eMsg['success'])){
+                                        echo '<legend style="color: #be2221;">'.$eMsg['success'].'</legend>';
+                                    }elseif(isset($eMsg['faild'])){
+                                        echo '<legend style="color: #be2221;">'.$eMsg['faild'].'</legend>';
+                                    }else{
+                                        echo '<legend>请输入新会员信息</legend>';
+                                    }
+                                    ?>
                                     <?php
                                     $attributes = array('id'=>'addVip');
                                     echo form_open('vipcontroller/addVip',$attributes);
                                     echo form_close();
                                     ?>
-                                    <div class="form-group">
+                                    <div class="form-group<?php if(isset($eMsg['oldvip'])){echo " has-error";}?>">
                                         <label class="col-lg-2 control-label">联系电话</label>
                                         <div class="col-lg-10">
                                             <input form="addVip" class="form-control" type="tel" name="userPhone"/>
+                                            <?php
+                                            if(isset($eMsg['oldvip'])){
+                                                echo '<span class="help-block">'.$eMsg['oldvip'].'</span>';
+                                            }else{
+                                                echo '<span class="help-block">'."请输入10位不含除数字外任何字符的有效手机号码".'</span>';
+                                            }
+                                            ?>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group<?php if(isset($eMsg['oldcard'])){echo " has-error";}?>">
                                         <label class="col-lg-2 control-label">会员卡号</label>
                                         <div class="col-lg-10">
                                             <input form="addVip" class="form-control" type="text" name="vipNumber"/>
+                                            <?php
+                                            if(isset($eMsg['oldcard'])){
+                                                echo '<span class="help-block">'.$eMsg['oldcard'].'</span>';
+                                            }else{
+                                                echo '<span class="help-block">'."请输入4位有效会员卡卡号".'</span>';
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -115,23 +131,24 @@
                                             <div class="input-group">
                                                 <span class="input-group-addon" style="border-bottom-right-radius:0px;border-top-right-radius: 0px; ">$</span>
                                                 <input form="addVip" class="form-control" type="text" name="vipBalance"/>
-
                                             </div>
+                                            <span class="help-block">请输入$50-$300之间的面值</span>
                                         </div>
                                     </div>
-                                    <div class="form-group<?php if(isset($eMsg)){echo " has-error";}?>">
+                                    <div class="form-group">
                                         <label class="col-lg-2 control-label">设置支付密码</label>
                                         <div class="col-lg-10">
                                             <input form="addVip" class="form-control" type="password" name="newPassword" />
+                                            <span class="help-block">请输入不含除数字/字母/下划线/破折号以外其他字符的6-10位密码</span>
                                         </div>
                                     </div>
-                                    <div class="form-group<?php if(isset($eMsg)){echo " has-error";}?>">
+                                    <div class="form-group<?php if(isset($eMsg['notmatch'])){echo " has-error";}?>">
                                         <label class="col-lg-2 control-label">确认支付密码</label>
                                         <div class="col-lg-10">
                                             <input form="addVip" class="form-control" type="password" name="checkNewPassword" />
                                             <?php
-                                            if(isset($eMsg)){
-                                                echo '<span class="help-block">'.$eMsg.'</span>';
+                                            if(isset($eMsg['notmatch'])){
+                                                echo '<span class="help-block">'.$eMsg['notmatch'].'</span>';
                                             }
                                             ?>
                                         </div>
@@ -139,9 +156,10 @@
                                     <button form="addVip" type="submit" class="btn btn-primary">
                                         <i class="glyphicon glyphicon-inbox"> 确认添加</i>
                                     </button>
-                                    <a type="reset" href="../showVipPanel" class="btn btn-success">
-                                        <i class="glyphicon glyphicon-backward"> 回VIP列表</i>
-                                    </a>
+                                    <?php
+                                    $attributes = array('class'=>'btn btn-success','type'=>'reset');
+                                    echo anchor('vipcontroller/showVipPanel','<i class="glyphicon glyphicon-backward"> 回VIP列表</i>',$attributes);
+                                    ?>
                                 </fieldset>
                             </div>
                         </div>

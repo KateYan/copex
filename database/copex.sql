@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2014 at 05:53 AM
+-- Generation Time: Dec 21, 2014 at 08:35 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -430,7 +430,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`uid`),
   KEY `cid` (`cid`,`vipid`),
   KEY `vipid` (`vipid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10277 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10280 ;
 
 --
 -- Dumping data for table `user`
@@ -457,7 +457,9 @@ INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `
 (10268, 10004, NULL, '1231234123', '2ce272dd812dea3da5ce76a469b6004a', '::1', 1, '2014-12-20 22:33:59', '2014-12-20 22:26:21'),
 (10269, 10003, NULL, NULL, '3eef94f1f66ae5df2419fe66ad1cc23a', '::1', 0, '2014-12-21 04:16:58', '2014-12-21 04:16:58'),
 (10270, 10004, NULL, NULL, '70e177868d7bc383ce3ea10b6f976ada', '::1', 0, '2014-12-21 04:30:46', '2014-12-21 04:25:00'),
-(10271, 10002, NULL, NULL, '296a4a440e3b55ea2556f652bb30dc98', '::1', 0, '2014-12-21 04:35:06', '2014-12-21 04:31:00');
+(10271, 10002, NULL, NULL, '296a4a440e3b55ea2556f652bb30dc98', '::1', 0, '2014-12-21 04:35:06', '2014-12-21 04:31:00'),
+(10277, NULL, NULL, '1234567891', '', NULL, NULL, '2014-12-21 06:53:23', '0000-00-00 00:00:00'),
+(10279, NULL, 10151, '6134130633', '', NULL, NULL, '2014-12-21 06:57:11', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -471,7 +473,7 @@ CREATE TABLE IF NOT EXISTS `vipcard` (
   `vpassword` varchar(128) NOT NULL,
   `vbalance` float NOT NULL,
   PRIMARY KEY (`vipid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10143 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10152 ;
 
 --
 -- Dumping data for table `vipcard`
@@ -479,7 +481,8 @@ CREATE TABLE IF NOT EXISTS `vipcard` (
 
 INSERT INTO `vipcard` (`vipid`, `vnumber`, `vpassword`, `vbalance`) VALUES
 (10141, 4975, '912ec803b2ce49e4a541068d495ab570', 150),
-(10142, 9646, '962012d09b8170d912f0669f6d7d9d07', 111.04);
+(10142, 9646, '962012d09b8170d912f0669f6d7d9d07', 111.04),
+(10151, 8923, 'd432eb18017c004fd305969713a17aa8', 150);
 
 --
 -- Constraints for dumped tables
