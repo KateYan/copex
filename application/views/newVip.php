@@ -100,7 +100,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">联系电话</label>
                                         <div class="col-lg-10">
-                                            <input form="addVip" class="form-control" type="text" name="vipPhone"/>
+                                            <input form="addVip" class="form-control" type="tel" name="userPhone"/>
                                         </div>
                                     </div>
                                     <div class="form-group">

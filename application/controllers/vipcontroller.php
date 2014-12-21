@@ -9,6 +9,16 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Vipcontroller extends MY_Controller{
 
+    public function __construct(){
+        parent::__construct();
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('userPhone','Phone','trim|required|exact_lenght[10]|numeric');
+        $this->form_validation->set_rules('vipNumber','VipCardNumber','trim|required|integer|numeric|exact_length[4]');
+        $this->form_validation->set_rules('vipBalance','VipCardBalance','trim|required|is_natural');
+        $this->form_validation->set_rules('newPassword','VipPassword','trim|required|min_length[6]|max_length[10]|alpha_dash');
+        $this->form_validation->set_rules('checkNewPassword','AgainPassword','trim|required|min_length[6]|max_length[10]|alpha_dash');
+//        $this->form_validation->set_rules('abc','abc','trim|required|min_length[6]|max_length[10]|alpha_dash');
+    }
     //show Vip user manage panel
     public function showVipPanel(){
         $data['title'] = "Copex | 会员管理";
@@ -99,11 +109,40 @@ class Vipcontroller extends MY_Controller{
 
     // using posted new vip information to add new vip
     public function addVip(){
-        $this->load->model('user');
-        // if new vip want to choose campus
-        if(!empty($_POST['campusId'])){//update campus
-            $columnName = "cid";
-            $this->user->updateVip($userId,$columnName,$_POST['campusId']);
+
+        if($this->form_validation->run()==FALSE){
+            echo "hellow";
+            var_dump($_POST);
+            die();
         }
+        echo "wooo";
+//        $this->load->model('user');
+//        // if new vip want to choose campus
+//        $newVip = array();
+//        if($this->form_validation->run('phone')==TRUE){
+//            echo "he!";
+//            die();
+//        }
+//        if(!$this->form_validation->run('vipCardNumber')){
+//            echo "error!";
+//            die();
+//        }
+//        echo "hellow";
+
+
+
+//            $this->user->updateVip($newVip);
+
+    }
+
+
+    //
+    // vip card number validation
+    //
+    public function vipCardNumber(){
+
+        if(!$this->form_validation->run()){
+            return false;
+        }return true;
     }
 }

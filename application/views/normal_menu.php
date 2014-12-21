@@ -43,6 +43,10 @@
         function closeWindowNofulfill(){
             $("#nofulfill").hide();
         }
+
+        function closeWindowWrongPhone(){
+            $("#wrongphone").hide();
+        }
     </script>
 </head>
 
@@ -161,6 +165,24 @@
     </div>
 </div>
 
+<div id="wrongphone" class="layer" <?php echo (isset($eMsg['wrongphone']))?'style="display: block;"': ''; ?>>
+    <div class="black_layer"></div>
+    <div class="layer_summary">
+        <br />
+        <p><?php echo (isset($eMsg['wrongphone']))?$eMsg['wrongphone']: ''; ?></p>
+        <ul class="finishLay">
+            <li></li>
+            <li>
+                <?php
+                $attributes = array('class'=>'btn_again');
+                echo anchor('marketcontroller/showDailyMenu','重新输入有效的手机号',$attributes);
+                ?>
+            </li>
+            <li></li>
+        </ul>
+    </div>
+</div>
+
 <div id="nofulfill" class="layer" <?php echo (isset($eMsg['nofulfill']))?'style="display: block;"': ''; ?>>
     <div class="black_layer"></div>
     <div class="layer_summary">
@@ -176,7 +198,7 @@
             </li>
             <li>
                 <?php
-                $attributes = array('class'=>'btn_again','onclick'=>'closeWindowNofulfill()');
+                $attributes = array('class'=>'btn_again','onclick'=>'closeWindowWrongPhone()');
                 echo anchor('marketcontroller/showDailyMenu','B. 继续留在当前页面看看',$attributes);
                 ?>
             </li>

@@ -15,6 +15,8 @@ class Marketcontroller extends MY_Controller{
      */
     function __construct(){
         parent::__construct();
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('uphone','Phone','trim|required|exact_lenght[10]|numeric');
         if(!isset($_SESSION['uid'])){
             return redirect('userstatuscontroller/checkUserStatus');
         }
@@ -29,7 +31,8 @@ class Marketcontroller extends MY_Controller{
         $eMsg = array(
             'orderlimit' => "普通用户每天只能下一单哦！",
             'nofulfill'=> "您还没有选择菜品或输入手机号！",
-            'nofoodpicked'=>"您还没有点任何一款主食哦！"
+            'nofoodpicked'=>"您还没有点任何一款主食哦！",
+            'wrongphone'=>"请输入不含任何其他字符的10位有效手机号码！"
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
@@ -180,6 +183,10 @@ class Marketcontroller extends MY_Controller{
         // test if still in order time range
         if(!$this->checkTime()){
             return redirect('marketcontroller/showDailyMenu');
+        }
+        // check if phone number is valid
+        if($this->form_validation->run() == FALSE){
+            return redirect('marketcontroller/showDailyMenu/wrongphone');
         }
         // check if user has ordered before within the same day
         if(!$this->ifOrderedToday()){
