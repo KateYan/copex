@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2014-12-20 20:29:50
--- 服务器版本： 5.6.17
+-- Generation Time: Dec 21, 2014 at 05:53 AM
+-- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- 表的结构 `admin`
+-- Table structure for table `admin`
 --
 
 CREATE TABLE IF NOT EXISTS `admin` (
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 转存表中的数据 `admin`
+-- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`adminId`, `adminName`, `adminPassword`) VALUES
@@ -43,7 +43,7 @@ INSERT INTO `admin` (`adminId`, `adminName`, `adminPassword`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `basic`
+-- Table structure for table `basic`
 --
 
 CREATE TABLE IF NOT EXISTS `basic` (
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `basic` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 转存表中的数据 `basic`
+-- Dumping data for table `basic`
 --
 
 INSERT INTO `basic` (`key`, `value`) VALUES
@@ -69,7 +69,7 @@ INSERT INTO `basic` (`key`, `value`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `campus`
+-- Table structure for table `campus`
 --
 
 CREATE TABLE IF NOT EXISTS `campus` (
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `campus` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10005 ;
 
 --
--- 转存表中的数据 `campus`
+-- Dumping data for table `campus`
 --
 
 INSERT INTO `campus` (`cid`, `cname`, `caddr`) VALUES
@@ -92,7 +92,7 @@ INSERT INTO `campus` (`cid`, `cname`, `caddr`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `coperationline`
+-- Table structure for table `coperationline`
 --
 
 CREATE TABLE IF NOT EXISTS `coperationline` (
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `coperationline` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10007 ;
 
 --
--- 转存表中的数据 `coperationline`
+-- Dumping data for table `coperationline`
 --
 
 INSERT INTO `coperationline` (`lineid`, `cid`, `did`) VALUES
@@ -118,7 +118,7 @@ INSERT INTO `coperationline` (`lineid`, `cid`, `did`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `dailymenu`
+-- Table structure for table `dailymenu`
 --
 
 CREATE TABLE IF NOT EXISTS `dailymenu` (
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `dailymenu` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10013 ;
 
 --
--- 转存表中的数据 `dailymenu`
+-- Dumping data for table `dailymenu`
 --
 
 INSERT INTO `dailymenu` (`mid`, `cid`, `mdate`, `mstatus`) VALUES
@@ -144,7 +144,7 @@ INSERT INTO `dailymenu` (`mid`, `cid`, `mdate`, `mstatus`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `diner`
+-- Table structure for table `diner`
 --
 
 CREATE TABLE IF NOT EXISTS `diner` (
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `diner` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10005 ;
 
 --
--- 转存表中的数据 `diner`
+-- Dumping data for table `diner`
 --
 
 INSERT INTO `diner` (`did`, `dname`, `daddr`, `demail`, `dphone`) VALUES
@@ -169,7 +169,7 @@ INSERT INTO `diner` (`did`, `dname`, `daddr`, `demail`, `dphone`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `food`
+-- Table structure for table `food`
 --
 
 CREATE TABLE IF NOT EXISTS `food` (
@@ -184,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `food` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10010 ;
 
 --
--- 转存表中的数据 `food`
+-- Dumping data for table `food`
 --
 
 INSERT INTO `food` (`fid`, `did`, `fname`, `fdes`, `fprice`, `fpicture`) VALUES
@@ -201,7 +201,7 @@ INSERT INTO `food` (`fid`, `did`, `fname`, `fdes`, `fprice`, `fpicture`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `menuitem`
+-- Table structure for table `menuitem`
 --
 
 CREATE TABLE IF NOT EXISTS `menuitem` (
@@ -216,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `menuitem` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10043 ;
 
 --
--- 转存表中的数据 `menuitem`
+-- Dumping data for table `menuitem`
 --
 
 INSERT INTO `menuitem` (`mitemid`, `fid`, `mid`, `isrecomd`) VALUES
@@ -236,7 +236,7 @@ INSERT INTO `menuitem` (`mitemid`, `fid`, `mid`, `isrecomd`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `order`
+-- Table structure for table `order`
 --
 
 CREATE TABLE IF NOT EXISTS `order` (
@@ -252,10 +252,10 @@ CREATE TABLE IF NOT EXISTS `order` (
   PRIMARY KEY (`oid`),
   KEY `uid` (`uid`),
   KEY `cid` (`cid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2753635 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2753644 ;
 
 --
--- 转存表中的数据 `order`
+-- Dumping data for table `order`
 --
 
 INSERT INTO `order` (`oid`, `uid`, `cid`, `odate`, `fordate`, `ostatus`, `oispaid`, `tax`, `totalcost`) VALUES
@@ -266,12 +266,21 @@ INSERT INTO `order` (`oid`, `uid`, `cid`, `odate`, `fordate`, `ostatus`, `oispai
 (2753631, 10185, 10003, '2014-12-19 14:50:33', '2014-12-20', 1, 1, 5.28, 45.93),
 (2753632, 10262, 10004, '2014-12-19 15:51:35', '2014-12-20', 1, 1, 0.91, 7.9),
 (2753633, 10184, 10003, '2014-12-20 13:17:09', '2014-12-21', 0, 1, 1.69, 14.68),
-(2753634, 10185, 10002, '2014-12-20 14:28:07', '2014-12-21', 0, 1, 2.08, 18.06);
+(2753634, 10185, 10002, '2014-12-20 14:28:07', '2014-12-21', 0, 1, 2.08, 18.06),
+(2753635, 10264, 10004, '2014-12-20 15:01:27', '2014-12-21', 0, 0, 0.91, 7.9),
+(2753636, 10265, 10004, '2014-12-20 15:23:42', '2014-12-21', 0, 0, 0.91, 7.9),
+(2753637, 10267, 10003, '2014-12-20 17:25:25', '2014-12-21', 0, 0, 1.69, 14.68),
+(2753638, 10268, 10004, '2014-12-20 17:33:44', '2014-12-21', 0, 0, 0.91, 7.9),
+(2753639, 10185, 10004, '2014-12-20 18:16:33', '2014-12-21', 0, 1, 0.91, 7.9),
+(2753640, 10272, 10001, '2014-12-20 23:35:24', '2014-12-21', 0, 0, 0.91, 7.9),
+(2753641, 10273, 10004, '2014-12-20 23:37:20', '2014-12-21', 0, 0, 0.91, 7.9),
+(2753642, 10274, 10004, '2014-12-20 23:40:39', '2014-12-21', 0, 0, 0.91, 7.9),
+(2753643, 10275, 10004, '2014-12-20 23:44:58', '2014-12-21', 0, 0, 1.95, 16.94);
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `orderitem`
+-- Table structure for table `orderitem`
 --
 
 CREATE TABLE IF NOT EXISTS `orderitem` (
@@ -281,10 +290,10 @@ CREATE TABLE IF NOT EXISTS `orderitem` (
   `dishtype` tinyint(1) NOT NULL,
   PRIMARY KEY (`oitemid`),
   KEY `oid` (`oid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10344 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10353 ;
 
 --
--- 转存表中的数据 `orderitem`
+-- Dumping data for table `orderitem`
 --
 
 INSERT INTO `orderitem` (`oitemid`, `oid`, `dishid`, `dishtype`) VALUES
@@ -302,12 +311,21 @@ INSERT INTO `orderitem` (`oitemid`, `oid`, `dishid`, `dishtype`) VALUES
 (10340, 2753632, 10002, 0),
 (10341, 2753633, 10009, 0),
 (10342, 2753634, 10007, 0),
-(10343, 2753634, 50004, 1);
+(10343, 2753634, 50004, 1),
+(10344, 2753635, 10002, 0),
+(10345, 2753636, 10002, 0),
+(10346, 2753637, 10009, 0),
+(10347, 2753638, 10002, 0),
+(10348, 2753639, 10002, 0),
+(10349, 2753640, 10003, 0),
+(10350, 2753641, 10002, 0),
+(10351, 2753642, 10002, 0),
+(10352, 2753643, 10006, 0);
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sidedish`
+-- Table structure for table `sidedish`
 --
 
 CREATE TABLE IF NOT EXISTS `sidedish` (
@@ -322,7 +340,7 @@ CREATE TABLE IF NOT EXISTS `sidedish` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=50005 ;
 
 --
--- 转存表中的数据 `sidedish`
+-- Dumping data for table `sidedish`
 --
 
 INSERT INTO `sidedish` (`sid`, `did`, `sname`, `sdes`, `sprice`, `spicture`) VALUES
@@ -334,7 +352,7 @@ INSERT INTO `sidedish` (`sid`, `did`, `sname`, `sdes`, `sprice`, `spicture`) VAL
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sidemenu`
+-- Table structure for table `sidemenu`
 --
 
 CREATE TABLE IF NOT EXISTS `sidemenu` (
@@ -347,7 +365,7 @@ CREATE TABLE IF NOT EXISTS `sidemenu` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10006 ;
 
 --
--- 转存表中的数据 `sidemenu`
+-- Dumping data for table `sidemenu`
 --
 
 INSERT INTO `sidemenu` (`sideMenuID`, `cid`, `sideMenuDate`, `sideMenuStatus`) VALUES
@@ -359,7 +377,7 @@ INSERT INTO `sidemenu` (`sideMenuID`, `cid`, `sideMenuDate`, `sideMenuStatus`) V
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sidemenuitem`
+-- Table structure for table `sidemenuitem`
 --
 
 CREATE TABLE IF NOT EXISTS `sidemenuitem` (
@@ -372,7 +390,7 @@ CREATE TABLE IF NOT EXISTS `sidemenuitem` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
--- 转存表中的数据 `sidemenuitem`
+-- Dumping data for table `sidemenuitem`
 --
 
 INSERT INTO `sidemenuitem` (`sideItemID`, `sid`, `sideMenuID`) VALUES
@@ -396,7 +414,7 @@ INSERT INTO `sidemenuitem` (`sideItemID`, `sid`, `sideMenuID`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
@@ -412,45 +430,17 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`uid`),
   KEY `cid` (`cid`,`vipid`),
   KEY `vipid` (`vipid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10264 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10277 ;
 
 --
--- 转存表中的数据 `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `last_login`, `created`) VALUES
 (10181, 10003, NULL, NULL, '9dff5b1b71330496432ff39cc992fa64ec35c3be581bb8f511958b52b8eb60a5', '::1', 1, '2014-12-12 21:06:58', '2014-12-09 07:11:29'),
 (10182, 10004, NULL, NULL, 'e187c25df3c7f7fc821573da81d32a1b196216912ad6c4c8c597a5e1bea31421', '::1', 1, '2014-12-12 21:06:58', '2014-12-09 07:21:40'),
 (10184, 10003, 10141, '6471234567', 'c39eb1e187b03d280bb82a422622e1d5f322d5415ea0a8e053ea78cb2e0c11b8', '::1', 1, '2014-12-12 21:06:58', '2014-12-10 03:29:29'),
-(10185, 10002, 10142, '6131231234', '208795b584c83f3bae579f721868d1cbd4884783362387f95f50e35f810a3f50', '::1', 1, '2014-12-20 19:27:59', '2014-12-20 04:38:21'),
-(10216, 10003, NULL, NULL, 'b841314f665bb44d5aeea2d40a193c17', '::1', 0, '2014-12-14 06:05:01', '2014-12-14 06:05:01'),
-(10217, 10003, NULL, NULL, 'c12115d24bfb31afa25ae90da0d05620', '::1', 0, '2014-12-14 19:11:07', '2014-12-14 19:11:07'),
-(10218, 10003, NULL, NULL, 'd749404b6d46b10202ec2fe499e538dc', '::1', 0, '2014-12-14 19:58:23', '2014-12-14 19:58:23'),
-(10219, 10002, NULL, NULL, 'ba77bae42fe231d046c61ca2596e4213', '::1', 0, '2014-12-14 20:29:07', '2014-12-14 20:29:07'),
-(10220, 10004, NULL, NULL, '6101b9fd73460a545f78400ed0ff2319', '::1', 0, '2014-12-14 20:44:10', '2014-12-14 20:44:10'),
-(10221, 10003, NULL, NULL, '2488df38e83023b0ff8293b5fef87340', '::1', 0, '2014-12-14 20:57:07', '2014-12-14 20:57:07'),
-(10222, 10002, NULL, NULL, '48feffb437c5fead9eac3fe8eca4e8f4', '::1', 0, '2014-12-14 22:37:35', '2014-12-14 22:37:35'),
-(10223, 10004, NULL, NULL, 'ed8e6efad7341b8f1afbecbf35b070f9', '::1', 0, '2014-12-14 22:43:31', '2014-12-14 22:43:20'),
-(10234, 10004, NULL, NULL, 'e4c072e019448100c4f7c2059729f050', '::1', 0, '2014-12-16 05:12:53', '2014-12-16 05:12:53'),
-(10235, 10003, NULL, NULL, 'ea1acb5549f38021d7372b6eeb61fd05', '::1', 0, '2014-12-16 15:53:29', '2014-12-16 15:04:23'),
-(10236, 10003, NULL, NULL, '1e6056272785711944eac49558205243', '::1', 0, '2014-12-17 00:08:29', '2014-12-17 00:08:29'),
-(10237, 10004, NULL, NULL, '897fd9c0f53fa1d2d4cedaf50ce5b4b8', '::1', NULL, '2014-12-17 19:08:54', '2014-12-17 05:29:24'),
-(10238, 10004, NULL, NULL, '0791cd7b835e1bdc3996e6689f55f66d', '::1', 0, '2014-12-17 19:27:02', '2014-12-17 19:26:21'),
-(10239, 10001, NULL, NULL, 'c2636c1bac9e9f0b4681955165240396', '::1', 0, '2014-12-17 19:27:28', '2014-12-17 19:27:09'),
-(10240, 10003, NULL, NULL, 'c877c4db98e634e2f1caf172f121dfa8', '::1', 0, '2014-12-17 19:27:52', '2014-12-17 19:27:46'),
-(10241, 10004, NULL, '1', '2c0c63b0449c63fe70737d064f3c43bb', '::1', 1, '2014-12-17 20:05:02', '2014-12-17 19:59:31'),
-(10243, 10003, NULL, '0', '11ce4c3ce3498f8b1c49e8adad14eee5', '::1', 0, '2014-12-17 20:39:53', '2014-12-17 20:32:55'),
-(10244, 10004, NULL, '6131231234', '87d0df35ea2d504fa30f81e84acb8ef4', '::1', 1, '2014-12-17 21:00:16', '2014-12-17 21:06:31'),
-(10245, 10003, NULL, '1231231594', '6375d77e5b6bea3ac46a02b2ebc17fe3', '::1', 1, '2014-12-17 21:38:26', '2014-12-17 21:33:45'),
-(10246, 10004, NULL, NULL, 'd8b2eaef64d8c4b617aedeb3f3994754', '::1', 0, '2014-12-17 21:48:56', '2014-12-17 21:48:56'),
-(10247, 10004, NULL, NULL, 'c4a924129cb0cb4d184ac8ea579fb905', '::1', 0, '2014-12-17 21:57:21', '2014-12-17 21:57:21'),
-(10248, 10004, NULL, NULL, '03e17dbf92c96771d35b3271f4a49899', '::1', 0, '2014-12-18 01:05:41', '2014-12-18 00:47:16'),
-(10249, 10003, NULL, '1231234123', '56de536d3a4d2dde30bcacb3745387b9', '::1', 1, '2014-12-18 02:30:14', '2014-12-18 02:30:14'),
-(10250, 10003, NULL, NULL, 'd5cbe173e3496a9a8cf33ff403326f36', '::1', 0, '2014-12-18 04:13:49', '2014-12-18 04:13:49'),
-(10251, 10003, NULL, NULL, '2cd012557855b6a1e29ef1fdddbbabcf', '::1', 0, '2014-12-18 05:12:30', '2014-12-18 05:12:30'),
-(10252, 10003, NULL, '6134564567', 'e66e2093f8552449548923d5d324bb3f', '::1', 1, '2014-12-18 19:35:33', '2014-12-18 19:23:51'),
-(10253, 10004, NULL, '6131231234', 'a81438d0412b464915b7a283c671b0cf', '::1', 1, '2014-12-18 19:40:50', '2014-12-18 19:40:23'),
-(10254, 10004, NULL, 'rtyu', '143816c28946e8294f0bd6353b88ec2d', '::1', 1, '2014-12-18 19:51:21', '2014-12-18 19:50:42'),
+(10185, 10004, 10142, '6131231234', '208795b584c83f3bae579f721868d1cbd4884783362387f95f50e35f810a3f50', '::1', 1, '2014-12-21 02:25:19', '2014-12-20 04:38:21'),
 (10255, 10003, NULL, NULL, 'cb4e168db1faa34bd0893e4889a2f4f1', '::1', 0, '2014-12-18 20:25:13', '2014-12-18 20:25:13'),
 (10256, 10003, NULL, '1231234123', '38f31bfacb6f2fddbd10ade8b55e2f6f', '::1', 1, '2014-12-18 21:57:58', '2014-12-18 21:57:48'),
 (10257, 10002, NULL, '6134564567', '9dec88b3772c35708f47db386b2f487e', '::1', 1, '2014-12-18 22:51:51', '2014-12-18 22:50:08'),
@@ -459,12 +449,20 @@ INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `
 (10260, 10004, NULL, NULL, 'b8213dd6cdc0bfb7d1ca745b9aaf2ba2', '::1', 0, '2014-12-18 23:08:50', '2014-12-18 23:08:50'),
 (10261, 10003, NULL, NULL, '11cacfed4035ede9cfdc45762d47a8bf', '::1', 0, '2014-12-19 04:05:08', '2014-12-18 23:38:12'),
 (10262, 10004, NULL, '6131234567', '09aa223930043d41701befd2405be618', '::1', 1, '2014-12-20 04:33:54', '2014-12-19 20:51:21'),
-(10263, 10004, NULL, NULL, '824a1dc7b4d566aeb78f866d278dbc7c', '::1', 0, '2014-12-20 19:23:41', '2014-12-20 19:23:41');
+(10263, 10004, NULL, NULL, '824a1dc7b4d566aeb78f866d278dbc7c', '::1', 0, '2014-12-20 19:23:41', '2014-12-20 19:23:41'),
+(10264, 10004, NULL, '2011231234', '4452a20b72619243841d5680730ca02d', '::1', 1, '2014-12-20 20:01:30', '2014-12-20 20:01:13'),
+(10265, 10004, NULL, '1231234123', '1fe6ebbd7d718fc2a8010756ede5ce8a', '::1', 1, '2014-12-20 20:23:44', '2014-12-20 20:02:43'),
+(10266, 10004, NULL, NULL, 'ba69c18752ba976646ab3002adf2a116', '::1', 0, '2014-12-20 20:25:49', '2014-12-20 20:25:49'),
+(10267, 10003, NULL, '1231234123', 'bf7110437fd3cbfb253cd18639ae1bb9', '::1', 1, '2014-12-20 22:25:27', '2014-12-20 22:24:56'),
+(10268, 10004, NULL, '1231234123', '2ce272dd812dea3da5ce76a469b6004a', '::1', 1, '2014-12-20 22:33:59', '2014-12-20 22:26:21'),
+(10269, 10003, NULL, NULL, '3eef94f1f66ae5df2419fe66ad1cc23a', '::1', 0, '2014-12-21 04:16:58', '2014-12-21 04:16:58'),
+(10270, 10004, NULL, NULL, '70e177868d7bc383ce3ea10b6f976ada', '::1', 0, '2014-12-21 04:30:46', '2014-12-21 04:25:00'),
+(10271, 10002, NULL, NULL, '296a4a440e3b55ea2556f652bb30dc98', '::1', 0, '2014-12-21 04:35:06', '2014-12-21 04:31:00');
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `vipcard`
+-- Table structure for table `vipcard`
 --
 
 CREATE TABLE IF NOT EXISTS `vipcard` (
@@ -476,70 +474,70 @@ CREATE TABLE IF NOT EXISTS `vipcard` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10143 ;
 
 --
--- 转存表中的数据 `vipcard`
+-- Dumping data for table `vipcard`
 --
 
 INSERT INTO `vipcard` (`vipid`, `vnumber`, `vpassword`, `vbalance`) VALUES
 (10141, 4975, '912ec803b2ce49e4a541068d495ab570', 150),
-(10142, 9646, '912ec803b2ce49e4a541068d495ab570', 118.94);
+(10142, 9646, '962012d09b8170d912f0669f6d7d9d07', 111.04);
 
 --
--- 限制导出的表
+-- Constraints for dumped tables
 --
 
 --
--- 限制表 `coperationline`
+-- Constraints for table `coperationline`
 --
 ALTER TABLE `coperationline`
   ADD CONSTRAINT `linecid` FOREIGN KEY (`cid`) REFERENCES `campus` (`cid`) ON DELETE CASCADE,
   ADD CONSTRAINT `linedid` FOREIGN KEY (`did`) REFERENCES `diner` (`did`) ON DELETE CASCADE;
 
 --
--- 限制表 `dailymenu`
+-- Constraints for table `dailymenu`
 --
 ALTER TABLE `dailymenu`
   ADD CONSTRAINT `dailymenucid` FOREIGN KEY (`cid`) REFERENCES `campus` (`cid`) ON DELETE SET NULL;
 
 --
--- 限制表 `food`
+-- Constraints for table `food`
 --
 ALTER TABLE `food`
   ADD CONSTRAINT `fooddid` FOREIGN KEY (`did`) REFERENCES `diner` (`did`) ON DELETE CASCADE;
 
 --
--- 限制表 `menuitem`
+-- Constraints for table `menuitem`
 --
 ALTER TABLE `menuitem`
   ADD CONSTRAINT `mitemfid` FOREIGN KEY (`fid`) REFERENCES `food` (`fid`) ON DELETE SET NULL,
   ADD CONSTRAINT `mitemmid` FOREIGN KEY (`mid`) REFERENCES `dailymenu` (`mid`) ON DELETE CASCADE;
 
 --
--- 限制表 `orderitem`
+-- Constraints for table `orderitem`
 --
 ALTER TABLE `orderitem`
   ADD CONSTRAINT `orderitem-oid` FOREIGN KEY (`oid`) REFERENCES `order` (`oid`) ON DELETE CASCADE;
 
 --
--- 限制表 `sidedish`
+-- Constraints for table `sidedish`
 --
 ALTER TABLE `sidedish`
   ADD CONSTRAINT `sidedid` FOREIGN KEY (`did`) REFERENCES `diner` (`did`) ON DELETE CASCADE;
 
 --
--- 限制表 `sidemenu`
+-- Constraints for table `sidemenu`
 --
 ALTER TABLE `sidemenu`
   ADD CONSTRAINT `campus-sidemenu` FOREIGN KEY (`cid`) REFERENCES `campus` (`cid`) ON DELETE SET NULL;
 
 --
--- 限制表 `sidemenuitem`
+-- Constraints for table `sidemenuitem`
 --
 ALTER TABLE `sidemenuitem`
   ADD CONSTRAINT `menu-item` FOREIGN KEY (`sideMenuID`) REFERENCES `sidemenu` (`sideMenuID`) ON DELETE CASCADE,
   ADD CONSTRAINT `side-menu-item` FOREIGN KEY (`sid`) REFERENCES `sidedish` (`sid`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- 限制表 `user`
+-- Constraints for table `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `uservipid` FOREIGN KEY (`vipid`) REFERENCES `vipcard` (`vipid`) ON DELETE SET NULL ON UPDATE CASCADE,
