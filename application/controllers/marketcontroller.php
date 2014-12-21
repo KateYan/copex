@@ -16,7 +16,7 @@ class Marketcontroller extends MY_Controller{
     function __construct(){
         parent::__construct();
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('uphone','Phone','trim|required|exact_lenght[10]|numeric');
+        $this->form_validation->set_rules('uphone','Phone','trim|required|greater_than[1000000000]|less_than[100000000000]|numeric|integer');
         if(!isset($_SESSION['uid'])){
             return redirect('userstatuscontroller/checkUserStatus');
         }
