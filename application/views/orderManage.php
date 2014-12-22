@@ -75,19 +75,31 @@
             ?>
         </li>
         <li>
-            <a href="forms.html"><i class="glyphicon glyphicon-chevron-right"></i> 2. 餐厅管理</a>
+            <?php
+            $attributes = array('id'=>'manageDiner');
+            echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-chevron-right"></i> 2. 餐厅管理',$attributes);
+            ?>
         </li>
         <li>
-            <a href="tables.html"><i class="glyphicon glyphicon-chevron-right"></i> 3. 菜品管理</a>
+            <?php
+            $attributes = array('id'=>'manageDish');
+            echo anchor('dishcontroller/showDishManage','<i class="glyphicon glyphicon-chevron-right"></i> 3. 菜品管理',$attributes);
+            ?>
         </li>
         <li>
-            <a href="tables.html"><i class="glyphicon glyphicon-chevron-right"></i> 4. 菜单管理</a>
+            <?php
+            $attributes = array('id'=>'manageMenu');
+            echo anchor('menucontroller/showMenuManage','<i class="glyphicon glyphicon-chevron-right"></i> 4. 菜单管理',$attributes);
+            ?>
         </li>
         <li>
             <a href="../vipcontroller/showVipPanel"><i class="glyphicon glyphicon-chevron-right"></i> 5. 会员管理</a>
         </li>
         <li>
-            <a href="tables.html"><i class="glyphicon glyphicon-chevron-right"></i> 6. 基本管理</a>
+            <?php
+            $attributes = array('id'=>'manageBasic');
+            echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-chevron-right"></i> 6. 基本管理',$attributes);
+            ?>
         </li>
     </ul>
 </div>
@@ -149,43 +161,44 @@
                     <?php
                     if(!isset($prepareOrder)){
                         echo "暂时还没有用户点今天的菜，请稍等片刻后刷新看看。";
-                    }
-                    $num = count($prepareOrder);
-                    echo '<input form="confirmPaid" type="hidden" name = "orderNumber" value="'.$num.'"/>';
-                    echo '<input form="confirmPickedup" type="hidden" name = "orderNumber" value="'.$num.'"/>';
-                    for($i=0;$i<$num;$i++){
-                        echo '<tr>';
-                        echo '<td><a href="showOrderDetail/'.$prepareOrder[$i]->orderNumber.'">';
-                        echo $prepareOrder[$i]->orderNumber;
-                        echo '</a></td>';
-                        echo '<td>'.$prepareOrder[$i]->campus.'</td>';
-                        echo '<td>'.$prepareOrder[$i]->userId.'</td>';
-                        if(empty($prepareOrder[$i]->vipId)){
-                            echo '<td>'."普通用户".'</td>';
-                        }else{
-                            echo '<td>'."VIP用户".'</td>';
-                        }
-                        echo '<td>'.$prepareOrder[$i]->userPhone.'</td>';
-                        echo '<td>'.$prepareOrder[$i]->forDate.'</td>';
-                        echo '<td>'.$prepareOrder[$i]->orderDate.'</td>';
-                        echo '<td>'."$".$prepareOrder[$i]->totalCost.'</td>';
-                        if($prepareOrder[$i]->isPaid==0){
-                            echo '<td>'."否".'</td>';
-                            echo '<td><input form="confirmPaid" type="checkbox" name="order'.$i.'" value ="'.$prepareOrder[$i]->orderNumber.'" /></td>';
-                        }elseif($prepareOrder[$i]->isPaid==1){
-                            echo '<td>'."是".'</td>';
-                            echo '<td><input form="confirmPaid" type="hidden" /></td>';
-                        }
+                    }else{
+                        $num = count($prepareOrder);
+                        echo '<input form="confirmPaid" type="hidden" name = "orderNumber" value="'.$num.'"/>';
+                        echo '<input form="confirmPickedup" type="hidden" name = "orderNumber" value="'.$num.'"/>';
+                        for($i=0;$i<$num;$i++){
+                            echo '<tr>';
+                            echo '<td><a href="showOrderDetail/'.$prepareOrder[$i]->orderNumber.'">';
+                            echo $prepareOrder[$i]->orderNumber;
+                            echo '</a></td>';
+                            echo '<td>'.$prepareOrder[$i]->campus.'</td>';
+                            echo '<td>'.$prepareOrder[$i]->userId.'</td>';
+                            if(empty($prepareOrder[$i]->vipId)){
+                                echo '<td>'."普通用户".'</td>';
+                            }else{
+                                echo '<td>'."VIP用户".'</td>';
+                            }
+                            echo '<td>'.$prepareOrder[$i]->userPhone.'</td>';
+                            echo '<td>'.$prepareOrder[$i]->forDate.'</td>';
+                            echo '<td>'.$prepareOrder[$i]->orderDate.'</td>';
+                            echo '<td>'."$".$prepareOrder[$i]->totalCost.'</td>';
+                            if($prepareOrder[$i]->isPaid==0){
+                                echo '<td>'."否".'</td>';
+                                echo '<td><input form="confirmPaid" type="checkbox" name="order'.$i.'" value ="'.$prepareOrder[$i]->orderNumber.'" /></td>';
+                            }elseif($prepareOrder[$i]->isPaid==1){
+                                echo '<td>'."是".'</td>';
+                                echo '<td><input form="confirmPaid" type="hidden" /></td>';
+                            }
 
-                        if($prepareOrder[$i]->isPickedup==0){
-                            echo '<td>'."否".'</td>';
-                            echo '<td><input form="confirmPickedup" type="checkbox" name="order'.$i.'" value ="'.$prepareOrder[$i]->orderNumber.'" /></td>';
-                        }elseif($prepareOrder[$i]->isPickedup==1){
-                            echo '<td>'."是".'</td>';
-                            echo '<td><input form="confirmPickedup" type="hidden" /></td>';
-                        }
+                            if($prepareOrder[$i]->isPickedup==0){
+                                echo '<td>'."否".'</td>';
+                                echo '<td><input form="confirmPickedup" type="checkbox" name="order'.$i.'" value ="'.$prepareOrder[$i]->orderNumber.'" /></td>';
+                            }elseif($prepareOrder[$i]->isPickedup==1){
+                                echo '<td>'."是".'</td>';
+                                echo '<td><input form="confirmPickedup" type="hidden" /></td>';
+                            }
 
-                        echo '</tr>';
+                            echo '</tr>';
+                        }
                     }
                     ?>
                     </tbody>

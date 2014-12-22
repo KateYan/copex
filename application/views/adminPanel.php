@@ -127,19 +127,31 @@
                     ?>
                 </li>
                 <li>
-                    <a href="forms.html"><i class="glyphicon glyphicon-chevron-right"></i> 2. 餐厅管理</a>
+                    <?php
+                    $attributes = array('id'=>'manageDiner');
+                    echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-chevron-right"></i> 2. 餐厅管理',$attributes);
+                    ?>
                 </li>
                 <li>
-                    <a href="tables.html"><i class="glyphicon glyphicon-chevron-right"></i> 3. 菜品管理</a>
+                    <?php
+                    $attributes = array('id'=>'manageDish');
+                    echo anchor('dishcontroller/showDishManage','<i class="glyphicon glyphicon-chevron-right"></i> 3. 菜品管理',$attributes);
+                    ?>
                 </li>
                 <li>
-                    <a href="tables.html"><i class="glyphicon glyphicon-chevron-right"></i> 4. 菜单管理</a>
+                    <?php
+                    $attributes = array('id'=>'manageMenu');
+                    echo anchor('menucontroller/showMenuManage','<i class="glyphicon glyphicon-chevron-right"></i> 4. 菜单管理',$attributes);
+                    ?>
                 </li>
                 <li>
                     <a href="../vipcontroller/showVipPanel"><i class="glyphicon glyphicon-chevron-right"></i> 5. 会员管理</a>
                 </li>
                 <li>
-                    <a href="tables.html"><i class="glyphicon glyphicon-chevron-right"></i> 6. 基本管理</a>
+                    <?php
+                    $attributes = array('id'=>'manageBasic');
+                    echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-chevron-right"></i> 6. 基本管理',$attributes);
+                    ?>
                 </li>
             </ul>
         </div>
