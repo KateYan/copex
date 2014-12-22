@@ -22,9 +22,9 @@ class Admincontroller extends MY_Controller{
         );
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
             $data["eMsg"] = $eMsg["$errorCode"];
-            $this->load->view('adminlogin',$data);
+            $this->load->view('admin/adminlogin',$data);
         }else{
-            $this->load->view('adminlogin');
+            $this->load->view('admin/adminlogin');
         }
     }
 
@@ -59,7 +59,7 @@ class Admincontroller extends MY_Controller{
         }
         $data['title'] = "Copex | 控制面板";
         $this->load->view('partials/adminHeader',$data);
-        $this->load->view('adminPanel');
+        $this->load->view('admin/adminPanel');
         $this->load->view('partials/adminFooter');
     }
 
@@ -83,7 +83,7 @@ class Admincontroller extends MY_Controller{
             $data['hitoryOrder'] = $this->order->allOrders();
         }
         $this->load->view('partials/adminHeader',$data);
-        $this->load->view('orderManage',$data);
+        $this->load->view('admin/orderManage',$data);
         $this->load->view('partials/adminFooter');
     }
 
@@ -109,7 +109,7 @@ class Admincontroller extends MY_Controller{
 //            die();
             $data['title'] = "Copex | 订单详情";
             $this->load->view('partials/adminHeader',$data);
-            $this->load->view('orderDetails');
+            $this->load->view('admin/orderDetails');
             $this->load->view('partials/adminFooter');
         }
         return false;

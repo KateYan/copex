@@ -27,7 +27,7 @@ class Vipcontroller extends MY_Controller{
             $data['vipUser'] = $this->user->allVip();
         }
         $this->load->view('partials/adminHeader',$data);
-        $this->load->view('vipPanel',$data);
+        $this->load->view('admin/vipPanel',$data);
         $this->load->view('partials/adminFooter');
     }
 
@@ -60,7 +60,7 @@ class Vipcontroller extends MY_Controller{
             }
         }
         $this->load->view('partials/adminHeader',$data);
-        $this->load->view('editVip',$data);
+        $this->load->view('admin/editVip',$data);
         $this->load->view('partials/adminFooter');
     }
 
@@ -118,7 +118,7 @@ class Vipcontroller extends MY_Controller{
         $data['title'] = "Copex | 添加会员";
 
         $this->load->view('partials/adminHeader',$data);
-        $this->load->view('newVip');
+        $this->load->view('amdin/newVip');
         $this->load->view('partials/adminFooter');
     }
 

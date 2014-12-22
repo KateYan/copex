@@ -35,7 +35,7 @@ class Dinercontroller extends MY_Controller{
         $this->load->model('diner');
         $data['diners'] = $this->diner->allDiners();
         $this->load->view('partials/adminHeader',$data);
-        $this->load->view('dinerManage',$data);
+        $this->load->view('admin/dinerManage',$data);
         $this->load->view('partials/adminFooter');
     }
     // show diner's detail for editting
@@ -63,7 +63,7 @@ class Dinercontroller extends MY_Controller{
         $this->load->model('market');
         $data['campus'] = $this->market->getCampusList();
         $this->load->view('partials/adminHeader',$data);
-        $this->load->view('dinerDetail',$data);
+        $this->load->view('admin/dinerDetail',$data);
         $this->load->view('partials/adminFooter');
 
     }
@@ -159,7 +159,7 @@ class Dinercontroller extends MY_Controller{
         $this->load->model('market');
         $data['campus'] = $this->market->getCampusList();
         $this->load->view('partials/adminHeader',$data);
-        $this->load->view('newDiner',$data);
+        $this->load->view('admin/newDiner',$data);
         $this->load->view('partials/adminFooter');
     }
 
