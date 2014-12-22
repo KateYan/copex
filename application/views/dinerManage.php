@@ -130,8 +130,12 @@
                 <div class="panel-heading">
                     <div class="text-muted bootstrap-admin-box-title">餐厅列表--(点击餐厅ID查看详情)
                         <?php
+                        if(isset($eMsg['deletesuccess'])){
+                            echo '<span style="color: #be2221;"><b>'.$eMsg['deletesuccess'].'</b></span>';
+                        }
+
                         $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;');
-                        echo anchor('dinercontroller/addDiner','<i class="glyphicon glyphicon-plus"></i>
+                        echo anchor('dinercontroller/showAddDiner','<i class="glyphicon glyphicon-plus"></i>
                                          添加餐厅',$attributes);
                         ?>
                     </div>
@@ -154,6 +158,7 @@
                         }
                         foreach($diners as $diner){
                             echo '<tr>';
+                            $did = $diner->did;
                             echo '<td><a href="showDinerDetail?dinerId='.$diner->did.'">';
                             echo $diner->did;
                             echo '</a></td>';

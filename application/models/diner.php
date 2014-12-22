@@ -28,7 +28,16 @@ class Diner extends CI_Model
         }
         $diner = array_merge($result1[0],$d_campus);
 
-        return $diner;
+        $_SESSION['diner'] = $diner;
+    }
+
+    // create new diner
+    public function newDiner($value){
+        $sql = "INSERT INTO diner(dname,contact,dphone,demail,daddr,dinfo) VALUES (".$this->db->escape($value['dname']).",".$this->db->escape($value['contact']).",".$this->db->escape($value['dphone']).",".$this->db->escape($value['demail']).",".$this->db->escape($value['daddr']).",".$this->db->escape($value['dinfo']).")";
+
+        $this->db->query($sql);
+        $dinerId = $this->db->insert_id(); // get new diner's id
+        return $dinerId;
     }
 
     // update diner
@@ -76,5 +85,12 @@ class Diner extends CI_Model
         return $query->result();
     }
 
+    // delete diner
+    public function deleteDiner($did){
+        $sql = "DELETE FROM diner WHERE did = '$did'";
+        $this->db->query($sql);
+        // because did is also table coperationline's foreign key with on delete cascate
+        // so there is no need to delete related rows from coperationline
+    }
 
 }

@@ -20,7 +20,16 @@ class Dinercontroller extends MY_Controller{
     }
 
     // show diner panel
-    public function showDinerManage(){
+    public function showDinerManage($errorCode = null){
+        // check if there is error code
+        $eMsg = array(
+            'deletesuccess' => "成功删除餐厅!"
+        );
+
+        if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+            $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
+        }
+
         $data['title'] = "Copex | 餐厅管理";
         // find all diners
         $this->load->model('diner');
@@ -36,7 +45,8 @@ class Dinercontroller extends MY_Controller{
             'wrong' => "请按照提示输入正确的餐厅编辑信息！",
             'success'=>"修改已成功!",
             'delerror'=>"请选中校区再删除！",
-            'deletesuccess'=>"删除校区成功！"
+            'deletesuccess'=>"删除校区成功！",
+            'addsuccess'=>"添加新餐厅成功，您可以继续对它进行编辑！"
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
@@ -45,8 +55,7 @@ class Dinercontroller extends MY_Controller{
         // if the page will be loaded directly by choosing one diner id from dinerPanel
         if(isset($_GET['dinerId'])){
             $this->load->model('diner');
-            $diner = $this->diner->findDiner($_GET['dinerId']);
-            $_SESSION['diner'] = $diner;
+            $this->diner->findDiner($_GET['dinerId']);
         }
 
         $data['title'] = "Copex | 餐厅详情";
@@ -84,13 +93,8 @@ class Dinercontroller extends MY_Controller{
         $num_campus = count($campus);
         $addCampus = array();
         for($i=0;$i<$num_campus;$i++){
-            if(isset($_POST["more_campus$i"])){
-                $addCampus[] = $this->input->post("more_campus$i");
-                // add cid, cname session
-                $_SESSION['diner']['cid'][] = $this->input->post("more_campus$i");
-                $this->load->model('market');
-                $campus = $this->market->getCampusById($_POST["more_campus$i"]);
-                $_SESSION['diner']['cname'][] = $campus->cname;
+            if(isset($_POST["add_campus$i"])){
+                $addCampus[] = $this->input->post("add_campus$i");
             }
         }
 
@@ -99,6 +103,12 @@ class Dinercontroller extends MY_Controller{
             $this->load->model('diner');
             $this->diner->createLine($_POST['did'],$addCampus);
         }
+        // update diner session
+        $dinerId = $_SESSION['diner']['did'];
+        unset($_SESSION['diner']);
+        $this->load->model('diner');
+        $this->diner->findDiner($dinerId);
+
         return redirect('dinercontroller/showDinerDetail/success');
     }
 
@@ -113,26 +123,93 @@ class Dinercontroller extends MY_Controller{
         $campus = $this->market->getCampusList();
         $num_campus = count($campus);
         $deleteCampus = array();
+
         for($i=0;$i<$num_campus;$i++){
             if(isset($_POST["campus$i"])){
                 $deleteCampus[] = $this->input->post("campus$i");
-//                // unset delete cid and cname session
-//                $num = $_SESSION['diner']['cid'];
-//                for($j = 0;$j<$num; $j++){
-//                    if($_SESSION['diner']['cid'][$j] == $_POST["campus$i"]){
-//                        unset($_SESSION['diner']['cid'][$j]);
-//                        unset($_SESSION['diner']['cname'][$j]);
-//                    }
-//                }
             }
         }
-        var_dump($_SESSION['diner']);
-        die();
+        // delete selected support campus from diner
         if(!empty($deleteCampus)){
             // delete coperation line;
             $this->load->model('diner');
-            $sql = $this->diner->deleteLine($_SESSION['diner']['did'],$deleteCampus);
+            $this->diner->deleteLine($_SESSION['diner']['did'],$deleteCampus);
+            // update diner session
+            $dinerId = $_SESSION['diner']['did'];
+            unset($_SESSION['diner']);
+            $this->load->model('diner');
+            $this->diner->findDiner($dinerId);
         }
         return redirect('dinercontroller/showDinerDetail/deletesuccess');
     }
+
+    // show add diner page
+    public function showAddDiner($errorCode = null){
+        // check if there is error code
+        $eMsg = array(
+            'wrong' => "请按照提示添加正确的餐厅信息！"
+        );
+
+        if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+            $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
+        }
+
+        $data['title'] = "Copex | 添加餐厅";
+        // find campus for diner to add
+        $this->load->model('market');
+        $data['campus'] = $this->market->getCampusList();
+        $this->load->view('partials/adminHeader',$data);
+        $this->load->view('newDiner',$data);
+        $this->load->view('partials/adminFooter');
+    }
+
+    // add new diner information into database
+    public function addDiner(){
+        // check if all input are fit the validation rules
+        if($this->form_validation->run()==FALSE){
+            return redirect('dinercontroller/showAddDiner/wrong');
+        }
+        // store diner information into db
+        $value = $_POST;
+
+        $this->load->model('diner');
+        $dinerId = $this->diner->newDiner($value);// this method will create new diner and return diner's id
+
+        // using posted added campus id to create new coperation line for diner
+        // get number of all campus
+        $this->load->model('market');
+        $campus = $this->market->getCampusList();
+        $num_campus = count($campus);
+        $addCampus = array();
+        for($i=0;$i<$num_campus;$i++){
+            if(isset($_POST["add_campus$i"])){
+                $addCampus[] = $this->input->post("add_campus$i");
+            }
+        }
+        if(!empty($addCampus)){
+            // create coperation line;
+            $this->load->model('diner');
+            $this->diner->createLine($dinerId,$addCampus);
+        }
+        // update diner session
+        if(isset($_SESSION['diner'])){
+            unset($_SESSION['diner']);
+        }
+        $this->load->model('diner');
+        $this->diner->findDiner($dinerId);
+        // add diner successful and return to see it's detail
+        return redirect("dinercontroller/showDinerDetail/addsuccess");
+    }
+
+    // delete diner
+    public function deleteDiner(){
+        if(!isset($_SESSION['diner']['did'])){
+            return redirect('dinercontroller/showDinerManage');
+        }
+        $this->load->model('diner');
+        $this->diner->deleteDiner($_SESSION['diner']['did']);
+
+        return redirect('dinercontroller/showDinerManage/deletesuccess');
+    }
+
 }

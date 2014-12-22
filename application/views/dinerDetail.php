@@ -80,7 +80,16 @@
     <div class="col-lg-12">
         <div class="panel panel-default bootstrap-admin-no-table-panel">
             <div class="panel-heading">
-                <div class="text-muted bootstrap-admin-box-title">参看餐厅详情并编辑</div>
+                <div class="text-muted bootstrap-admin-box-title">参看餐厅详情并编辑
+                    <?php
+                    $attributes = array('class'=>'btn btn-sm btn-danger','type'=>'reset','style'=>'float: right;');
+                    echo anchor('#','<i class="glyphicon glyphicon-remove"> 删除本餐厅</i>',$attributes);
+                    ?>
+                    <?php
+                    $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-right:5px;');
+                    echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-backward"> 回餐厅列表</i>',$attributes);
+                    ?>
+                </div>
             </div>
             <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
                 <div class="form-horizontal">
@@ -89,13 +98,12 @@
                             <?php
                             if(isset($eMsg['wrong'])){
                                 echo '<span style="color: #be2221;"><b>'.$eMsg['wrong'].'</b></span>';
-                            }
-                            ?>
-                            <?php
-                            if(isset($eMsg['success'])){
+                            } elseif(isset($eMsg['success'])){
                                 echo '<span style="color: #be2221;"><b>'.$eMsg['success'].'</b></span>';
-                                $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-top:0px;');
-                                echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-backward"> 回餐厅列表</i>',$attributes);
+                            }elseif(isset($eMsg['deletesuccess'])){
+                                echo '<span style="color: #be2221;"><b>'.$eMsg['deletesuccess'].'</b></span>';
+                            }elseif(isset($eMsg['addsuccess'])){
+                                echo '<span style="color: #be2221;"><b>'.$eMsg['addsuccess'].'</b></span>';
                             }
                             ?>
                         </legend>
@@ -159,7 +167,7 @@
                                         <div class="text-muted bootstrap-admin-box-title">供给餐厅如下
                                             <button style="float: right;" form="deleteCampus" class="btn btn-sm btn-danger">
                                                 <i class="glyphicon glyphicon-remove"></i>
-                                                删除供给餐厅
+                                                删除供给校区
                                             </button>
                                             <?php
                                             if(isset($eMsg['delerror'])){
@@ -213,7 +221,7 @@
                                             echo "disabled ";
                                         }
                                     }
-                                    echo 'name="more_campus'.$j.'" value="'.$campus[$j]->cid.'"/>';
+                                    echo 'name="add_campus'.$j.'" value="'.$campus[$j]->cid.'"/>';
                                     echo "  ".$campus[$j]->cname;
                                     echo '</label>';
                                 }
