@@ -85,11 +85,20 @@
             <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
                 <div class="form-horizontal">
                     <fieldset>
-                        <legend>餐厅详情  <?php
-                            if(isset($eMsg)){
-                                echo '<span style="color: #be2221;"><b>'.$eMsg.'</b></span>';
+                        <legend>餐厅详情
+                            <?php
+                            if(isset($eMsg['wrong'])){
+                                echo '<span style="color: #be2221;"><b>'.$eMsg['wrong'].'</b></span>';
                             }
-                            ?></legend>
+                            ?>
+                            <?php
+                            if(isset($eMsg['success'])){
+                                echo '<span style="color: #be2221;"><b>'.$eMsg['success'].'</b></span>';
+                                $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-top:0px;');
+                                echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-backward"> 回餐厅列表</i>',$attributes);
+                            }
+                            ?>
+                        </legend>
                         <?php
                         $attributes = array('id'=>'editDiner');
                         echo form_open('dinercontroller/editDiner',$attributes);
@@ -107,7 +116,7 @@
                                 <span class="help-block">已有餐厅ID不能变更</span>
                             </div>
                         </div>
-                        <div class="form-group<?php if(isset($eMsg)){echo " has-error";}?>">
+                        <div class="form-group<?php if(isset($eMsg['wrong'])){echo " has-error";}?>">
                             <label class="col-lg-2 control-label">餐厅名</label>
                             <div class="col-lg-10">
                                 <input form="editDiner" class="form-control" type="text" name="dname" value="<?php echo $_SESSION['diner']['dname'];?>"/>
@@ -121,21 +130,21 @@
                                 <span class="help-block">联系人可以缺省</span>
                             </div>
                         </div>
-                        <div class="form-group<?php if(isset($eMsg)){echo " has-error";}?>">
+                        <div class="form-group<?php if(isset($eMsg['wrong'])){echo " has-error";}?>">
                             <label class="col-lg-2 control-label" for="optionsCheckbox2">餐厅电话</label>
                             <div class="col-lg-10">
                                 <input form="editDiner" class="form-control" type="text" name="dphone" value="<?php echo $_SESSION['diner']['dphone'];?>"/>
                                     <span class="help-block">请输入10位有效电话号码，不能为空</span>
                             </div>
                         </div>
-                        <div class="form-group<?php if(isset($eMsg)){echo " has-error";}?>">
+                        <div class="form-group<?php if(isset($eMsg['wrong'])){echo " has-error";}?>">
                             <label class="col-lg-2 control-label" for="optionsCheckbox2">E-mail</label>
                             <div class="col-lg-10">
                                 <input form="editDiner" class="form-control" type="text" name="demail" value="<?php echo $_SESSION['diner']['demail'];?>"/>
                                 <span class="help-block">请输入合法电子邮箱地址</span>
                             </div>
                         </div>
-                        <div class="form-group<?php if(isset($eMsg)){echo " has-error";}?>">
+                        <div class="form-group<?php if(isset($eMsg['wrong'])){echo " has-error";}?>">
                             <label class="col-lg-2 control-label" for="optionsCheckbox2">餐厅地址</label>
                             <div class="col-lg-10">
                                 <input form="editDiner" class="form-control" type="text" name="daddr" value="<?php echo $_SESSION['diner']['daddr'];?>"/>
@@ -152,6 +161,16 @@
                                                 <i class="glyphicon glyphicon-remove"></i>
                                                 删除供给餐厅
                                             </button>
+                                            <?php
+                                            if(isset($eMsg['delerror'])){
+                                                echo '<span style="color: #be2221;float:right;"><b>'.$eMsg['delerror'].'</b></span>';
+                                            }
+                                            ?>
+                                            <?php
+                                            if(isset($eMsg['deletesuccess'])){
+                                                echo '<span style="color: #be2221;float:right;"><b>'.$eMsg['deletesuccess'].'</b></span>';
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="bootstrap-admin-panel-content">
@@ -170,7 +189,7 @@
                                                 echo '<tr>';
                                                 echo '<th>'.$_SESSION['diner']['cid'][$i].'</th>';
                                                 echo '<th>'.$_SESSION['diner']['cname'][$i].'</th>';
-                                                echo '<th>'.'<input form="deleteCampus" type="checkbox" name="campus'.$i.'">'.'</th>';
+                                                echo '<th>'.'<input form="deleteCampus" type="checkbox" name="campus'.$i.'" value="'.$_SESSION['diner']['cid'][$i].'"/></th>';
                                                 echo '</tr>';
                                             }
                                             ?>

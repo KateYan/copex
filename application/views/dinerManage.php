@@ -160,7 +160,7 @@
                             echo '<td>'.$diner->dname.'</td>';
                             echo '<td>'.$diner->contact.'</td>';
                             echo '<td>'.$diner->dphone.'</td>';
-                            echo '<td>'.$diner->daddr.'</td>';
+                            echo '<td>'.$diner->demail.'</td>';
                             echo '</tr>';
                         }
                         ?>

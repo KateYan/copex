@@ -26,9 +26,45 @@ class Diner extends CI_Model
             $d_campus['cid'][] = $line->cid;
             $d_campus['cname'][] = $line->cname;
         }
-        $result= array_merge($result1[0],$d_campus);
+        $diner = array_merge($result1[0],$d_campus);
 
-        return $result;
+        return $diner;
+    }
+
+    // update diner
+    public function updateDiner($did,$columnName,$value){
+        $num = count($columnName);
+        for($i = 0;$i < $num;$i++){
+            $name = $columnName[$i];
+            $sql = "UPDATE diner SET $name=".$this->db->escape($value[$name])." WHERE did=$did";
+
+            $this->db->query($sql);
+        }
+    }
+    // create more corperation line
+    public function createLine($did,$addCampus){
+        $num = count($addCampus);
+
+        $sql = "INSERT INTO coperationline(did,cid) VALUES";
+
+        for($i = 0 ;$i<$num;$i++){
+            // renew cid session
+            $sql .= "('$did','$addCampus[$i]')";
+            $sql .= ($i == ($num-1))? ';' : ',';
+        }
+        $this->db->query($sql);
+    }
+    // delete coperation line
+    public function deleteLine($did,$deleteCampus){
+        $num = count($deleteCampus);
+
+        $sql = "DELETE FROM coperationline WHERE did='$did' AND cid IN (";
+
+        for($i = 0 ;$i<$num;$i++){
+            $sql .= "'$deleteCampus[$i]'";
+            $sql .= ($i == ($num-1))? ')' : ',';
+        }
+        $this->db->query($sql);
     }
 
 
@@ -39,4 +75,6 @@ class Diner extends CI_Model
 
         return $query->result();
     }
+
+
 }
