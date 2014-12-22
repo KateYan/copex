@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2014 at 08:35 AM
+-- Generation Time: Dec 22, 2014 at 03:09 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -150,9 +150,11 @@ INSERT INTO `dailymenu` (`mid`, `cid`, `mdate`, `mstatus`) VALUES
 CREATE TABLE IF NOT EXISTS `diner` (
   `did` int(5) NOT NULL AUTO_INCREMENT,
   `dname` varchar(30) NOT NULL,
-  `daddr` varchar(30) NOT NULL,
-  `demail` varchar(25) NOT NULL,
+  `contact` varchar(30) DEFAULT NULL,
   `dphone` varchar(20) DEFAULT NULL,
+  `demail` varchar(25) NOT NULL,
+  `daddr` varchar(30) NOT NULL,
+  `dinfo` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`did`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10005 ;
 
@@ -160,11 +162,11 @@ CREATE TABLE IF NOT EXISTS `diner` (
 -- Dumping data for table `diner`
 --
 
-INSERT INTO `diner` (`did`, `dname`, `daddr`, `demail`, `dphone`) VALUES
-(10001, 'T&T', '', 'tt123@gmail.com', '647-310-6789'),
-(10002, 'benben resturaunt', '', 'benben@hotmail.com', '647-123-4567'),
-(10003, 'UTSG餐厅', '', 'utsg@gmail.com', NULL),
-(10004, 'YouK餐厅', '', 'youk@gmail.com', NULL);
+INSERT INTO `diner` (`did`, `dname`, `contact`, `dphone`, `demail`, `daddr`, `dinfo`) VALUES
+(10001, 'T&T', NULL, '6473106789', 'tt123@gmail.com', '', ''),
+(10002, 'benben resturaunt', NULL, '6471234567', 'benben@hotmail.com', '', ''),
+(10003, 'UTSG餐厅', NULL, NULL, 'utsg@gmail.com', '', ''),
+(10004, 'YouK餐厅', NULL, NULL, 'youk@gmail.com', '', '');
 
 -- --------------------------------------------------------
 
@@ -252,7 +254,7 @@ CREATE TABLE IF NOT EXISTS `order` (
   PRIMARY KEY (`oid`),
   KEY `uid` (`uid`),
   KEY `cid` (`cid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2753644 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2753645 ;
 
 --
 -- Dumping data for table `order`
@@ -275,7 +277,8 @@ INSERT INTO `order` (`oid`, `uid`, `cid`, `odate`, `fordate`, `ostatus`, `oispai
 (2753640, 10272, 10001, '2014-12-20 23:35:24', '2014-12-21', 0, 0, 0.91, 7.9),
 (2753641, 10273, 10004, '2014-12-20 23:37:20', '2014-12-21', 0, 0, 0.91, 7.9),
 (2753642, 10274, 10004, '2014-12-20 23:40:39', '2014-12-21', 0, 0, 0.91, 7.9),
-(2753643, 10275, 10004, '2014-12-20 23:44:58', '2014-12-21', 0, 0, 1.95, 16.94);
+(2753643, 10275, 10004, '2014-12-20 23:44:58', '2014-12-21', 0, 0, 1.95, 16.94),
+(2753644, 10280, 10003, '2014-12-21 15:01:11', '2014-12-22', 0, 0, 0.91, 7.9);
 
 -- --------------------------------------------------------
 
@@ -290,7 +293,7 @@ CREATE TABLE IF NOT EXISTS `orderitem` (
   `dishtype` tinyint(1) NOT NULL,
   PRIMARY KEY (`oitemid`),
   KEY `oid` (`oid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10353 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10354 ;
 
 --
 -- Dumping data for table `orderitem`
@@ -320,7 +323,8 @@ INSERT INTO `orderitem` (`oitemid`, `oid`, `dishid`, `dishtype`) VALUES
 (10349, 2753640, 10003, 0),
 (10350, 2753641, 10002, 0),
 (10351, 2753642, 10002, 0),
-(10352, 2753643, 10006, 0);
+(10352, 2753643, 10006, 0),
+(10353, 2753644, 10003, 0);
 
 -- --------------------------------------------------------
 
@@ -430,7 +434,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`uid`),
   KEY `cid` (`cid`,`vipid`),
   KEY `vipid` (`vipid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10280 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10281 ;
 
 --
 -- Dumping data for table `user`
@@ -459,7 +463,8 @@ INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `
 (10270, 10004, NULL, NULL, '70e177868d7bc383ce3ea10b6f976ada', '::1', 0, '2014-12-21 04:30:46', '2014-12-21 04:25:00'),
 (10271, 10002, NULL, NULL, '296a4a440e3b55ea2556f652bb30dc98', '::1', 0, '2014-12-21 04:35:06', '2014-12-21 04:31:00'),
 (10277, NULL, NULL, '1234567891', '', NULL, NULL, '2014-12-21 06:53:23', '0000-00-00 00:00:00'),
-(10279, NULL, 10151, '6134130633', '', NULL, NULL, '2014-12-21 06:57:11', '0000-00-00 00:00:00');
+(10279, NULL, 10151, '6134130633', '', NULL, NULL, '2014-12-21 06:57:11', '0000-00-00 00:00:00'),
+(10280, 10003, NULL, '6134567891', 'ed42309c46d35a08997ff7aec56f7972', '::1', 1, '2014-12-21 20:01:03', '2014-12-21 20:01:03');
 
 -- --------------------------------------------------------
 
@@ -543,8 +548,8 @@ ALTER TABLE `sidemenuitem`
 -- Constraints for table `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `uservipid` FOREIGN KEY (`vipid`) REFERENCES `vipcard` (`vipid`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `usercid` FOREIGN KEY (`cid`) REFERENCES `campus` (`cid`) ON DELETE SET NULL;
+  ADD CONSTRAINT `usercid` FOREIGN KEY (`cid`) REFERENCES `campus` (`cid`) ON DELETE SET NULL,
+  ADD CONSTRAINT `uservipid` FOREIGN KEY (`vipid`) REFERENCES `vipcard` (`vipid`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
