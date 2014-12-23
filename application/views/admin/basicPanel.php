@@ -145,10 +145,9 @@
                                 $num = count($_SESSION['rule']);
                                 for($i = 0; $i<$num; $i++){
                                     echo '<tr>';
-                                    echo '<td>';
-                                    $attributes = array('class'=>'timeRange');
-                                    echo anchor('basiccontroller/showEditTime',$_SESSION['rule'][$i]['type'],$attributes);
-                                    echo '</td>';
+                                    echo '<td><a href="showEditTime?userType='.$rule[$i]['type'].'">';
+                                    echo $rule[$i]['type'];
+                                    echo '</a></td>';
                                     echo '<td>'.$_SESSION['rule'][$i]['timeRange']['value'][0].'</td>';
                                     echo '<td>'.$_SESSION['rule'][$i]['timeRange']['value'][1].'</td>';
                                     echo '<td>'.$_SESSION['rule'][$i]['timeRange']['value'][2].'</td>';
@@ -180,18 +179,17 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                if(!isset($rule)){
-                                    echo "暂时没有任何时间规则！";
+                                if(!isset($campus)){
+                                    echo "暂时没有任何校区！";
                                 }
-                                $num = count($rule);
+                                $num = count($campus);
                                 for($i = 0; $i<$num; $i++){
                                     echo '<tr>';
-                                    echo '<td><a href="showEditTime?userType='.$rule[$i]['type'].'">';
+                                    echo '<td><a href="showEditCampus?campusId='.$campus[$i]->cid.'">';
+                                    echo $campus[$i]->cid;
                                     echo '</a></td>';
-                                    echo '<td>'.$rule[$i]['timeRange']['value'][0].'</td>';
-                                    echo '<td>'.$rule[$i]['timeRange']['value'][1].'</td>';
-                                    echo '<td>'.$rule[$i]['timeRange']['value'][2].'</td>';
-                                    echo '<td>'.$rule[$i]['timeRange']['value'][3].'</td>';
+                                    echo '<td>'.$campus[$i]->cname.'</td>';
+                                    echo '<td>'.$campus[$i]->caddr.'</td>';
                                     echo '</tr>';
                                 }
                                 ?>
