@@ -98,5 +98,34 @@ class Market extends CI_Model {
         return $pickupTimeRange;
     }
 
+    // get user/vip's basic time rule
+    public function getTimeRange($userType){
+        $name = array();
+        $value = array();
+
+        $sql1 = "SELECT * FROM basic WHERE `key`='".$userType."_order_start'";
+        $query1 = $this->db->query($sql1);
+        $name[] = $query1->row(0)->key;
+        $value[] = $query1->row(0)->value;
+
+        $sql2 = "SELECT * FROM basic WHERE `key`='".$userType."_order_end'";
+        $query2 = $this->db->query($sql2);
+        $name[] = $query2->row(0)->key;
+        $value[] = $query2->row(0)->value;
+
+        $sql3 = "SELECT * FROM basic WHERE `key`='".$userType."_pickup_start'";
+        $query3 = $this->db->query($sql3);
+        $name[] = $query3->row(0)->key;
+        $value[] = $query3->row(0)->value;
+
+        $sql4 = "SELECT * FROM basic WHERE `key`='".$userType."_pickup_end'";
+        $query4 = $this->db->query($sql4);
+        $name[] = $query4->row(0)->key;
+        $value[] = $query4->row(0)->value;
+
+        $timeRange = array('name'=>$name,'value'=>$value);
+
+        return $timeRange;
+    }
 
 }
