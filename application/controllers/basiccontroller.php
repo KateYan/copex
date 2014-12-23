@@ -39,6 +39,25 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
         }
         // show editing time range page
         public function showEditTime(){
+            // get time information of specific type of user
 
+            if(isset($_GET['userType'])){
+                if($_GET['userType'] == "普通用户"){
+                    $userType = "user";
+                }else{
+                    $userType = "vip";
+                }
+            }
+
+            $this->load->model('market');
+            $timeRange = $this->market->getTimeRange($userType);
+
+            // store session
+            $_SESSION['time'] = array('userType'=>$userType,'timerange'=>$timeRange);
+
+            $data['title'] = "Copex | 时间限制管理";
+            $this->load->view('partials/adminHeader',$data);
+            $this->load->view('admin/editBasicTime',$data);
+            $this->load->view('partials/adminFooter');
         }
     }
