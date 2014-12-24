@@ -24,9 +24,15 @@ class MenuController extends MY_Controller{
     // show specific campus' menu list
     public function showMenus(){
         // campus list data
-        var_dump($_POST);
-        die();
         $this->load->model('market');
-        $data['campus'] = $this->market->getCampusList();
+        if($this->market->getMenusByCampus($_POST['campus'])){
+            $data['menus'] = $this->market->getMenusByCampus($_POST['campus']);
+            $data['sidemenus'] = $this->market->getSideMenusByCampus($_POST['campus']);
+        }
+
+        $data['title'] = "Copex | 校区菜单历史";
+        $this->load->view('partials/adminHeader',$data);
+        $this->load->view('admin/menu_campus',$data);
+        $this->load->view('partials/adminFooter');
     }
 }

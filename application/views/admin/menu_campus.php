@@ -3,9 +3,10 @@
  * Created by PhpStorm.
  * User: kunyan
  * Date: 12/24/2014
- * Time: 11:52 AM
+ * Time: 1:51 PM
  */
 ?>
+
 <!-- Datatables -->
 <link rel="stylesheet" media="screen" href="/copex/bootstrap/css/DT_bootstrap.css">
 
@@ -108,54 +109,97 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>菜单管理</h1>
+                        <h1>菜单管理----校区<?php echo $menus[0]->cname; ?></h1>
                     </div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="panel panel-default bootstrap-admin-no-table-panel">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">选择校区查看菜单历史</div>
+                            <div class="text-muted bootstrap-admin-box-title">主食-菜单历史</div>
                         </div>
-                        <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                        <div class="bootstrap-admin-panel-content">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>菜单ID</th>
+                                    <th>菜单生成时间</th>
+                                    <th>菜单状态</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                if(!isset($menus)){
+                                    echo "本该校区暂时还未添加任何主食菜单！";
+                                }else{
+                                    foreach($menus as $menu){
+                                        echo '<tr>';
+                                        echo '<td><a href="showEditMenu?menuId='.$menu->mid.'">';
+                                        echo $menu->mid;
+                                        echo '</a></td>';
+                                        echo '<td>'.$menu->mdate.'</td>';
+                                        if($menu->mstatus == 1){
+                                            echo '<td>'."正在使用".'</td>';
+                                        }else{
+                                            echo '<td>'."已关闭".'</td>';
+                                        }
+                                        echo '</tr>';
+                                    }
+                                }
 
-                            <div class="form-horizontal">
-                                <fieldset>
-                                    <?php
-                                    $attributes = array('id'=>'menubycampus');
-                                    echo form_open('menucontroller/showMenus');
-
-                                    ?>
-                                    <legend>校区</legend>
-                                    <div class="form-group has-success">
-                                        <label class="col-lg-2 control-label" for="selectCampus">选择要查看的校区</label>
-                                        <div class="col-lg-10">
-                                            <select id="selectCampus" name="campus" class="form-control">
-                                                <?php
-                                                foreach($campusList as $campus){
-                                                    echo '<option value="'.$campus->cid.'">';
-                                                    echo $campus->cname;
-                                                    echo '</option>';
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <button style="float:right;" type="submit" class="btn btn-primary">查看菜单历史</button>
-                                    <?php
-                                    echo form_close();
-                                    ?>
-                                </fieldset>
-                            </div>
-
+                                ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="text-muted bootstrap-admin-box-title">小食-菜单历史</div>
+                        </div>
+                        <div class="bootstrap-admin-panel-content">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>菜单ID</th>
+                                    <th>菜单生成时间</th>
+                                    <th>菜单状态</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                if(!isset($sidemenus)){
+                                    echo "本该校区暂时还未添加任何小食菜单！";
+                                }else{
+                                    foreach($sidemenus as $sidemenu){
+                                        echo '<tr>';
+                                        echo '<td><a href="showEditMenu?sidemenuId='.$sidemenu->sideMenuID.'">';
+                                        echo $sidemenu->sideMenuID;
+                                        echo '</a></td>';
+                                        echo '<td>'.$sidemenu->sideMenuDate.'</td>';
+                                        if($sidemenu->sideMenuStatus == 1){
+                                            echo '<td>'."正在使用".'</td>';
+                                        }else{
+                                            echo '<td>'."已关闭".'</td>';
+                                        }
+                                        echo '</tr>';
+                                    }
+                                }
+
+                                ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
-
-

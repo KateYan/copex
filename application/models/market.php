@@ -128,4 +128,22 @@ class Market extends CI_Model {
         return $timeRange;
     }
 
+    // get menulist by using campus' id
+    public function getMenusByCampus($cid){
+        $sql = "SELECT campus.cid, campus.cname, dailymenu.* FROM campus JOIN dailymenu ON campus.cid = dailymenu.cid AND dailymenu.cid ='$cid'";
+        $query = $this->db->query($sql);
+        if($query->num_rows() ==0){
+            return false;
+        }
+        return $query->result();
+    }
+    // get sidedish menu by using campus $cid
+    public function getSideMenusByCampus($cid){
+        $sql = "SELECT campus.cid, campus.cname, sidemenu.* FROM campus JOIN sidemenu ON campus.cid = sidemenu.cid AND sidemenu.cid ='$cid'";
+        $query = $this->db->query($sql);
+        if($query->num_rows() ==0){
+            return false;
+        }
+        return $query->result();
+    }
 }
