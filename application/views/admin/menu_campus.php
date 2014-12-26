@@ -107,6 +107,16 @@
         <!-- content -->
         <div class="col-md-10">
             <div class="row">
+                <?php
+                $attributes = array('id'=>'menuStatus');
+                echo form_open('menucontroller/changeMenuStatus',$attributes);
+                echo form_close();
+                ?>
+                <?php
+                $attributes = array('id'=>'sideMenuStatus');
+                echo form_open('menucontroller/changeSideMenuStatus',$attributes);
+                echo form_close();
+                ?>
                 <div class="col-lg-12">
                     <div class="page-header">
                         <h1>菜单管理----校区<?php echo $menus[0]->cname; ?></h1>
@@ -127,6 +137,7 @@
                                     <th>菜单ID</th>
                                     <th>菜单生成时间</th>
                                     <th>菜单状态</th>
+                                    <th>使用订单</th>
                                 </tr>
                                 </thead>
                                 <tbody>

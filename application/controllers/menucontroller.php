@@ -35,4 +35,14 @@ class MenuController extends MY_Controller{
         $this->load->view('admin/menu_campus',$data);
         $this->load->view('partials/adminFooter');
     }
+
+    // change menu status
+    public function changeMenuStatus(){
+
+    }
+
+    // change side menu status
+    public function changeSideMenuStatus(){
+
+    }
 }
