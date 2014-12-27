@@ -119,7 +119,7 @@
                 ?>
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>菜单管理----校区<?php echo $menus[0]->cname; ?></h1>
+                        <h1>菜单管理----校区<?php echo $_SESSION['menus'][0]->cname; ?></h1>
                     </div>
                 </div>
             </div>
@@ -128,7 +128,12 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">主食-菜单历史</div>
+                            <div class="text-muted bootstrap-admin-box-title">主食-菜单历史
+                                <button form="menuStatus" class="btn btn-sm btn-primary" style="float: right;margin-left: 5px;">
+                                    <i class="glyphicon glyphicon-ok-sign"></i>
+                                    变更主食菜单
+                                </button>
+                            </div>
                         </div>
                         <div class="bootstrap-admin-panel-content">
                             <table class="table table-striped">
@@ -137,25 +142,27 @@
                                     <th>菜单ID</th>
                                     <th>菜单生成时间</th>
                                     <th>菜单状态</th>
-                                    <th>使用订单</th>
+                                    <th>使用菜单</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                if(!isset($menus)){
+                                if(!isset($_SESSION['menus'])){
                                     echo "本该校区暂时还未添加任何主食菜单！";
                                 }else{
-                                    foreach($menus as $menu){
+                                    $num = count($_SESSION['menus']);
+                                    for($i = 0;$i < $num; $i++){
                                         echo '<tr>';
-                                        echo '<td><a href="showEditMenu?menuId='.$menu->mid.'">';
-                                        echo $menu->mid;
+                                        echo '<td><a href="showEditMenu?menuId='.$_SESSION['menus'][$i]->mid.'">';
+                                        echo $_SESSION['menus'][$i]->mid;
                                         echo '</a></td>';
-                                        echo '<td>'.$menu->mdate.'</td>';
-                                        if($menu->mstatus == 1){
+                                        echo '<td>'.$_SESSION['menus'][$i]->mdate.'</td>';
+                                        if($_SESSION['menus'][$i]->mstatus == 1){
                                             echo '<td>'."正在使用".'</td>';
                                         }else{
                                             echo '<td>'."已关闭".'</td>';
                                         }
+                                        echo '<td><input form="menuStatus" type="radio" name="menu" value ="'.$_SESSION['menus'][$i]->mid.'" /></td>';
                                         echo '</tr>';
                                     }
                                 }
@@ -172,7 +179,12 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">小食-菜单历史</div>
+                            <div class="text-muted bootstrap-admin-box-title">小食-菜单历史
+                                <button form="sideMenuStatus" class="btn btn-sm btn-primary" style="float: right;margin-left: 5px;">
+                                    <i class="glyphicon glyphicon-ok-sign"></i>
+                                    变更小食菜单
+                                </button>
+                            </div>
                         </div>
                         <div class="bootstrap-admin-panel-content">
                             <table class="table table-striped">
@@ -181,24 +193,27 @@
                                     <th>菜单ID</th>
                                     <th>菜单生成时间</th>
                                     <th>菜单状态</th>
+                                    <th>使用菜单</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                if(!isset($sidemenus)){
+                                if(!isset($_SESSION['sideMenus'])){
                                     echo "本该校区暂时还未添加任何小食菜单！";
                                 }else{
-                                    foreach($sidemenus as $sidemenu){
+                                    $number = count($_SESSION['sideMenus']);
+                                    for($j = 0; $j< $number; $j++){
                                         echo '<tr>';
-                                        echo '<td><a href="showEditMenu?sidemenuId='.$sidemenu->sideMenuID.'">';
-                                        echo $sidemenu->sideMenuID;
+                                        echo '<td><a href="showEditMenu?sidemenuId='.$_SESSION['sideMenus'][$j]->sideMenuID.'">';
+                                        echo $_SESSION['sideMenus'][$j]->sideMenuID;
                                         echo '</a></td>';
-                                        echo '<td>'.$sidemenu->sideMenuDate.'</td>';
-                                        if($sidemenu->sideMenuStatus == 1){
+                                        echo '<td>'.$_SESSION['sideMenus'][$j]->sideMenuDate.'</td>';
+                                        if($_SESSION['sideMenus'][$j]->sideMenuStatus == 1){
                                             echo '<td>'."正在使用".'</td>';
                                         }else{
                                             echo '<td>'."已关闭".'</td>';
                                         }
+                                        echo '<td><input form="sideMenuStatus" type="radio" name="sideMenu" value ="'.$_SESSION['sideMenus'][$j]->sideMenuID.'" /></td>';
                                         echo '</tr>';
                                     }
                                 }

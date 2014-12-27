@@ -25,11 +25,19 @@ class MenuController extends MY_Controller{
     public function showMenus(){
         // campus list data
         $this->load->model('market');
-        if($this->market->getMenusByCampus($_POST['campus'])){
-            $data['menus'] = $this->market->getMenusByCampus($_POST['campus']);
-            $data['sidemenus'] = $this->market->getSideMenusByCampus($_POST['campus']);
+        if(isset($_POST['campus'])){
+            if($this->market->getMenusByCampus($_POST['campus'])){
+                $menus = $this->market->getMenusByCampus($_POST['campus']);
+                $sideMenus = $this->market->getSideMenusByCampus($_POST['campus']);
+                $_SESSION['menus'] = $menus;
+                $_SESSION['sideMenus'] = $sideMenus;
+            }
         }
 
+
+//        var_dump($_SESSION['menus']);
+//        var_dump($_SESSION['sideMenus']);
+//        die();
         $data['title'] = "Copex | 校区菜单历史";
         $this->load->view('partials/adminHeader',$data);
         $this->load->view('admin/menu_campus',$data);
@@ -38,11 +46,18 @@ class MenuController extends MY_Controller{
 
     // change menu status
     public function changeMenuStatus(){
-
+        if(!isset($_POST['menu'])){
+            return redirect('menucontroller/showMenus');
+        }
+        
+//        var_dump($_POST);
     }
 
     // change side menu status
     public function changeSideMenuStatus(){
-
+        if(!isset($_POST['sideMenu'])){
+            return redirect('menucontroller/showMenus');
+        }
+        var_dump($_POST);
     }
 }
