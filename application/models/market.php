@@ -130,7 +130,7 @@ class Market extends CI_Model {
 
     // get menulist by using campus' id
     public function getMenusByCampus($cid){
-        $sql = "SELECT campus.cid, campus.cname, dailymenu.* FROM campus JOIN dailymenu ON campus.cid = dailymenu.cid AND dailymenu.cid ='$cid'";
+        $sql = "SELECT campus.cid, campus.cname, dailymenu.* FROM campus JOIN dailymenu ON campus.cid = dailymenu.cid AND dailymenu.cid ='$cid' ORDER BY dailymenu.mstatus DESC, dailymenu.mdate DESC";
         $query = $this->db->query($sql);
         if($query->num_rows() ==0){
             return false;
@@ -139,7 +139,7 @@ class Market extends CI_Model {
     }
     // get sidedish menu by using campus $cid
     public function getSideMenusByCampus($cid){
-        $sql = "SELECT campus.cid, campus.cname, sidemenu.* FROM campus JOIN sidemenu ON campus.cid = sidemenu.cid AND sidemenu.cid ='$cid'";
+        $sql = "SELECT campus.cid, campus.cname, sidemenu.* FROM campus JOIN sidemenu ON campus.cid = sidemenu.cid AND sidemenu.cid ='$cid' ORDER BY sidemenu.sideMenuStatus DESC, sidemenu.sideMenuDate DESC ";
         $query = $this->db->query($sql);
         if($query->num_rows() ==0){
             return false;
@@ -149,6 +149,14 @@ class Market extends CI_Model {
     // get all food from database
     public function getAllFood(){
         $sql = "SELECT * FROM food";
+        $query = $this->db->query($sql);
+
+        return $query->result();
+    }
+
+    // get all side dish from database
+    public function getAllSideDish(){
+        $sql = "SELECT * FROM sidedish";
         $query = $this->db->query($sql);
 
         return $query->result();

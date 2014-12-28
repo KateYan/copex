@@ -36,18 +36,19 @@ class MenuController extends MY_Controller{
         // campus list data
         $this->load->model('market');
         if(isset($_POST['campus'])){
-            if($this->market->getMenusByCampus($_POST['campus'])){
-                $menus = $this->market->getMenusByCampus($_POST['campus']);
-                $sideMenus = $this->market->getSideMenusByCampus($_POST['campus']);
-                $_SESSION['menus'] = $menus;
-                $_SESSION['sideMenus'] = $sideMenus;
-            }
+            $campusId = $this->input->post('campus');
+        }elseif(isset($_SESSION['menus'][0]->cid)){
+            $campusId = $_SESSION['menus'][0]->cid;
+        }
+        if($this->market->getMenusByCampus($campusId)){
+            $menus = $this->market->getMenusByCampus($campusId);
+            $sideMenus = $this->market->getSideMenusByCampus($campusId);
+            $_SESSION['menus'] = $menus;
+            $_SESSION['sideMenus'] = $sideMenus;
         }
 
 
-//        var_dump($_SESSION['menus']);
-//        var_dump($_SESSION['sideMenus']);
-//        die();
+
         $data['title'] = "Copex | 校区菜单历史";
         $this->load->view('partials/adminHeader',$data);
         $this->load->view('admin/menu_campus',$data);
@@ -115,8 +116,47 @@ class MenuController extends MY_Controller{
         $this->menuitem->newMenu($date,$_POST['menu-cid'],$_POST['menu-recommend'],$_POST['menu-onsale1'],$_POST['menu-onsale2']);
 
             return redirect('menucontroller/showAddMenu/success');
+    }
 
+    //add new side menu
+    public function showAddSideMenu($errorCode = null){
+        // check if there is error code
+        $eMsg = array(
+            'wrong' => "小食菜单必须有4款小食！",
+            'success' => "成功添加小食菜单！"
+        );
 
+        if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+            $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
+        }
 
+        // get food list from database
+        $this->load->model('market');
+        $data['sideDish'] = $this->market->getAllSideDish();
+
+        $data['title'] = "Copex | 添加小食菜单";
+        $this->load->view('partials/adminHeader',$data);
+        $this->load->view('admin/newSideMenu',$data);
+        $this->load->view('partials/adminFooter');
+    }
+
+    // add new side menu
+    public function addSideMenu(){
+        // count how many side dish admin chose to make a new side menu
+        $num = count($_POST);
+        if($num != 5){
+            return redirect('menucontroller/showAddSideMenu/wrong');
+        }
+        // store all 4 side dish into an array
+        $sideMenuItem = array();
+        for($i = 0;$i<4;$i++){
+            $sideMenuItem[] = $_POST["sideMenu-$i"];
+        }
+        // create new side menu
+        $date = date('Y-m-d');
+        $this->load->model('menuitem');
+        $this->menuitem->newSideMenu($date,$_POST['sideMenu-cid'],$sideMenuItem);
+
+        return redirect('menucontroller/showAddSideMenu/success');
     }
 }

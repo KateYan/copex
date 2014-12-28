@@ -76,4 +76,21 @@ class Menuitem extends CI_Model {
         $this->db->query($sql_menuitem);
 
     }
+
+    // create new side menu
+    public function newSideMenu($date,$cid,$sideMenuList){
+
+        $sql_sideMenu = "INSERT INTO sidemenu(cid,sideMenuDate,sideMenuStatus) VALUES('$cid','$date','0')";
+        $this->db->query($sql_sideMenu);
+
+        $sideMenuId = $this->db->insert_id();
+        $num = count($sideMenuList);
+        $sql_sidemenuitem = "INSERT INTO sidemenuitem(sid, sideMenuID) VALUES";
+
+        for($i = 0;$i<$num; $i++){
+            $sql_sidemenuitem .= "('$sideMenuList[$i]','$sideMenuId')";
+            $sql_sidemenuitem .= ($i == ($num-1))? ';' : ',';
+        }
+        $this->db->query($sql_sidemenuitem);
+    }
 }
