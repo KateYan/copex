@@ -63,6 +63,10 @@ class MenuController extends MY_Controller{
 
     //add new menu
     public function showAddMenu(){
+        // get food list from database
+        $this->load->model('market');
+        $data['food'] = $this->market->getAllFood();
+
         $data['title'] = "Copex | 添加主食菜单";
         $this->load->view('partials/adminHeader',$data);
         $this->load->view('admin/newMenu',$data);

@@ -146,4 +146,11 @@ class Market extends CI_Model {
         }
         return $query->result();
     }
+    // get all food from database
+    public function getAllFood(){
+        $sql = "SELECT * FROM food";
+        $query = $this->db->query($sql);
+
+        return $query->result();
+    }
 }

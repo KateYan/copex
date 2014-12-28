@@ -99,8 +99,6 @@
                                         }elseif(isset($eMsg['deletesuccess'])){
                                             echo '<span style="color: #be2221;"><b>'.$eMsg['deletesuccess'].'</b></span>';
                                         }
-                                        //                            $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-top:0px;');
-                                        //                            echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-backward"> 回餐厅列表</i>',$attributes);
                                         ?>
                                     </legend>
                                     <?php
@@ -108,60 +106,124 @@
                                     echo form_open('menucontroller/addMenu',$attributes);
                                     echo form_close();
                                     ?>
-                                    <?php
-                                    $attributes = array('id'=>'deleteCampus');
-                                    echo form_open('dinercontroller/deleteSupportCampus',$attributes);
-                                    echo form_close();
-                                    ?>
                                     <div class="form-group<?php if(isset($eMsg['wrong'])){echo " has-error";}?>">
                                         <label class="col-lg-2 control-label">校区</label>
                                         <div class="col-lg-10">
-                                            <input form="addMenu" class="form-control" type="text" name="dname" />
-                                            <span class="help-block">设置该校区主食菜单</span>
+                                            <input form="addMenu" class="form-control" type="hidden" name="menu-cid" value="<?php echo $_SESSION['menus'][0]->cid?>" />
+                                            <input disabled class="form-control" type="text" value="<?php echo $_SESSION['menus'][0]->cname?>" />
+                                            <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="disabledInput">添加推荐菜品</label>
                                         <div class="col-lg-10">
-                                            <input form="addMenu" class="form-control" type="text" name="contact" />
-                                            <span class="help-block"></span>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <div class="text-muted bootstrap-admin-box-title">主食列表
+                                                    </div>
+                                                </div>
+                                                <div class="bootstrap-admin-panel-content">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>主食ID</th>
+                                                            <th>主食名</th>
+                                                            <th>单价</th>
+                                                            <th>选中</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <?php
+                                                        $num = count($food);
+                                                        for($i = 0;$i<$num; $i++){
+                                                            echo '<tr>';
+                                                            echo '<th>'.$food[$i]->fid.'</th>';
+                                                            echo '<th>'.$food[$i]->fname.'</th>';
+                                                            echo '<th>'."$".$food[$i]->fprice.'</th>';
+                                                            echo '<th>'.'<input form="addMenu" type="radio" name="menu-recommend" value="'.$food[$i]->fid.'"/></th>';
+                                                            echo '</tr>';
+                                                        }
+                                                        ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group<?php if(isset($eMsg['wrong'])){echo " has-error";}?>">
-                                        <label class="col-lg-2 control-label" for="optionsCheckbox2">添加第一个特价菜品</label>
+                                        <label class="col-lg-2 control-label" for="disabledInput">添加第一个特价菜</label>
                                         <div class="col-lg-10">
-                                            <input form="addMenu" class="form-control" type="text" name="dphone" />
-                                            <span class="help-block"></span>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <div class="text-muted bootstrap-admin-box-title">主食列表
+                                                    </div>
+                                                </div>
+                                                <div class="bootstrap-admin-panel-content">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>主食ID</th>
+                                                            <th>主食名</th>
+                                                            <th>单价</th>
+                                                            <th>选中</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <?php
+                                                        $num = count($food);
+                                                        for($i = 0;$i<$num; $i++){
+                                                            echo '<tr>';
+                                                            echo '<th>'.$food[$i]->fid.'</th>';
+                                                            echo '<th>'.$food[$i]->fname.'</th>';
+                                                            echo '<th>'."$".$food[$i]->fprice.'</th>';
+                                                            echo '<th>'.'<input form="addMenu" type="radio" name="menu-onsale1" value="'.$food[$i]->fid.'"/></th>';
+                                                            echo '</tr>';
+                                                        }
+                                                        ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group<?php if(isset($eMsg['wrong'])){echo " has-error";}?>">
                                         <label class="col-lg-2 control-label" for="optionsCheckbox2">添加第二个特价菜品</label>
                                         <div class="col-lg-10">
-                                            <input form="addMenu" class="form-control" type="text" name="demail" />
-                                            <span class="help-block"></span>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <div class="text-muted bootstrap-admin-box-title">主食列表
+                                                    </div>
+                                                </div>
+                                                <div class="bootstrap-admin-panel-content">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>主食ID</th>
+                                                            <th>主食名</th>
+                                                            <th>单价</th>
+                                                            <th>选中</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <?php
+                                                        $num = count($food);
+                                                        for($i = 0;$i<$num; $i++){
+                                                            echo '<tr>';
+                                                            echo '<th>'.$food[$i]->fid.'</th>';
+                                                            echo '<th>'.$food[$i]->fname.'</th>';
+                                                            echo '<th>'."$".$food[$i]->fprice.'</th>';
+                                                            echo '<th>'.'<input form="addMenu" type="radio" name="menu-onsale2" value="'.$food[$i]->fid.'"/></th>';
+                                                            echo '</tr>';
+                                                        }
+                                                        ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-
-<!--                                    <div class="form-group">-->
-<!--                                        <label class="col-lg-2 control-label" for="optionsCheckbox2">添加供给餐厅</label>-->
-<!--                                        <div class="col-lg-10">-->
-<!--                                            <span>-->
-<!--                                            --><?php
-//                                            $num_campus = count($campus);
-//                                            for($j = 0; $j<$num_campus; $j++){
-//                                                echo '<label style="padding-right: 15px;">';
-//                                                echo '<input form="addDiner" type="checkbox"';
-//                                                echo 'name="add_campus'.$j.'" value="'.$campus[$j]->cid.'"/>';
-//                                                echo "  ".$campus[$j]->cname;
-//                                                echo '</label>';
-//                                            }
-//                                            echo "  供给餐厅还可以稍后在餐厅编辑中添加";
-//                                            ?>
-<!--                                            </span>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
                                     <button form="addMenu" type="submit" class="btn btn-primary">
-                                        <i class="glyphicon glyphicon-inbox"> 保存修改</i>
+                                        <i class="glyphicon glyphicon-inbox"> 确认添加</i>
                                     </button>
                                     <?php
                                     $attributes = array('class'=>'btn btn-success','type'=>'reset');
