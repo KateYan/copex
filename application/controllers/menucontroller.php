@@ -49,7 +49,7 @@ class MenuController extends MY_Controller{
         if(!isset($_POST['menu'])){
             return redirect('menucontroller/showMenus');
         }
-        
+
 //        var_dump($_POST);
     }
 
@@ -59,5 +59,13 @@ class MenuController extends MY_Controller{
             return redirect('menucontroller/showMenus');
         }
         var_dump($_POST);
+    }
+
+    //add new menu
+    public function showAddMenu(){
+        $data['title'] = "Copex | 添加主食菜单";
+        $this->load->view('partials/adminHeader',$data);
+        $this->load->view('admin/newMenu',$data);
+        $this->load->view('partials/adminFooter');
     }
 }

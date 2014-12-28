@@ -68,13 +68,13 @@
             echo anchor('admincontroller/showAdminPanel','<i class="glyphicon glyphicon-chevron-right"></i> 关于Copex',$attributes);
             ?>
         </li>
-        <li class="active">
+        <li>
             <?php
             $attributes = array('id'=>'manageOrder');
             echo anchor('admincontroller/showOrderManage','<i class="glyphicon glyphicon-chevron-right"></i> 1. 订单管理',$attributes);
             ?>
         </li>
-        <li>
+        <li class="active">
             <?php
             $attributes = array('id'=>'manageDiner');
             echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-chevron-right"></i> 2. 餐厅管理',$attributes);
