@@ -161,4 +161,25 @@ class Market extends CI_Model {
 
         return $query->result();
     }
+
+    // change menu and update status
+    public function changeMenu($campusId,$menuId){
+        // disable old menu first
+        $sql1 = "UPDATE dailymenu SET mstatus = '0' WHERE cid = '$campusId' AND mstatus = '1'";
+        $this->db->query($sql1);
+        // active new menu
+        $sql2 = "UPDATE dailymenu SET mstatus = '1' WHERE mid = '$menuId'";
+        $this->db->query($sql2);
+    }
+
+    // change side menu and update status
+    public function changeSideMenu($campusId,$sideMenuId){
+        // disable old side menu first
+        $sql1 = "UPDATE sidemenu SET sideMenuStatus = '0' WHERE cid = '$campusId' AND sideMenuStatus = '1'";
+        $this->db->query($sql1);
+        // active new side menu
+        $sql2 = "UPDATE sidemenu SET sideMenuStatus = '1' WHERE sideMenuID = '$sideMenuId'";
+        $this->db->query($sql2);
+    }
+
 }

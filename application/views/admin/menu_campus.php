@@ -130,10 +130,15 @@
                         <div class="panel-heading">
                             <div class="text-muted bootstrap-admin-box-title">主食-菜单历史
                                 <?php
+                                if(isset($Msg['menuchanged'])){
+                                    echo '<span style="color: #be2221;"><b>'.$Msg['menuchanged'].'</b></span>';
+                                }
+
                                 $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;');
                                 echo anchor('menucontroller/showAddMenu','<i class="glyphicon glyphicon-plus"></i>
                                          添加主食菜单',$attributes);
                                 ?>
+                                <input type="hidden" form="menuStatus" name="menu-campus" value="<?php echo $_SESSION['menus'][0]->cid; ?>"/>
                                 <button form="menuStatus" class="btn btn-sm btn-primary" style="float: right;margin-right: 5px;">
                                     <i class="glyphicon glyphicon-ok-sign"></i>
                                     变更主食菜单
@@ -186,10 +191,15 @@
                         <div class="panel-heading">
                             <div class="text-muted bootstrap-admin-box-title">小食-菜单历史
                                 <?php
+                                if(isset($Msg['sidemenuchanged'])){
+                                    echo '<span style="color: #be2221;"><b>'.$Msg['sidemenuchanged'].'</b></span>';
+                                }
+
                                 $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;');
                                 echo anchor('menucontroller/showAddSideMenu','<i class="glyphicon glyphicon-plus"></i>
                                          添加小食菜单',$attributes);
                                 ?>
+                                <input type="hidden" form="sideMenuStatus" name="sidemenu-campus" value="<?php echo $_SESSION['menus'][0]->cid; ?>"/>
                                 <button form="sideMenuStatus" class="btn btn-sm btn-primary" style="float: right;margin-right: 5px;">
                                     <i class="glyphicon glyphicon-ok-sign"></i>
                                     变更小食菜单

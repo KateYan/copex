@@ -32,7 +32,16 @@ class MenuController extends MY_Controller{
     }
 
     // show specific campus' menu list
-    public function showMenus(){
+    public function showMenus($message = null){
+        // check if there is error code
+        $Msg = array(
+            'menuchanged' => "主食菜单已更换成功！",
+            'sidemenuchanged'=>"小食菜单已更换成功！"
+        );
+
+        if(!empty($message) && isset($Msg["$message"])){
+            $data["Msg"] = array("$message"=>$Msg["$message"]);
+        }
         // campus list data
         $this->load->model('market');
         if(isset($_POST['campus'])){
@@ -60,8 +69,11 @@ class MenuController extends MY_Controller{
         if(!isset($_POST['menu'])){
             return redirect('menucontroller/showMenus');
         }
-
-//        var_dump($_POST);
+        // change menu status by using posted menu's id
+        $this->load->model('market');{
+            $this->market->changeMenu($_POST['menu-campus'],$_POST['menu']);
+        }
+        return redirect('menucontroller/showMenus/menuchanged');
     }
 
     // change side menu status
@@ -69,7 +81,11 @@ class MenuController extends MY_Controller{
         if(!isset($_POST['sideMenu'])){
             return redirect('menucontroller/showMenus');
         }
-        var_dump($_POST);
+        // change menu status by using posted menu's id
+        $this->load->model('market');{
+            $this->market->changeSideMenu($_POST['sidemenu-campus'],$_POST['sideMenu']);
+        }
+        return redirect('menucontroller/showMenus/sidemenuchanged');
     }
 
     //add new menu
