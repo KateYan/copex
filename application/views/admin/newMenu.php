@@ -83,7 +83,7 @@
                             <div class="text-muted bootstrap-admin-box-title">添加菜单
                                 <?php
                                 $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-top:0px;');
-                                echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-backward"> 回菜单列表</i>',$attributes);
+                                echo anchor('menucontroller/showMenus','<i class="glyphicon glyphicon-backward"> 回菜单列表</i>',$attributes);
                                 ?>
                             </div>
                         </div>
@@ -92,12 +92,14 @@
                                 <fieldset>
                                     <legend>添加新菜单
                                         <?php
-                                        if(isset($eMsg['wrong'])){
-                                            echo '<span style="color: #be2221;"><b>'.$eMsg['wrong'].'</b></span>';
-                                        } elseif(isset($eMsg['success'])){
+                                        if(isset($eMsg['noitem'])){
+                                            echo '<span style="color: #be2221;"><b>'.$eMsg['noitem'].'</b></span>';
+                                        }elseif(isset($eMsg['samerecomd'])){
+                                            echo '<span style="color: #be2221;"><b>'.$eMsg['samerecomd'].'</b></span>';
+                                        }elseif(isset($eMsg['sameonsale'])){
+                                        echo '<span style="color: #be2221;"><b>'.$eMsg['sameonsale'].'</b></span>';
+                                        }elseif(isset($eMsg['success'])){
                                             echo '<span style="color: #be2221;"><b>'.$eMsg['success'].'</b></span>';
-                                        }elseif(isset($eMsg['deletesuccess'])){
-                                            echo '<span style="color: #be2221;"><b>'.$eMsg['deletesuccess'].'</b></span>';
                                         }
                                         ?>
                                     </legend>
@@ -115,12 +117,11 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-lg-2 control-label" for="disabledInput">添加推荐菜品</label>
+                                        <label class="col-lg-2 control-label" >添加推荐菜品</label>
                                         <div class="col-lg-10">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
-                                                    <div class="text-muted bootstrap-admin-box-title">主食列表
-                                                    </div>
+                                                    <div class="text-muted bootstrap-admin-box-title">主食列表</div>
                                                 </div>
                                                 <div class="bootstrap-admin-panel-content">
                                                     <table class="table table-striped">
@@ -155,8 +156,7 @@
                                         <div class="col-lg-10">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
-                                                    <div class="text-muted bootstrap-admin-box-title">主食列表
-                                                    </div>
+                                                    <div class="text-muted bootstrap-admin-box-title">主食列表</div>
                                                 </div>
                                                 <div class="bootstrap-admin-panel-content">
                                                     <table class="table table-striped">
@@ -191,8 +191,7 @@
                                         <div class="col-lg-10">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
-                                                    <div class="text-muted bootstrap-admin-box-title">主食列表
-                                                    </div>
+                                                    <div class="text-muted bootstrap-admin-box-title">主食列表</div>
                                                 </div>
                                                 <div class="bootstrap-admin-panel-content">
                                                     <table class="table table-striped">

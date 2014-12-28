@@ -62,4 +62,18 @@ class Menuitem extends CI_Model {
             $_SESSION["sidedish$i"] = array('id'=>$sideDish[$j]->sid, 'name'=>$sideDish[$j]->sname,'price'=>$sideDish[$j]->sprice);
         }
     }
+
+    // create new menu
+    public function newMenu($date,$cid,$recommend,$onsale1,$onsale2){
+        $sql_menu = "INSERT INTO dailymenu(cid,mdate,mstatus) VALUES('$cid','$date','0')";
+        $this->db->query($sql_menu);
+
+        $menuId = $this->db->insert_id();
+
+        // insert menuitems
+        $sql_menuitem = "INSERT INTO menuitem(fid, mid, isrecomd) VALUES('$recommend','$menuId','1'),('$onsale1','$menuId','0'),('$onsale2','$menuId','0')";
+
+        $this->db->query($sql_menuitem);
+
+    }
 }
