@@ -164,7 +164,7 @@
                             <div class="col-lg-10">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <div class="text-muted bootstrap-admin-box-title">供给餐厅如下
+                                        <div class="text-muted bootstrap-admin-box-title">供给校区如下
                                             <button style="float: right;" form="deleteCampus" class="btn btn-sm btn-danger">
                                                 <i class="glyphicon glyphicon-remove"></i>
                                                 删除供给校区
@@ -208,7 +208,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-2 control-label" for="optionsCheckbox2">添加供给餐厅</label>
+                            <label class="col-lg-2 control-label" for="optionsCheckbox2">添加给餐校区</label>
                             <div class="col-lg-10">
                                 <span>
                                 <?php

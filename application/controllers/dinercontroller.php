@@ -211,5 +211,4 @@ class Dinercontroller extends MY_Controller{
 
         return redirect('dinercontroller/showDinerManage/deletesuccess');
     }
-
 }

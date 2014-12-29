@@ -25,6 +25,28 @@ class Market extends CI_Model {
         return $query->row(0);
     }
 
+    // find campus' all information including coperationline
+    public function findCampus($cid){
+        $sql1 = "SELECT * FROM campus WHERE cid = '$cid'";
+        $query1 = $this->db->query($sql1);
+        $result1 = $query1->result_array();
+
+        $c_diner = array(
+            'did'=>array(),
+            'dname'=>array()
+        );
+
+        $sql2 = "SELECT coperationline.*,diner.dname FROM (coperationline JOIN diner ON coperationline.did = diner.did)JOIN campus ON coperationline.cid = campus.cid WHERE campus.cid = '$cid'";
+        $query2 = $this->db->query($sql2);
+        foreach($query2->result() as $line){
+            $c_diner['did'][] = $line->did;
+            $c_diner['dname'][] = $line->dname;
+        }
+        $campus = array_merge($result1[0],$c_diner);
+
+        $_SESSION['campus'] = $campus;
+    }
+
 
     // get sidedish's information by using it's sid
     public function getSidedishById($sid){
@@ -206,6 +228,14 @@ class Market extends CI_Model {
         $this->db->query($sql1);
         $this->db->query($sql2);
         $this->db->query($sql3);
+    }
+
+    // get all diner's information
+
+    public function getDinerList(){
+        $sql = "SELECT * FROM diner";
+        $query = $this->db->query($sql);
+        return $query->result();
     }
 
 }

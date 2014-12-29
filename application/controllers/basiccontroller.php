@@ -113,4 +113,24 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
             }
             return false;
         }
+
+        // show editing campus page
+        public function showEditCampus(){
+            // if the page will be loaded directly by choosing one diner id from dinerPanel
+            if(isset($_GET['campusId'])){
+                $this->load->model('market');
+                $this->market->findCampus($_GET['campusId']);
+            }
+
+//            var_dump($_SESSION['campus']);
+//            die();
+
+            $data['title'] = "Copex | 校区详情";
+            // find campus for diner to add
+            $this->load->model('market');
+            $data['diners'] = $this->market->getDinerList();
+            $this->load->view('partials/adminHeader',$data);
+            $this->load->view('admin/campusDetail',$data);
+            $this->load->view('partials/adminFooter');
+        }
     }

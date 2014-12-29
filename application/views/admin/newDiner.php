@@ -149,7 +149,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-lg-2 control-label" for="optionsCheckbox2">添加供给餐厅</label>
+                                        <label class="col-lg-2 control-label" for="optionsCheckbox2">添加给餐校区</label>
                                         <div class="col-lg-10">
                                             <span>
                                             <?php

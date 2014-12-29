@@ -10,7 +10,6 @@ class Diner extends CI_Model
 {
     // find diner with diner id
     public function findDiner($did){
-        $this->did = $did;
         $sql1 = "SELECT * FROM diner WHERE did = '$did'";
         $query1 = $this->db->query($sql1);
         $result1 = $query1->result_array();
