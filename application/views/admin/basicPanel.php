@@ -118,13 +118,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">时间规则管理--(点击用户类型对特定用户群进行再编辑)
-                                <?php
-                                if(isset($eMsg['deletesuccess'])){
-                                    echo '<span style="color: #be2221;"><b>'.$eMsg['deletesuccess'].'</b></span>';
-                                }
-                                ?>
-                            </div>
+                            <div class="text-muted bootstrap-admin-box-title">时间规则管理--(点击用户类型对特定用户群进行再编辑)</div>
                         </div>
                         <div class="bootstrap-admin-panel-content">
                             <table class="table table-striped">
@@ -174,7 +168,13 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">校区管理</div>
+                            <div class="text-muted bootstrap-admin-box-title">校区管理
+                            <?php
+                            $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;');
+                            echo anchor('basiccontroller/showAddCampus','<i class="glyphicon glyphicon-plus"></i>
+                                         添加校区',$attributes);
+                            ?>
+                            </div>
                         </div>
                         <div class="bootstrap-admin-panel-content">
                             <table class="table table-striped">
