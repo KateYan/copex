@@ -98,54 +98,42 @@
                                         }else{
                                             echo "VIP用户";
                                         }
-                                        echo '<input type="hidden" name="usertype" value="'.$_SESSION['time']['userType'].'" />'
+                                        echo '<input type="hidden" name="userType" value="'.$_SESSION['time']['userType'].'" />'
                                         ?>
                                     </legend>
                                     <?php
                                     $attributes = array('id'=>'editTime');
                                     echo form_open('vipcontroller/editTime',$attributes);
                                     echo form_close();
-                                    echo '<input form="editVip" type="hidden" name="userId" value="'.$_SESSION['vipUser']->uid.'">';
                                     ?>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="focusedInput">下单起始时间</label>
                                         <div class="col-lg-10">
-                                            <?php
-                                            foreach($campus as $campus_choose){
-                                                echo '<label style="padding-right: 15px;">';
-                                                echo '<input form="editVip"';
-                                                if($campus_choose->cid==$_SESSION['vipUser']->cid){
-                                                    echo "checked";
-                                                }
-                                                echo ' type="radio" name="campusId" value="'.$campus_choose->cid.'"/>';
-                                                echo "  ".$campus_choose->cname;
-                                                echo '</label>';
-                                            }
-                                            ?>
+                                            <input form="editVip" class="form-control" type="text" name="order-start" value="<?php echo $_SESSION['time']['timerange']['value'][0]; ?>"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">下单结束时间</label>
                                         <div class="col-lg-10">
-                                            <input form="editVip" class="form-control" type="text" name="vipPhone" value="<?php echo $_SESSION['vipUser']->uphone; ?>"/>
+                                            <input form="editVip" class="form-control" type="text" name="order-end" value="<?php echo $_SESSION['time']['timerange']['value'][1]; ?>"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">取餐起始时间</label>
                                         <div class="col-lg-10">
-                                            <input form="editVip" class="form-control" type="text" name="vipNumber" value="<?php echo $_SESSION['vipUser']->vnumber; ?>"/>
+                                            <input form="editVip" class="form-control" type="text" name="pickup-start" value="<?php echo $_SESSION['time']['timerange']['value'][2]; ?>"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">取餐结束时间</label>
                                         <div class="col-lg-10">
-                                            <input form="editVip" class="form-control" type="password" name="newPassword" />
+                                            <input form="editVip" class="form-control" type="text" name="pickup-end" value="<?php echo $_SESSION['time']['timerange']['value'][3]; ?>"/>
                                         </div>
                                     </div>
                                     <button form="editVip" type="submit" class="btn btn-primary">
                                         <i class="glyphicon glyphicon-inbox"> 保存修改</i>
                                     </button>
-                                    <a type="reset" href="../showEditVip/<?php echo $_SESSION['vipUser']->uid;?>" class="btn btn-default">
+                                    <a type="reset" href="../showEditVip/" class="btn btn-default">
                                         <i class="glyphicon glyphicon-refresh"> 取消修改</i>
                                     </a>
                                     <?php

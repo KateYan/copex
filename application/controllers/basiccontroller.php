@@ -47,6 +47,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
                 }else{
                     $userType = "vip";
                 }
+                $data['userType'] = $_GET['userType'];
             }
 
             $this->load->model('market');
@@ -54,6 +55,8 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
             // store session
             $_SESSION['time'] = array('userType'=>$userType,'timerange'=>$timeRange);
+//            var_dump($_SESSION['time']['timerange']);
+//            die();
 
             $data['title'] = "Copex | 时间限制管理";
             $this->load->view('partials/adminHeader',$data);
