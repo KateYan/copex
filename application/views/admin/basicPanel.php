@@ -131,27 +131,35 @@
                                 <thead>
                                 <tr>
                                     <th>适用范围</th>
-                                    <th>下单起始时间</th>
-                                    <th>下单结束时间</th>
                                     <th>取餐起始时间</th>
                                     <th>取餐结束时间</th>
+                                    <th>下单起始时间</th>
+                                    <th>下单结束时间</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                if(!isset($_SESSION['rule'])){
+                                if(!isset($rule)){
                                     echo "暂时没有任何时间规则！";
                                 }
-                                $num = count($_SESSION['rule']);
+                                $num = count($rule['userType']);
+                                $userType = $rule['userType'];
                                 for($i = 0; $i<$num; $i++){
                                     echo '<tr>';
-                                    echo '<td><a href="showEditTime?userType='.$rule[$i]['type'].'">';
-                                    echo $rule[$i]['type'];
-                                    echo '</a></td>';
-                                    echo '<td>'.$_SESSION['rule'][$i]['timeRange']['value'][0].'</td>';
-                                    echo '<td>'.$_SESSION['rule'][$i]['timeRange']['value'][1].'</td>';
-                                    echo '<td>'.$_SESSION['rule'][$i]['timeRange']['value'][2].'</td>';
-                                    echo '<td>'.$_SESSION['rule'][$i]['timeRange']['value'][3].'</td>';
+                                    if($rule['userType'][$i]=="user"){
+                                        echo '<td>';
+                                        echo anchor("basiccontroller/showEditTime?userType=$userType[$i]","普通用户");
+                                        echo '</td>';
+                                    }elseif($rule['userType'][$i]=="vip"){
+                                        echo '<td>';
+                                        echo anchor("basiccontroller/showEditTime?userType=$userType[$i]","VIP用户");
+                                        echo '</td>';
+                                    }
+                                    echo '<td>'.$rule['timeRange'][$i]['value'][0].'</td>';
+                                    echo '<td>'.$rule['timeRange'][$i]['value'][1].'</td>';
+                                    echo '<td>'.$rule['timeRange'][$i]['value'][2].'</td>';
+                                    echo '<td>'.$rule['timeRange'][$i]['value'][3].'</td>';
                                     echo '</tr>';
                                 }
                                 ?>

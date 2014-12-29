@@ -86,51 +86,86 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default bootstrap-admin-no-table-panel">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">管理时间</div>
+                            <div class="text-muted bootstrap-admin-box-title">时间规则管理</div>
                         </div>
                         <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
                             <div class="form-horizontal">
+                                <?php
+                                $attributes = array('id'=>'editTime');
+                                echo form_open('basiccontroller/editTime',$attributes);
+                                echo form_close();
+                                ?>
                                 <fieldset>
                                     <legend>用户类型:
                                         <?php
-                                        if($_SESSION['time']['userType'] =="user"){
+                                        if($_SESSION['rule']['userType'] =="user"){
                                             echo "普通用户";
                                         }else{
                                             echo "VIP用户";
                                         }
-                                        echo '<input type="hidden" name="userType" value="'.$_SESSION['time']['userType'].'" />'
+                                        echo '<input form="editTime" type="hidden" name="userType" value="'.$_SESSION['rule']['userType'].'" />'
                                         ?>
                                     </legend>
-                                    <?php
-                                    $attributes = array('id'=>'editTime');
-                                    echo form_open('vipcontroller/editTime',$attributes);
-                                    echo form_close();
-                                    ?>
                                     <div class="form-group">
-                                        <label class="col-lg-2 control-label" for="focusedInput">下单起始时间</label>
+                                        <label class="col-lg-2 control-label" for="focusedInput">取餐起始时间</label>
                                         <div class="col-lg-10">
-                                            <input form="editVip" class="form-control" type="text" name="order-start" value="<?php echo $_SESSION['time']['timerange']['value'][0]; ?>"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label">下单结束时间</label>
-                                        <div class="col-lg-10">
-                                            <input form="editVip" class="form-control" type="text" name="order-end" value="<?php echo $_SESSION['time']['timerange']['value'][1]; ?>"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label">取餐起始时间</label>
-                                        <div class="col-lg-10">
-                                            <input form="editVip" class="form-control" type="text" name="pickup-start" value="<?php echo $_SESSION['time']['timerange']['value'][2]; ?>"/>
+                                            <input form="editTime" class="form-control" type="text" name="pickup-start" value="<?php echo $_SESSION['rule']['timeRange']['value'][0]; ?>"/>
+                                            <span class="help-block">
+                                                <?php
+                                                if(isset($eMsg['pstartwrg'])){
+                                                    echo $eMsg['pstartwrg'];
+                                                }else{
+                                                    echo "请输入'XX:XX:XX'格式的24小时制时间";
+                                                }
+                                                ?>
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">取餐结束时间</label>
                                         <div class="col-lg-10">
-                                            <input form="editVip" class="form-control" type="text" name="pickup-end" value="<?php echo $_SESSION['time']['timerange']['value'][3]; ?>"/>
+                                            <input form="editTime" class="form-control" type="text" name="pickup-end" value="<?php echo $_SESSION['rule']['timeRange']['value'][1]; ?>"/>
+                                            <span class="help-block">
+                                                <?php
+                                                if(isset($eMsg['pendwrg'])){
+                                                    echo $eMsg['pendwrg'];
+                                                }else{
+                                                    echo "请输入'XX:XX:XX'格式的24小时制时间";
+                                                }
+                                                ?>
+                                            </span>
                                         </div>
                                     </div>
-                                    <button form="editVip" type="submit" class="btn btn-primary">
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">下单起始时间</label>
+                                        <div class="col-lg-10">
+                                            <input readonly form="editTime" class="form-control" type="text" name="order-start" value="<?php echo $_SESSION['rule']['timeRange']['value'][2]; ?>"/>
+                                            <span class="help-block">
+                                                <?php
+                                                if(isset($eMsg['ostartwrg'])){
+                                                    echo $eMsg['ostartwrg'];
+                                                }else{
+                                                    echo "请输入'XX:XX:XX'格式的24小时制时间";
+                                                }
+                                                ?>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">下单结束时间</label>
+                                        <div class="col-lg-10">
+                                            <input form="editTime" class="form-control" type="text" name="order-end" value="<?php echo $_SESSION['rule']['timeRange']['value'][3]; ?>"/>
+                                            <span class="help-block"><?php
+                                                if(isset($eMsg['oendwrg'])){
+                                                    echo $eMsg['oendwrg'];
+                                                }else{
+                                                    echo "请输入'XX:XX:XX'格式的24小时制时间";
+                                                }
+                                                ?>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <button form="editTime" type="submit" class="btn btn-primary">
                                         <i class="glyphicon glyphicon-inbox"> 保存修改</i>
                                     </button>
                                     <a type="reset" href="../showEditVip/" class="btn btn-default">
@@ -138,7 +173,7 @@
                                     </a>
                                     <?php
                                     $attributes = array('class'=>'btn btn-success','type'=>'reset');
-                                    echo anchor('vipcontroller/showVipPanel','<i class="glyphicon glyphicon-backward"> 回VIP列表</i>',$attributes);
+                                    echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-backward"> 回基本管理</i>',$attributes);
                                     ?>
                                 </fieldset>
                             </div>

@@ -103,25 +103,15 @@ class Market extends CI_Model {
         $name = array();
         $value = array();
 
-        $sql1 = "SELECT * FROM basic WHERE `key`='".$userType."_order_start'";
-        $query1 = $this->db->query($sql1);
-        $name[] = $query1->row(0)->key;
-        $value[] = $query1->row(0)->value;
+        $sql= "SELECT * FROM basic WHERE `key` IN ('".$userType."_order_start','".$userType."_order_end','".$userType."_pickup_start','".$userType."_pickup_end') ORDER BY `key` DESC";
 
-        $sql2 = "SELECT * FROM basic WHERE `key`='".$userType."_order_end'";
-        $query2 = $this->db->query($sql2);
-        $name[] = $query2->row(0)->key;
-        $value[] = $query2->row(0)->value;
-
-        $sql3 = "SELECT * FROM basic WHERE `key`='".$userType."_pickup_start'";
-        $query3 = $this->db->query($sql3);
-        $name[] = $query3->row(0)->key;
-        $value[] = $query3->row(0)->value;
-
-        $sql4 = "SELECT * FROM basic WHERE `key`='".$userType."_pickup_end'";
-        $query4 = $this->db->query($sql4);
-        $name[] = $query4->row(0)->key;
-        $value[] = $query4->row(0)->value;
+        $query = $this->db->query($sql);
+        $num = count($query->result());
+        $result = $query->result();
+        for($i=0;$i<$num;$i++){
+            $name[] = $result[$i]->key;
+            $value[] = $result[$i]->value;
+        }
 
         $timeRange = array('name'=>$name,'value'=>$value);
 
@@ -203,7 +193,19 @@ class Market extends CI_Model {
             return false;
         }
         return $query->row(0);
+    }
 
+    // update  pickup and order time range
+    public function updateTimeSetting($userType,$timeList){
+        $sql0 = "UPDATE basic SET `value`='$timeList[0]' WHERE `key`='".$userType."_pickup_start'";
+        $sql1 = "UPDATE basic SET `value`='$timeList[1]' WHERE `key`='".$userType."_pickup_end'";
+        $sql2 = "UPDATE basic SET `value`='$timeList[2]' WHERE `key`='".$userType."_order_start'";
+        $sql3 = "UPDATE basic SET `value`='$timeList[3]' WHERE `key`='".$userType."_order_end'";
+
+        $this->db->query($sql0);
+        $this->db->query($sql1);
+        $this->db->query($sql2);
+        $this->db->query($sql3);
     }
 
 }
