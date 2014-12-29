@@ -133,4 +133,43 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
             $this->load->view('admin/campusDetail',$data);
             $this->load->view('partials/adminFooter');
         }
+
+        // Edit campus
+        public function editCampus(){
+            var_dump($_POST);
+            die();
+
+            // update campus information into db
+            $columnName = array("cname","caddr");
+            $value['cname'] = $this->input->post('cname');
+            $value['caddr'] = $this->input->post('caddr');
+
+            $this->load->model('market');
+            $this->market->updateCampus($_POST['cid'],$columnName,$value);
+
+            // using posted added diner id to create new coperation line for campus
+            // get number of all campus
+            $this->load->model('market');
+            $diners = $this->market->getDinerList();
+            $num_diner = count($diners);
+            $addDiner = array();
+            for($i=0;$i<$num_diner;$i++){
+                if(isset($_POST["add_diner$i"])){
+                    $addDiner[] = $this->input->post("add_diner$i");
+                }
+            }
+
+            if(!empty($addDiner)){
+                // create coperation line;
+                $this->load->model('diner');
+                $this->diner->createLine($_POST['did'],$addCampus);
+            }
+            // update diner session
+            $dinerId = $_SESSION['diner']['did'];
+            unset($_SESSION['diner']);
+            $this->load->model('diner');
+            $this->diner->findDiner($dinerId);
+
+            return redirect('dinercontroller/showDinerDetail/success');
+        }
     }
