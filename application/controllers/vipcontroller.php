@@ -118,7 +118,7 @@ class Vipcontroller extends MY_Controller{
         $data['title'] = "Copex | 添加会员";
 
         $this->load->view('partials/adminHeader',$data);
-        $this->load->view('amdin/newVip');
+        $this->load->view('admin/newVip');
         $this->load->view('partials/adminFooter');
     }
 
