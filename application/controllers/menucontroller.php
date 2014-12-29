@@ -175,4 +175,36 @@ class MenuController extends MY_Controller{
 
         return redirect('menucontroller/showAddSideMenu/success');
     }
+
+    // show Menu's detail
+    public function showMenuDetail($menuId){
+        // get menu's basic information
+        $this->load->model('market');
+        $data['menu'] = $this->market->getMenuById($menuId);
+        // get menu's items' information
+        $this->load->model('menuitem');
+        $data['menuItems'] = $this->menuitem->getMenuItems($menuId);
+
+        $data['title'] = "Copex | 菜单详情";
+        $this->load->view('partials/adminHeader',$data);
+        $this->load->view('admin/menuDetail',$data);
+        $this->load->view('partials/adminFooter');
+
+    }
+
+    // show Menu's detail
+    public function showSideMenuDetail($sideMenuId){
+        // get menu's basic information
+        $this->load->model('market');
+        $data['sideMenu'] = $this->market->getSideMenuById($sideMenuId);
+        // get menu's items' information
+        $this->load->model('menuitem');
+        $data['sideMenuItems'] = $this->menuitem->getSideMenuItems($sideMenuId);
+
+        $data['title'] = "Copex | 菜单详情";
+        $this->load->view('partials/adminHeader',$data);
+        $this->load->view('admin/sideMenuDetail',$data);
+        $this->load->view('partials/adminFooter');
+
+    }
 }

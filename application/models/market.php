@@ -182,4 +182,28 @@ class Market extends CI_Model {
         $this->db->query($sql2);
     }
 
+    // get menu detial
+    public function getMenuById($menuId){
+
+        $sql = "SELECT dailymenu.*,campus.cname FROM dailymenu JOIN campus ON dailymenu.cid = campus.cid WHERE dailymenu.mid=$menuId";
+        $query = $this->db->query($sql);
+        if(count($query->result())!=1){
+            return false;
+        }
+        return $query->row(0);
+
+    }
+
+    // get side menu detial
+    public function getSideMenuById($sideMenuId){
+
+        $sql = "SELECT sidemenu.*,campus.cname FROM sidemenu JOIN campus ON sidemenu.cid = campus.cid WHERE sidemenu.sideMenuID=$sideMenuId";
+        $query = $this->db->query($sql);
+        if(count($query->result())!=1){
+            return false;
+        }
+        return $query->row(0);
+
+    }
+
 }

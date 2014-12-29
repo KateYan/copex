@@ -93,4 +93,21 @@ class Menuitem extends CI_Model {
         }
         $this->db->query($sql_sidemenuitem);
     }
+
+
+    // get menu items
+    public function getMenuItems($menuId){
+        $sql = "SELECT menuitem.isrecomd,menuitem.fid, food.fname, food.fprice FROM menuitem JOIN food ON menuitem.fid = food.fid WHERE menuitem.mid =$menuId ";
+
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+
+    // get side menu items
+    public function getSideMenuItems($sideMenuId){
+        $sql = "SELECT sidemenuitem.sid, sidedish.sname, sidedish.sprice FROM sidemenuitem JOIN sidedish ON sidemenuitem.sid = sidedish.sid WHERE sidemenuitem.sideMenuID =$sideMenuId ";
+
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
 }
