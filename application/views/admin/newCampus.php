@@ -94,7 +94,7 @@
                                         <?php
                                         if(isset($eMsg['wrong'])){
                                             echo '<span style="color: #be2221;"><b>'.$eMsg['wrong'].'</b></span>';
-                                        } 
+                                        }
                                         ?>
                                     </legend>
                                     <?php

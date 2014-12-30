@@ -54,14 +54,20 @@ class Userstatuscontroller extends MY_Controller {
         if(!isset($_COOKIE['uid'])){
             return redirect('userstatuscontroller/checkUserStatus');
         }
+
+        $data['title'] = '我的订单';
+        $date = date('Y年m月d日');
+        $data['date'] = $date;
+        $this->load->view('partials/header',$data);
+
         // for non-vip user
         if(!isset($_SESSION['vipid'])){
             $this->load->model('order');
-            $data['orders'] = $this->order->findUserOrder($_COOKIE['uid'],$date);
+            $tody = date('Y-m-d');
+            $tomorrow = date('Y-m-d',strtotime('+1 day'));
+            $data['orders'] = $this->order->findUserOrder($_COOKIE['uid'],$tody,$tomorrow);
+            $this->load->view('userOrders',$data);
         }
-        $date = date('Y-m-d H:i:s');
-        $this->load->model('order');
-        $data['orders'] = $this->order->findUserOrder($_COOKIE['uid'],$date);
-        $this->load->view('myorder',$data);
+
     }
 }
