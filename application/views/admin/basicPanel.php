@@ -193,7 +193,7 @@
                                 $num = count($campus);
                                 for($i = 0; $i<$num; $i++){
                                     echo '<tr>';
-                                    echo '<td><a href="showEditCampus?campusId='.$campus[$i]->cid.'">';
+                                    echo '<td><a href="showCampusDetail?campusId='.$campus[$i]->cid.'">';
                                     echo $campus[$i]->cid;
                                     echo '</a></td>';
                                     echo '<td>'.$campus[$i]->cname.'</td>';

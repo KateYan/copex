@@ -238,4 +238,15 @@ class Market extends CI_Model {
         return $query->result();
     }
 
+    // update campus
+    public function updateCampus($cid,$columnName,$value){
+        $num = count($columnName);
+        for($i = 0;$i < $num;$i++){
+            $name = $columnName[$i];
+            $sql = "UPDATE campus SET $name=".$this->db->escape($value[$name])." WHERE cid=$cid";
+
+            $this->db->query($sql);
+        }
+    }
+
 }

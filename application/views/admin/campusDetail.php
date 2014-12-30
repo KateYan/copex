@@ -95,7 +95,7 @@
                                 ?>
                                 <?php
                                 $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-right:5px;');
-                                echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-backward"> 回管理主页</i>',$attributes);
+                                echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-backward"> 回管理主页</i>',$attributes);
                                 ?>
                             </div>
                         </div>
@@ -181,7 +181,7 @@
                                                             echo '<tr>';
                                                             echo '<th>'.$_SESSION['campus']['did'][$i].'</th>';
                                                             echo '<th>'.$_SESSION['campus']['dname'][$i].'</th>';
-                                                            echo '<th>'.'<input form="deleteCampus" type="checkbox" name="diner'.$i.'" value="'.$_SESSION['campus']['did'][$i].'"/></th>';
+                                                            echo '<th>'.'<input form="removeSupportDiner" type="checkbox" name="diner'.$i.'" value="'.$_SESSION['campus']['did'][$i].'"/></th>';
                                                             echo '</tr>';
                                                         }
                                                         ?>
@@ -217,7 +217,7 @@
                                     <button form="editCampus" type="submit" class="btn btn-primary">
                                         <i class="glyphicon glyphicon-inbox"> 保存修改</i>
                                     </button>
-                                    <a type="reset" href="../showDinerDetail/<?php echo $_SESSION['diner']['did'];?>" class="btn btn-default">
+                                    <a type="reset" href="../showCampusDetail/<?php echo $_SESSION['campus']['cid'];?>" class="btn btn-default">
                                         <i class="glyphicon glyphicon-refresh"> 取消修改</i>
                                     </a>
                                     <?php

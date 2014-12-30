@@ -49,32 +49,6 @@ class Diner extends CI_Model
             $this->db->query($sql);
         }
     }
-    // create more corperation line
-    public function createLine($did,$addCampus){
-        $num = count($addCampus);
-
-        $sql = "INSERT INTO coperationline(did,cid) VALUES";
-
-        for($i = 0 ;$i<$num;$i++){
-            // renew cid session
-            $sql .= "('$did','$addCampus[$i]')";
-            $sql .= ($i == ($num-1))? ';' : ',';
-        }
-        $this->db->query($sql);
-    }
-    // delete coperation line
-    public function deleteLine($did,$deleteCampus){
-        $num = count($deleteCampus);
-
-        $sql = "DELETE FROM coperationline WHERE did='$did' AND cid IN (";
-
-        for($i = 0 ;$i<$num;$i++){
-            $sql .= "'$deleteCampus[$i]'";
-            $sql .= ($i == ($num-1))? ')' : ',';
-        }
-        $this->db->query($sql);
-    }
-
 
     // find all diner
     public function allDiners(){

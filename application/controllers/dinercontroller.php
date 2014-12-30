@@ -100,8 +100,8 @@ class Dinercontroller extends MY_Controller{
 
         if(!empty($addCampus)){
             // create coperation line;
-            $this->load->model('diner');
-            $this->diner->createLine($_POST['did'],$addCampus);
+            $this->load->model('coperationline');
+            $this->coperationline->createLineByDiner($_POST['did'],$addCampus);
         }
         // update diner session
         $dinerId = $_SESSION['diner']['did'];
@@ -133,7 +133,7 @@ class Dinercontroller extends MY_Controller{
         if(!empty($deleteCampus)){
             // delete coperation line;
             $this->load->model('diner');
-            $this->diner->deleteLine($_SESSION['diner']['did'],$deleteCampus);
+            $this->diner->deleteLineByDiner($_SESSION['diner']['did'],$deleteCampus);
             // update diner session
             $dinerId = $_SESSION['diner']['did'];
             unset($_SESSION['diner']);
@@ -188,8 +188,8 @@ class Dinercontroller extends MY_Controller{
         }
         if(!empty($addCampus)){
             // create coperation line;
-            $this->load->model('diner');
-            $this->diner->createLine($dinerId,$addCampus);
+            $this->load->model('coperationline');
+            $this->coperationline->createLineByDiner($dinerId,$addCampus);
         }
         // update diner session
         if(isset($_SESSION['diner'])){

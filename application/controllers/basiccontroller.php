@@ -115,15 +115,25 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
         }
 
         // show editing campus page
-        public function showEditCampus(){
+        public function showCampusDetail($errorCode = null){
+            // check if there is error code
+            $eMsg = array(
+                'wrong' => "请按照提示输入正确的校区信息！",
+                'success'=>"修改已成功!",
+                'delerror'=>"请选中餐厅再删除！",
+                'deletesuccess'=>"删除配餐餐厅成功！",
+                'addsuccess'=>"添加新校区成功，您可以继续对它进行编辑！"
+            );
+
+            if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+                $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
+            }
+
             // if the page will be loaded directly by choosing one diner id from dinerPanel
             if(isset($_GET['campusId'])){
                 $this->load->model('market');
                 $this->market->findCampus($_GET['campusId']);
             }
-
-//            var_dump($_SESSION['campus']);
-//            die();
 
             $data['title'] = "Copex | 校区详情";
             // find campus for diner to add
@@ -136,8 +146,10 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
         // Edit campus
         public function editCampus(){
-            var_dump($_POST);
-            die();
+            // check if post data are empty
+            if(empty($_POST['cname'])||empty($_POST['caddr'])){
+                return redirect('basiccontroller/showCampusDetail/wrong');
+            }
 
             // update campus information into db
             $columnName = array("cname","caddr");
@@ -161,15 +173,48 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
             if(!empty($addDiner)){
                 // create coperation line;
-                $this->load->model('diner');
-                $this->diner->createLine($_POST['did'],$addCampus);
+                $this->load->model('coperationline');
+                $this->coperationline->createLineByCampus($_POST['cid'],$addDiner);
             }
             // update diner session
-            $dinerId = $_SESSION['diner']['did'];
-            unset($_SESSION['diner']);
-            $this->load->model('diner');
-            $this->diner->findDiner($dinerId);
+            $campusId = $_SESSION['campus']['cid'];
+            unset($_SESSION['campus']);
+            $this->load->model('market');
+            $this->market->findCampus($campusId);
 
-            return redirect('dinercontroller/showDinerDetail/success');
+            return redirect('basiccontroller/showCampusDetail/success');
+        }
+
+        // delete support diner
+        public function removeSupportDiner(){
+//            var_dump($_POST);
+//            die();
+            if(empty($_POST)){
+                return redirect('basiccontroller/showCampusDetail/delerror');
+            }
+            // using posted delete campus id to create new coperation line for diner
+            // get number of all campus
+            $this->load->model('market');
+            $diners = $this->market->getDinerList();
+            $num_diner = count($diners);
+            $removeDiner = array();
+
+            for($i=0;$i<$num_diner;$i++){
+                if(isset($_POST["diner$i"])){
+                    $removeDiner[] = $this->input->post("diner$i");
+                }
+            }
+            // delete selected support campus from diner
+            if(!empty($removeDiner)){
+                // delete coperation line;
+                $this->load->model('coperationline');
+                $this->coperationline->deleteLineByCampus($_SESSION['campus']['cid'],$removeDiner);
+                // update campus session
+                $campusId = $_SESSION['campus']['cid'];
+                unset($_SESSION['campus']);
+                $this->load->model('market');
+                $this->market->findCampus($campusId);
+            }
+            return redirect('basiccontroller/showCampusDetail/deletesuccess');
         }
     }
