@@ -139,9 +139,8 @@
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>用户Id</th>
-                                        <th>校区</th>
-                                        <th>VIP-Id</th>
+                                        <th>用户ID</th>
+                                        <th>VIP-ID</th>
                                         <th>电话</th>
                                         <th>历史</th>
                                         <th>注册日期</th>
@@ -160,7 +159,6 @@
                                         echo '<td><a href="showEditVip?vipUser='.$vipUser[$i]->uid.'">';
                                         echo $vipUser[$i]->uid;
                                         echo '</a></td>';
-                                        echo '<td>'.$vipUser[$i]->cname.'</td>';
                                         echo '<td>'.$vipUser[$i]->vipid.'</td>';
                                         echo '<td>'.$vipUser[$i]->uphone.'</td>';
                                         if($vipUser[$i]->ordered==0){
@@ -170,7 +168,7 @@
                                         }
                                         echo '<td>'.$vipUser[$i]->created.'</td>';
                                         echo '<td>'.$vipUser[$i]->vnumber.'</td>';
-                                        echo '<td>'.$vipUser[$i]->vbalance.'</td>';
+                                        echo '<td>'."$".$vipUser[$i]->vbalance.'</td>';
                                         echo '</tr>';
                                     }
                                     ?>

@@ -33,7 +33,7 @@ class User extends CI_Model {
             $this->$key = $value;//__set() will be used automaticlly to check if the $key is property of user class
         }
 
-        $sql = "INSERT INTO user(cid,vipid,uphone,uhash,ip,ordered,created) VALUES(".$this->db->escape($this->cid).",".$this->db->escape($this->vipid).",".$this->db->escape($this->uphone).",".$this->db->escape($this->uhash).",".$this->db->escape($this->ip).",".$this->db->escape($this->ordered).",".$this->db->escape($this->created).")";
+        $sql = "INSERT INTO `user`(cid,vipid,uphone,uhash,ip,ordered,created) VALUES(".$this->db->escape($this->cid).",".$this->db->escape($this->vipid).",".$this->db->escape($this->uphone).",".$this->db->escape($this->uhash).",".$this->db->escape($this->ip).",".$this->db->escape($this->ordered).",".$this->db->escape($this->created).")";
         $this->db->query($sql);
         $this->uid = $this->db->insert_id();
         return $this;
@@ -117,7 +117,7 @@ class User extends CI_Model {
      * find all Vip user for administer to manage
      */
     public function allVip(){
-        $sql = "SELECT `user`.uid,campus.cname,`user`.vipid,`user`.uphone,`user`.ordered,`user`.created,vipcard.vnumber,vipcard.vbalance FROM (`user` JOIN campus ON `user`.cid=campus.cid)JOIN vipcard ON `user`.vipid=vipcard.vipid ORDER BY `user`.created DESC";
+        $sql = "SELECT `user`.uid,`user`.vipid,`user`.uphone,`user`.ordered,`user`.created,vipcard.vnumber,vipcard.vbalance FROM `user` JOIN vipcard ON `user`.vipid=vipcard.vipid ORDER BY `user`.created DESC";
 
         $query = $this->db->query($sql);
 
@@ -129,7 +129,7 @@ class User extends CI_Model {
      *find vip user by using uid
      */
     public function findVip($table,$columnName,$value){
-        $sql = "SELECT `user`.uid,`user`.cid,`user`.vipid,`user`.uphone,vipcard.vnumber,vipcard.vbalance FROM `user` JOIN vipcard ON `user`.vipid=vipcard.vipid AND `$table`.$columnName='$value'";
+        $sql = "SELECT `user`.uid,`user`.vipid,`user`.uphone,vipcard.vnumber,vipcard.vbalance FROM `user` JOIN vipcard ON `user`.vipid=vipcard.vipid AND `$table`.$columnName='$value'";
 
         $query = $this->db->query($sql);
         if($query->num_rows()!=1){
@@ -141,6 +141,7 @@ class User extends CI_Model {
      * update vip user's basic information
      */
     public function updateVip($userId,$columnName,$value){
+
         $sql = "UPDATE `user` SET ".$columnName."='$value' WHERE uid='$userId'";
         $this->db->query($sql);
         // check if the updating is successfully finished
@@ -151,7 +152,16 @@ class User extends CI_Model {
      * update vip card information
      */
     public function updateVipCard($userId,$columnName,$value){
-        $sql = "UPDATE `vipcard` SET ".$columnName."='$value' WHERE uid='$userId'";
+
+        // find vipid first
+        $sql0 = "SELECT vipid FROM `user` WHERE uid = $userId";
+        $query0 = $this->db->query($sql0);
+
+        $vipcard = $query0->row(0);
+
+        $vipid = $vipcard->vipid;
+        // find vipcard
+        $sql = "UPDATE `vipcard` SET ".$columnName."='$value' WHERE vipid='$vipid'";
         $this->db->query($sql);
         // check if the updating is successfully finished
         $num = $this->db->affected_rows();
@@ -168,7 +178,9 @@ class User extends CI_Model {
 
         // create new vip user basic information
 
-        $sql2 = "INSERT INTO `user`(vipid,uphone) VALUES (".$this->db->escape($vipid).",".$this->db->escape($uphone).")";
+        $uhash = hash('md5', rand(10000,99999));
+        $created = date('Y-m-d H:i:s');
+        $sql2 = "INSERT INTO `user`(vipid,uphone,uhash,ordered,created) VALUES (".$this->db->escape($vipid).",".$this->db->escape($uphone).",".$this->db->escape($uhash).",'0',".$this->db->escape($created).")";
         $this->db->query($sql2);
         $num = $this->db->affected_rows();
 

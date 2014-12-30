@@ -91,23 +91,6 @@
                         echo '<input form="editVip" type="hidden" name="userId" value="'.$_SESSION['vipUser']->uid.'">';
                         ?>
                         <div class="form-group">
-                            <label class="col-lg-2 control-label" for="focusedInput">用户所在校区</label>
-                            <div class="col-lg-10">
-                                <?php
-                                foreach($campus as $campus_choose){
-                                    echo '<label style="padding-right: 15px;">';
-                                    echo '<input form="editVip"';
-                                    if($campus_choose->cid==$_SESSION['vipUser']->cid){
-                                        echo "checked";
-                                    }
-                                    echo ' type="radio" name="campusId" value="'.$campus_choose->cid.'"/>';
-                                    echo "  ".$campus_choose->cname;
-                                    echo '</label>';
-                                }
-                                ?>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label class="col-lg-2 control-label">联系电话</label>
                             <div class="col-lg-10">
                                 <input form="editVip" class="form-control" type="text" name="vipPhone" value="<?php echo $_SESSION['vipUser']->uphone; ?>"/>

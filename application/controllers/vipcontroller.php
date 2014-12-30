@@ -44,11 +44,7 @@ class Vipcontroller extends MY_Controller{
         }
 
         $data['title'] = "Copex | 编辑VIP";
-        // find campus for user to choose
-        $this->load->model('market');
-        $data['campus'] = $this->market->getCampusList();
-        // if the function is loaded directlly from vip panel
-        // get the user id
+
         if(isset($_GET['vipUser'])){
             $userId = $_GET['vipUser'];
             // find vip user's information and store as session
