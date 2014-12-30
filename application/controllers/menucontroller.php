@@ -21,6 +21,15 @@ class MenuController extends MY_Controller{
 
     // show menu panel
     public function showMenuManage(){
+        // clear menu session
+        if(isset($_SESSION['menus'])){
+            unset($_SESSION['menus']);
+            unset($_SESSION['menu_campus']);
+        }
+        if(isset($_SESSION['sideMenus'])){
+            unset($_SESSION['sideMenus']);
+            unset($_SESSION['menu_campus']);
+        }
         // campus list data
         $this->load->model('market');
         $data['campusList'] = $this->market->getCampusList();
@@ -46,9 +55,12 @@ class MenuController extends MY_Controller{
         $this->load->model('market');
         if(isset($_POST['campus'])){
             $campusId = $this->input->post('campus');
-        }elseif(isset($_SESSION['menus'][0]->cid)){
-            $campusId = $_SESSION['menus'][0]->cid;
+        }elseif(isset($_SESSION['menu_campus'])){
+            $campusId = $_SESSION['menu_campus']['cid'];
         }
+        // get campus name
+        $campus = $this->market->getCampusById($campusId);
+        $_SESSION['menu_campus'] = array('cid'=>$campus->cid,'cname'=>$campus->cname);
         if($this->market->getMenusByCampus($campusId)){
             $menus = $this->market->getMenusByCampus($campusId);
             $sideMenus = $this->market->getSideMenusByCampus($campusId);

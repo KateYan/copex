@@ -119,7 +119,7 @@
                 ?>
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>菜单管理----校区<?php echo $_SESSION['menus'][0]->cname; ?></h1>
+                        <h1>菜单管理----校区<?php echo $_SESSION['menu_campus']['cname']; ?></h1>
                     </div>
                 </div>
             </div>
@@ -138,7 +138,7 @@
                                 echo anchor('menucontroller/showAddMenu','<i class="glyphicon glyphicon-plus"></i>
                                          添加主食菜单',$attributes);
                                 ?>
-                                <input type="hidden" form="menuStatus" name="menu-campus" value="<?php echo $_SESSION['menus'][0]->cid; ?>"/>
+                                <input type="hidden" form="menuStatus" name="menu-campus" value="<?php echo $_SESSION['menu_campus']['cid']; ?>"/>
                                 <button form="menuStatus" class="btn btn-sm btn-primary" style="float: right;margin-right: 5px;">
                                     <i class="glyphicon glyphicon-ok-sign"></i>
                                     变更主食菜单
@@ -200,7 +200,7 @@
                                 echo anchor('menucontroller/showAddSideMenu','<i class="glyphicon glyphicon-plus"></i>
                                          添加小食菜单',$attributes);
                                 ?>
-                                <input type="hidden" form="sideMenuStatus" name="sidemenu-campus" value="<?php echo $_SESSION['menus'][0]->cid; ?>"/>
+                                <input type="hidden" form="sideMenuStatus" name="sidemenu-campus" value="<?php echo $_SESSION['menu_campus']['cid']; ?>"/>
                                 <button form="sideMenuStatus" class="btn btn-sm btn-primary" style="float: right;margin-right: 5px;">
                                     <i class="glyphicon glyphicon-ok-sign"></i>
                                     变更小食菜单
