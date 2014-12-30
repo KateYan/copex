@@ -6,14 +6,6 @@
  * Time: 2:26 PM
  */
 ?>
-<?php
-/**
- * Created by PhpStorm.
- * User: kunyan
- * Date: 12/1/2014
- * Time: 5:54 PM
- */
-?>
 <script type="text/javascript">
     $(function(){
         var _W = document.documentElement.clientWidth;
@@ -31,31 +23,10 @@
             $(thisd).next("span").children('input').val(valueT);
         }
     }
-    function addRoom(thisd) {
-        var textV = $(thisd).prev("span").children('input').val();
-        var valueT = ++textV;
-        if (valueT > 50) {
-            $(thisd).prev("span").children('input').val(50);
-            return false;
-        }
-        $(thisd).prev("span").children('input').val(valueT);
-    }
-
-    function closeWindow(){
-        $("#orderedLimit").hide();
-    }
-
-    function showWindow(){
-        $("#orderedLimit").show();
-    }
 </script>
 </head>
 <body>
 <header id="Header"><?php echo $date; ?> 今天我的订单</header>
-<?php
-$attributes = array('class'=>'formcontrol', 'id'=>'userOrders');
-echo form_open('user/showSideDish',$attributes);
-?>
 
 <div id="Contenter" class="dinner_cont">
     <?php
@@ -89,32 +60,7 @@ echo form_open('user/showSideDish',$attributes);
         echo '</div></div>';
     }
     ?>
-    <button class="btn_submitOrder btn_nowOrder" style="border:none;width: 100%;margin-top: 20px;">去点餐</button>
-</div>
-<footer id="Footer">
-
-    <div class="clear"></div>
-</footer>
-<?php
-echo form_close();
-?>
-
-<div id="orderedLimit" class="layer" <?php echo (isset($eMsg['nofoodpicked']))?'style="display: block;"': ''; ?>>
-    <div class="black_layer"></div>
-    <div class="layer_summary">
-        <br />
-        <p><?php echo (isset($eMsg['nofoodpicked']))?$eMsg['nofoodpicked']: ''; ?></p>
-        <ul class="finishLay">
-            <li></li>
-            <li>
-                <?php
-                $attributes = array('class'=>'btn_again','onclick'=>'closeWindow()');
-                echo anchor('marketcontroller/showDailyMenu','去挑选美味主食去',$attributes);
-                ?>
-            </li>
-            <li></li>
-        </ul>
-    </div>
+    <a href="userstatuscontroller/checkUserStatus" class="btn_submitOrder btn_nowOrder" style="border:none;width: 100%;margin-top: 20px;">去点餐</a>
 </div>
 
 </body>
