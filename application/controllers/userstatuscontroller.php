@@ -54,8 +54,14 @@ class Userstatuscontroller extends MY_Controller {
         if(!isset($_COOKIE['uid'])){
             return redirect('userstatuscontroller/checkUserStatus');
         }
+        // for non-vip user
+        if(!isset($_SESSION['vipid'])){
+            $this->load->model('order');
+            $data['orders'] = $this->order->findUserOrder($_COOKIE['uid'],$date);
+        }
+        $date = date('Y-m-d H:i:s');
         $this->load->model('order');
-        $data['orders'] = $this->order->findUserOrder($_COOKIE['uid']);
+        $data['orders'] = $this->order->findUserOrder($_COOKIE['uid'],$date);
         $this->load->view('myorder',$data);
     }
 }

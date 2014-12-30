@@ -107,7 +107,9 @@ class Order extends CI_Model {
 
     // find one user's all order
     public function findUserOrder($uid){
-        $sql = "SELECT `order`.oid as orderNumber,`campus`.cname as campus,`order`.odate as orderDate,`order`.ostatus as isPickedup, `order`.oispaid as isPaid, `order`.totalcost as totalCost FROM `order`,`campus` WHERE `order`.cid = `campus`.cid AND `order`.uid='$uid'";
+        $date_start = date('Y-m-d 00:00:00');
+        $date_end = date('Y-m-d 23:59:59');
+        $sql = "SELECT `order`.oid as orderNumber,`campus`.cname as campus,`order`.odate as orderDate,`order`.fordate as orderForDate,`order`.ostatus as isPickedup, `order`.oispaid as isPaid, `order`.totalcost as totalCost FROM `order` JOIN `campus` ON `order`.cid = `campus`.cid WHERE `order`.uid='$uid' AND `order`.odate >='$date_start' AND `order`.odate <='$date_end'";
 
         $query = $this->db->query($sql);
         if($query->num_rows()==0){
