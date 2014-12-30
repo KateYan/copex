@@ -107,8 +107,8 @@
                                     <div class="form-group<?php if(isset($eMsg['wrong'])){echo " has-error";}?>">
                                         <label class="col-lg-2 control-label">校区</label>
                                         <div class="col-lg-10">
-                                            <input form="addSideMenu" class="form-control" type="hidden" name="sideMenu-cid" value="<?php echo $_SESSION['menus'][0]->cid?>" />
-                                            <input disabled class="form-control" type="text" value="<?php echo $_SESSION['menus'][0]->cname?>" />
+                                            <input form="addSideMenu" class="form-control" type="hidden" name="sideMenu-cid" value="<?php echo $_SESSION['menu_campus']['cid'];?>" />
+                                            <input disabled class="form-control" type="text" value="<?php echo $_SESSION['menu_campus']['cname']?>" />
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
