@@ -170,6 +170,10 @@
                         <div class="panel-heading">
                             <div class="text-muted bootstrap-admin-box-title">校区管理
                             <?php
+                            if(isset($eMsg['deletesuccess'])){
+                                echo '<span style="color: #be2221;"><b>'.$eMsg['deletesuccess'].'</b></span>';
+                            }
+
                             $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;');
                             echo anchor('basiccontroller/showAddCampus','<i class="glyphicon glyphicon-plus"></i>
                                          添加校区',$attributes);

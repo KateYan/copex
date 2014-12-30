@@ -91,7 +91,7 @@
                             <div class="text-muted bootstrap-admin-box-title">参看校区详情并编辑
                                 <?php
                                 $attributes = array('class'=>'btn btn-sm btn-danger','type'=>'reset','style'=>'float: right;');
-                                echo anchor('#','<i class="glyphicon glyphicon-remove"> 删除本校区</i>',$attributes);
+                                echo anchor('basiccontroller/deleteCampus','<i class="glyphicon glyphicon-remove"> 删除本校区</i>',$attributes);
                                 ?>
                                 <?php
                                 $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-right:5px;');

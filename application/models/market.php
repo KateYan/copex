@@ -249,4 +249,21 @@ class Market extends CI_Model {
         }
     }
 
+    // delete campus
+    public function deleteCampus($cid){
+        $sql = "DELETE FROM campus WHERE cid = '$cid'";
+        $this->db->query($sql);
+        // because cid is also table coperationline's foreign key with on delete cascate
+        // so there is no need to delete related rows from coperationline
+    }
+
+    // add new campus
+    public function newCampus($value){
+        $sql = "INSERT INTO campus(cname,caddr) VALUES (".$this->db->escape($value['cname']).",".$this->db->escape($value['caddr']).")";
+
+        $this->db->query($sql);
+        $campusId = $this->db->insert_id(); // get new diner's id
+        return $campusId;
+    }
+
 }
