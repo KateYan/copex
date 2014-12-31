@@ -10,6 +10,14 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Userlogincontroller extends MY_Controller{
 
+    public function __construct(){
+        parent::__construct();
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('phoneNumber','Phone','trim|required|integer|numeric|exact_length[10]');
+        $this->form_validation->set_rules('oldPassword','VipPassword','trim|required|min_length[6]|max_length[10]|alpha_dash');
+        $this->form_validation->set_rules('newPassword','AgainPassword','trim|required|min_length[6]|max_length[10]|alpha_dash');
+    }
+
     /*
      * load campus choosing page
      */
@@ -116,7 +124,8 @@ class Userlogincontroller extends MY_Controller{
         $eMsg = array(
                 'wrongphone' => "手机号有误！请输入您账号关联的手机号",
                 'wrongpw' => "请输入正确的现有密码",
-                'samepw' => "请不要输入现有密码"
+                'samepw' => "请不要输入现有密码",
+                'wrong' => "密码为6-10位包含数字/字母/下划线/破折号的组合"
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
@@ -136,10 +145,11 @@ class Userlogincontroller extends MY_Controller{
             return redirect('userstatuscontroller/checkUserStatus');
         }
 
-        if(empty($_POST['phoneNumber'])||empty($_POST['oldPassword'])||empty($_POST['newPassword'])){ // user leaved blank
-            echo "Please fulfill all blanks!";
-            return false;
+        // check all inputs validation
+        if($this->form_validation->run()==FALSE){
+            return redirect('userlogincontroller/showChangePassword/wrong');
         }
+
         //get posted data
         $phoneNumber = $this->input->post('phoneNumber');
         $oldPassword = $this->input->post('oldPassword');
