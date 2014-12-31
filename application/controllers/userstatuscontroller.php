@@ -78,11 +78,10 @@ class Userstatuscontroller extends MY_Controller {
         // for non-vip user
         if(!isset($_SESSION['vipid'])){
             $this->load->model('order');
-            // if user didn't order yet
-            if(!$this->order->findUserOrder($_COOKIE['uid'],$today,$tomorrow)){
-
+            // if user ordered already
+            if($this->order->findUserOrder($_COOKIE['uid'],$today,$tomorrow)){
+                $data['orders'] = $this->order->findUserOrder($_COOKIE['uid'],$today,$tomorrow);
             }
-            $data['orders'] = $this->order->findUserOrder($_COOKIE['uid'],$today,$tomorrow);
             $this->load->view('userOrders',$data);
         }else{ // for vip user
             $this->load->model('order');
