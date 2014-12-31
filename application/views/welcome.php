@@ -41,7 +41,10 @@
         <li><img src="/copex/images/remember04.jpg" width="100%" /></li>
         <li>
             <img src="/copex/images/remember05.jpg" width="100%" />
-            <a class="btn_GoIn" href="http://www.baidu.com"></a>
+            <?php
+            $attributes = array('class'=>'btn_GoIn');
+            echo anchor('userlogincontroller/loadCampus',"了解更多~",$attributes);
+            ?>
         </li>
     </ul>
 </div>
