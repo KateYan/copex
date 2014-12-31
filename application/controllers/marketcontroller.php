@@ -395,9 +395,11 @@ class Marketcontroller extends MY_Controller{
         $this->load->model('market');
         $orderTimeRange = $this->market->orderTimeRange($userType);
         $orderStart = $orderTimeRange['orderStart'];
+        // get today's start time
+        $start = date("Y-m-d $orderStart");
         $now = date('Y-m-d H:i:s');
         //find if user has ordered today
         $this->load->model('order');
-        return $this->order->orderToday($_SESSION['uid'],$now,$orderStart);
+        return $this->order->orderToday($_SESSION['uid'],$now,$start);
     }
 }

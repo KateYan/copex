@@ -239,12 +239,13 @@
                         <button form="editDiner" type="submit" class="btn btn-primary">
                             <i class="glyphicon glyphicon-inbox"> 保存修改</i>
                         </button>
-                        <a type="reset" href="../showDinerDetail/<?php echo $_SESSION['diner']['did'];?>" class="btn btn-default">
-                            <i class="glyphicon glyphicon-refresh"> 取消修改</i>
-                        </a>
                         <?php
-                        $attributes = array('class'=>'btn btn-success','type'=>'reset');
-                        echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-backward"> 回餐厅列表</i>',$attributes);
+                        $did = $_SESSION['diner']['did'];
+                        $attributes = array('class'=>'btn btn-default','type'=>'reset','style'=>'margin-right: 5px;');
+                        echo anchor("dinercontroller/showDinerDetail/$did",'<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes);
+
+                        $attributes1 = array('class'=>'btn btn-success','type'=>'reset');
+                        echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-backward"> 回餐厅列表</i>',$attributes1);
                         ?>
                     </fieldset>
                 </div>
