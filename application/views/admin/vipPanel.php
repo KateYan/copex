@@ -92,7 +92,10 @@
                         ?>
                     </li>
                     <li class="active">
-                        <a href="../vipcontroller/showVipPanel"><i class="glyphicon glyphicon-chevron-right"></i> 5. 会员管理</a>
+                        <?php
+                        $attributes = array('id'=>'manageVip');
+                        echo anchor('vipcontroller/showVipPanel','<i class="glyphicon glyphicon-chevron-right"></i> 5. 会员管理',$attributes);
+                        ?>
                     </li>
                     <li>
                         <?php
