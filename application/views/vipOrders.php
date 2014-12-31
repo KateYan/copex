@@ -54,7 +54,7 @@
             echo '<h4 style="margin-bottom: 5px;">'."取餐地址：".$order['order']->caddr.'</h4>';
             echo '</span>';
 
-            echo '<span class="menuD_summary" style="width: 40%;margin-left: 10px;">';
+            echo '<span class="menuD_summary" style="width: 30%;">';
 
 
             echo '<h4 style="margin-bottom: 5px;">'."主食：".'</h4>';
