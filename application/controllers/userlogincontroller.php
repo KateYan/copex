@@ -176,6 +176,6 @@ class Userlogincontroller extends MY_Controller{
         delete_cookie('uhash');
         session_destroy();
 //
-        return redirect('userstatuscontroller/checkUserStatus');
+        return redirect('userlogincontroller/loadCampus');
     }
 }
