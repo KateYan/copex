@@ -33,7 +33,27 @@
     if(isset($orders)){
         foreach($orders as $order){
             echo '<div class="menu_block">';
-            echo '<span class="menuD_summary" style="width:40%;height: auto;margin-right:5px;">';
+            echo '<span class="menuD_img" style="border:none;border-radius:none;height: auto;margin-right:5px;">';
+
+            echo '<h4 style="margin-bottom: 5px;">'."主食：".'</h4>';
+            foreach($order['food'] as $food){
+                echo '<h4 style="margin-bottom: 5px;">'."菜名： ".$food->fname.'</h4>';
+                echo '<h4 style="margin-bottom: 5px;">'."单价：$  ".$food->fprice.'</h4>';
+            }
+            echo '<br>';
+            echo '<h4 style="margin-bottom: 5px;">'."小食：".'</h4>';
+            if(!empty($order['sidedish'])){
+                foreach($order['sidedish'] as $sidedish){
+                    echo '<h4 style="margin-bottom: 5px;">'."菜名： ".$sidedish->sname.'</h4>';
+                    echo '<h4 style="margin-bottom: 5px;">'."单价：$  ".$sidedish->sprice.'</h4>';
+                }
+            }else{
+                echo '<h4 style="margin-bottom: 5px;">'."无".'</h4>';
+            }
+            echo '</span>';
+
+            echo '<span class="menuD_summary" style="width: 40%;">';
+
             echo '<h4 style="margin-bottom: 5px;">'."订单号：".$order['order']->oid.'</h4>';
             echo '<h4 style="margin-bottom: 5px;">'."下单时间： ".$order['order']->odate.'</h4>';
             echo '<h4 style="margin-bottom: 5px;">'."税款：$ ".$order['order']->tax.'</h4>';
@@ -52,26 +72,8 @@
             echo '<h4 style="margin-bottom: 5px;">'."取餐日期：".$order['order']->fordate.'</h4>';
             echo '<h4 style="margin-bottom: 5px;">'."取餐校区：".$order['order']->cname.'</h4>';
             echo '<h4 style="margin-bottom: 5px;">'."取餐地址：".$order['order']->caddr.'</h4>';
-            echo '</span>';
-
-            echo '<span class="menuD_summary" style="width: 30%;">';
 
 
-            echo '<h4 style="margin-bottom: 5px;">'."主食：".'</h4>';
-            foreach($order['food'] as $food){
-                echo '<h4 style="margin-bottom: 5px;">'."菜名： ".$food->fname.'</h4>';
-                echo '<h4 style="margin-bottom: 5px;">'."单价：$  ".$food->fprice.'</h4>';
-            }
-            echo '<br>';
-            echo '<h4 style="margin-bottom: 5px;">'."小食：".'</h4>';
-            if(!empty($order['sidedish'])){
-                foreach($order['sidedish'] as $sidedish){
-                    echo '<h4 style="margin-bottom: 5px;">'."菜名： ".$sidedish->sname.'</h4>';
-                    echo '<h4 style="margin-bottom: 5px;">'."单价：$  ".$sidedish->sprice.'</h4>';
-                }
-            }else{
-                echo '<h4 style="margin-bottom: 5px;">'."无".'</h4>';
-            }
 
             echo '</span></div>';
         }
