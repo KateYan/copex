@@ -51,22 +51,38 @@ class Userstatuscontroller extends MY_Controller {
      * show user's all orders
      */
     public function showUserOrder(){
-        if(!isset($_COOKIE['uid'])){
+        if(!$this->input->cookie('uid')){
             return redirect('userstatuscontroller/checkUserStatus');
         }
 
+        $oldUser = $this->validateUser($this->input->cookie('uid'), $this->input->cookie('uhash'));
+        if ($oldUser) {
+            //legal user
+            //request user model's method login() to set cookies and sessions for user
+            $this->user->login($oldUser); // open session for user
+        }
         $data['title'] = '我的订单';
         $date = date('Y年m月d日');
         $data['date'] = $date;
         $this->load->view('partials/header',$data);
 
+        $today = date('Y-m-d');
+        $tomorrow = date('Y-m-d',strtotime('+1 day'));
         // for non-vip user
         if(!isset($_SESSION['vipid'])){
             $this->load->model('order');
-            $tody = date('Y-m-d');
-            $tomorrow = date('Y-m-d',strtotime('+1 day'));
-            $data['orders'] = $this->order->findUserOrder($_COOKIE['uid'],$tody,$tomorrow);
+            // if user didn't order yet
+            if(!$this->order->findUserOrder($_COOKIE['uid'],$today,$tomorrow)){
+
+            }
+            $data['orders'] = $this->order->findUserOrder($_COOKIE['uid'],$today,$tomorrow);
             $this->load->view('userOrders',$data);
+        }else{ // for vip user
+            $this->load->model('order');
+            $data['orders'] = $this->order->findVipOrder($_COOKIE['uid'],$today,$tomorrow);
+//            var_dump($data['orders'][0]['food']);
+//            die();
+            $this->load->view('vipOrders',$data);
         }
 
     }

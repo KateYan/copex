@@ -105,16 +105,61 @@ class Order extends CI_Model {
         return $oid;
     }
 
-    // find one user's all order
+    // find one user's order
     public function findUserOrder($uid,$today,$tomorrow){
 
         $sql = "SELECT `order`.* ,`campus`.cname ,campus.caddr,food.* FROM ((`order` JOIN `campus` ON `order`.cid = `campus`.cid) JOIN orderitem ON `order`.oid = orderitem.oid) JOIN food ON orderitem.dishid=food.fid WHERE `order`.uid='$uid' AND `order`.fordate IN ('$today','$tomorrow')";
 
         $query = $this->db->query($sql);
-        if($query->num_rows()!=1){
+        if($query->num_rows()==0){
             return false;
         }
         return $query->result();
+    }
+    // find vip user's order
+    public function findVipOrder($uid,$today,$tomorrow){
+        // find order first
+        $sql = "SELECT `order`.* ,`campus`.cname ,campus.caddr FROM `order` JOIN `campus` ON `order`.cid = `campus`.cid WHERE `order`.uid='$uid' AND `order`.fordate IN ('$today','$tomorrow')";
+        $query = $this->db->query($sql);
+        if($query->num_rows()==0){
+            return false;
+        }
+        $result = $query->result();
+        // then find orderitem
+        $orders = array();
+        foreach($result as $order){
+
+            $oid = $order->oid;
+            // find food first
+            $food = array();
+
+            $sql_food = "SELECT food.* FROM food JOIN orderitem ON food.fid = orderitem.dishid WHERE orderitem.oid='$oid' AND orderitem.dishtype='0'";
+            $query_food = $this->db->query($sql_food);
+            $result_food = $query_food->result();
+            foreach($result_food as $food_item){
+                $food[] = $food_item;
+            }
+
+            // then find sidedish
+            $sidedish = array();
+
+            $sql_sidedish = "SELECT sidedish.* FROM sidedish JOIN orderitem ON sidedish.sid = orderitem.dishid WHERE orderitem.oid='$oid' AND orderitem.dishtype='1'";
+            $query_sidedish = $this->db->query($sql_sidedish);
+
+            if($query_sidedish->num_rows() != 0){
+                $result_sidedish = $query_sidedish->result();
+
+                foreach($result_sidedish as $sidedish_item){
+                    $sidedish[] = $sidedish_item;
+                }
+            }
+            // put info together
+            $orders[] = array('order'=>$order,'food'=>$food,'sidedish'=>$sidedish);
+
+        }
+        return $orders;
+
+
     }
 
     // check if user has already ordered in the same day
