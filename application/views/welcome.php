@@ -43,7 +43,7 @@
             <img src="/copex/images/remember05.jpg" width="100%" />
             <?php
             $attributes = array('class'=>'btn_GoIn');
-            echo anchor('userlogincontroller/loadCampus',"了解更多~",$attributes);
+            echo anchor('userlogincontroller/loadCampus','<img src="/copex/images/btn_go.jpg" width="100%" />',$attributes);
             ?>
         </li>
     </ul>

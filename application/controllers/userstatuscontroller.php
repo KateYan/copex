@@ -86,10 +86,22 @@ class Userstatuscontroller extends MY_Controller {
         }else{ // for vip user
             $this->load->model('order');
             $data['orders'] = $this->order->findVipOrder($_COOKIE['uid'],$today,$tomorrow);
-//            var_dump($data['orders'][0]['food']);
-//            die();
+
             $this->load->view('vipOrders',$data);
         }
-
     }
+
+    // for first log in user to know how abot copex
+    public function showInstruction1(){
+        $this->load->view('instruction1');
+    }
+
+    public function showInstruction2(){
+        $this->load->view('instruction2');
+    }
+
+    public function showInstruction3(){
+        $this->load->view('instruction3');
+    }
+
 }
