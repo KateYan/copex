@@ -209,7 +209,7 @@
                                                 echo "  ".$diners[$j]->dname;
                                                 echo '</label>';
                                             }
-                                            echo "  已有校区不能添加";
+                                            echo "  已有餐厅不能添加";
                                             ?>
                                             </span>
                                         </div>
@@ -217,12 +217,12 @@
                                     <button form="editCampus" type="submit" class="btn btn-primary">
                                         <i class="glyphicon glyphicon-inbox"> 保存修改</i>
                                     </button>
-                                    <a type="reset" href="../showCampusDetail/<?php echo $_SESSION['campus']['cid'];?>" class="btn btn-default">
-                                        <i class="glyphicon glyphicon-refresh"> 取消修改</i>
-                                    </a>
                                     <?php
-                                    $attributes = array('class'=>'btn btn-success','type'=>'reset');
-                                    echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-backward"> 回校区列表</i>',$attributes);
+                                    $attributes = array('type'=>'reset','class'=>'btn btn-default');
+                                    echo anchor('basiccontroller/showCampusDetail','<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes);
+
+                                    $attributes1 = array('class'=>'btn btn-success','type'=>'reset','style'=>'margin-left:5px;');
+                                    echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-backward"> 回校区列表</i>',$attributes1);
                                     ?>
                                 </fieldset>
                             </div>
