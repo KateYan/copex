@@ -33,7 +33,7 @@
     if(isset($orders)){
         foreach($orders as $order){
             echo '<div class="menu_block">';
-            echo '<span class="menuD_img" style="width:35%;border:none;border-radius:none;height: auto;margin-right:5px;overflow-y: scroll;">';
+            echo '<span  style="width:35%;border:none;border-radius:none;height: 200px;margin-right:5px;overflow-y: scroll;display:inline-block; vertical-align:middle">';
 
             echo '<h4 style="margin-bottom: 5px;">'."主食：".'</h4>';
             foreach($order['food'] as $food){
