@@ -125,7 +125,7 @@ class Userlogincontroller extends MY_Controller{
                 'wrongphone' => "手机号有误！请输入您账号关联的手机号",
                 'wrongpw' => "请输入正确的现有密码",
                 'samepw' => "请不要输入现有密码",
-                'wrong' => "密码为6-10位包含数字/字母/下划线/破折号的组合"
+                'wrong' => "手机号不可为空；密码为6-10位包含数字/字母/下划线/破折号的组合"
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
