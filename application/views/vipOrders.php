@@ -6,24 +6,6 @@
  * Time: 6:20 PM
  */
 ?>
-<script type="text/javascript">
-    $(function(){
-        var _W = document.documentElement.clientWidth;
-        $(".menuD_img").css("height", parseInt((_W - 18)*0.34*233/222)+"px");
-        $(".menuD_summary").css("width", parseInt(_W - 18-(_W - 18)*0.34-20)+"px");
-    })
-    function minRoom(thisd) {
-        var textV = $(thisd).next("span").children('input').val();
-        if(textV > 0){
-            var valueT = --textV;
-            if (textV <= 0) {
-                $(thisd).next("span").children('input').val('0');
-                return false;
-            }
-            $(thisd).next("span").children('input').val(valueT);
-        }
-    }
-</script>
 </head>
 <body>
 <header id="Header"><?php echo $date; ?> 今天我的订单</header>
