@@ -1,6 +1,6 @@
 body{background-color:#FFF5EE; }
 .menu_block{ padding:7px 8px; border-bottom:1px solid #e3e3e3; background-color:#fff;}
-.menuD_img{ border-radius:10px; border:1px solid #dfdfdf; width:34%; height:116px; margin-right:10px; overflow:hidden}
+.menuD_img{ border-radius:10px; border:1px solid #dfdfdf; width:40%; height:auto; margin-right:10px; overflow:hidden}
 /*.menuD_img img{ float:left;}*/
 .menuD_summary, .menuD_img, .btn_showNum, .btn_plus, .btn_add{ display:inline-block; vertical-align:middle}
 .menuD_summary h4{ color:#262626; font-weight:300}
