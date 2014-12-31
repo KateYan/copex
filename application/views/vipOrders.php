@@ -33,7 +33,7 @@
     if(isset($orders)){
         foreach($orders as $order){
             echo '<div class="menu_block">';
-            echo '<span class="menuD_summary" style="width:40%;height: auto;margin-right:20px;">';
+            echo '<span class="menuD_summary" style="width:40%;height: auto;margin-right:5px;">';
             echo '<h4 style="margin-bottom: 5px;">'."订单号：".$order['order']->oid.'</h4>';
             echo '<h4 style="margin-bottom: 5px;">'."下单时间： ".$order['order']->odate.'</h4>';
             echo '<h4 style="margin-bottom: 5px;">'."税款：$ ".$order['order']->tax.'</h4>';
