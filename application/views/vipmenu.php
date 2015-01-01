@@ -34,11 +34,11 @@
         }
 
         function closeWindow(){
-            $("#orderedLimit").hide();
+            $("#nofoodpicked").hide();
         }
 
         function showWindow(){
-            $("#orderedLimit").show();
+            $("#nofoodpicked").show();
         }
     </script>
 </head>
@@ -84,7 +84,7 @@ echo form_open('marketcontroller/showSideDish',$attributes);
 echo form_close();
 ?>
 
-<div id="orderedLimit" class="layer" <?php echo (isset($eMsg['nofoodpicked']))?'style="display: block;"': ''; ?>>
+<div id="nofoodpicked" class="layer" <?php echo (isset($eMsg['nofoodpicked']))?'style="display: block;"': ''; ?>>
     <div class="black_layer"></div>
     <div class="layer_summary">
         <br />

@@ -29,10 +29,10 @@ class Marketcontroller extends MY_Controller{
         unset($_SESSION['POST']);
         // error message for user has already ordered at the same day
         $eMsg = array(
-            'orderlimit' => "普通用户每天只能下一单哦！",
-            'nofulfill'=> "您还没有选择菜品或输入手机号！",
-            'nofoodpicked'=>"您还没有点任何一款主食哦！",
-            'wrongphone'=>"请输入不含任何其他字符的10位有效手机号码！"
+            'orderlimit' => "普通用户每天只能下一单哦！", // non-vip
+            'nofulfill'=> "您还没有选择菜品或输入手机号哦！", // non-vip
+            'nofoodpicked'=>"您还没有点任何一款主食哦！", // vip
+            'wrongphone'=>"请输入不含任何其他字符的10位有效手机号码！" // non-vip
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){

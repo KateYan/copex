@@ -47,6 +47,7 @@
         function closeWindowWrongPhone(){
             $("#wrongphone").hide();
         }
+
     </script>
 </head>
 
@@ -188,6 +189,24 @@
     <div class="layer_summary">
         <br />
         <p><?php echo (isset($eMsg['nofulfill']))?$eMsg['nofulfill']: ''; ?></p>
+        <ul class="finishLay">
+            <li></li>
+            <li>
+                <?php
+                $attributes = array('class'=>'btn_again');
+                echo anchor('marketcontroller/showDailyMenu','重新下单~',$attributes);
+                ?>
+            </li>
+            <li></li>
+        </ul>
+    </div>
+</div>
+<!--for user ordered in today already-->
+<div id="orderedLimit" class="layer" <?php echo (isset($eMsg['orderlimit']))?'style="display: block;"': ''; ?>>
+    <div class="black_layer"></div>
+    <div class="layer_summary">
+        <br />
+        <p><?php echo (isset($eMsg['orderlimit']))?$eMsg['orderlimit']: ''; ?></p>
         <ul class="finishLay">
             <li></li>
             <li>
