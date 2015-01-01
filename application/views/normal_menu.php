@@ -136,7 +136,7 @@
             <li>
                 <?php
                 $attributes = array('class'=>'btn_again');
-                echo anchor('marketcontroller/showDailyMenu','B. 明天中午12:00后再订餐',$attributes);
+                echo anchor('marketcontroller/showDailyMenu','B. 明天中午13:00后再订餐',$attributes);
                 ?>
             </li>
         </ul>
