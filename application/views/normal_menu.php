@@ -51,6 +51,9 @@
         function closeWindowWrongPhone(){
             $("#wrongphone").hide();
         }
+    function closeWindowInventory(){
+        $("#outofinventory").hide();
+    }
 
     </script>
 </head>
@@ -207,6 +210,24 @@
     </div>
 </div>
 
+<!--for out of inventory-->
+<div id="outofinventory" class="layer" <?php echo (isset($eMsg['outofinventory']))?'style="display: block;"': ''; ?>>
+    <div class="black_layer"></div>
+    <div class="layer_summary">
+        <br />
+        <p><?php echo (isset($eMsg['outofinventory']))?$eMsg['outofinventory']: ''; ?></p>
+        <ul class="finishLay">
+            <li></li>
+            <li>
+                <?php
+                $attributes = array('class'=>'btn_again','onclick'=>'closeWindowInventory()');
+                echo anchor('marketcontroller/showDailyMenu','选点别的好吃的~',$attributes);
+                ?>
+            </li>
+            <li></li>
+        </ul>
+    </div>
+</div>
 </body>
 </html>
 

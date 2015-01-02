@@ -33,7 +33,8 @@ class Marketcontroller extends MY_Controller{
             'nofulfill'=> "您还没有选择菜品或输入手机号哦！", // non-vip
             'nofoodpicked'=>"您还没有点任何一款主食哦！", // vip
             'wrongphone'=>"请输入正确的手机号",// non-vip
-            'timelimit' => "超过订餐时间！"
+            'timelimit' => "超过订餐时间！",
+            'outofinventory' => "您选的菜今天已经被全部预定了~"
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
@@ -207,6 +208,13 @@ class Marketcontroller extends MY_Controller{
             $_SESSION['uphone'] = $uphone;
             $orderItemId = $this->input->post('fid');
 
+            // check inventory
+            $this->load->model('order');
+            $amount = 1;
+            if(!$this->order->checkFoodInventory($_SESSION['cid'],$orderItemId,$amount)){
+                return redirect('marketcontroller/showDalyMenu/outofinventory');
+            }
+
             $uid = $_SESSION['uid'];
             $odate = date('Y-m-d H:i:s');
             $fordate = date('Y-m-d',strtotime('+1 day'));
@@ -218,8 +226,8 @@ class Marketcontroller extends MY_Controller{
 
             return redirect('marketcontroller/succeedOrdered');
         }
-    }
 
+    }
 
     /*
      * generate order for vipuser

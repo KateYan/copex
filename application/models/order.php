@@ -98,11 +98,47 @@ class Order extends CI_Model {
         $sqlItem = "INSERT INTO orderitem(oid,dishid,dishtype) VALUES(".$this->db->escape($oid).",".$this->db->escape($foodId).",'0')";
         $this->db->query($sqlItem);
 
+        // update the menuitem's inventory
+        $amount=1;
+        $inventory = $this->checkFoodInventory($cid,$foodId,$amount);
+        if(!$inventory){
+            return false;
+        }
+        $inventory -= $amount;
+        // find the menu id
+        $sql_menu = "SELECT mid FROM dailymenu WHERE cid='$cid' AND mstatus='1'";
+        $query_menu = $this->db->query($sql_menu);
+        $result_menu = $query_menu->result();
+        $menuId = $result_menu[0]->mid;
+        // update inventory
+        $sql_inven_update = "UPDATE menuitem SET minventory='$inventory' WHERE fid ='$foodId' AND mid='$menuId'";
+        $this->db->query($sql_inven_update);
+
         // update the user's order-status into '1' and his phone number into new entered phone number
         $sqlOrdered = "UPDATE `user` SET `uphone` = '$uphone', `ordered`='1' WHERE `uid` ='$uid'";
         $this->db->query($sqlOrdered);
 
         return $oid;
+    }
+
+
+
+    // menuitem inventory check
+    public function checkFoodInventory($cid,$foodId,$amount){
+
+        $sql = "SELECT menuitem.minventory FROM menuitem JOIN dailymenu ON menuitem.mid=dailymenu.mid WHERE dailymenu.cid='$cid' AND dailymenu.mstatus='1' AND fid ='$foodId'";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        $num = $query->num_rows();
+        if($num < $amount){
+            return false;
+        }
+        return $result[0]->minventory;
+    }
+
+    // sidemenu inventory check
+    public function checkSidedishInventory($sidedishId){
+
     }
 
     // find one user's order
