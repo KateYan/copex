@@ -212,7 +212,7 @@ class Marketcontroller extends MY_Controller{
             $this->load->model('order');
             $amount = 1;
             if(!$this->order->checkFoodInventory($_SESSION['cid'],$orderItemId,$amount)){
-                return redirect('marketcontroller/showDalyMenu/outofinventory');
+                return redirect('marketcontroller/showDailyMenu/outofinventory');
             }
 
             $uid = $_SESSION['uid'];
