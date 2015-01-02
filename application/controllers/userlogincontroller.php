@@ -14,7 +14,7 @@ class Userlogincontroller extends MY_Controller{
         parent::__construct();
         $this->load->library('form_validation');
         $this->form_validation->set_rules('phoneNumber','Phone','trim|required|integer|numeric|exact_length[10]');
-        $this->form_validation->set_rules('oldPassword','VipPassword','trim|required|min_length[6]|max_length[10]|alpha_dash');
+        $this->form_validation->set_rules('oldPassword','VipPassword','trim|required');
         $this->form_validation->set_rules('newPassword','AgainPassword','trim|required|min_length[6]|max_length[10]|alpha_dash');
     }
 

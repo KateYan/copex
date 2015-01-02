@@ -170,20 +170,19 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
             <li>
                 <?php
                 $attributes = array('class'=>'btn_again');
-                echo anchor('marketcontroller/showDailyMenu','A重新点餐',$attributes);
+                echo anchor('marketcontroller/showDailyMenu','A. 我想重新选择',$attributes);
                 ?>
             </li>
             <li>
                 <?php
                 $attributes = array('class'=>'btn_again');
-                echo anchor('userlogincontroller/clearVip','B现金点餐',$attributes);
+                echo anchor('userlogincontroller/clearVip','B. 以普通用户身份点餐',$attributes);
                 ?>
             </li>
-<!--            <li><a class="btn_again" onclick="cashOrder()">B现金点餐</a></li>-->
             <li>
                 <?php
                 $attributes = array('class'=>'btn_again');
-                echo anchor('marketcontroller/showDailyMenu','C暂不点餐',$attributes);
+                echo anchor('marketcontroller/showSideDish','C. 留在当前页面看看',$attributes);
                 ?>
             </li>
         </ul>
