@@ -128,7 +128,7 @@
                                 <fieldset>
                                     <?php
                                     $attributes = array('id'=>'orderbycampus');
-                                    echo form_open('ordercontroller/showOrders');
+                                    echo form_open('admincontroller/showOrders');
 
                                     ?>
                                     <legend>校区</legend>

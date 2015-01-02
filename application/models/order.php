@@ -178,9 +178,9 @@ class Order extends CI_Model {
      *
      *
      */
-    // for admin to mange order's show today's orders
-    public function orderByDate($date){
-        $sql = "SELECT `order`.oid as orderNumber,`order`.oispaid as isPaid,`order`.ostatus as isPickedup,`campus`.cname as campus,`order`.fordate as forDate,`order`.odate as orderDate,`order`.totalcost as totalCost,`user`.uphone as userPhone,`user`.vipid as vipId,`user`.uid as userId FROM (`order`JOIN campus ON `order`.cid = `campus`.cid) JOIN user ON  `order`.uid = `user`.uid WHERE `order`.fordate='$date' ORDER BY `order`.odate DESC";
+    // for admin to mange orders from one campus orders that are needed to prepare
+    public function getOrdersByCampusDate($campusId,$date){
+        $sql = "SELECT `order`.oid as orderNumber,`order`.oispaid as isPaid,`order`.ostatus as isPickedup,`campus`.cname as campus,`order`.fordate as forDate,`order`.odate as orderDate,`order`.totalcost as totalCost,`user`.uphone as userPhone,`user`.vipid as vipId,`user`.uid as userId FROM (`order`JOIN campus ON `order`.cid = `campus`.cid) JOIN user ON  `order`.uid = `user`.uid WHERE `order`.fordate='$date' AND `order`.cid='$campusId' ORDER BY `order`.odate DESC";
 
         $query = $this->db->query($sql);
         if($query->num_rows()==0){
@@ -190,8 +190,8 @@ class Order extends CI_Model {
     }
 
     // find all orders to show order history for user
-    public function allOrders(){
-        $sql = "SELECT `order`.oid as orderNumber,`order`.oispaid as isPaid,`order`.ostatus as isPickedup,`campus`.cname as campus,`order`.fordate as forDate,`order`.odate as orderDate,`order`.totalcost as totalCost,`user`.uphone as userPhone,`user`.vipid as vipId,`user`.uid as userId FROM (`order`JOIN campus ON `order`.cid = `campus`.cid) JOIN user ON  `order`.uid = `user`.uid ORDER BY `order`.odate DESC";
+    public function getAllOrdersByCampus($campusId){
+        $sql = "SELECT `order`.oid as orderNumber,`order`.oispaid as isPaid,`order`.ostatus as isPickedup,`campus`.cname as campus,`order`.fordate as forDate,`order`.odate as orderDate,`order`.totalcost as totalCost,`user`.uphone as userPhone,`user`.vipid as vipId,`user`.uid as userId FROM (`order`JOIN campus ON `order`.cid = `campus`.cid) JOIN user ON  `order`.uid = `user`.uid WHERE `order`.cid='$campusId' ORDER BY `order`.odate DESC";
 
         $query = $this->db->query($sql);
         if($query->num_rows()==0){

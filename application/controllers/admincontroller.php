@@ -75,37 +75,41 @@ class Admincontroller extends MY_Controller{
     }
 
     //show orders on the way and history orders
-    public function showOrderManage(){
+    public function showOrders(){
+
+        // campus list data
+        $this->load->model('market');
+        if(isset($_POST['campus'])){
+            $campusId = $this->input->post('campus');
+        }elseif(isset($_SESSION['order_campus'])){
+            $campusId = $_SESSION['order_campus']['cid'];
+        }
+        // get campus name
+        $campus = $this->market->getCampusById($campusId);
+        $_SESSION['order_campus'] = array('cid'=>$campus->cid,'cname'=>$campus->cname);
+
         $data['title'] = "Copex | 订单管理";
         // show today's order that needed to prepare
-        $this->load->model('order');
+
         $time = date("H:i:s");
         if($time>='00:00:00'&&$time<='12:00:00'){
             $date = date('Y-m-d');
         }else{
             $date = date('Y-m-d',strtotime('+1 day'));
         }
-        // only if there is more than 0 order is made
-        if($this->order->orderByDate($date)){// only if there is more than 0 order is made
-            $data['prepareOrder'] = $this->order->orderByDate($date);
+        // find orders that need to prepare
+        $this->load->model('order');
+        if($this->order->getOrdersByCampusDate($campusId,$date)){// check number of orders
+            $data['prepareOrder'] = $this->order->getOrdersByCampusDate($campusId,$date);
         }
         // find all orders for admin
-        if($this->order->allOrders()){
-            $data['hitoryOrder'] = $this->order->allOrders();
+        if($this->order->getAllOrdersByCampus($campusId)){
+            $data['historyOrder'] = $this->order->getAllOrdersByCampus($campusId);
         }
+
         $this->load->view('partials/adminHeader',$data);
-        $this->load->view('admin/orderManage',$data);
+        $this->load->view('admin/order_campus',$data);
         $this->load->view('partials/adminFooter');
-    }
-
-    /*
-     * show user's all orders
-     */
-    public function showAllOrder(){
-
-        $this->load->model('order');
-        $data['orders'] = $this->order->allOrders();
-        $this->load->view('allorders',$data);
     }
 
     // show one order's detail with order's id
@@ -115,9 +119,7 @@ class Admincontroller extends MY_Controller{
         if(!empty($orderId)){
             $data['orderFood'] = $this->order->orderFoodDetail($orderId);
             $data['orderSidedish'] = $this->order->orderSidedishDetail($orderId);
-//            var_dump($data['orderFood']);
-//            var_dump($data['orderSidedish']);
-//            die();
+
             $data['title'] = "Copex | 订单详情";
             $this->load->view('partials/adminHeader',$data);
             $this->load->view('admin/orderDetails');
@@ -141,7 +143,7 @@ class Admincontroller extends MY_Controller{
         $this->load->model('order');
         $this->order->updateOrder($orderIdList,$columnName);
 
-        return redirect('admincontroller/showOrderManage');
+        return redirect('admincontroller/showOrders');
     }
 
     // change order's status into ispaid
@@ -159,7 +161,7 @@ class Admincontroller extends MY_Controller{
         $this->load->model('order');
         $this->order->updateOrder($orderIdList,$columnName);
 
-        return redirect('admincontroller/showOrderManage');
+        return redirect('admincontroller/showOrders');
     }
     // log out administer
     public function logOut(){

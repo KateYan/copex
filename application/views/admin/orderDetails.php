@@ -82,7 +82,7 @@
                         <i class="glyphicon glyphicon-print"></i>
                         打印订单
                     </button>
-                    <a class="btn btn-sm btn-success" href="../showOrderManage" style="float: right;">
+                    <a class="btn btn-sm btn-success" href="../showOrders" style="float: right;">
                         <i class="glyphicon glyphicon-backward"></i>
                         返回订单列表
                     </a>
