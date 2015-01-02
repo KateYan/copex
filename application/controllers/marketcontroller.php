@@ -32,7 +32,8 @@ class Marketcontroller extends MY_Controller{
             'orderlimit' => "普通用户每天只能下一单哦！", // non-vip
             'nofulfill'=> "您还没有选择菜品或输入手机号哦！", // non-vip
             'nofoodpicked'=>"您还没有点任何一款主食哦！", // vip
-            'wrongphone'=>"请输入正确的手机号" // non-vip
+            'wrongphone'=>"请输入正确的手机号",// non-vip
+            'timelimit' => "超过订餐时间！"
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
@@ -182,7 +183,7 @@ class Marketcontroller extends MY_Controller{
     public function orderGenerate(){
         // test if still in order time range
         if(!$this->checkTime()){
-            return redirect('marketcontroller/showDailyMenu');
+            return redirect('marketcontroller/showDailyMenu/timelimit');
         }
         // check if phone number is valid
         if($this->form_validation->run() == FALSE){

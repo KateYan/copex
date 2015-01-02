@@ -32,6 +32,10 @@
 
             });
     })
+        function closeWindowTimeLimit(){
+            $("#timelimit").hide();
+        }
+
         function closeWindow(){
             $("#orderedLimit").hide();
         }
@@ -123,7 +127,7 @@
     </div>
 </footer>
 </form>
-<div class="layer">
+<div id="timelimit" class="layer" <?php echo (isset($eMsg['timelimit']))?'style="display: block;"': ''; ?>>
     <div class="black_layer"></div>
     <div class="layer_summary">
         <p>对不起，已经超过<span class="sorry">0:00了哦，你可以</span></p>
@@ -136,7 +140,7 @@
             </li>
             <li>
                 <?php
-                $attributes = array('class'=>'btn_again');
+                $attributes = array('class'=>'btn_again','onclick'=>'closeWindowTimeLimit()');
                 echo anchor('marketcontroller/showDailyMenu','B. 明天中午13:00后再订餐',$attributes);
                 ?>
             </li>
@@ -153,7 +157,7 @@
             <li></li>
             <li>
                 <?php
-                $attributes = array('class'=>'btn_again');
+                $attributes = array('class'=>'btn_again','onclick'=>'closeWindowWrongPhone()');
                 echo anchor('marketcontroller/showDailyMenu','重新输入有效的手机号',$attributes);
                 ?>
             </li>
@@ -171,7 +175,7 @@
             <li></li>
             <li>
                 <?php
-                $attributes = array('class'=>'btn_again');
+                $attributes = array('class'=>'btn_again','onclick'=>'closeWindowNofulfill()');
                 echo anchor('marketcontroller/showDailyMenu','重新下单~',$attributes);
                 ?>
             </li>
