@@ -32,7 +32,8 @@ class Userstatuscontroller extends MY_Controller {
 				return redirect('userlogincontroller/loadCampus');
 			}
 		}
-		return redirect('userstatuscontroller/welcome');
+//		return redirect('userstatuscontroller/welcome');
+        return redirect('userlogincontroller/loadCampus');
 	}
 
     /*
