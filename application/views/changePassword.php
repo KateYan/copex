@@ -14,15 +14,17 @@
     <span class="loginTextBox resetPSW">
         <input name="newPassword" type="password" class="login_telText" placeholder="新密码" required />
     </span>
-    <p style="color:red;">
         <?php
         if(isset($eMsg)){
+            echo '<p style="color:red;">';
             echo $eMsg;
+            echo '</p>';
         }else{
+            echo '<p>';
             echo "请输入6-10位密码，组合只可包含数字/字母/下划线/破折号";
+            echo '</p>';
         };
         ?>
-    </p>
     <div class="btn_resetOrder">
         <?php
         $attributes = array('class'=>'btn_submitOrder btn_prevPage');
