@@ -154,7 +154,7 @@
                         <th>订单号</th>
                         <th>校区</th>
                         <th>用户</th>
-                        <th>类型</th>
+                        <th>VIP卡号</th>
                         <th>电话</th>
                         <th>取餐日期</th>
                         <th>下单时间</th>
@@ -180,11 +180,7 @@
                             echo '</a></td>';
                             echo '<td>'.$prepareOrder[$i]->campus.'</td>';
                             echo '<td>'.$prepareOrder[$i]->userId.'</td>';
-                            if(empty($prepareOrder[$i]->vipId)){
-                                echo '<td>'."普通用户".'</td>';
-                            }else{
-                                echo '<td>'."VIP用户".'</td>';
-                            }
+                            echo '<td>'.$prepareOrder[$i]->cardNumber.'</td>';
                             echo '<td>'.$prepareOrder[$i]->userPhone.'</td>';
                             echo '<td>'.$prepareOrder[$i]->forDate.'</td>';
                             echo '<td>'.$prepareOrder[$i]->orderDate.'</td>';
@@ -248,7 +244,7 @@
                         <th>订单号</th>
                         <th>校区</th>
                         <th>用户</th>
-                        <th>类型</th>
+                        <th>VIP卡号</th>
                         <th>电话</th>
                         <th>取餐日期</th>
                         <th>下单时间</th>
@@ -274,11 +270,7 @@
                         echo '</a></td>';
                         echo '<td>'.$historyOrder[$i]->campus.'</td>';
                         echo '<td>'.$historyOrder[$i]->userId.'</td>';
-                        if(empty($historyOrder[$i]->vipId)){
-                            echo '<td>'."普通用户".'</td>';
-                        }else{
-                            echo '<td>'."VIP用户".'</td>';
-                        }
+                        echo '<td>'.$historyOrder[$i]->cardNumber.'</td>';
                         echo '<td>'.$historyOrder[$i]->userPhone.'</td>';
                         echo '<td>'.$historyOrder[$i]->forDate.'</td>';
                         echo '<td>'.$historyOrder[$i]->orderDate.'</td>';
