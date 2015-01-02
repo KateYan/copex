@@ -75,7 +75,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
             // store session
             $_SESSION['rule'] = $ruleDetail;
-            
+
             $data['title'] = "Copex | 时间限制管理";
             $this->load->view('partials/adminHeader',$data);
             $this->load->view('admin/editBasicTime',$data);
