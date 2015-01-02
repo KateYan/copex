@@ -123,7 +123,7 @@
                 <li>
                     <?php
                     $attributes = array('id'=>'manageOrder');
-                    echo anchor('admincontroller/showOrderManage','<i class="glyphicon glyphicon-chevron-right"></i> 1. 订单管理',$attributes);
+                    echo anchor('admincontroller/showOrderPanel','<i class="glyphicon glyphicon-chevron-right"></i> 1. 订单管理',$attributes);
                     ?>
                 </li>
                 <li>

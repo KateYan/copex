@@ -62,6 +62,17 @@ class Admincontroller extends MY_Controller{
         $this->load->view('admin/adminPanel');
         $this->load->view('partials/adminFooter');
     }
+    //show campus choose for view orders
+    public function showOrderPanel(){
+        // campus list data
+        $this->load->model('market');
+        $data['campusList'] = $this->market->getCampusList();
+
+        $data['title'] = "Copex | 订单管理";
+        $this->load->view('partials/adminHeader',$data);
+        $this->load->view('admin/orderPanel',$data);
+        $this->load->view('partials/adminFooter');
+    }
 
     //show orders on the way and history orders
     public function showOrderManage(){

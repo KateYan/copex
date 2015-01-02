@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: kunyan
- * Date: 12/24/2014
- * Time: 11:52 AM
+ * Date: 1/2/2015
+ * Time: 12:11 AM
  */
 ?>
 <!-- Datatables -->
@@ -67,7 +67,7 @@
                     echo anchor('admincontroller/showAdminPanel','<i class="glyphicon glyphicon-chevron-right"></i> 关于Copex',$attributes);
                     ?>
                 </li>
-                <li>
+                <li class="active">
                     <?php
                     $attributes = array('id'=>'manageOrder');
                     echo anchor('admincontroller/showOrderPanel','<i class="glyphicon glyphicon-chevron-right"></i> 1. 订单管理',$attributes);
@@ -85,7 +85,7 @@
                     echo anchor('dishcontroller/showDishManage','<i class="glyphicon glyphicon-chevron-right"></i> 3. 菜品管理',$attributes);
                     ?>
                 </li>
-                <li class="active">
+                <li>
                     <?php
                     $attributes = array('id'=>'manageMenu');
                     echo anchor('menucontroller/showMenuManage','<i class="glyphicon glyphicon-chevron-right"></i> 4. 菜单管理',$attributes);
@@ -111,7 +111,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>菜单管理</h1>
+                        <h1>订单管理</h1>
                     </div>
                 </div>
             </div>
@@ -120,15 +120,15 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default bootstrap-admin-no-table-panel">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">选择校区查看菜单历史</div>
+                            <div class="text-muted bootstrap-admin-box-title">选择校区查看订单</div>
                         </div>
                         <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
 
                             <div class="form-horizontal">
                                 <fieldset>
                                     <?php
-                                    $attributes = array('id'=>'menubycampus');
-                                    echo form_open('menucontroller/showMenus');
+                                    $attributes = array('id'=>'orderbycampus');
+                                    echo form_open('ordercontroller/showOrders');
 
                                     ?>
                                     <legend>校区</legend>
@@ -146,7 +146,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <button style="float:right;" type="submit" class="btn btn-primary">查看菜单历史</button>
+                                    <button style="float:right;" type="submit" class="btn btn-primary">查看该校区订单</button>
                                     <?php
                                     echo form_close();
                                     ?>
