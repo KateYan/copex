@@ -11,6 +11,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Cache-control" />
+    <meta name="screen-orientation" content="portrait" />
     <meta name="format-detection" content="telephone=no" />
     <meta content="yes" name="apple-mobile-web-app-capable" />
     <meta content="black" name="apple-mobile-web-app-status-bar-style" />
