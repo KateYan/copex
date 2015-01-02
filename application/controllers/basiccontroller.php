@@ -28,8 +28,6 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
             $timeSetting = array('userType'=>$userType,'timeRange'=>$timeRange);
             $data['rule'] = $timeSetting;
-//            var_dump($data['rule']['timeRange']);
-//            die();
 
             // campus list data
             $this->load->model('market');
@@ -55,23 +53,29 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
                 $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
             }
 
-            if(!isset($_SESSION['rule'])){
-                // get time information of specific type of user
-                if(isset($_GET['userType'])){
-                    $userType = $_GET['userType'];
+            // check if this controller is loaded from basic panel
+            if(isset($_GET['userType'])){
+                // unset session first
+                if(isset($_SESSION['rule'])){
+                    unset($_SESSION['rule']);
                 }
-            }else{// for updating rule session
+                // set user type
+                $userType = $_GET['userType'];
+            }else{
+                if(!isset($_SESSION['rule'])){
+                    return redirect('basiccontroller/showBasicManage');
+                }
                 $userType = $_SESSION['rule']['userType'];
             }
-                $this->load->model('market');
-                $timeRange= $this->market->getTimeRange($userType);
 
-                $ruleDetail = array('userType'=>$userType,'timeRange'=>$timeRange);
+            $this->load->model('market');
+            $timeRange= $this->market->getTimeRange($userType);
 
-                // store session
-                $_SESSION['rule'] = $ruleDetail;
+            $ruleDetail = array('userType'=>$userType,'timeRange'=>$timeRange);
 
-
+            // store session
+            $_SESSION['rule'] = $ruleDetail;
+            
             $data['title'] = "Copex | 时间限制管理";
             $this->load->view('partials/adminHeader',$data);
             $this->load->view('admin/editBasicTime',$data);
