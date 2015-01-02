@@ -18,19 +18,33 @@
     <meta content="telephone=no" name="format-detection" />
     <meta name="viewport" content="width=device-width; maximum-scale=1.0;  user-scalable=no; initial-scale=1.0" />
     <title>选择你所在的校区</title>
-    <link href="/copex/css/login.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="/copex/js/jquery-1.7.2.min.js"></script>
+    <link href="/copex/css/campus.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/copex/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript">
         $(function(){
-            $(".select_Campus").live("click", function(){
+            setTimeout(function(){$(".logo_area").animate({"opacity": "1"})},1);
+            setTimeout(function(){$(".select_Campus").animate({"opacity": "1"})},1000);
+            setTimeout(function(){$(".btn_loginArea").animate({"opacity": "1"})},2000);
+            $(".select_Campus").bind("click", function(){
                 $(".campus_list").show();
             });
-            $(".campus_list li").live("click", function(){
+            $(".campus_list li").bind("click", function(){
                 $(this).addClass("selectLi").siblings().removeClass("selectLi");
                 $("#Campus_id").val($(this).html());
                 $(".campus_list").hide();
             });
         });
+//        $(function(){
+//            $(".select_Campus").live("click", function(){
+//                $(".campus_list").show();
+//            });
+//            $(".campus_list li").live("click", function(){
+//                $(this).addClass("selectLi").siblings().removeClass("selectLi");
+//                $("#Campus_id").val($(this).html());
+//                $(".campus_list").hide();
+//            });
+//        });
+
     </script>
 </head>
 <body>
