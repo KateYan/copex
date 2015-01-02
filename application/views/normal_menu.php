@@ -11,7 +11,7 @@
             var _W = document.documentElement.clientWidth;
             $(".manaRecom_menu").css("height", parseInt((_W - 18)*256/606)+"px");
             $(".tdyS_m_block").css("height", parseInt((_W - 18)*0.46*317/266)+"px");
-//
+
 //        var startTime = $('#timestart').val().split(":"), endTime = $('#timeend').val().split(":");
 //        var s = new Date(), e = new Date(), n = new Date();
 //
@@ -31,7 +31,7 @@
 //                }
 //
 //            });
-//    })
+    })
         function closeWindowTimeLimit(){
             $("#timelimit").hide();
         }
