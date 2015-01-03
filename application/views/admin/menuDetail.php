@@ -117,7 +117,17 @@
                                         <div class="col-lg-10">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
-                                                    <div class="text-muted bootstrap-admin-box-title">菜单主食</div>
+                                                    <?php
+                                                    $attributes = array('id'=>'menuInventory');
+                                                    echo form_open('menucontroller/menuInventory',$attributes);
+                                                    echo form_close();
+                                                    ?>
+                                                    <div class="text-muted bootstrap-admin-box-title">菜单主食
+                                                        <button form="menuInventory" class="btn btn-sm btn-success" style="float: right;margin-right: 5px;">
+                                                            <i class="glyphicon glyphicon-pencil"></i>
+                                                            修改库存
+                                                        </button>
+                                                    </div>
                                                 </div>
                                                 <div class="bootstrap-admin-panel-content">
                                                     <table class="table table-striped">
@@ -127,6 +137,7 @@
                                                             <th>主食ID</th>
                                                             <th>主食名</th>
                                                             <th>单价</th>
+                                                            <th>库存</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
@@ -144,6 +155,9 @@
                                                             echo '<td>'.$menuItems[$i]->fid.'</td>';
                                                             echo '<td>'.$menuItems[$i]->fname.'</td>';
                                                             echo '<td>'."$".$menuItems[$i]->fprice.'</td>';
+                                                            echo '<td>';
+                                                            echo '<input class="form-control" style="width:15%;" type="text" name="inventory'.$i.'" value="'.$menuItems[$i]->minventory.'"/>';
+                                                            echo '</td>';
                                                             echo '</tr>';
                                                         }
                                                         ?>

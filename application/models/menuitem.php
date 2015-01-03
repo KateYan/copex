@@ -97,7 +97,7 @@ class Menuitem extends CI_Model {
 
     // get menu items
     public function getMenuItems($menuId){
-        $sql = "SELECT menuitem.isrecomd,menuitem.fid, food.fname, food.fprice FROM menuitem JOIN food ON menuitem.fid = food.fid WHERE menuitem.mid =$menuId ";
+        $sql = "SELECT menuitem.isrecomd,menuitem.fid,menuitem.minventory,food.fname, food.fprice FROM menuitem JOIN food ON menuitem.fid = food.fid WHERE menuitem.mid =$menuId ";
 
         $query = $this->db->query($sql);
         return $query->result();
