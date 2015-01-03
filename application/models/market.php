@@ -46,6 +46,14 @@ class Market extends CI_Model {
 
         $_SESSION['campus'] = $campus;
     }
+    //get food information by using it's sid
+    public function getFoodById($fid){
+        $sql = "SELECT * FROM food WHERE fid='$fid'";
+        $query = $this->db->query($sql);
+
+        // return the result set as an array
+        return $query->row(0);
+    }
 
 
     // get sidedish's information by using it's sid

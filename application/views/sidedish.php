@@ -6,7 +6,6 @@
  * Time: 1:14 PM
  */
 ?>
-
     <script type="text/javascript">
         $(function(){
             $("form#side-dishes-list :input[type='checkbox']").change(function(){
@@ -54,8 +53,20 @@
             $("#wrong_password").hide();
         }
 
+        function closeWindowNofood(){
+            $("#nofood").hide();
+        }
+
+        function closeWindowNosidedish(){
+            $("#nosidedish").hide();
+        }
+
         function showWindow(){
             $("#wrong_password").show();
+        }
+
+        function showWindow(){
+            $("#nofood").show();
         }
     </script>
 </head>
@@ -197,6 +208,42 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
             <li></li>
             <li></li>
             <li><a href="#" onclick = "closeWindow()">关闭</a></li>
+        </ul>
+    </div>
+</div>
+<!--food out of inventory-->
+<div id="nofood" class="layer" <?php echo (isset($nofood))?'style="display: block;"': ''; ?>>
+    <div class="black_layer"></div>
+    <div class="layer_summary">
+        <br />
+        <p><?php echo "对不起，"; echo "“".$nofood."”";?><span class="sorry">没有预定名额了，你可以：</span></p>
+        <ul class="finishLay">
+            <li></li>
+            <li>
+                <?php
+                $attributes = array('class'=>'btn_again','onclick'=>'closeWindowNofood()');
+                echo anchor('marketcontroller/showDailyMenu','去挑选别的美味主食~',$attributes);
+                ?>
+            </li>
+            <li></li>
+        </ul>
+    </div>
+</div>
+<!--sidedish out of inventory-->
+<div id="nosidedish" class="layer" <?php echo (isset($nosidedish))?'style="display: block;"': ''; ?>>
+    <div class="black_layer"></div>
+    <div class="layer_summary">
+        <br />
+        <p><?php echo "对不起，"; echo "“".$nosidedish."”";?><span class="sorry">没有预定名额了，你可以：</span></p>
+        <ul class="finishLay">
+            <li></li>
+            <li>
+                <?php
+                $attributes = array('class'=>'btn_again','onclick'=>'closeWindowNosidedish()');
+                echo anchor('marketcontroller/showSideDish','去挑选别的诱人小食~',$attributes);
+                ?>
+            </li>
+            <li></li>
         </ul>
     </div>
 </div>

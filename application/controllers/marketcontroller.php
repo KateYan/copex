@@ -34,7 +34,14 @@ class Marketcontroller extends MY_Controller{
             'nofoodpicked'=>"您还没有点任何一款主食哦！", // vip
             'wrongphone'=>"请输入正确的手机号",// non-vip
             'timelimit' => "超过订餐时间！",
-            'outofinventory' => "您选的菜今天已经被全部预定了~"
+            'outofinventory' => "您选的菜今天已经被全部预定了~",
+            'noenoughfood0' => "菜单上的第一个菜已经被预定光了！",
+            'noenoughfood1' => "菜单上的第二个菜已经被预定光了！",
+            'noenoughfood2' => "菜单上的第三个菜已经被预定光了！",
+            'nosidedish0' => "第一个小食被预定光了！",
+            'nosidedish1' => "第二个小食被预定光了！",
+            'nosidedish2' => "第三个小食被预定光了！",
+            'nosidedish3' => "第四个小食被预定光了！"
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
@@ -117,6 +124,21 @@ class Marketcontroller extends MY_Controller{
             return redirect('marketcontroller/showDailyMenu');
         }elseif(!empty($errorCode)){
             $data['eMsg'] = $eMsg["$errorCode"];
+        }
+
+        // show inventory error message
+        if(isset($_GET['nofood'])){
+            $this->load->model('market');
+            $nofood = $this->market->getFoodById($_GET['nofood']);
+            $data['nofood'] = $nofood->fname;
+//            echo $data['nofood'];
+//            die();
+        }
+        if(isset($_GET['nosidedish'])){
+
+            $this->load->model('market');
+            $nosidedish = $this->market->getSidedishById($_GET['nosidedish']);
+            $data['nosidedish'] = $nosidedish->sname;
         }
 
         $totalCost = 0;
@@ -274,6 +296,7 @@ class Marketcontroller extends MY_Controller{
         $totalCost_beforTax = 0;
         //for posted food
         $foodList = array();
+        $foodItem = array();// used for inventory checking
         for($i = 1; $i <= 3; $i++){
             if(isset($_POST["amt$i"])){
                 //update totalcost
@@ -282,11 +305,16 @@ class Marketcontroller extends MY_Controller{
                 for($j=1;$j<=$_POST["amt$i"];$j++){
                     $foodList[] = $_SESSION["food$i"]['id'];
                 }
+                // create array for inventory check
+                $foodId = $_SESSION["food$i"]['id'];
+                $foodAmount = $_POST["amt$i"];
+                $foodItem[] = array('id'=>$foodId,'amount'=>$foodAmount);
             }
         }
 
         // for posted side dish
         $sideDishList = array();
+        $sideDishItem = array();
         for($k = 1;$k <= 4; $k++){
             if(isset($_POST["sd$k"])){
                 // update sidedishlist
@@ -294,8 +322,32 @@ class Marketcontroller extends MY_Controller{
 
                 //update total cost
                 $totalCost_beforTax += $_SESSION["sidedish$k"]['price'];
+                // create array for inventory check
+                $sideDishId = $_SESSION["sidedish$k"]['id'];
+                $sideDishAmount = 1;
+                $sideDishItem[] = array('id'=>$sideDishId,'amount'=>$sideDishAmount);
             }
         }
+
+        //check inventory both food and sidedish
+        $this->load->model('order');
+        // first check food inventory
+        $num_food = count($foodItem);
+        for($i = 0; $i < $num_food; $i++){
+            if(!$this->order->checkFoodInventory($_SESSION['cid'],$foodItem[$i]['id'],$foodItem[$i]['amount'])){
+                $nofood = $foodItem[$i]['id'];
+                return redirect("marketcontroller/showSideDish?nofood=$nofood");
+            }
+        }
+        // then check sidedish inventory
+        $num_sidedish = count($sideDishItem);
+        for($i = 0; $i < $num_sidedish; $i++){
+            if(!$this->order->checkFoodInventory($_SESSION['cid'],$sideDishItem[$i]['id'],$sideDishItem[$i]['amount'])){
+                $nosidedish = $sideDishItem[$i]['id'];
+                return redirect("marketcontroller/showSideDish?nosidedish=$nosidedish");
+            }
+        }
+
         // using user's vipid to get vip user's vip card's balance to show
         $this->load->model('market');
         $vipCard = $this->market->getVipCard($_SESSION['vipid']);

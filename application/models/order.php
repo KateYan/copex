@@ -126,7 +126,7 @@ class Order extends CI_Model {
     // menuitem inventory check
     public function checkFoodInventory($cid,$foodId,$amount){
 
-        $sql = "SELECT menuitem.minventory FROM menuitem JOIN dailymenu ON menuitem.mid=dailymenu.mid WHERE dailymenu.cid='$cid' AND dailymenu.mstatus='1' AND fid ='$foodId'";
+        $sql = "SELECT menuitem.minventory FROM menuitem JOIN dailymenu ON menuitem.mid=dailymenu.mid WHERE dailymenu.cid='$cid' AND dailymenu.mstatus='1' AND menuitem.fid ='$foodId'";
         $query = $this->db->query($sql);
         $result = $query->result();
         $num = $query->num_rows();
@@ -137,8 +137,15 @@ class Order extends CI_Model {
     }
 
     // sidemenu inventory check
-    public function checkSidedishInventory($sidedishId){
-
+    public function checkSidedishInventory($cid,$sidedishId,$amount){
+        $sql = "SELECT sidemenuitem.sinventory FROM sidemenuitem JOIN sidemenu ON sidemenuitem.sideMenuID=sidemenu.sideMenuID WHERE sidemenu.cid='$cid' AND sidemenu.sideMenuStatus='1' AND sidemenuitem.sid ='$sidedishId'";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        $num = $query->num_rows();
+        if($num < $amount){
+            return false;
+        }
+        return $result[0]->sinventory;
     }
 
     // find one user's order
