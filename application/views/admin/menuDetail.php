@@ -156,7 +156,7 @@
                                                             echo '<td>'.$menuItems[$i]->fname.'</td>';
                                                             echo '<td>'."$".$menuItems[$i]->fprice.'</td>';
                                                             echo '<td>';
-                                                            echo '<input class="form-control" style="width:15%;" type="text" name="inventory'.$i.'" value="'.$menuItems[$i]->minventory.'"/>';
+                                                            echo '<input form="menuInventory" class="form-control" style="width:15%;" type="text" name="inventory'.$i.'" value="'.$menuItems[$i]->minventory.'" required />';
                                                             echo '</td>';
                                                             echo '</tr>';
                                                         }

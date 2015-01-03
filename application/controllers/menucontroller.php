@@ -219,4 +219,18 @@ class MenuController extends MY_Controller{
         $this->load->view('partials/adminFooter');
 
     }
+
+    //update inventory
+    public function menuInventory(){
+        var_dump($_POST);
+        die();
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('inventory0','recommond','trim|required|integer|numeric|max_length[4]');
+        $this->form_validation->set_rules('inventory1','onsale1','trim|required|integer|numeric|max_length[4]');
+        $this->form_validation->set_rules('inventory2','onsale2','trim|required|integer|numeric|max_length[4]');
+
+        if($this->form_validation->run()==FALSE){
+            return redirect('menucontroller/showAddVip/wrong');
+        }
+    }
 }
