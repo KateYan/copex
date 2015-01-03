@@ -9,6 +9,11 @@
 
     <!-- Datatables -->
     <link rel="stylesheet" media="screen" href="/copex/bootstrap/css/DT_bootstrap.css">
+<script>
+    function printOrder(){
+        window.print()
+    }
+</script>
 
 </head>
 <body class="bootstrap-admin-with-small-navbar">
@@ -141,9 +146,13 @@
                         <i class="glyphicon glyphicon-ok-sign"></i>
                         提交确认收货
                     </button>
-                    <button form="confirmPaid" class="btn btn-sm btn-success" style="float: right;">
+                    <button form="confirmPaid" class="btn btn-sm btn-success" style="float: right;margin-left: 5px;">
                         <i class="glyphicon glyphicon-ok-sign"></i>
                         提交确认付款
+                    </button>
+                    <button class="btn btn-sm btn-warning" onclick="printOrder()" style="float: right;margin-left: 5px;">
+                        <i class="glyphicon glyphicon-print"></i>
+                        打印订单
                     </button>
                 </div>
             </div>

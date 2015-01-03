@@ -7,12 +7,6 @@
  */
 ?>
 
-<script>
-    function printOrder(){
-        window.print()
-    }
-</script>
-
 </head>
 <body class="bootstrap-admin-with-small-navbar">
 <!-- small navbar -->
@@ -78,10 +72,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="text-muted bootstrap-admin-box-title">订单详情
-                    <button class="btn btn-sm btn-primary" onclick="printOrder()" style="float: right;margin-left: 5px;">
-                        <i class="glyphicon glyphicon-print"></i>
-                        打印订单
-                    </button>
+
                     <a class="btn btn-sm btn-success" href="../showOrders" style="float: right;">
                         <i class="glyphicon glyphicon-backward"></i>
                         返回订单列表
