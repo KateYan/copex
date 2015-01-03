@@ -168,7 +168,7 @@
                                         $menus = $_SESSION['menus'];
                                         echo '<tr>';
                                         echo '<td>';
-                                        echo anchor("menucontroller/showMenuDetail/".$menus[$i]->mid,$menus[$i]->mid);
+                                        echo anchor("menucontroller/showMenuDetail?menuId=".$menus[$i]->mid,$menus[$i]->mid);
                                         echo '</td>';
                                         echo '<td>'.$menus[$i]->mdate.'</td>';
                                         if($menus[$i]->mstatus == 1){

@@ -12,11 +12,16 @@ class MenuController extends MY_Controller{
     // set validation rules
     public function __construct(){
         parent::__construct();
+//        $this->load->library('form_validation');
+//        $this->form_validation->set_rules('menu-cid','NewMenu-cid','trim|required');
+//        $this->form_validation->set_rules('menu-recommend','NewMenu-recommend','trim|required');
+//        $this->form_validation->set_rules('menu-onsale1','NewMenu-onSale-1','trim|required');
+//        $this->form_validation->set_rules('menu-onsale2','NewMenu-onSale-2','trim|required');
+
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('menu-cid','NewMenu-cid','trim|required');
-        $this->form_validation->set_rules('menu-recommend','NewMenu-recommend','trim|required');
-        $this->form_validation->set_rules('menu-onsale1','NewMenu-onSale-1','trim|required');
-        $this->form_validation->set_rules('menu-onsale2','NewMenu-onSale-2','trim|required');
+        $this->form_validation->set_rules('inventory0','recommond','trim|required|integer|numeric|max_length[3]');
+        $this->form_validation->set_rules('inventory1','onsale1','trim|required|integer|numeric|max_length[3]');
+        $this->form_validation->set_rules('inventory2','onsale2','trim|required|integer|numeric|max_length[3]');
     }
 
     // show menu panel
@@ -189,13 +194,33 @@ class MenuController extends MY_Controller{
     }
 
     // show Menu's detail
-    public function showMenuDetail($menuId){
+    public function showMenuDetail($errorCode = null){
+        // check if there is error code
+        $eMsg = array(
+            'wrong' => "请输入正确的库存数据（最高3位数）",
+            'success' => "修改库存成功！"
+        );
+
+        if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+            $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
+        }
+
+        if(isset($_GET['menuId'])){
+            $menuId = $_GET['menuId'];
+        }
+        if(isset($_SESSION['menuDetail'])){
+            $menuId = $_SESSION['menuDetail']->mid;
+            unset($_SESSION['menuDetail']);
+            unset($_SESSION['menuItems']);
+        }
         // get menu's basic information
         $this->load->model('market');
-        $data['menu'] = $this->market->getMenuById($menuId);
+        $menuDetail = $this->market->getMenuById($menuId);
+        $_SESSION['menuDetail'] = $menuDetail;
         // get menu's items' information
         $this->load->model('menuitem');
-        $data['menuItems'] = $this->menuitem->getMenuItems($menuId);
+        $menuItems = $this->menuitem->getMenuItems($menuId);
+        $_SESSION['menuItems'] = $menuItems;
 
         $data['title'] = "Copex | 菜单详情";
         $this->load->view('partials/adminHeader',$data);
@@ -222,15 +247,23 @@ class MenuController extends MY_Controller{
 
     //update inventory
     public function menuInventory(){
-        var_dump($_POST);
-        die();
-        $this->load->library('form_validation');
-        $this->form_validation->set_rules('inventory0','recommond','trim|required|integer|numeric|max_length[4]');
-        $this->form_validation->set_rules('inventory1','onsale1','trim|required|integer|numeric|max_length[4]');
-        $this->form_validation->set_rules('inventory2','onsale2','trim|required|integer|numeric|max_length[4]');
+//        var_dump($_POST);
+//        die();
+//
+//        $this->load->library('form_validation');
+//        $this->form_validation->set_rules('inventory0','recommond','trim|required|integer|numeric|max_length[3]');
+//        $this->form_validation->set_rules('inventory1','onsale1','trim|required|integer|numeric|max_length[3]');
+//        $this->form_validation->set_rules('inventory2','onsale2','trim|required|integer|numeric|max_length[3]');
 
         if($this->form_validation->run()==FALSE){
-            return redirect('menucontroller/showAddVip/wrong');
+            return redirect('menucontroller/showMenuDetail/wrong');
         }
+        $food = array();
+        for($i=0;$i<3;$i++){
+            $food[] = array('fid'=>$_POST["food$i"],'inventory'=>$_POST["inventory$i"]);
+        }
+        $this->load->model('menuitem');
+        $this->menuitem->updateMenuInventory($_POST['menu'],$food);
+        return redirect('menucontroller/showMenuDetail/success');
     }
 }

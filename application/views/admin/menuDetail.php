@@ -94,21 +94,21 @@
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">菜单所属校区</label>
                                         <div class="col-lg-10">
-                                            <input disabled class="form-control" type="text" value="<?php echo $menu->cname?>" />
+                                            <input disabled class="form-control" type="text" value="<?php echo $_SESSION['menuDetail']->cname?>" />
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">创建日期</label>
                                         <div class="col-lg-10">
-                                            <input disabled class="form-control" type="text" value="<?php echo $menu->mdate?>" />
+                                            <input disabled class="form-control" type="text" value="<?php echo $_SESSION['menuDetail']->mdate?>" />
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">菜单状态</label>
                                         <div class="col-lg-10">
-                                            <input disabled class="form-control" type="text" value="<?php if($menu->mstatus==1){echo "正在使用";}elseif($menu->mstatus==0){echo "未使用";} ?>" />
+                                            <input disabled class="form-control" type="text" value="<?php if($_SESSION['menuDetail']->mstatus==1){echo "正在使用";}elseif($_SESSION['menuDetail']->mstatus==0){echo "未使用";} ?>" />
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -123,6 +123,13 @@
                                                     echo form_close();
                                                     ?>
                                                     <div class="text-muted bootstrap-admin-box-title">菜单主食
+                                                        <?php
+                                                        if(isset($eMsg['wrong'])){
+                                                            echo '<span style="color: #be2221;"><b>'.$eMsg['wrong'].'</b></span>';
+                                                        }elseif(isset($eMsg['success'])){
+                                                            echo '<span style="color: #be2221;"><b>'.$eMsg['success'].'</b></span>';
+                                                        }
+                                                        ?>
                                                         <button form="menuInventory" class="btn btn-sm btn-success" style="float: right;margin-right: 5px;">
                                                             <i class="glyphicon glyphicon-pencil"></i>
                                                             修改库存
@@ -142,21 +149,23 @@
                                                         </thead>
                                                         <tbody>
                                                         <?php
-                                                        $num = count($menuItems);
+                                                        $num = count($_SESSION['menuItems']);
+                                                        echo '<input form="menuInventory" type="hidden" name="menu" value="'.$_SESSION['menuDetail']->mid.'"/>';
                                                         for($i = 0;$i<$num; $i++){
                                                             echo '<tr>';
                                                             echo '<td>';
-                                                            if($menuItems[$i]->isrecomd == 1){
+                                                            if($_SESSION['menuItems'][$i]->isrecomd == 1){
                                                                 echo "店长推荐";
-                                                            }elseif($menuItems[$i]->isrecomd == 0){
+                                                            }elseif($_SESSION['menuItems'][$i]->isrecomd == 0){
                                                                 echo "特价";
                                                             }
                                                             echo '</td>';
-                                                            echo '<td>'.$menuItems[$i]->fid.'</td>';
-                                                            echo '<td>'.$menuItems[$i]->fname.'</td>';
-                                                            echo '<td>'."$".$menuItems[$i]->fprice.'</td>';
+                                                            echo '<input form="menuInventory" type="hidden" name="food'.$i.'" value="'.$_SESSION['menuItems'][$i]->fid.'"/>';
+                                                            echo '<td>'.$_SESSION['menuItems'][$i]->fid.'</td>';
+                                                            echo '<td>'.$_SESSION['menuItems'][$i]->fname.'</td>';
+                                                            echo '<td>'."$".$_SESSION['menuItems'][$i]->fprice.'</td>';
                                                             echo '<td>';
-                                                            echo '<input form="menuInventory" class="form-control" style="width:15%;" type="text" name="inventory'.$i.'" value="'.$menuItems[$i]->minventory.'" required />';
+                                                            echo '<input form="menuInventory" class="form-control" style="width:15%;" type="text" name="inventory'.$i.'" value="'.$_SESSION['menuItems'][$i]->minventory.'" required />';
                                                             echo '</td>';
                                                             echo '</tr>';
                                                         }

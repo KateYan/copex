@@ -110,4 +110,15 @@ class Menuitem extends CI_Model {
         $query = $this->db->query($sql);
         return $query->result();
     }
+
+    // update meuitem inventory
+    public function updateMenuInventory($menuId,$food){
+        $num = count($food);
+        for($i=0;$i<$num;$i++){
+            $fid = $food[$i]['fid'];
+            $inventory = $food[$i]['inventory'];
+            $sql = "UPDATE menuitem SET minventory='$inventory'WHERE mid='$menuId' AND fid = '$fid'";
+            $this->db->query($sql);
+        }
+    }
 }
