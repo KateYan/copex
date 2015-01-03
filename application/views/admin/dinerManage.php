@@ -60,59 +60,65 @@
 <!-- left, vertical navbar & content -->
 <div class="row">
 <!-- left, vertical navbar -->
-<div class="col-md-2 bootstrap-admin-col-left">
-    <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
-        <li>
-            <?php
-            $attributes = array('id'=>'adminPanel');
-            echo anchor('admincontroller/showAdminPanel','<i class="glyphicon glyphicon-chevron-right"></i> 关于Copex',$attributes);
-            ?>
-        </li>
-        <li>
-            <?php
-            $attributes = array('id'=>'manageOrder');
-            echo anchor('admincontroller/showOrderPanel','<i class="glyphicon glyphicon-chevron-right"></i> 1. 订单管理',$attributes);
-            ?>
-        </li>
-        <li class="active">
-            <?php
-            $attributes = array('id'=>'manageDiner');
-            echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-chevron-right"></i> 2. 餐厅管理',$attributes);
-            ?>
-        </li>
-        <li>
-            <?php
-            $attributes = array('id'=>'manageDish');
-            echo anchor('dishcontroller/showDishManage','<i class="glyphicon glyphicon-chevron-right"></i> 3. 菜品管理',$attributes);
-            ?>
-        </li>
-        <li>
-            <?php
-            $attributes = array('id'=>'manageMenu');
-            echo anchor('menucontroller/showMenuManage','<i class="glyphicon glyphicon-chevron-right"></i> 4. 菜单管理',$attributes);
-            ?>
-        </li>
-        <li>
-            <?php
-            $attributes = array('id'=>'manageVip');
-            echo anchor('vipcontroller/showVipPanel','<i class="glyphicon glyphicon-chevron-right"></i> 5. 会员管理',$attributes);
-            ?>
-        </li>
-        <li>
-            <?php
-            $attributes = array('id'=>'manageBasic');
-            echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-chevron-right"></i> 6. 基本管理',$attributes);
-            ?>
-        </li>
-    </ul>
-</div>
+    <div class="col-md-2 bootstrap-admin-col-left">
+        <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
+            <li>
+                <?php
+                $attributes = array('id'=>'adminPanel');
+                echo anchor('admincontroller/showAdminPanel','<i class="glyphicon glyphicon-chevron-right"></i> 关于Copex',$attributes);
+                ?>
+            </li>
+            <li>
+                <?php
+                $attributes = array('id'=>'manageOrder');
+                echo anchor('admincontroller/showOrderPanel','<i class="glyphicon glyphicon-chevron-right"></i> 1. 订单管理',$attributes);
+                ?>
+            </li>
+            <li>
+                <?php
+                $attributes = array('id'=>'prepareDishes');
+                echo anchor('dishcontroller/showDishPanel','<i class="glyphicon glyphicon-chevron-right"></i> 2. 备餐管理',$attributes);
+                ?>
+            </li>
+            <li class="active">
+                <?php
+                $attributes = array('id'=>'manageDiner');
+                echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-chevron-right"></i> 3. 餐厅管理',$attributes);
+                ?>
+            </li>
+            <li>
+                <?php
+                $attributes = array('id'=>'manageDish');
+                echo anchor('dishcontroller/showDishManage','<i class="glyphicon glyphicon-chevron-right"></i> 4. 菜品管理',$attributes);
+                ?>
+            </li>
+            <li>
+                <?php
+                $attributes = array('id'=>'manageMenu');
+                echo anchor('menucontroller/showMenuManage','<i class="glyphicon glyphicon-chevron-right"></i> 5. 菜单管理',$attributes);
+                ?>
+            </li>
+            <li>
+                <?php
+                $attributes = array('id'=>'manageVip');
+                echo anchor('vipcontroller/showVipPanel','<i class="glyphicon glyphicon-chevron-right"></i> 6. 会员管理',$attributes);
+                ?>
+            </li>
+            <li>
+                <?php
+                $attributes = array('id'=>'manageBasic');
+                echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-chevron-right"></i> 7. 基本管理',$attributes);
+                ?>
+            </li>
+        </ul>
+    </div>
 
 <!-- content -->
 <div class="col-md-10">
     <div class="row">
         <div class="col-lg-12">
             <div class="page-header">
-                <h1>餐厅</h1>
+                <h1>餐厅管理</h1>
             </div>
         </div>
     </div>
