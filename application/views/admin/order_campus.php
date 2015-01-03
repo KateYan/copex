@@ -12,13 +12,23 @@
     <link rel="stylesheet" media="print" href="/copex/bootstrap/css/DT_bootstrap.css">
 <script>
     function printOrder(){
-        document.getElementById("noPrint").style.display="none";
-        document.getElementById("print").style.display="table-cell";
+//        var elems1 = document.getElementsByClassName('anoPrint');
+//        for(var i = 0; i < elems1.length; i++) {
+//            elems1[i].style.display = "none";
+//        }
+//        var elems2 = document.getElementsByClassName('print');
+//        for(var i = 0; i < elems2.length; i++) {
+//            elems2[i].style.display = "table-cell";
+//        }
         window.print()
     }
 </script>
+<style type="text/css" media="screen">
+    .print{display:none;}
+</style>
 <style type="text/css" media="print">
     .noPrint{display:none;}
+    .print{display:table-cell;}
 </style>
 
 </head>
@@ -81,52 +91,52 @@
 
 <div class="noPrint">
 
-<div class="col-md-2 bootstrap-admin-col-left">
-    <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
-        <li>
-            <?php
-            $attributes = array('id'=>'adminPanel');
-            echo anchor('admincontroller/showAdminPanel','<i class="glyphicon glyphicon-chevron-right"></i> 关于Copex',$attributes);
-            ?>
-        </li>
-        <li class="active">
-            <?php
-            $attributes = array('id'=>'manageOrder');
-            echo anchor('admincontroller/showOrderPanel','<i class="glyphicon glyphicon-chevron-right"></i> 1. 订单管理',$attributes);
-            ?>
-        </li>
-        <li>
-            <?php
-            $attributes = array('id'=>'manageDiner');
-            echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-chevron-right"></i> 2. 餐厅管理',$attributes);
-            ?>
-        </li>
-        <li>
-            <?php
-            $attributes = array('id'=>'manageDish');
-            echo anchor('dishcontroller/showDishManage','<i class="glyphicon glyphicon-chevron-right"></i> 3. 菜品管理',$attributes);
-            ?>
-        </li>
-        <li>
-            <?php
-            $attributes = array('id'=>'manageMenu');
-            echo anchor('menucontroller/showMenuManage','<i class="glyphicon glyphicon-chevron-right"></i> 4. 菜单管理',$attributes);
-            ?>
-        </li>
-        <li>
-            <?php
-            $attributes = array('id'=>'manageVip');
-            echo anchor('vipcontroller/showVipPanel','<i class="glyphicon glyphicon-chevron-right"></i> 5. 会员管理',$attributes);
-            ?>
-        </li>
-        <li>
-            <?php
-            $attributes = array('id'=>'manageBasic');
-            echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-chevron-right"></i> 6. 基本管理',$attributes);
-            ?>
-        </li>
-    </ul>
-</div>
+    <div class="col-md-2 bootstrap-admin-col-left">
+        <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
+            <li>
+                <?php
+                $attributes = array('id'=>'adminPanel');
+                echo anchor('admincontroller/showAdminPanel','<i class="glyphicon glyphicon-chevron-right"></i> 关于Copex',$attributes);
+                ?>
+            </li>
+            <li class="active">
+                <?php
+                $attributes = array('id'=>'manageOrder');
+                echo anchor('admincontroller/showOrderPanel','<i class="glyphicon glyphicon-chevron-right"></i> 1. 订单管理',$attributes);
+                ?>
+            </li>
+            <li>
+                <?php
+                $attributes = array('id'=>'manageDiner');
+                echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-chevron-right"></i> 2. 餐厅管理',$attributes);
+                ?>
+            </li>
+            <li>
+                <?php
+                $attributes = array('id'=>'manageDish');
+                echo anchor('dishcontroller/showDishManage','<i class="glyphicon glyphicon-chevron-right"></i> 3. 菜品管理',$attributes);
+                ?>
+            </li>
+            <li>
+                <?php
+                $attributes = array('id'=>'manageMenu');
+                echo anchor('menucontroller/showMenuManage','<i class="glyphicon glyphicon-chevron-right"></i> 4. 菜单管理',$attributes);
+                ?>
+            </li>
+            <li>
+                <?php
+                $attributes = array('id'=>'manageVip');
+                echo anchor('vipcontroller/showVipPanel','<i class="glyphicon glyphicon-chevron-right"></i> 5. 会员管理',$attributes);
+                ?>
+            </li>
+            <li>
+                <?php
+                $attributes = array('id'=>'manageBasic');
+                echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-chevron-right"></i> 6. 基本管理',$attributes);
+                ?>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <!-- content -->
@@ -187,7 +197,7 @@
                         <th>取餐日期</th>
                         <th>下单时间</th>
                         <th>总价</th>
-                        <th>已付款？</th>
+                        <th>Paid?</th>
                         <th>收款</th>
                         <th>已收货？</th>
                         <th>收货</th>
@@ -205,9 +215,9 @@
                             echo '<tr>';
                             $oid = $prepareOrder[$i]->orderNumber;
                             echo '<td>';
-                            $attributes = array('id'=>'noPrint');
+                            $attributes = array('class'=>'noPrint');
                             echo anchor("admincontroller/showOrderDetail/$oid",$oid,$attributes);
-                            echo '<p id="print" style="display: none;">'.$oid.'</p>';
+                            echo '<p class="print">'.$oid.'</p>';
                             echo '</td>';
                             echo '<td>'.$prepareOrder[$i]->campus.'</td>';
                             echo '<td>'.$prepareOrder[$i]->userId.'</td>';
@@ -282,7 +292,7 @@
                                 <th>取餐日期</th>
                                 <th>下单时间</th>
                                 <th>总价</th>
-                                <th>已付款？</th>
+                                <th>Paid?</th>
                                 <th>收款</th>
                                 <th>已收货？</th>
                                 <th>收货</th>
