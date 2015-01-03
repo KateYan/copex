@@ -10,7 +10,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Order extends CI_Model {
 
 // generating vip user's order by using uid
-    public function vipOrderByCard($uid,$vipid,$cid,$odate,$fordate,$food,$sidedish,$totalCost_beforTax){
+    public function vipOrderByCard($uid,$vipid,$cid,$odate,$fordate,$food,$sidedish,$totalCost_beforTax,$foodItem,$sideDishItem){
         $orderitem = array('food'=>$food,'sidedish'=>$sidedish);
 
         // double check if the user can use vip card to pay order
@@ -26,16 +26,46 @@ class Order extends CI_Model {
         if($balance < 0){ // balance is not enough to pay order
             return false;
         }
-
         $oispaid = '1';
-        //update new balance of vipcard
-        $sql = "UPDATE vipcard SET vbalance='$balance' WHERE vipid='$vipid'";
-        $this->db->query($sql);
+
+        // check inventory first
+        // 1. checkfood inventory
+        $num_food = count($foodItem);
+        for($i=0;$i<$num_food;$i++){
+            $inventory_food = $this->checkFoodInventory($cid,$foodItem[$i]['id'],$foodItem[$i]['amount']);
+            if(!$inventory_food){
+                return false;
+            }
+        }
+        // 2. check sidedish inventory
+        $num_sidedish = count($sideDishItem);
+        for($i=0;$i<$num_sidedish;$i++){
+            $inventory_sidedish = $this->checkSidedishInventory($cid,$sideDishItem[$i]['id'],$sideDishItem[$i]['amount']);
+            if(!$inventory_sidedish){
+                return false;
+            }
+        }
 
         //insert new order
         $sql = "INSERT INTO `order`(uid,cid,odate,fordate,oispaid,tax,totalcost) VALUES (".$this->db->escape($uid).",".$this->db->escape($cid).",".$this->db->escape($odate).",".$this->db->escape($fordate).",".$this->db->escape($oispaid).",".$this->db->escape($tax).",".$this->db->escape($totalCost).") ";
         $this->db->query($sql);
         $oid = $this->db->insert_id();//get order's id
+
+
+        //update new balance of vipcard
+        $sql = "UPDATE vipcard SET vbalance='$balance' WHERE vipid='$vipid'";
+        $this->db->query($sql);
+
+        // 1. update the menuitem's inventory
+        $food_num = count($foodItem);
+        for($i=0;$i<$food_num;$i++){
+            $this->updateMenuItemInventory($cid,$foodItem[$i]['id'],$inventory_food,$foodItem[$i]['amount']);
+        }
+        // 2. update the sidemenuitem's inventory
+        $sidedish_num = count($sideDishItem);
+        for($i=0;$i<$sidedish_num;$i++){
+            $this->updateSideMenuItemInventory($cid,$sideDishItem[$i]['id'],$inventory_sidedish,$sideDishItem[$i]['amount']);
+        }
 
         // update the user's order-status into '1' and his phone number into new entered phone number
         $sqlOrdered = "UPDATE user SET ordered = '1' WHERE uid = '$uid'";
@@ -85,8 +115,14 @@ class Order extends CI_Model {
         $food = $query->row(0);
         $tax = round($food->fprice * 0.13,2);
 
-        $totalcost = round($food->fprice + $tax,2);;
+        $totalcost = round($food->fprice + $tax,2);
 
+        // check inventory befor make order
+        $amount=1;
+        $inventory = $this->checkFoodInventory($cid,$foodId,$amount);
+        if(!$inventory){
+            return false;
+        }
         // insert into order table a new row
         $sql = "INSERT INTO `order`(uid,cid,odate,fordate,tax,totalcost) VALUES (".$this->db->escape($uid).",".$this->db->escape($cid).",".$this->db->escape($odate).",".$this->db->escape($fordate).",".$this->db->escape($tax).",".$this->db->escape($totalcost).")";
         $this->db->query($sql);
@@ -99,11 +135,16 @@ class Order extends CI_Model {
         $this->db->query($sqlItem);
 
         // update the menuitem's inventory
-        $amount=1;
-        $inventory = $this->checkFoodInventory($cid,$foodId,$amount);
-        if(!$inventory){
-            return false;
-        }
+        $this->updateMenuItemInventory($cid,$foodId,$inventory,$amount);
+
+        // update the user's order-status into '1' and his phone number into new entered phone number
+        $sqlOrdered = "UPDATE `user` SET `uphone` = '$uphone', `ordered`='1' WHERE `uid` ='$uid'";
+        $this->db->query($sqlOrdered);
+
+        return $oid;
+    }
+    // update menuitem inventory
+    public function updateMenuItemInventory($cid,$foodId,$inventory,$amount){
         $inventory -= $amount;
         // find the menu id
         $sql_menu = "SELECT mid FROM dailymenu WHERE cid='$cid' AND mstatus='1'";
@@ -113,12 +154,29 @@ class Order extends CI_Model {
         // update inventory
         $sql_inven_update = "UPDATE menuitem SET minventory='$inventory' WHERE fid ='$foodId' AND mid='$menuId'";
         $this->db->query($sql_inven_update);
+        $num = $this->db->affected_rows();
+        if($num == 1){
+            return true;
+        }
+        return false;
+    }
 
-        // update the user's order-status into '1' and his phone number into new entered phone number
-        $sqlOrdered = "UPDATE `user` SET `uphone` = '$uphone', `ordered`='1' WHERE `uid` ='$uid'";
-        $this->db->query($sqlOrdered);
-
-        return $oid;
+    // update sidedishmenuitem inventory
+    public function updateSideMenuItemInventory($cid,$sidedishId,$inventory,$amount){
+        $inventory -= $amount;
+        // find the menu id
+        $sql_menu = "SELECT sideMenuID FROM sidemenu WHERE cid='$cid' AND sideMenuStatus='1'";
+        $query_menu = $this->db->query($sql_menu);
+        $result_menu = $query_menu->result();
+        $menuId = $result_menu[0]->sideMenuID;
+        // update inventory
+        $sql_inven_update = "UPDATE sidemenuitem SET sinventory='$inventory' WHERE sid ='$sidedishId' AND sideMenuID='$menuId'";
+        $this->db->query($sql_inven_update);
+        $num = $this->db->affected_rows();
+        if($num == 1){
+            return true;
+        }
+        return false;
     }
 
 

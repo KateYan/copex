@@ -131,8 +131,6 @@ class Marketcontroller extends MY_Controller{
             $this->load->model('market');
             $nofood = $this->market->getFoodById($_GET['nofood']);
             $data['nofood'] = $nofood->fname;
-//            echo $data['nofood'];
-//            die();
         }
         if(isset($_GET['nosidedish'])){
 
@@ -328,6 +326,8 @@ class Marketcontroller extends MY_Controller{
                 $sideDishItem[] = array('id'=>$sideDishId,'amount'=>$sideDishAmount);
             }
         }
+//        var_dump($sideDishItem);
+//        die();
 
         //check inventory both food and sidedish
         $this->load->model('order');
@@ -342,7 +342,7 @@ class Marketcontroller extends MY_Controller{
         // then check sidedish inventory
         $num_sidedish = count($sideDishItem);
         for($i = 0; $i < $num_sidedish; $i++){
-            if(!$this->order->checkFoodInventory($_SESSION['cid'],$sideDishItem[$i]['id'],$sideDishItem[$i]['amount'])){
+            if(!$this->order->checkSidedishInventory($_SESSION['cid'],$sideDishItem[$i]['id'],$sideDishItem[$i]['amount'])){
                 $nosidedish = $sideDishItem[$i]['id'];
                 return redirect("marketcontroller/showSideDish?nosidedish=$nosidedish");
             }
@@ -362,7 +362,7 @@ class Marketcontroller extends MY_Controller{
         }else{
             // generate order
             $this->load->model('order');
-            $orderId = $this->order->vipOrderByCard($uid,$_SESSION['vipid'],$_SESSION['cid'],$odate,$fordate,$foodList,$sideDishList,$totalCost_beforTax);
+            $orderId = $this->order->vipOrderByCard($uid,$_SESSION['vipid'],$_SESSION['cid'],$odate,$fordate,$foodList,$sideDishList,$totalCost_beforTax,$foodItem,$sideDishItem);
         }
 
         // store order's id
