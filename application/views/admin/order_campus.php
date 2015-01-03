@@ -9,15 +9,23 @@
 
     <!-- Datatables -->
     <link rel="stylesheet" media="screen" href="/copex/bootstrap/css/DT_bootstrap.css">
+    <link rel="stylesheet" media="print" href="/copex/bootstrap/css/DT_bootstrap.css">
 <script>
     function printOrder(){
+        document.getElementById("noPrint").style.display="none";
+        document.getElementById("print").style.display="table-cell";
         window.print()
     }
 </script>
+<style type="text/css" media="print">
+    .noPrint{display:none;}
+</style>
 
 </head>
 <body class="bootstrap-admin-with-small-navbar">
 <!-- small navbar -->
+<div class="noPrint">
+
 <nav class="navbar navbar-default navbar-fixed-top bootstrap-admin-navbar-sm" role="navigation">
     <div class="container">
         <div class="row">
@@ -44,8 +52,11 @@
         </div>
     </div>
 </nav>
+</div>
 
 <!-- main / large navbar -->
+<div class="noPrint">
+
 <nav class="navbar navbar-default navbar-fixed-top bootstrap-admin-navbar bootstrap-admin-navbar-under-small" role="navigation">
     <div class="container">
         <div class="row">
@@ -60,11 +71,16 @@
         </div>
     </div><!-- /.container -->
 </nav>
+</div>
+
 
 <div class="container">
 <!-- left, vertical navbar & content -->
 <div class="row">
 <!-- left, vertical navbar -->
+
+<div class="noPrint">
+
 <div class="col-md-2 bootstrap-admin-col-left">
     <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
         <li>
@@ -111,6 +127,7 @@
         </li>
     </ul>
 </div>
+</div>
 
 <!-- content -->
 <div class="col-md-10">
@@ -142,18 +159,20 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="text-muted bootstrap-admin-box-title">预备订单--(点击订单号查看详情)
-                    <button form="confirmPickedup" class="btn btn-sm btn-primary" style="float: right;margin-left: 5px;">
-                        <i class="glyphicon glyphicon-ok-sign"></i>
-                        提交确认收货
-                    </button>
-                    <button form="confirmPaid" class="btn btn-sm btn-success" style="float: right;margin-left: 5px;">
-                        <i class="glyphicon glyphicon-ok-sign"></i>
-                        提交确认付款
-                    </button>
-                    <button class="btn btn-sm btn-warning" onclick="printOrder()" style="float: right;margin-left: 5px;">
-                        <i class="glyphicon glyphicon-print"></i>
-                        打印订单
-                    </button>
+                    <span class="noPrint">
+                        <button form="confirmPickedup" class="btn btn-sm btn-primary" style="float: right;margin-left: 5px;">
+                            <i class="glyphicon glyphicon-ok-sign"></i>
+                            提交确认收货
+                        </button>
+                        <button form="confirmPaid" class="btn btn-sm btn-success" style="float: right;margin-left: 5px;">
+                            <i class="glyphicon glyphicon-ok-sign"></i>
+                            提交确认付款
+                        </button>
+                        <button class="btn btn-sm btn-warning" onclick="printOrder()" style="float: right;margin-left: 5px;">
+                            <i class="glyphicon glyphicon-print"></i>
+                            打印订单
+                        </button>
+                    </span>
                 </div>
             </div>
             <div class="bootstrap-admin-panel-content">
@@ -163,15 +182,15 @@
                         <th>订单号</th>
                         <th>校区</th>
                         <th>用户</th>
-                        <th>VIP卡号</th>
+                        <th>V卡号</th>
                         <th>电话</th>
                         <th>取餐日期</th>
                         <th>下单时间</th>
                         <th>总价</th>
                         <th>已付款？</th>
-                        <th>去收款</th>
+                        <th>收款</th>
                         <th>已收货？</th>
-                        <th>去收货</th>
+                        <th>收货</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -184,14 +203,18 @@
                         echo '<input form="confirmPickedup" type="hidden" name = "orderNumber" value="'.$num.'"/>';
                         for($i=0;$i<$num;$i++){
                             echo '<tr>';
-                            echo '<td><a href="showOrderDetail/'.$prepareOrder[$i]->orderNumber.'">';
-                            echo $prepareOrder[$i]->orderNumber;
-                            echo '</a></td>';
+                            $oid = $prepareOrder[$i]->orderNumber;
+                            echo '<td>';
+                            $attributes = array('id'=>'noPrint');
+                            echo anchor("admincontroller/showOrderDetail/$oid",$oid,$attributes);
+                            echo '<p id="print" style="display: none;">'.$oid.'</p>';
+                            echo '</td>';
                             echo '<td>'.$prepareOrder[$i]->campus.'</td>';
                             echo '<td>'.$prepareOrder[$i]->userId.'</td>';
                             echo '<td>'.$prepareOrder[$i]->cardNumber.'</td>';
                             echo '<td>'.$prepareOrder[$i]->userPhone.'</td>';
-                            echo '<td>'.$prepareOrder[$i]->forDate.'</td>';
+                            $fordate = date("m月d日",strtotime($prepareOrder[$i]->forDate));
+                            echo '<td>'.$fordate.'</td>';
                             echo '<td>'.$prepareOrder[$i]->orderDate.'</td>';
                             echo '<td>'."$".$prepareOrder[$i]->totalCost.'</td>';
                             if($prepareOrder[$i]->isPaid==0){
@@ -221,94 +244,97 @@
     </div>
 </div>
 
-<div class="row">
-    <?php
-    $attributes = array('id'=>'history_confirmPaid');
-    echo form_open('admincontroller/confirmPaid',$attributes);
-    echo form_close();
-    ?>
-    <?php
-    $attributes = array('id'=>'history_confirmPickedup');
-    echo form_open('admincontroller/confirmPickedup',$attributes);
-    echo form_close();
-    ?>
-    <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="text-muted bootstrap-admin-box-title">订单历史--(点击订单号查看详情)
-                    <button form="history_confirmPickedup" class="btn btn-sm btn-primary" style="float: right;margin-left: 5px;">
-                        <i class="glyphicon glyphicon-ok-sign"></i>
-                        提交确认收货
-                    </button>
-                    <button form="history_confirmPaid" class="btn btn-sm btn-success" style="float: right;">
-                        <i class="glyphicon glyphicon-ok-sign"></i>
-                        提交确认付款
-                    </button>
+    <div class="noPrint">
+        <div class="row">
+            <?php
+            $attributes = array('id'=>'history_confirmPaid');
+            echo form_open('admincontroller/confirmPaid',$attributes);
+            echo form_close();
+            ?>
+            <?php
+            $attributes = array('id'=>'history_confirmPickedup');
+            echo form_open('admincontroller/confirmPickedup',$attributes);
+            echo form_close();
+            ?>
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="text-muted bootstrap-admin-box-title">订单历史--(点击订单号查看详情)
+                            <button form="history_confirmPickedup" class="btn btn-sm btn-primary" style="float: right;margin-left: 5px;">
+                                <i class="glyphicon glyphicon-ok-sign"></i>
+                                提交确认收货
+                            </button>
+                            <button form="history_confirmPaid" class="btn btn-sm btn-success" style="float: right;">
+                                <i class="glyphicon glyphicon-ok-sign"></i>
+                                提交确认付款
+                            </button>
+                        </div>
+                    </div>
+                    <div class="bootstrap-admin-panel-content">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>订单号</th>
+                                <th>校区</th>
+                                <th>用户</th>
+                                <th>VIP卡号</th>
+                                <th>电话</th>
+                                <th>取餐日期</th>
+                                <th>下单时间</th>
+                                <th>总价</th>
+                                <th>已付款？</th>
+                                <th>收款</th>
+                                <th>已收货？</th>
+                                <th>收货</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            if(!isset($historyOrder)){
+                                echo "暂时还没有用户点今天的菜，请稍等片刻后刷新看看。";
+                            }
+                            $num = count($historyOrder);
+                            echo '<input form="history_confirmPaid" type="hidden" name = "orderNumber" value="'.$num.'"/>';
+                            echo '<input form="history_confirmPickedup" type="hidden" name = "orderNumber" value="'.$num.'"/>';
+                            for($i=0;$i<$num;$i++){
+                                echo '<tr>';
+                                echo '<td><a href="showOrderDetail/'.$historyOrder[$i]->orderNumber.'">';
+                                echo $historyOrder[$i]->orderNumber;
+                                echo '</a></td>';
+                                echo '<td>'.$historyOrder[$i]->campus.'</td>';
+                                echo '<td>'.$historyOrder[$i]->userId.'</td>';
+                                echo '<td>'.$historyOrder[$i]->cardNumber.'</td>';
+                                echo '<td>'.$historyOrder[$i]->userPhone.'</td>';
+                                $fordate = date("m月d日",strtotime($historyOrder[$i]->forDate));
+                                echo '<td>'.$fordate.'</td>';
+                                echo '<td>'.$historyOrder[$i]->orderDate.'</td>';
+                                echo '<td>'."$".$historyOrder[$i]->totalCost.'</td>';
+                                if($historyOrder[$i]->isPaid==0){
+                                    echo '<td>'."否".'</td>';
+                                    echo '<td><input form="history_confirmPaid" type="checkbox" name="order'.$i.'" value ="'.$historyOrder[$i]->orderNumber.'" /></td>';
+                                }elseif($historyOrder[$i]->isPaid==1){
+                                    echo '<td>'."是".'</td>';
+                                    echo '<td><input form="history_confirmPaid" type="hidden" /></td>';
+                                }
+
+                                if($historyOrder[$i]->isPickedup==0){
+                                    echo '<td>'."否".'</td>';
+                                    echo '<td><input form="history_confirmPickedup" type="checkbox" name="order'.$i.'" value ="'.$historyOrder[$i]->orderNumber.'" /></td>';
+                                }elseif($historyOrder[$i]->isPickedup==1){
+                                    echo '<td>'."是".'</td>';
+                                    echo '<td><input form="history_confirmPickedup" type="hidden" /></td>';
+                                }
+
+                                echo '</tr>';
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <div class="bootstrap-admin-panel-content">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>订单号</th>
-                        <th>校区</th>
-                        <th>用户</th>
-                        <th>VIP卡号</th>
-                        <th>电话</th>
-                        <th>取餐日期</th>
-                        <th>下单时间</th>
-                        <th>总价</th>
-                        <th>已付款？</th>
-                        <th>去收款</th>
-                        <th>已收货？</th>
-                        <th>去收货</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    if(!isset($historyOrder)){
-                        echo "暂时还没有用户点今天的菜，请稍等片刻后刷新看看。";
-                    }
-                    $num = count($historyOrder);
-                    echo '<input form="history_confirmPaid" type="hidden" name = "orderNumber" value="'.$num.'"/>';
-                    echo '<input form="history_confirmPickedup" type="hidden" name = "orderNumber" value="'.$num.'"/>';
-                    for($i=0;$i<$num;$i++){
-                        echo '<tr>';
-                        echo '<td><a href="showOrderDetail/'.$historyOrder[$i]->orderNumber.'">';
-                        echo $historyOrder[$i]->orderNumber;
-                        echo '</a></td>';
-                        echo '<td>'.$historyOrder[$i]->campus.'</td>';
-                        echo '<td>'.$historyOrder[$i]->userId.'</td>';
-                        echo '<td>'.$historyOrder[$i]->cardNumber.'</td>';
-                        echo '<td>'.$historyOrder[$i]->userPhone.'</td>';
-                        echo '<td>'.$historyOrder[$i]->forDate.'</td>';
-                        echo '<td>'.$historyOrder[$i]->orderDate.'</td>';
-                        echo '<td>'."$".$historyOrder[$i]->totalCost.'</td>';
-                        if($historyOrder[$i]->isPaid==0){
-                            echo '<td>'."否".'</td>';
-                            echo '<td><input form="history_confirmPaid" type="checkbox" name="order'.$i.'" value ="'.$historyOrder[$i]->orderNumber.'" /></td>';
-                        }elseif($historyOrder[$i]->isPaid==1){
-                            echo '<td>'."是".'</td>';
-                            echo '<td><input form="history_confirmPaid" type="hidden" /></td>';
-                        }
-
-                        if($historyOrder[$i]->isPickedup==0){
-                            echo '<td>'."否".'</td>';
-                            echo '<td><input form="history_confirmPickedup" type="checkbox" name="order'.$i.'" value ="'.$historyOrder[$i]->orderNumber.'" /></td>';
-                        }elseif($historyOrder[$i]->isPickedup==1){
-                            echo '<td>'."是".'</td>';
-                            echo '<td><input form="history_confirmPickedup" type="hidden" /></td>';
-                        }
-
-                        echo '</tr>';
-                    }
-                    ?>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
-</div>
 </div>
 </div>
 </div>

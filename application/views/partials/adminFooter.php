@@ -8,14 +8,16 @@
 ?>
 
 <!-- footer -->
-<div class="navbar navbar-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <footer role="contentinfo">
-                    <p class="left">Copex 订餐管理系统</p>
-                    <p class="right">&copy; 2013 <a href="http://www.meritoo.pl" target="_blank">Meritoo.pl</a></p>
-                </footer>
+<div class="noPrint">
+    <div class="navbar navbar-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <footer role="contentinfo">
+                        <p class="left">Copex 订餐管理系统</p>
+                        <p class="right">&copy; 2013 <a href="http://www.meritoo.pl" target="_blank">Meritoo.pl</a></p>
+                    </footer>
+                </div>
             </div>
         </div>
     </div>

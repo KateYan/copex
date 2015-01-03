@@ -18,11 +18,15 @@
 
     <!-- Bootstrap -->
     <link rel="stylesheet" media="screen" href="/copex/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" media="print" href="/copex/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" media="screen" href="/copex/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" media="print" href="/copex/bootstrap/css/bootstrap-theme.min.css">
 
     <!-- Bootstrap Admin Theme -->
     <link rel="stylesheet" media="screen" href="/copex/bootstrap/css/bootstrap-admin-theme.css">
+    <link rel="stylesheet" media="print" href="/copex/bootstrap/css/bootstrap-admin-theme.css">
     <link rel="stylesheet" media="screen" href="/copex/bootstrap/css/bootstrap-admin-theme-change-size.css">
+    <link rel="stylesheet" media="print" href="/copex/bootstrap/css/bootstrap-admin-theme-change-size.css">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
