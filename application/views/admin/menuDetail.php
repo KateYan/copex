@@ -90,7 +90,11 @@
                         <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
                             <div class="form-horizontal">
                                 <fieldset>
-                                    <legend>主食菜单详情</legend>
+                                    <legend>主食菜单详情: 菜单ID--
+                                    <?php
+                                    echo $_SESSION['menuDetail']->mid;
+                                    ?>
+                                    </legend>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">菜单所属校区</label>
                                         <div class="col-lg-10">

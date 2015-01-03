@@ -105,7 +105,7 @@ class Menuitem extends CI_Model {
 
     // get side menu items
     public function getSideMenuItems($sideMenuId){
-        $sql = "SELECT sidemenuitem.sid, sidedish.sname, sidedish.sprice FROM sidemenuitem JOIN sidedish ON sidemenuitem.sid = sidedish.sid WHERE sidemenuitem.sideMenuID =$sideMenuId ";
+        $sql = "SELECT sidemenuitem.sid, sidemenuitem.sinventory,sidedish.sname, sidedish.sprice FROM sidemenuitem JOIN sidedish ON sidemenuitem.sid = sidedish.sid WHERE sidemenuitem.sideMenuID =$sideMenuId ";
 
         $query = $this->db->query($sql);
         return $query->result();
@@ -118,6 +118,17 @@ class Menuitem extends CI_Model {
             $fid = $food[$i]['fid'];
             $inventory = $food[$i]['inventory'];
             $sql = "UPDATE menuitem SET minventory='$inventory'WHERE mid='$menuId' AND fid = '$fid'";
+            $this->db->query($sql);
+        }
+    }
+
+    //
+    public function updateSideMenuInventory($menuId,$side){
+        $num = count($side);
+        for($i=0;$i<$num;$i++){
+            $sid = $side[$i]['fid'];
+            $inventory = $side[$i]['inventory'];
+            $sql = "UPDATE sidemenuitem SET sinventory='$inventory'WHERE sideMenuID='$menuId' AND sid = '$sid'";
             $this->db->query($sql);
         }
     }

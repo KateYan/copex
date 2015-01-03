@@ -230,7 +230,7 @@
                                         $sideMenus = $_SESSION['sideMenus'];
                                         echo '<tr>';
                                         echo '<td>';
-                                        echo anchor("menucontroller/showSideMenuDetail/".$sideMenus[$j]->sideMenuID,$sideMenus[$j]->sideMenuID);
+                                        echo anchor("menucontroller/showSideMenuDetail?sideMenuId=".$sideMenus[$j]->sideMenuID,$sideMenus[$j]->sideMenuID);
                                         echo '</td>';
                                         echo '<td>'.$sideMenus[$j]->sideMenuDate.'</td>';
                                         if($sideMenus[$j]->sideMenuStatus == 1){

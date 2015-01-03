@@ -207,8 +207,7 @@ class MenuController extends MY_Controller{
 
         if(isset($_GET['menuId'])){
             $menuId = $_GET['menuId'];
-        }
-        if(isset($_SESSION['menuDetail'])){
+        }elseif(isset($_SESSION['menuDetail'])){
             $menuId = $_SESSION['menuDetail']->mid;
             unset($_SESSION['menuDetail']);
             unset($_SESSION['menuItems']);
@@ -230,13 +229,32 @@ class MenuController extends MY_Controller{
     }
 
     // show Menu's detail
-    public function showSideMenuDetail($sideMenuId){
+    public function showSideMenuDetail($errorCode = null){
+        // check if there is error code
+        $eMsg = array(
+            'wrong' => "请输入正确的库存数据（最高3位数）",
+            'success' => "修改库存成功！"
+        );
+        if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+            $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
+        }
+
+        if(isset($_GET['sideMenuId'])){
+            $sideMenuId = $_GET['sideMenuId'];
+        }elseif(isset($_SESSION['sideMenuDetail'])){
+            $sideMenuId = $_SESSION['sideMenuDetail']->sideMenuID;
+            unset($_SESSION['sideMenuDetail']);
+            unset($_SESSION['sideMenuItems']);
+        }
+
         // get menu's basic information
         $this->load->model('market');
-        $data['sideMenu'] = $this->market->getSideMenuById($sideMenuId);
+        $sideMenuDetail = $this->market->getSideMenuById($sideMenuId);
+        $_SESSION['sideMenuDetail'] = $sideMenuDetail;
         // get menu's items' information
         $this->load->model('menuitem');
-        $data['sideMenuItems'] = $this->menuitem->getSideMenuItems($sideMenuId);
+        $sideMenuItems = $this->menuitem->getSideMenuItems($sideMenuId);
+        $_SESSION['sideMenuItems'] = $sideMenuItems;
 
         $data['title'] = "Copex | 菜单详情";
         $this->load->view('partials/adminHeader',$data);
@@ -247,14 +265,6 @@ class MenuController extends MY_Controller{
 
     //update inventory
     public function menuInventory(){
-//        var_dump($_POST);
-//        die();
-//
-//        $this->load->library('form_validation');
-//        $this->form_validation->set_rules('inventory0','recommond','trim|required|integer|numeric|max_length[3]');
-//        $this->form_validation->set_rules('inventory1','onsale1','trim|required|integer|numeric|max_length[3]');
-//        $this->form_validation->set_rules('inventory2','onsale2','trim|required|integer|numeric|max_length[3]');
-
         if($this->form_validation->run()==FALSE){
             return redirect('menucontroller/showMenuDetail/wrong');
         }
@@ -265,5 +275,23 @@ class MenuController extends MY_Controller{
         $this->load->model('menuitem');
         $this->menuitem->updateMenuInventory($_POST['menu'],$food);
         return redirect('menucontroller/showMenuDetail/success');
+    }
+
+    //
+    public function sideMenuInventory(){
+//        var_dump($_POST);
+//        die();
+        $this->form_validation->set_rules('inventory3','onsale2','trim|required|integer|numeric|max_length[3]');
+
+        if($this->form_validation->run()==FALSE){
+            return redirect('menucontroller/showSideMenuDetail/wrong');
+        }
+        $side = array();
+        for($i=0;$i<4;$i++){
+            $side[] = array('fid'=>$_POST["side$i"],'inventory'=>$_POST["inventory$i"]);
+        }
+        $this->load->model('menuitem');
+        $this->menuitem->updateSideMenuInventory($_POST['menu'],$side);
+        return redirect('menucontroller/showSideMenuDetail/success');
     }
 }

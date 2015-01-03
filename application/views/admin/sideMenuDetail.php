@@ -90,25 +90,29 @@
                         <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
                             <div class="form-horizontal">
                                 <fieldset>
-                                    <legend>小食菜单详情</legend>
+                                    <legend>小食菜单详情: 菜单ID--
+                                        <?php
+                                        echo $_SESSION['sideMenuDetail']->sideMenuID;
+                                        ?>
+                                    </legend>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">菜单所属校区</label>
                                         <div class="col-lg-10">
-                                            <input disabled class="form-control" type="text" value="<?php echo $sideMenu->cname?>" />
+                                            <input disabled class="form-control" type="text" value="<?php echo $_SESSION['sideMenuDetail']->cname;?>" />
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">创建日期</label>
                                         <div class="col-lg-10">
-                                            <input disabled class="form-control" type="text" value="<?php echo $sideMenu->sideMenuDate?>" />
+                                            <input disabled class="form-control" type="text" value="<?php echo $_SESSION['sideMenuDetail']->sideMenuDate;?>" />
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">菜单状态</label>
                                         <div class="col-lg-10">
-                                            <input disabled class="form-control" type="text" value="<?php if($sideMenu->sideMenuStatus==1){echo "正在使用";}elseif($sideMenu->sideMenuStatus==0){echo "未使用";} ?>" />
+                                            <input disabled class="form-control" type="text" value="<?php if($_SESSION['sideMenuDetail']->sideMenuStatus==1){echo "正在使用";}elseif($_SESSION['sideMenuDetail']->sideMenuStatus==0){echo "未使用";} ?>" />
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -117,7 +121,24 @@
                                         <div class="col-lg-10">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
-                                                    <div class="text-muted bootstrap-admin-box-title">菜单小食列表</div>
+                                                    <?php
+                                                    $attributes = array('id'=>'sideMenuInventory');
+                                                    echo form_open('menucontroller/sideMenuInventory',$attributes);
+                                                    echo form_close();
+                                                    ?>
+                                                    <div class="text-muted bootstrap-admin-box-title">菜单小食列表
+                                                        <?php
+                                                        if(isset($eMsg['wrong'])){
+                                                            echo '<span style="color: #be2221;"><b>'.$eMsg['wrong'].'</b></span>';
+                                                        }elseif(isset($eMsg['success'])){
+                                                            echo '<span style="color: #be2221;"><b>'.$eMsg['success'].'</b></span>';
+                                                        }
+                                                        ?>
+                                                        <button form="sideMenuInventory" class="btn btn-sm btn-success" style="float: right;margin-right: 5px;">
+                                                            <i class="glyphicon glyphicon-pencil"></i>
+                                                            修改库存
+                                                        </button>
+                                                    </div>
                                                 </div>
                                                 <div class="bootstrap-admin-panel-content">
                                                     <table class="table table-striped">
@@ -126,16 +147,22 @@
                                                             <th>小食ID</th>
                                                             <th>小食名</th>
                                                             <th>单价</th>
+                                                            <th>库存</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
                                                         <?php
-                                                        $num = count($sideMenuItems);
+                                                        $num = count($_SESSION['sideMenuItems']);
+                                                        echo '<input form="sideMenuInventory" type="hidden" name="menu" value="'.$_SESSION['sideMenuDetail']->sideMenuID.'"/>';
                                                         for($i = 0;$i<$num; $i++){
                                                             echo '<tr>';
-                                                            echo '<td>'.$sideMenuItems[$i]->sid.'</td>';
-                                                            echo '<td>'.$sideMenuItems[$i]->sname.'</td>';
-                                                            echo '<td>'."$".$sideMenuItems[$i]->sprice.'</td>';
+                                                            echo '<input form="sideMenuInventory" type="hidden" name="side'.$i.'" value="'.$_SESSION['sideMenuItems'][$i]->sid.'"/>';
+                                                            echo '<td>'.$_SESSION['sideMenuItems'][$i]->sid.'</td>';
+                                                            echo '<td>'.$_SESSION['sideMenuItems'][$i]->sname.'</td>';
+                                                            echo '<td>'."$".$_SESSION['sideMenuItems'][$i]->sprice.'</td>';
+                                                            echo '<td>';
+                                                            echo '<input form="sideMenuInventory" class="form-control" style="width:15%;" type="text" name="inventory'.$i.'" value="'.$_SESSION['sideMenuItems'][$i]->sinventory.'" required />';
+                                                            echo '</td>';
                                                             echo '</tr>';
                                                         }
                                                         ?>
