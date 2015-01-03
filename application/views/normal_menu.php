@@ -133,21 +133,35 @@
 <div id="timelimit" class="layer" <?php echo (isset($eMsg['timelimit']))?'style="display: block;"': ''; ?>>
     <div class="black_layer"></div>
     <div class="layer_summary">
-        <p>对不起，已经超过<span class="sorry">0:00了哦，你可以</span></p>
-        <ul>
-            <li>
-                <?php
+        <?php
+        if(isset($orderEnd)){
+            $time = date('H:i:s');
+            $end = date('06:00:00');
+            $start = date("H:i",strtotime($orderStart));
+            if($time <= $orderStart && $time>$end){
+                echo '<p style="margin-left: 5px;">今天的午餐0:00已经截止下单，明天的午餐要<span class="sorry">'.$start.'后才能下单哦</span></p>';
+                echo '<ul>';
+                echo '<li></li>';
+                echo '<li>';
+                $attributes = array('class'=>'btn_again','onclick'=>'closeWindowTimeLimit()');
+                echo anchor('marketcontroller/showDailyMenu'," 今天".$start."后再订餐",$attributes);
+                echo '</li>';
+                echo '<li></li></ul>';
+            }else{
+                echo '<p>对不起，已经超过<span class="sorry">0:00了哦，你可以</span></p>';
+                echo '<ul>';
+                echo '<li></li>';
+                echo '<li>';
                 $attributes = array('class'=>'btn_again');
                 echo anchor('userlogincontroller/showVipLogin','A. 加入会员延长订餐时间',$attributes);
-                ?>
-            </li>
-            <li>
-                <?php
+                echo '</li>';
+                echo '<li>';
                 $attributes = array('class'=>'btn_again','onclick'=>'closeWindowTimeLimit()');
-                echo anchor('marketcontroller/showDailyMenu','B. 明天中午13:00后再订餐',$attributes);
-                ?>
-            </li>
-        </ul>
+                echo anchor('marketcontroller/showDailyMenu',"B. 明天".$start."后再订餐",$attributes);
+                echo '</li>';
+            }
+        }
+        ?>
     </div>
 </div>
 
@@ -155,7 +169,7 @@
     <div class="black_layer"></div>
     <div class="layer_summary">
         <br />
-        <p><?php echo (isset($eMsg['wrongphone']))?$eMsg['wrongphone']: ''; ?></p>
+        <p style="margin-left: 5px;"><?php echo (isset($eMsg['wrongphone']))?$eMsg['wrongphone']: ''; ?></p>
         <ul class="finishLay">
             <li></li>
             <li>
@@ -173,7 +187,7 @@
     <div class="black_layer"></div>
     <div class="layer_summary">
         <br />
-        <p><?php echo (isset($eMsg['nofulfill']))?$eMsg['nofulfill']: ''; ?></p>
+        <p style="margin-left: 5px;"><?php echo (isset($eMsg['nofulfill']))?$eMsg['nofulfill']: ''; ?></p>
         <ul class="finishLay">
             <li></li>
             <li>
@@ -191,7 +205,7 @@
     <div class="black_layer"></div>
     <div class="layer_summary">
         <br />
-        <p><?php echo (isset($eMsg['orderlimit']))?$eMsg['orderlimit']: ''; ?></p>
+        <p style="margin-left: 5px;"><?php echo (isset($eMsg['orderlimit']))?$eMsg['orderlimit']: ''; ?></p>
         <ul class="finishLay">
             <li></li>
             <li>
@@ -215,7 +229,7 @@
     <div class="black_layer"></div>
     <div class="layer_summary">
         <br />
-        <p><?php echo (isset($eMsg['outofinventory']))?$eMsg['outofinventory']: ''; ?></p>
+        <p style="margin-left: 5px;"><?php echo (isset($eMsg['outofinventory']))?$eMsg['outofinventory']: ''; ?></p>
         <ul class="finishLay">
             <li></li>
             <li>

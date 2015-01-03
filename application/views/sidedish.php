@@ -176,7 +176,7 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
 <div id="not_enough_balance" class="layer">
     <div class="black_layer"></div>
     <div class="layer_summary">
-        <p>余额不足<span class="sorry">现在你可以：</span></p>
+        <p>您的会员卡余额不足<span class="sorry">现在您可以：</span></p>
         <ul class="finishLay">
             <li>
                 <?php
@@ -216,7 +216,7 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
     <div class="black_layer"></div>
     <div class="layer_summary">
         <br />
-        <p><?php echo "对不起，"; echo "“".$nofood."”";?><span class="sorry">没有预定名额了，你可以：</span></p>
+        <p style="margin-left: 5px;"><?php echo "对不起，"; echo "“".$nofood."”";?><span class="sorry">没有预定名额了，你可以：</span></p>
         <ul class="finishLay">
             <li></li>
             <li>
@@ -234,7 +234,7 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
     <div class="black_layer"></div>
     <div class="layer_summary">
         <br />
-        <p><?php echo "对不起，"; echo "“".$nosidedish."”";?><span class="sorry">没有预定名额了，你可以：</span></p>
+        <p style="margin-left: 5px;"><?php echo "对不起，"; echo "“".$nosidedish."”";?><span class="sorry">没有预定名额了，你可以：</span></p>
         <ul class="finishLay">
             <li></li>
             <li>
