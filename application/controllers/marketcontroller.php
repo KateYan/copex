@@ -309,6 +309,10 @@ class Marketcontroller extends MY_Controller{
                 $foodItem[] = array('id'=>$foodId,'amount'=>$foodAmount);
             }
         }
+//
+//        var_dump($foodList);
+//        var_dump($foodItem);
+//        die();
 
         // for posted side dish
         $sideDishList = array();
@@ -326,6 +330,7 @@ class Marketcontroller extends MY_Controller{
                 $sideDishItem[] = array('id'=>$sideDishId,'amount'=>$sideDishAmount);
             }
         }
+//        var_dump($foodItem);
 //        var_dump($sideDishItem);
 //        die();
 
@@ -362,7 +367,7 @@ class Marketcontroller extends MY_Controller{
         }else{
             // generate order
             $this->load->model('order');
-            $orderId = $this->order->vipOrderByCard($uid,$_SESSION['vipid'],$_SESSION['cid'],$odate,$fordate,$foodList,$sideDishList,$totalCost_beforTax,$foodItem,$sideDishItem);
+            $orderId = $this->order->vipOrderByCard($uid,$_SESSION['vipid'],$_SESSION['cid'],$odate,$fordate,$foodItem,$sideDishItem,$totalCost_beforTax);
         }
 
         // store order's id

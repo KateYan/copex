@@ -10,8 +10,8 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Order extends CI_Model {
 
 // generating vip user's order by using uid
-    public function vipOrderByCard($uid,$vipid,$cid,$odate,$fordate,$food,$sidedish,$totalCost_beforTax,$foodItem,$sideDishItem){
-        $orderitem = array('food'=>$food,'sidedish'=>$sidedish);
+    public function vipOrderByCard($uid,$vipid,$cid,$odate,$fordate,$foodItem,$sideDishItem,$totalCost_beforTax){
+        $orderitem = array('food'=>$foodItem,'sidedish'=>$sideDishItem);
 
         // double check if the user can use vip card to pay order
         $sql = "SELECT vbalance FROM vipcard WHERE vipid='$vipid'";
@@ -75,10 +75,10 @@ class Order extends CI_Model {
         if(!empty($orderitem['food'])){//create rows of orderitems for orderitem table
             $num = count($orderitem['food']);
 
-            $sql = "INSERT INTO orderitem(oid,dishid,dishtype) VALUES";
+            $sql = "INSERT INTO orderitem(amount,oid,dishid,dishtype) VALUES";
 
             for($i = 0 ;$i<$num;$i++){
-                $sql .= "('$oid','".$orderitem['food'][$i]."','0')";
+                $sql .= "('".$orderitem['food'][$i]['amount']."','$oid','".$orderitem['food'][$i]['id']."','0')";
                 $sql .= ($i == ($num-1))? ';' : ',';
             }
             $this->db->query($sql);
@@ -87,10 +87,10 @@ class Order extends CI_Model {
         if(!empty($orderitem['sidedish'])){//count sidedish part's cost
             $num = count($orderitem['sidedish']);
 
-            $sql = "INSERT INTO orderitem(oid,dishid,dishtype) VALUES";
+            $sql = "INSERT INTO orderitem(amount,oid,dishid,dishtype) VALUES";
 
             for($i = 0 ;$i<$num;$i++){
-                $sql .= "('$oid','".$orderitem['sidedish'][$i]."','1')";
+                $sql .= "('".$orderitem['sidedish'][$i]['amount']."','$oid','".$orderitem['sidedish'][$i]['id']."','1')";
                 $sql .= ($i == ($num-1))? ';' : ',';
             }
             $this->db->query($sql);
@@ -187,8 +187,7 @@ class Order extends CI_Model {
         $sql = "SELECT menuitem.minventory FROM menuitem JOIN dailymenu ON menuitem.mid=dailymenu.mid WHERE dailymenu.cid='$cid' AND dailymenu.mstatus='1' AND menuitem.fid ='$foodId'";
         $query = $this->db->query($sql);
         $result = $query->result();
-        $num = $query->num_rows();
-        if($num < $amount){
+        if($result[0]->minventory < $amount){
             return false;
         }
         return $result[0]->minventory;
@@ -199,8 +198,7 @@ class Order extends CI_Model {
         $sql = "SELECT sidemenuitem.sinventory FROM sidemenuitem JOIN sidemenu ON sidemenuitem.sideMenuID=sidemenu.sideMenuID WHERE sidemenu.cid='$cid' AND sidemenu.sideMenuStatus='1' AND sidemenuitem.sid ='$sidedishId'";
         $query = $this->db->query($sql);
         $result = $query->result();
-        $num = $query->num_rows();
-        if($num < $amount){
+        if($result[0]->sinventory < $amount){
             return false;
         }
         return $result[0]->sinventory;
@@ -337,11 +335,11 @@ class Order extends CI_Model {
         // then get food
         $num = count($oid);
         $food = array();
-        $sql_food = "SELECT orderitem.*,food.* FROM orderitem JOIN food ON orderitem.dishid = food.fid WHERE orderitem.dishtype ='0' AND orderitem.oid IN (";
+        $sql_food = "SELECT orderitem.amount,orderitem.oid,food.fid,food.fname FROM orderitem JOIN food ON orderitem.dishid = food.fid WHERE orderitem.dishtype ='0' AND food.did ='$did' AND orderitem.oid IN (";
         for($i = 0; $i < $num; $i++){
             $orderId = $oid[$i];
             $sql_food .= "$orderId->oid";
-            $sql_food .= ($i == ($num-1))? ');' : ',';
+            $sql_food .= ($i == ($num-1))? ') GROUP BY orderitem.oid;' : ',';
         }
         $query_food = $this->db->query($sql_food);
         if($query_food->num_rows()!=0){
@@ -351,13 +349,14 @@ class Order extends CI_Model {
                 $food[] = $result_food[$i];
             }
         }
+
         // and get sidedish
         $side = array();
-        $sql_side = "SELECT orderitem.*,sidedish.* FROM orderitem JOIN sidedish ON orderitem.dishid = sidedish.sid WHERE orderitem.dishtype ='1' AND orderitem.oid IN (";
+        $sql_side = "SELECT orderitem.amount,orderitem.oid,sidedish.sid,sidedish.sname FROM orderitem JOIN sidedish ON orderitem.dishid = sidedish.sid WHERE orderitem.dishtype ='1' AND sidedish.did ='$did'AND orderitem.oid IN (";
         for($i = 0; $i < $num; $i++){
             $orderId = $oid[$i];
             $sql_side .= "$orderId->oid";
-            $sql_side .= ($i == ($num-1))? ');' : ',';
+            $sql_side .= ($i == ($num-1))? ') GROUP BY orderitem.oid;' : ',';
         }
         $query_side = $this->db->query($sql_side);
         if($query_side->num_rows()!=0){
