@@ -24,8 +24,8 @@
     <script type="text/javascript">
         $(function(){
             setTimeout(function(){$(".logo_area").animate({"opacity": "1"})},1);
-            setTimeout(function(){$(".select_Campus").animate({"opacity": "1"})},1000);
-            setTimeout(function(){$(".btn_loginArea").animate({"opacity": "1"})},2000);
+            setTimeout(function(){$(".select_Campus").animate({"opacity": "1"})},500);
+            setTimeout(function(){$(".btn_loginArea").animate({"opacity": "1"})},1000);
             $(".select_Campus").bind("click", function(){
                 $(".campus_list").show();
             });
