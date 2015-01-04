@@ -20,7 +20,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="/copex/css/reset.css" rel="stylesheet" type="text/css" />
-    <script type="/copex/text/javascript" src="/copex/js/jquery-1.11.1.min.js" ></script>
+    <script type="text/javascript" src="/copex/js/jquery-1.11.1.min.js" ></script>
     <script type="text/javascript">
         $(function(){
             var _l = 5;
