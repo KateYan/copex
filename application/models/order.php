@@ -325,4 +325,52 @@ class Order extends CI_Model {
         }
     }
 
+    // get dishes that need to prepare
+    public function getOrderItem($did,$date){
+        // GET order first
+        $sql_order = "SELECT oid FROM `order` WHERE fordate='$date'";
+        $query_order = $this->db->query($sql_order);
+        if($query_order->num_rows()==0){
+            return false;
+        }
+        $oid = $query_order->result();
+        // then get food
+        $num = count($oid);
+        $food = array();
+        $sql_food = "SELECT orderitem.*,food.* FROM orderitem JOIN food ON orderitem.dishid = food.fid WHERE orderitem.dishtype ='0' AND orderitem.oid IN (";
+        for($i = 0; $i < $num; $i++){
+            $orderId = $oid[$i];
+            $sql_food .= "$orderId->oid";
+            $sql_food .= ($i == ($num-1))? ');' : ',';
+        }
+        $query_food = $this->db->query($sql_food);
+        if($query_food->num_rows()!=0){
+            $result_food = $query_food->result();
+            $num_food = count($result_food);
+            for($i = 0; $i < $num_food; $i++){
+                $food[] = $result_food[$i];
+            }
+        }
+        // and get sidedish
+        $side = array();
+        $sql_side = "SELECT orderitem.*,sidedish.* FROM orderitem JOIN sidedish ON orderitem.dishid = sidedish.sid WHERE orderitem.dishtype ='1' AND orderitem.oid IN (";
+        for($i = 0; $i < $num; $i++){
+            $orderId = $oid[$i];
+            $sql_side .= "$orderId->oid";
+            $sql_side .= ($i == ($num-1))? ');' : ',';
+        }
+        $query_side = $this->db->query($sql_side);
+        if($query_side->num_rows()!=0){
+            $result_side = $query_side->result();
+            $num_side = count($result_side);
+            for($i = 0; $i < $num_side; $i++){
+                $side[] = $result_side[$i];
+            }
+        }
+        // build the return array
+
+        $prepare_item = array('food'=>$food,'side'=>$side);
+
+        return $prepare_item;
+    }
 }
