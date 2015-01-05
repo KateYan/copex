@@ -128,14 +128,10 @@
                     <div class="panel-heading">
                         <div class="text-muted bootstrap-admin-box-title">主食列表--点击ID查看并编辑
                             <?php
-//                            if(isset($Msg['menuchanged'])){
-//                                echo '<span style="color: #be2221;"><b>'.$Msg['menuchanged'].'</b></span>';
-//                            }
                             $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;');
                             echo anchor('dishcontroller/showAddFood','<i class="glyphicon glyphicon-plus"></i>
                                          添加主食',$attributes);
                             ?>
-                            <input type="hidden" form="menuStatus" name="menu-campus" value="<?php echo $_SESSION['menu_campus']['cid']; ?>"/>
                         </div>
                     </div>
                     <div class="bootstrap-admin-panel-content">
@@ -179,10 +175,6 @@
                     <div class="panel-heading">
                         <div class="text-muted bootstrap-admin-box-title">小食列表--点击ID查看并编辑
                             <?php
-//                            if(isset($Msg['sidemenuchanged'])){
-//                                echo '<span style="color: #be2221;"><b>'.$Msg['sidemenuchanged'].'</b></span>';
-//                            }
-
                             $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;');
                             echo anchor('dishcontroller/showAddSideDish','<i class="glyphicon glyphicon-plus"></i>
                                          添加小食',$attributes);
