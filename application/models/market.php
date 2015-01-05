@@ -168,7 +168,7 @@ class Market extends CI_Model {
     }
     // get all food from database
     public function getAllFood(){
-        $sql = "SELECT * FROM food";
+        $sql = "SELECT food.*,diner.dname FROM food JOIN diner ON food.did = diner.did ";
         $query = $this->db->query($sql);
 
         return $query->result();
@@ -176,7 +176,7 @@ class Market extends CI_Model {
 
     // get all side dish from database
     public function getAllSideDish(){
-        $sql = "SELECT * FROM sidedish";
+        $sql = "SELECT sidedish.*, diner.dname FROM sidedish JOIN diner ON sidedish.did = diner.did ";
         $query = $this->db->query($sql);
 
         return $query->result();

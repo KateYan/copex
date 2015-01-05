@@ -76,7 +76,7 @@
                     <li>
                         <?php
                         $attributes = array('id'=>'prepareDishes');
-                        echo anchor('dishcontroller/showDishPanel','<i class="glyphicon glyphicon-chevron-right"></i> 2. 备餐管理',$attributes);
+                        echo anchor('preparecontroller/showDinerDishPanel','<i class="glyphicon glyphicon-chevron-right"></i> 2. 备餐管理',$attributes);
                         ?>
                     </li>
                     <li>
@@ -88,7 +88,7 @@
                     <li>
                         <?php
                         $attributes = array('id'=>'manageDish');
-                        echo anchor('foodcontroller/showFoodPanel','<i class="glyphicon glyphicon-chevron-right"></i> 4. 菜品管理',$attributes);
+                        echo anchor('dishcontroller/showDishPanel','<i class="glyphicon glyphicon-chevron-right"></i> 4. 菜品管理',$attributes);
                         ?>
                     </li>
                     <li>

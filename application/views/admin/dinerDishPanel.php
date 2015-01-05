@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: kunyan
- * Date: 12/24/2014
- * Time: 11:52 AM
+ * Date: 1/3/2015
+ * Time: 6:16 PM
  */
 ?>
 <!-- Datatables -->
@@ -73,7 +73,7 @@
                     echo anchor('admincontroller/showOrderPanel','<i class="glyphicon glyphicon-chevron-right"></i> 1. 订单管理',$attributes);
                     ?>
                 </li>
-                <li>
+                <li class="active">
                     <?php
                     $attributes = array('id'=>'prepareDishes');
                     echo anchor('preparecontroller/showDinerDishPanel','<i class="glyphicon glyphicon-chevron-right"></i> 2. 备餐管理',$attributes);
@@ -91,7 +91,7 @@
                     echo anchor('dishcontroller/showDishPanel','<i class="glyphicon glyphicon-chevron-right"></i> 4. 菜品管理',$attributes);
                     ?>
                 </li>
-                <li class="active">
+                <li>
                     <?php
                     $attributes = array('id'=>'manageMenu');
                     echo anchor('menucontroller/showMenuManage','<i class="glyphicon glyphicon-chevron-right"></i> 5. 菜单管理',$attributes);
@@ -117,7 +117,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>菜单管理</h1>
+                        <h1>备餐管理</h1>
                     </div>
                 </div>
             </div>
@@ -126,33 +126,33 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default bootstrap-admin-no-table-panel">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">选择校区查看菜单历史</div>
+                            <div class="text-muted bootstrap-admin-box-title">选择餐厅查看需要准备的菜品及数量</div>
                         </div>
                         <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
 
                             <div class="form-horizontal">
                                 <fieldset>
                                     <?php
-                                    $attributes = array('id'=>'menubycampus');
-                                    echo form_open('menucontroller/showMenus');
+                                    $attributes = array('id'=>'dishbydiner');
+                                    echo form_open('preparecontroller/showDinerDishes');
 
                                     ?>
-                                    <legend>校区</legend>
+                                    <legend>餐厅</legend>
                                     <div class="form-group has-success">
-                                        <label class="col-lg-2 control-label" for="selectCampus">选择要查看的校区</label>
+                                        <label class="col-lg-2 control-label" for="selectDiner">选择要查看的餐厅</label>
                                         <div class="col-lg-10">
-                                            <select id="selectCampus" name="campus" class="form-control">
+                                            <select id="selectDiner" name="diner" class="form-control">
                                                 <?php
-                                                foreach($campusList as $campus){
-                                                    echo '<option value="'.$campus->cid.'">';
-                                                    echo $campus->cname;
+                                                foreach($diners as $diner){
+                                                    echo '<option value="'.$diner->did.'">';
+                                                    echo $diner->dname;
                                                     echo '</option>';
                                                 }
                                                 ?>
                                             </select>
                                         </div>
                                     </div>
-                                    <button style="float:right;" type="submit" class="btn btn-primary">查看菜单历史</button>
+                                    <button style="float:right;" type="submit" class="btn btn-primary">查看餐厅备餐详情</button>
                                     <?php
                                     echo form_close();
                                     ?>

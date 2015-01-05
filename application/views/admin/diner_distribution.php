@@ -90,7 +90,7 @@
                                 <span class="noPrint">
                                     <?php
                                     $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-right:5px;');
-                                    echo anchor('dishcontroller/showDishPanel','<i class="glyphicon glyphicon-backward"> 回配餐主页</i>',$attributes);
+                                    echo anchor('preparecontroller/showDinerDishPanel','<i class="glyphicon glyphicon-backward"> 回配餐主页</i>',$attributes);
                                     ?>
                                     <button class="btn btn-sm btn-primary" onclick="printOrder()" style="float: right;margin-right: 5px;">
                                         <i class="glyphicon glyphicon-ok-sign"></i>

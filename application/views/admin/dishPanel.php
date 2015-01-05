@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: kunyan
- * Date: 1/3/2015
- * Time: 6:16 PM
+ * Date: 1/4/2015
+ * Time: 10:19 PM
  */
 ?>
 <!-- Datatables -->
@@ -56,115 +56,174 @@
 </nav>
 
 <div class="container">
-    <!-- left, vertical navbar & content -->
-    <div class="row">
-        <!-- left, vertical navbar -->
-        <div class="col-md-2 bootstrap-admin-col-left">
-            <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
-                <li>
-                    <?php
-                    $attributes = array('id'=>'adminPanel');
-                    echo anchor('admincontroller/showAdminPanel','<i class="glyphicon glyphicon-chevron-right"></i> 关于Copex',$attributes);
-                    ?>
-                </li>
-                <li>
-                    <?php
-                    $attributes = array('id'=>'manageOrder');
-                    echo anchor('admincontroller/showOrderPanel','<i class="glyphicon glyphicon-chevron-right"></i> 1. 订单管理',$attributes);
-                    ?>
-                </li>
-                <li class="active">
-                    <?php
-                    $attributes = array('id'=>'prepareDishes');
-                    echo anchor('dishcontroller/showDishPanel','<i class="glyphicon glyphicon-chevron-right"></i> 2. 备餐管理',$attributes);
-                    ?>
-                </li>
-                <li>
-                    <?php
-                    $attributes = array('id'=>'manageDiner');
-                    echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-chevron-right"></i> 3. 餐厅管理',$attributes);
-                    ?>
-                </li>
-                <li>
-                    <?php
-                    $attributes = array('id'=>'manageDish');
-                    echo anchor('foodcontroller/showFoodPanel','<i class="glyphicon glyphicon-chevron-right"></i> 4. 菜品管理',$attributes);
-                    ?>
-                </li>
-                <li>
-                    <?php
-                    $attributes = array('id'=>'manageMenu');
-                    echo anchor('menucontroller/showMenuManage','<i class="glyphicon glyphicon-chevron-right"></i> 5. 菜单管理',$attributes);
-                    ?>
-                </li>
-                <li>
-                    <?php
-                    $attributes = array('id'=>'manageVip');
-                    echo anchor('vipcontroller/showVipPanel','<i class="glyphicon glyphicon-chevron-right"></i> 6. 会员管理',$attributes);
-                    ?>
-                </li>
-                <li>
-                    <?php
-                    $attributes = array('id'=>'manageBasic');
-                    echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-chevron-right"></i> 7. 基本管理',$attributes);
-                    ?>
-                </li>
-            </ul>
-        </div>
+<!-- left, vertical navbar & content -->
+<div class="row">
+    <!-- left, vertical navbar -->
+    <div class="col-md-2 bootstrap-admin-col-left">
+        <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
+            <li>
+                <?php
+                $attributes = array('id'=>'adminPanel');
+                echo anchor('admincontroller/showAdminPanel','<i class="glyphicon glyphicon-chevron-right"></i> 关于Copex',$attributes);
+                ?>
+            </li>
+            <li>
+                <?php
+                $attributes = array('id'=>'manageOrder');
+                echo anchor('admincontroller/showOrderPanel','<i class="glyphicon glyphicon-chevron-right"></i> 1. 订单管理',$attributes);
+                ?>
+            </li>
+            <li>
+                <?php
+                $attributes = array('id'=>'prepareDishes');
+                echo anchor('preparecontroller/showDinerDishPanel','<i class="glyphicon glyphicon-chevron-right"></i> 2. 备餐管理',$attributes);
+                ?>
+            </li>
+            <li>
+                <?php
+                $attributes = array('id'=>'manageDiner');
+                echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-chevron-right"></i> 3. 餐厅管理',$attributes);
+                ?>
+            </li>
+            <li class="active">
+                <?php
+                $attributes = array('id'=>'manageDish');
+                echo anchor('dishcontroller/showDishPanel','<i class="glyphicon glyphicon-chevron-right"></i> 4. 菜品管理',$attributes);
+                ?>
+            </li>
+            <li>
+                <?php
+                $attributes = array('id'=>'manageMenu');
+                echo anchor('menucontroller/showMenuManage','<i class="glyphicon glyphicon-chevron-right"></i> 5. 菜单管理',$attributes);
+                ?>
+            </li>
+            <li>
+                <?php
+                $attributes = array('id'=>'manageVip');
+                echo anchor('vipcontroller/showVipPanel','<i class="glyphicon glyphicon-chevron-right"></i> 6. 会员管理',$attributes);
+                ?>
+            </li>
+            <li>
+                <?php
+                $attributes = array('id'=>'manageBasic');
+                echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-chevron-right"></i> 7. 基本管理',$attributes);
+                ?>
+            </li>
+        </ul>
+    </div>
 
-        <!-- content -->
-        <div class="col-md-10">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="page-header">
-                        <h1>备餐管理</h1>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default bootstrap-admin-no-table-panel">
-                        <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">选择餐厅查看需要准备的菜品及数量</div>
-                        </div>
-                        <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
-
-                            <div class="form-horizontal">
-                                <fieldset>
-                                    <?php
-                                    $attributes = array('id'=>'dishbydiner');
-                                    echo form_open('dishcontroller/showDishes');
-
-                                    ?>
-                                    <legend>餐厅</legend>
-                                    <div class="form-group has-success">
-                                        <label class="col-lg-2 control-label" for="selectDiner">选择要查看的餐厅</label>
-                                        <div class="col-lg-10">
-                                            <select id="selectDiner" name="diner" class="form-control">
-                                                <?php
-                                                foreach($diners as $diner){
-                                                    echo '<option value="'.$diner->did.'">';
-                                                    echo $diner->dname;
-                                                    echo '</option>';
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <button style="float:right;" type="submit" class="btn btn-primary">查看餐厅备餐详情</button>
-                                    <?php
-                                    echo form_close();
-                                    ?>
-                                </fieldset>
-                            </div>
-
-                        </div>
-                    </div>
+    <!-- content -->
+    <div class="col-md-10">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-header">
+                    <h1>菜品管理</h1>
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="text-muted bootstrap-admin-box-title">主食列表--点击ID查看并编辑
+                            <?php
+//                            if(isset($Msg['menuchanged'])){
+//                                echo '<span style="color: #be2221;"><b>'.$Msg['menuchanged'].'</b></span>';
+//                            }
+                            $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;');
+                            echo anchor('dishcontroller/showAddFood','<i class="glyphicon glyphicon-plus"></i>
+                                         添加主食',$attributes);
+                            ?>
+                            <input type="hidden" form="menuStatus" name="menu-campus" value="<?php echo $_SESSION['menu_campus']['cid']; ?>"/>
+                        </div>
+                    </div>
+                    <div class="bootstrap-admin-panel-content">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>主食ID</th>
+                                <th>菜名</th>
+                                <th>单价</th>
+                                <th>烹饪餐厅</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            if(!isset($food)){
+                                echo "还没有任何主食菜品！";
+                            }else{
+                                $num = count($food);
+                                for($i = 0;$i < $num; $i++){
+                                    echo '<tr>';
+                                    echo '<td>';
+                                    echo anchor("dishcontroller/showDishDetail?menuId=".$food[$i]->fid,$food[$i]->fid);
+                                    echo '</td>';
+                                    echo '<td>'.$food[$i]->fname.'</td>';
+                                    echo '<td>$ '.$food[$i]->fprice.'</td>';
+                                    echo '<td>'.$food[$i]->dname.'</td>';
+                                    echo '</tr>';
+                                }
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="text-muted bootstrap-admin-box-title">小食列表--点击ID查看并编辑
+                            <?php
+//                            if(isset($Msg['sidemenuchanged'])){
+//                                echo '<span style="color: #be2221;"><b>'.$Msg['sidemenuchanged'].'</b></span>';
+//                            }
+
+                            $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;');
+                            echo anchor('dishcontroller/showAddSideDish','<i class="glyphicon glyphicon-plus"></i>
+                                         添加小食',$attributes);
+                            ?>
+                        </div>
+                    </div>
+                    <div class="bootstrap-admin-panel-content">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>小食ID</th>
+                                <th>菜名</th>
+                                <th>单价</th>
+                                <th>烹饪餐厅</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            if(!isset($sideDish)){
+                                echo "还没有任何小食菜品！";
+                            }else{
+                                $num = count($sideDish);
+                                for($i = 0;$i < $num; $i++){
+                                    echo '<tr>';
+                                    echo '<td>';
+                                    echo anchor("dishcontroller/showDishDetail?menuId=".$sideDish[$i]->sid,$sideDish[$i]->sid);
+                                    echo '</td>';
+                                    echo '<td>'.$sideDish[$i]->sname.'</td>';
+                                    echo '<td>$ '.$sideDish[$i]->sprice.'</td>';
+                                    echo '<td>'.$sideDish[$i]->dname.'</td>';
+                                    echo '</tr>';
+                                }
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
-
-
+</div>
