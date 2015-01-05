@@ -105,7 +105,7 @@
                 <li>
                     <?php
                     $attributes = array('id'=>'manageDish');
-                    echo anchor('dishcontroller/showDishManage','<i class="glyphicon glyphicon-chevron-right"></i> 4. 菜品管理',$attributes);
+                    echo anchor('foodcontroller/showFoodPanel','<i class="glyphicon glyphicon-chevron-right"></i> 4. 菜品管理',$attributes);
                     ?>
                 </li>
                 <li>
