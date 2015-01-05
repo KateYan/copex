@@ -208,7 +208,7 @@
                                 for($i = 0;$i < $num; $i++){
                                     echo '<tr>';
                                     echo '<td>';
-                                    echo anchor("dishcontroller/showSideDetail?menuId=".$sideDish[$i]->sid,$sideDish[$i]->sid);
+                                    echo anchor("dishcontroller/showSideDetail?sideId=".$sideDish[$i]->sid,$sideDish[$i]->sid);
                                     echo '</td>';
                                     echo '<td>'.$sideDish[$i]->sname.'</td>';
                                     echo '<td>$ '.$sideDish[$i]->sprice.'</td>';

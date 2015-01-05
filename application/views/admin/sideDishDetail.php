@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: kunyan
- * Date: 1/4/2015
- * Time: 11:19 PM
+ * Date: 1/5/2015
+ * Time: 3:56 PM
  */
 ?>
 <!-- Vendors -->
@@ -93,25 +93,25 @@
                                         ?>
                                     </legend>
                                     <?php
-                                    $attributes_1 = array('id'=>'editFood');
-                                    echo form_open('dishcontroller/editFood',$attributes_1);
+                                    $attributes_1 = array('id'=>'editSideDish');
+                                    echo form_open('dishcontroller/editSideDish',$attributes_1);
                                     echo form_close();
 
-                                    $attributes_2 = array('id'=>'uploadFood');
-                                    echo form_open_multipart('dishcontroller/uploadFood',$attributes_2);
+                                    $attributes_2 = array('id'=>'uploadSideDish');
+                                    echo form_open_multipart('dishcontroller/uploadSideDish',$attributes_2);
                                     echo form_close();
 
                                     ?>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">菜品ID</label>
                                         <div class="col-lg-10">
-                                            <input form="editFood" class="form-control" type="text" name="dishId" value="<?php echo $_SESSION['food']->fid; ?>" readonly/>
+                                            <input form="editSideDish" class="form-control" type="text" name="dishId" value="<?php echo $_SESSION['side']->sid; ?>" readonly/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">菜名</label>
                                         <div class="col-lg-10">
-                                            <input form="editFood" class="form-control" type="text" name="dishName" value="<?php echo $_SESSION['food']->fname; ?>"/>
+                                            <input form="editSideDish" class="form-control" type="text" name="dishName" value="<?php echo $_SESSION['side']->sname; ?>"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -119,7 +119,7 @@
                                         <div class="col-lg-10">
                                             <div class="input-group">
                                                 <span class="input-group-addon" style="border-bottom-right-radius:0px;border-top-right-radius: 0px; ">$</span>
-                                                <input form="editFood" class="form-control" type="text" name="dishPrice" value="<?php echo $_SESSION['food']->fprice; ?>"/>
+                                                <input form="editSideDish" class="form-control" type="text" name="dishPrice" value="<?php echo $_SESSION['side']->sprice; ?>"/>
 
                                             </div>
                                         </div>
@@ -127,7 +127,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">烹饪餐厅</label>
                                         <div class="col-lg-10">
-                                            <input form="editFood" class="form-control" type="text" value="<?php echo $_SESSION['food']->dname; ?>" disabled/>
+                                            <input form="editSideDish" class="form-control" type="text" value="<?php echo $_SESSION['side']->dname; ?>" disabled/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -138,10 +138,10 @@
                                 $num = count($diners);
                                 for($j = 0; $j<$num; $j++){
                                     echo '<label style="padding-right: 15px;">';
-                                    echo '<input form="editFood" type="radio"';
+                                    echo '<input form="editSideDish" type="radio"';
 
-                                    if($_SESSION['food']->did==$diners[$j]->did){
-                                            echo "disabled ";
+                                    if($_SESSION['side']->did==$diners[$j]->did){
+                                        echo "disabled ";
                                     }
 
                                     echo 'name="newDiner" value="'.$diners[$j]->did.'"/>';
@@ -168,17 +168,17 @@
                                                                 if(isset($_SESSION['upload'])){
                                                                     echo $_SESSION['upload']['upload_data']['raw_name'];
                                                                 }else{
-                                                                    echo  $_SESSION['food']->fpicture;
+                                                                    echo  $_SESSION['side']->spicture;
                                                                 }
                                                                 ?>.jpg">
                                                             </a>
                                                             <?php
 
-                                                            echo '<input form="editFood" type="hidden" name="dishPicture" value="';
+                                                            echo '<input form="editSideDish" type="hidden" name="dishPicture" value="';
                                                             if(isset($_SESSION['upload'])){
                                                                 echo $_SESSION['upload']['upload_data']['raw_name'];
                                                             }else{
-                                                                echo $_SESSION['food']->fpicture;
+                                                                echo $_SESSION['side']->spicture;
                                                             }
                                                             echo '">';
 
@@ -190,18 +190,18 @@
                                                         </div>
                                                         <div class="col-lg-8" style="margin-top: 10px;">
 
-                                                                <input form="uploadFood" class="form-control" type="file" name="picture" />
+                                                            <input form="uploadSideDish" class="form-control" type="file" name="picture" />
                                                         </div>
                                                         <div class="col-lg-8" style="margin-top: 10px;">
                                                             <span>
-                                                                <button form="uploadFood" type="submit" class="btn btn-sm btn-info">
+                                                                <button form="uploadSideDish" type="submit" class="btn btn-sm btn-info">
                                                                     <i class="glyphicon glyphicon-upload"> 确认上传</i>
                                                                 </button>
                                                             </span>
                                                             <span>
                                                                 <?php
                                                                 $attributes_undo = array('class'=>'btn btn-sm btn-default','type'=>'reset');
-                                                                echo anchor('dishcontroller/undoFood','<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes_undo);
+                                                                echo anchor('dishcontroller/undoSideDish','<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes_undo);
                                                                 ?>
                                                             </span>
                                                         </div>
@@ -213,15 +213,15 @@
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="textarea-wysihtml5">简介</label>
                                         <div class="col-lg-10">
-                                            <textarea form="editFood" id="textarea-wysihtml5" name="dishDes" class="form-control textarea-wysihtml5" style="width: 100%; height: 200px" value="<?php echo $_SESSION['food']->fdes;?>"></textarea>
+                                            <textarea form="editSideDish" id="textarea-wysihtml5" name="dishDes" class="form-control textarea-wysihtml5" style="width: 100%; height: 200px" value="<?php echo $_SESSION['side']->sdes;?>"></textarea>
                                         </div>
                                     </div>
-                                    <button form="editFood" type="submit" class="btn btn-primary">
+                                    <button form="editSideDish" type="submit" class="btn btn-primary">
                                         <i class="glyphicon glyphicon-inbox"> 保存修改</i>
                                     </button>
                                     <?php
                                     $attributes1 = array('class'=>'btn btn-default','type'=>'reset');
-                                    echo anchor('dishcontroller/undoFood','<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes1);
+                                    echo anchor('dishcontroller/undoSideDish','<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes1);
                                     $attributes2 = array('class'=>'btn btn-success','type'=>'reset','style'=>'margin-left:5px;');
                                     echo anchor('dishcontroller/showDishPanel','<i class="glyphicon glyphicon-backward"> 回菜品列表</i>',$attributes2);
                                     ?>

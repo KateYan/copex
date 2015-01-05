@@ -287,4 +287,18 @@ class Market extends CI_Model {
         }
         $this->db->query($sql);
     }
+
+    // update side dish info
+    public function updateSideDish($columnName,$value){
+        $sid = $columnName[0];
+        $num = count($columnName);
+
+        $sql = "UPDATE sidedish SET ";
+        for($i=1;$i<$num;$i++){
+            $name = $columnName[$i];
+            $sql .= "$name=".$this->db->escape($value[$name])."";
+            $sql .= ($i == ($num-1))? "WHERE sid=$value[$sid];" : ',';
+        }
+        $this->db->query($sql);
+    }
 }
