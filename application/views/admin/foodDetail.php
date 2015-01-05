@@ -125,7 +125,21 @@
                                     <div class="form-group<?php if(isset($eMsg)){echo " has-error";}?>">
                                         <label class="col-lg-2 control-label">图片</label>
                                         <div class="col-lg-10">
-                                            <input form="editFood" class="form-control" type="file" name="fpicture" />
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <div class="text-muted bootstrap-admin-box-title">预览</div>
+                                                    <div class="pull-right"><span class="badge"></span></div>
+                                                </div>
+                                                <div class="bootstrap-admin-panel-content">
+                                                    <div class="row bootstrap-admin-light-padding-bottom">
+                                                        <div class="col-md-4">
+                                                            <a href="#" class="thumbnail">
+                                                                <img data-src="holder.js/260x180" alt="260x180" style="width: 100%; height: 100%;" src="/copex/upload/<?php echo  $_SESSION['food']->fpicture;?>.jpg">
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group<?php if(isset($eMsg)){echo " has-error";}?>">
