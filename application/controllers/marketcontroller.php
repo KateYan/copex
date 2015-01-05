@@ -117,15 +117,12 @@ class Marketcontroller extends MY_Controller{
         // error message setting
         $eMsg = array(
             'nopw' => "密码不能为空",
-            'wrongpw'=> "您输入的密码不正确"
+            'wrongpw'=> "您输入的密码不正确",
+            'timelimit' => "超时了！"
         );
-
-        if(!empty($errorCode) && !isset($eMsg["$errorCode"])){
-            return redirect('marketcontroller/showDailyMenu');
-        }elseif(!empty($errorCode)){
-            $data['eMsg'] = $eMsg["$errorCode"];
+        if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+            $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
         }
-
         // show inventory error message
         if(isset($_GET['nofood'])){
             $this->load->model('market');
@@ -157,7 +154,6 @@ class Marketcontroller extends MY_Controller{
                 $_SESSION['POST']["amt$i"] = $amt;
             }
         }
-
         if(!$selected){
             return redirect('marketcontroller/showDailyMenu');
         }
@@ -169,7 +165,6 @@ class Marketcontroller extends MY_Controller{
                 $data['selectedSd']["$i"] = true;
             }
         }
-
 
         $this->load->model('menuitem');
         $data['sideDish'] = $this->menuitem->getSideDish($_SESSION['cid']);
@@ -186,6 +181,12 @@ class Marketcontroller extends MY_Controller{
         $this->load->model('market');
         $vipCard = $this->market->getVipCard($_SESSION['vipid']);
         $data['balance'] = $vipCard->vbalance;
+
+        $userType = 'user';
+        // get orderTimeRange
+        $orderTimeRange = $this->market->orderTimeRange($userType);
+        $data['orderStart'] = $orderTimeRange['orderStart'];
+        $data['orderEnd'] = $orderTimeRange['orderEnd'];
 
 
         $data['title'] = '精选小食';
@@ -255,8 +256,8 @@ class Marketcontroller extends MY_Controller{
     public function vipOrderGenerate(){
         // if in order time-range then generate vip order
         if(!$this->checkTime()){
-            // out of order time range, then load timeout page
-            return $this->load->view('timeout');
+            // out of order time range, show time alert
+            return redirect('marketcontroller/showSideDish/timelimit');
         }
 
         unset($_SESSION['POST']);

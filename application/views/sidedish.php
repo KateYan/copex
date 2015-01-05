@@ -60,6 +60,9 @@
         function closeWindowNosidedish(){
             $("#nosidedish").hide();
         }
+        function closeWindowTimeLimit(){
+            $("#timelimit").hide();
+        }
 
         function showWindow(){
             $("#wrong_password").show();
@@ -199,11 +202,11 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
         </ul>
     </div>
 </div>
-<div id="wrong_password" class="layer" <?php echo (isset($eMsg))?'style="display: block;"': ''; ?>>
+<div id="wrong_password" class="layer" <?php echo (isset($eMsg['wrongpw']))?'style="display: block;"': ''; ?>>
     <div class="black_layer"></div>
     <div class="layer_summary">
         <br />
-        <p><?php echo (isset($eMsg))?$eMsg: ''; ?></p>
+        <p><?php echo (isset($eMsg['wrongpw']))?$eMsg['wrongpw']: ''; ?></p>
         <ul class="finishLay">
             <li></li>
             <li></li>
@@ -241,6 +244,27 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
                 <?php
                 $attributes = array('class'=>'btn_again','onclick'=>'closeWindowNosidedish()');
                 echo anchor('marketcontroller/showSideDish','去挑选别的诱人小食~',$attributes);
+                ?>
+            </li>
+            <li></li>
+        </ul>
+    </div>
+</div>
+
+<div id="timelimit" class="layer" <?php if(isset($eMsg['timelimit'])){echo 'style="display: block;"';}?>>
+    <div class="black_layer"></div>
+    <div class="layer_summary">
+        <p><?php
+            $start = date("H:i",strtotime($orderStart));
+            echo '<p>今日下单已经结束<span class="sorry">'.$start.'后才能下明天的单哦</span></p>';
+            ?>
+        </p>
+        <ul class="finishLay">
+            <li></li>
+            <li>
+                <?php
+                $attributes = array('class'=>'btn_again','onclick'=>'closeWindowTimeLimit()');
+                echo anchor('marketcontroller/showDailyMenu'," 先去逛逛，等一会再下单~",$attributes);
                 ?>
             </li>
             <li></li>
