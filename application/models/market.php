@@ -48,7 +48,7 @@ class Market extends CI_Model {
     }
     //get food information by using it's sid
     public function getFoodById($fid){
-        $sql = "SELECT * FROM food WHERE fid='$fid'";
+        $sql = "SELECT food.*,diner.dname FROM food JOIN diner ON food.did = diner.did WHERE fid='$fid'";
         $query = $this->db->query($sql);
 
         // return the result set as an array
@@ -58,7 +58,7 @@ class Market extends CI_Model {
 
     // get sidedish's information by using it's sid
     public function getSidedishById($sid){
-        $sql = "SELECT * FROM sidedish WHERE sid='$sid'";
+        $sql = "SELECT sidedish.*, diner.dname FROM sidedish JOIN diner ON sidedish.did = diner.did WHERE sid='$sid'";
         $query = $this->db->query($sql);
 
         // return the result set as an array

@@ -157,7 +157,7 @@
                                 for($i = 0;$i < $num; $i++){
                                     echo '<tr>';
                                     echo '<td>';
-                                    echo anchor("dishcontroller/showDishDetail?menuId=".$food[$i]->fid,$food[$i]->fid);
+                                    echo anchor("dishcontroller/showFoodDetail?foodId=".$food[$i]->fid,$food[$i]->fid);
                                     echo '</td>';
                                     echo '<td>'.$food[$i]->fname.'</td>';
                                     echo '<td>$ '.$food[$i]->fprice.'</td>';
@@ -208,7 +208,7 @@
                                 for($i = 0;$i < $num; $i++){
                                     echo '<tr>';
                                     echo '<td>';
-                                    echo anchor("dishcontroller/showDishDetail?menuId=".$sideDish[$i]->sid,$sideDish[$i]->sid);
+                                    echo anchor("dishcontroller/showSideDetail?menuId=".$sideDish[$i]->sid,$sideDish[$i]->sid);
                                     echo '</td>';
                                     echo '<td>'.$sideDish[$i]->sname.'</td>';
                                     echo '<td>$ '.$sideDish[$i]->sprice.'</td>';
