@@ -86,8 +86,9 @@ class Userstatuscontroller extends MY_Controller {
             $this->load->view('userOrders',$data);
         }else{ // for vip user
             $this->load->model('order');
-            $data['orders'] = $this->order->findVipOrder($_COOKIE['uid'],$today,$tomorrow);
-
+            if($this->order->findVipOrder($_COOKIE['uid'],$today,$tomorrow)){
+                $data['orders'] = $this->order->findVipOrder($_COOKIE['uid'],$today,$tomorrow);
+            }
             $this->load->view('vipOrders',$data);
         }
     }

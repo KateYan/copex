@@ -306,13 +306,9 @@ class Marketcontroller extends MY_Controller{
                 // create array for inventory check
                 $foodId = $_SESSION["food$i"]['id'];
                 $foodAmount = $_POST["amt$i"];
-                $foodItem[] = array('id'=>$foodId,'amount'=>$foodAmount);
+                $foodItem[] = array('id'=>$foodId,'amount'=>$foodAmount,'price'=>$_SESSION["food$i"]['price']);
             }
         }
-//
-//        var_dump($foodList);
-//        var_dump($foodItem);
-//        die();
 
         // for posted side dish
         $sideDishList = array();
@@ -327,12 +323,9 @@ class Marketcontroller extends MY_Controller{
                 // create array for inventory check
                 $sideDishId = $_SESSION["sidedish$k"]['id'];
                 $sideDishAmount = 1;
-                $sideDishItem[] = array('id'=>$sideDishId,'amount'=>$sideDishAmount);
+                $sideDishItem[] = array('id'=>$sideDishId,'amount'=>$sideDishAmount,'price'=>$_SESSION["sidedish$k"]['price']);
             }
         }
-//        var_dump($foodItem);
-//        var_dump($sideDishItem);
-//        die();
 
         //check inventory both food and sidedish
         $this->load->model('order');

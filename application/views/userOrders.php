@@ -38,8 +38,8 @@
             echo '<h4 style="margin-bottom: 5px;">'."订单号：".$order->oid.'</h4>';
 
             echo '<h4 style="margin-bottom: 5px;">'."主食：".$order->fname.'</h4>';
-            echo '<h4 style="margin-bottom: 5px;">'."数量：1份".$order->fname.'</h4>';
-            echo '<h4 style="margin-bottom: 5px;">'."单价：$ ".$order->fprice.'</h4>';
+            echo '<h4 style="margin-bottom: 5px;">'."数量：".$order->amount.'</h4>';
+            echo '<h4 style="margin-bottom: 5px;">'."单价：$ ".$order->price.'</h4>';
             echo '<h4 style="margin-bottom: 5px;">'."税费：$ ".$order->tax.'</h4>';
             echo '<h4 style="margin-bottom: 5px;">'."总价：$ ".$order->totalcost.'</h4>';
             echo '<h4 style="margin-bottom: 5px;">'."下单时间： ".$order->odate.'</h4>';

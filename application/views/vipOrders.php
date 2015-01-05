@@ -20,14 +20,16 @@
             echo '<h4 style="margin-bottom: 5px;">'."主食：".'</h4>';
             foreach($order['food'] as $food){
                 echo '<h4 style="margin-bottom: 5px;">'."菜名： ".$food->fname.'</h4>';
-                echo '<h4 style="margin-bottom: 5px;">'."单价：$  ".$food->fprice.'</h4>';
+                echo '<h4 style="margin-bottom: 5px;">'."份数： ".$food->amount.'</h4>';
+                echo '<h4 style="margin-bottom: 5px;">'."单价：$  ".$food->price.'</h4>';
             }
             echo '<br>';
             echo '<h4 style="margin-bottom: 5px;">'."小食：".'</h4>';
             if(!empty($order['sidedish'])){
                 foreach($order['sidedish'] as $sidedish){
                     echo '<h4 style="margin-bottom: 5px;">'."菜名： ".$sidedish->sname.'</h4>';
-                    echo '<h4 style="margin-bottom: 5px;">'."单价：$  ".$sidedish->sprice.'</h4>';
+                    echo '<h4 style="margin-bottom: 5px;">'."份数： ".$sidedish->amount.'</h4>';
+                    echo '<h4 style="margin-bottom: 5px;">'."单价：$  ".$sidedish->price.'</h4>';
                 }
             }else{
                 echo '<h4 style="margin-bottom: 5px;">'."无".'</h4>';

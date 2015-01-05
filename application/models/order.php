@@ -75,10 +75,10 @@ class Order extends CI_Model {
         if(!empty($orderitem['food'])){//create rows of orderitems for orderitem table
             $num = count($orderitem['food']);
 
-            $sql = "INSERT INTO orderitem(amount,oid,dishid,dishtype) VALUES";
+            $sql = "INSERT INTO orderitem(amount,oid,dishid,price,dishtype) VALUES";
 
             for($i = 0 ;$i<$num;$i++){
-                $sql .= "('".$orderitem['food'][$i]['amount']."','$oid','".$orderitem['food'][$i]['id']."','0')";
+                $sql .= "('".$orderitem['food'][$i]['amount']."','$oid','".$orderitem['food'][$i]['id']."','".$orderitem['food'][$i]['price']."','0')";
                 $sql .= ($i == ($num-1))? ';' : ',';
             }
             $this->db->query($sql);
@@ -87,10 +87,10 @@ class Order extends CI_Model {
         if(!empty($orderitem['sidedish'])){//count sidedish part's cost
             $num = count($orderitem['sidedish']);
 
-            $sql = "INSERT INTO orderitem(amount,oid,dishid,dishtype) VALUES";
+            $sql = "INSERT INTO orderitem(amount,oid,dishid,price,dishtype) VALUES";
 
             for($i = 0 ;$i<$num;$i++){
-                $sql .= "('".$orderitem['sidedish'][$i]['amount']."','$oid','".$orderitem['sidedish'][$i]['id']."','1')";
+                $sql .= "('".$orderitem['sidedish'][$i]['amount']."','$oid','".$orderitem['sidedish'][$i]['id']."','".$orderitem['sidedish'][$i]['price']."','1')";
                 $sql .= ($i == ($num-1))? ';' : ',';
             }
             $this->db->query($sql);
@@ -131,7 +131,7 @@ class Order extends CI_Model {
         $oid = $this->db->insert_id();
 
         //insert the order's food into orderitem table
-        $sqlItem = "INSERT INTO orderitem(oid,dishid,dishtype) VALUES(".$this->db->escape($oid).",".$this->db->escape($foodId).",'0')";
+        $sqlItem = "INSERT INTO orderitem(amount,oid,dishid,price,dishtype) VALUES('1',".$this->db->escape($oid).",".$this->db->escape($foodId).",".$this->db->escape($food->fprice).",'0')";
         $this->db->query($sqlItem);
 
         // update the menuitem's inventory
@@ -207,7 +207,7 @@ class Order extends CI_Model {
     // find one user's order
     public function findUserOrder($uid,$today,$tomorrow){
 
-        $sql = "SELECT `order`.* ,`campus`.cname ,campus.caddr,food.* FROM ((`order` JOIN `campus` ON `order`.cid = `campus`.cid) JOIN orderitem ON `order`.oid = orderitem.oid) JOIN food ON orderitem.dishid=food.fid WHERE `order`.uid='$uid' AND `order`.fordate IN ('$today','$tomorrow')";
+        $sql = "SELECT `order`.* ,`campus`.cname ,campus.caddr,orderitem.amount,orderitem.price,food.* FROM ((`order` JOIN `campus` ON `order`.cid = `campus`.cid) JOIN orderitem ON `order`.oid = orderitem.oid) JOIN food ON orderitem.dishid=food.fid WHERE `order`.uid='$uid' AND `order`.fordate IN ('$today','$tomorrow')";
 
         $query = $this->db->query($sql);
         if($query->num_rows()==0){
@@ -232,7 +232,7 @@ class Order extends CI_Model {
             // find food first
             $food = array();
 
-            $sql_food = "SELECT food.* FROM food JOIN orderitem ON food.fid = orderitem.dishid WHERE orderitem.oid='$oid' AND orderitem.dishtype='0'";
+            $sql_food = "SELECT food.*, orderitem.amount,orderitem.price FROM food JOIN orderitem ON food.fid = orderitem.dishid WHERE orderitem.oid='$oid' AND orderitem.dishtype='0'";
             $query_food = $this->db->query($sql_food);
             $result_food = $query_food->result();
             foreach($result_food as $food_item){
@@ -242,7 +242,7 @@ class Order extends CI_Model {
             // then find sidedish
             $sidedish = array();
 
-            $sql_sidedish = "SELECT sidedish.* FROM sidedish JOIN orderitem ON sidedish.sid = orderitem.dishid WHERE orderitem.oid='$oid' AND orderitem.dishtype='1'";
+            $sql_sidedish = "SELECT sidedish.*, orderitem.amount,orderitem.price FROM sidedish JOIN orderitem ON sidedish.sid = orderitem.dishid WHERE orderitem.oid='$oid' AND orderitem.dishtype='1'";
             $query_sidedish = $this->db->query($sql_sidedish);
 
             if($query_sidedish->num_rows() != 0){
