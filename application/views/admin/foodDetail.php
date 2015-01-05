@@ -86,7 +86,7 @@
                                     <legend>菜品内容：</legend>
                                     <?php
                                     $attributes_1 = array('id'=>'editFood');
-                                    echo form_open_multipart('dishcontroller/editFood',$attributes_1);
+                                    echo form_open('dishcontroller/editFood',$attributes_1);
                                     echo form_close();
 
                                     $attributes_2 = array('id'=>'upload');
@@ -103,7 +103,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">菜名</label>
                                         <div class="col-lg-10">
-                                            <input form="editFood" class="form-control" type="text" name="vipNumber" value="<?php echo $_SESSION['food']->fname; ?>"/>
+                                            <input form="editFood" class="form-control" type="text" name="fname" value="<?php echo $_SESSION['food']->fname; ?>"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -122,6 +122,28 @@
                                             <input form="editFood" class="form-control" type="text" value="<?php echo $_SESSION['food']->dname; ?>" disabled/>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label" for="optionsCheckbox2">添加给餐校区</label>
+                                        <div class="col-lg-10">
+                                <span>
+                                <?php
+                                $num = count($diners);
+                                for($j = 0; $j<$num; $j++){
+                                    echo '<label style="padding-right: 15px;">';
+                                    echo '<input form="editFood" type="radio"';
+
+                                    if($_SESSION['food']->did==$diners[$j]->did){
+                                            echo "disabled ";
+                                    }
+
+                                    echo 'name="newDiner" value="'.$diners[$j]->did.'"/>';
+                                    echo "  ".$diners[$j]->dname;
+                                    echo '</label>';
+                                }
+                                ?>
+                                </span>
+                                        </div>
+                                    </div>
                                     <div class="form-group<?php if(isset($eMsg)){echo " has-error";}?>">
                                         <label class="col-lg-2 control-label">图片</label>
                                         <div class="col-lg-10">
@@ -133,9 +155,44 @@
                                                 <div class="bootstrap-admin-panel-content">
                                                     <div class="row bootstrap-admin-light-padding-bottom">
                                                         <div class="col-md-4">
-                                                            <a href="#" class="thumbnail">
-                                                                <img data-src="holder.js/260x180" alt="260x180" style="width: 100%; height: 100%;" src="/copex/upload/<?php echo  $_SESSION['food']->fpicture;?>.jpg">
+                                                            <a class="thumbnail">
+                                                                <img data-src="holder.js/260x180" alt="260x180" style="width: 100%; height: 100%;" src="/copex/upload/<?php
+                                                                if(isset($_SESSION['upload'])){
+                                                                    echo $_SESSION['upload']['upload_data']['raw_name'];
+
+                                                                }else{
+                                                                    echo  $_SESSION['food']->fpicture;
+                                                                }
+                                                                ?>.jpg">
                                                             </a>
+                                                            <?php
+                                                            if(isset($_SESSION['upload'])){
+                                                                echo '<input form="editFood" type="hidden" name="fpicture" value="';
+                                                                echo $_SESSION['upload']['upload_data']['raw_name'];
+                                                                echo '">';
+                                                            }
+                                                            ?>
+                                                        </div>
+
+                                                        <div class="col-md-8">
+                                                            <label class="col-lg-2 control-label">更换图片:</label>
+                                                        </div>
+                                                        <div class="col-lg-8" style="margin-top: 10px;">
+
+                                                                <input form="upload" class="form-control" type="file" name="picture" />
+                                                        </div>
+                                                        <div class="col-lg-8" style="margin-top: 10px;">
+                                                            <span>
+                                                                <button form="upload" type="submit" class="btn btn-sm btn-info">
+                                                                    <i class="glyphicon glyphicon-upload"> 确认上传</i>
+                                                                </button>
+                                                            </span>
+                                                            <span>
+                                                                <?php
+                                                                $attributes_undo = array('class'=>'btn btn-sm btn-default','type'=>'reset');
+                                                                echo anchor('dishcontroller/undo','<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes_undo);
+                                                                ?>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -159,7 +216,7 @@
                                     </button>
                                     <?php
                                     $attributes1 = array('class'=>'btn btn-default','type'=>'reset');
-                                    echo anchor('dishcontroller/showFoodDetail','<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes1);
+                                    echo anchor('dishcontroller/undo','<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes1);
                                     $attributes2 = array('class'=>'btn btn-success','type'=>'reset','style'=>'margin-left:5px;');
                                     echo anchor('dishcontroller/showDishPanel','<i class="glyphicon glyphicon-backward"> 回菜品列表</i>',$attributes2);
                                     ?>

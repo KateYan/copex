@@ -52,6 +52,11 @@ class Dishcontroller extends MY_Controller{
             $foodId = $_SESSION['food']->fid;
             unset($_SESSION['food']);
         }
+
+        // find all diners
+        $this->load->model('diner');
+        $data['diners'] = $this->diner->allDiners();
+
         // find food's information and store as session
         $this->load->model('market');
         if($this->market->getFoodById($foodId)){
@@ -66,17 +71,38 @@ class Dishcontroller extends MY_Controller{
     public function editFood(){
         var_dump($_POST);
         die();
-        $config['upload_path'] = './upload/';
-        $config['allowed_types'] = 'gif|jpg|png';
-        $config['overwrite'] = 'FALSE';
-        $config['max_size'] = '0';
-        $config['max_width']  = '1024';
-        $config['max_height']  = '768';
 
-        $this->load->library('upload', $config);
     }
     // upload file
     public function upload(){
 
+        $config['upload_path'] = './upload/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['overwrite'] = 'FALSE';
+        $config['max_size'] = '204800';
+        $config['max_width']  = '1024';
+        $config['max_height']  = '768';
+
+        $this->load->library('upload', $config);
+        // check if upload successfully
+        if ($this->upload->do_upload('picture')) { //success
+            $upload = array('upload_data' =>$this->upload->data()); //store picture's info
+            if(isset($_SESSION['upload'])){
+                unset($_SESSION['upload']);
+            }
+            $_SESSION['upload'] = $upload;
+
+            return redirect('dishcontroller/showFoodDetail');
+        } else { //upload failed
+            $error = array('error' =>$this->upload->display_errors());//store error info
+            var_dump($error); //打印错误信息
+        }
+    }
+
+    public function undo(){
+        if(isset($_SESSION['upload'])){
+            unset($_SESSION['upload']);
+        }
+        return redirect('dishcontroller/showFoodDetail');
     }
 }
