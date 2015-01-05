@@ -9,6 +9,15 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Dishcontroller extends MY_Controller{
 
+    // set validation rules
+    public function __construct(){
+        parent::__construct();
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('dishName','dishName','trim|required');
+        $this->form_validation->set_rules('dishPrice','dishPrice','trim|required|numeric|greater_than[0]|less_than[100]');
+
+    }
+
     // show panel
     public function showDishPanel(){
         // get all dishes
@@ -30,12 +39,12 @@ class Dishcontroller extends MY_Controller{
     public function showFoodDetail($errorCode = null){
         // check if there is error code
         $eMsg = array(
-            'pswnotmatch' => "两次输入密码不同！请再次输入",
-            'pswmiss' => "只有输入两次新密码才能重置支付密码！"
+            'wrong' => "菜名和价格不可为空！价格不能超过$100",
+            'success' => "修改成功！"
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
-            $data["eMsg"] = $eMsg["$errorCode"];
+            $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
         }
 
 //        var_dump($_SESSION['food']);
@@ -69,9 +78,36 @@ class Dishcontroller extends MY_Controller{
 
     // edit food information
     public function editFood(){
-        var_dump($_POST);
-        die();
+//        var_dump($_POST);
+//        die();
+        if(empty($_POST)){
+            return redirect('dishcontroller/showDishPanel');
+        }
 
+        // check if all input are fit the validation rules
+        if($this->form_validation->run()==FALSE){
+            echo "Eroor";
+            die();
+            return redirect('dishcontroller/showFoodDetail/wrong');
+        }
+
+        // update Food information into db
+        $value = array();
+        $columnName = array("fid","fname","fprice","fpicture","fdes");
+        $value['fid'] = $this->input->post('dishId');
+        $value['fname'] = $this->input->post('dishName');
+        $value['fprice'] = $this->input->post('dishPrice');
+        $value['fpicture'] = $this->input->post('dishPicture');
+        $value['fdes'] = $this->input->post('dishDes');
+        if($this->input->post('newDiner')){
+            $columnName[]="did";
+            $value['did'] = $this->input->post('newDiner');
+        }
+
+        $this->load->model('market');
+        $this->market->updateFood($columnName,$value);
+
+        return redirect('dishcontroller/showFoodDetail/success');
     }
     // upload file
     public function upload(){

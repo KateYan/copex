@@ -274,4 +274,17 @@ class Market extends CI_Model {
         return $campusId;
     }
 
+    // update food info
+    public function updateFood($columnName,$value){
+        $fid = $columnName[0];
+        $num = count($columnName);
+
+        $sql = "UPDATE food SET ";
+        for($i=1;$i<$num;$i++){
+            $name = $columnName[$i];
+            $sql .= "$name=".$this->db->escape($value[$name])."";
+            $sql .= ($i == ($num-1))? "WHERE fid=$value[$fid];" : ',';
+        }
+        $this->db->query($sql);
+    }
 }

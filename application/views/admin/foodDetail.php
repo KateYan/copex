@@ -83,7 +83,15 @@
                         <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
                             <div class="form-horizontal">
                                 <fieldset>
-                                    <legend>菜品内容：</legend>
+                                    <legend>菜品内容：
+                                        <?php
+                                        if(isset($eMsg['wrong'])){
+                                            echo '<span style="color: #be2221;"><b>'.$eMsg['wrong'].'</b></span>';
+                                        } elseif(isset($eMsg['success'])){
+                                            echo '<span style="color: #be2221;"><b>'.$eMsg['success'].'</b></span>';
+                                        }
+                                        ?>
+                                    </legend>
                                     <?php
                                     $attributes_1 = array('id'=>'editFood');
                                     echo form_open('dishcontroller/editFood',$attributes_1);
@@ -97,13 +105,13 @@
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">菜品ID</label>
                                         <div class="col-lg-10">
-                                            <input form="editFood" class="form-control" type="text" name="foodId" value="<?php echo $_SESSION['food']->fid; ?>" readonly/>
+                                            <input form="editFood" class="form-control" type="text" name="dishId" value="<?php echo $_SESSION['food']->fid; ?>" readonly/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">菜名</label>
                                         <div class="col-lg-10">
-                                            <input form="editFood" class="form-control" type="text" name="fname" value="<?php echo $_SESSION['food']->fname; ?>"/>
+                                            <input form="editFood" class="form-control" type="text" name="dishName" value="<?php echo $_SESSION['food']->fname; ?>"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -111,7 +119,7 @@
                                         <div class="col-lg-10">
                                             <div class="input-group">
                                                 <span class="input-group-addon" style="border-bottom-right-radius:0px;border-top-right-radius: 0px; ">$</span>
-                                                <input form="editFood" class="form-control" type="text" name="fprice" value="<?php echo $_SESSION['food']->fprice; ?>"/>
+                                                <input form="editFood" class="form-control" type="text" name="dishPrice" value="<?php echo $_SESSION['food']->fprice; ?>"/>
 
                                             </div>
                                         </div>
@@ -144,7 +152,7 @@
                                 </span>
                                         </div>
                                     </div>
-                                    <div class="form-group<?php if(isset($eMsg)){echo " has-error";}?>">
+                                    <div class="form-group">
                                         <label class="col-lg-2 control-label">图片</label>
                                         <div class="col-lg-10">
                                             <div class="panel panel-default">
@@ -159,18 +167,21 @@
                                                                 <img data-src="holder.js/260x180" alt="260x180" style="width: 100%; height: 100%;" src="/copex/upload/<?php
                                                                 if(isset($_SESSION['upload'])){
                                                                     echo $_SESSION['upload']['upload_data']['raw_name'];
-
                                                                 }else{
                                                                     echo  $_SESSION['food']->fpicture;
                                                                 }
                                                                 ?>.jpg">
                                                             </a>
                                                             <?php
+
+                                                            echo '<input form="editFood" type="hidden" name="dishPicture" value="';
                                                             if(isset($_SESSION['upload'])){
-                                                                echo '<input form="editFood" type="hidden" name="fpicture" value="';
                                                                 echo $_SESSION['upload']['upload_data']['raw_name'];
-                                                                echo '">';
+                                                            }else{
+                                                                echo $_SESSION['food']->fpicture;
                                                             }
+                                                            echo '">';
+
                                                             ?>
                                                         </div>
 
@@ -199,16 +210,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group<?php if(isset($eMsg)){echo " has-error";}?>">
+                                    <div class="form-group">
                                         <label class="col-lg-2 control-label" for="textarea-wysihtml5">简介</label>
                                         <div class="col-lg-10">
-                                            <textarea form="editFood" id="textarea-wysihtml5" name="fdes" class="form-control textarea-wysihtml5" style="width: 100%; height: 200px" value="<?php echo $_SESSION['food']->fdes;?>"></textarea>
-
-                                            <?php
-                                            if(isset($eMsg)){
-                                                echo '<span class="help-block">'.$eMsg.'</span>';
-                                            }
-                                            ?>
+                                            <textarea form="editFood" id="textarea-wysihtml5" name="dishDes" class="form-control textarea-wysihtml5" style="width: 100%; height: 200px" value="<?php echo $_SESSION['food']->fdes;?>"></textarea>
                                         </div>
                                     </div>
                                     <button form="editFood" type="submit" class="btn btn-primary">
