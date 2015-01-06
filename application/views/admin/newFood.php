@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: kunyan
- * Date: 1/4/2015
- * Time: 11:19 PM
+ * Date: 1/5/2015
+ * Time: 4:38 PM
  */
 ?>
 <!-- Vendors -->
@@ -78,7 +78,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default bootstrap-admin-no-table-panel">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">编辑主食
+                            <div class="text-muted bootstrap-admin-box-title">添加新主食
                                 <?php
                                 $attributes2 = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'margin-left:5px;','style'=>'float:right;');
                                 echo anchor('dishcontroller/goback','<i class="glyphicon glyphicon-backward"> 回菜品列表</i>',$attributes2);
@@ -98,65 +98,16 @@
                                         ?>
                                     </legend>
                                     <?php
-                                    $attributes_1 = array('id'=>'editFood');
-                                    echo form_open('dishcontroller/editFood',$attributes_1);
+                                    $attributes_1 = array('id'=>'newFood');
+                                    echo form_open('dishcontroller/newFood',$attributes_1);
                                     echo form_close();
 
-                                    $attributes_2 = array('id'=>'uploadFood');
-                                    echo form_open_multipart('dishcontroller/uploadFood',$attributes_2);
+                                    $attributes_2 = array('id'=>'upload_1');
+                                    echo form_open_multipart('dishcontroller/upload_1',$attributes_2);
                                     echo form_close();
 
                                     ?>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label">菜品ID</label>
-                                        <div class="col-lg-10">
-                                            <input form="editFood" class="form-control" type="text" name="dishId" value="<?php echo $_SESSION['food']->fid; ?>" readonly/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label">菜名</label>
-                                        <div class="col-lg-10">
-                                            <input form="editFood" class="form-control" type="text" name="dishName" value="<?php echo $_SESSION['food']->fname; ?>"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label">价格</label>
-                                        <div class="col-lg-10">
-                                            <div class="input-group">
-                                                <span class="input-group-addon" style="border-bottom-right-radius:0px;border-top-right-radius: 0px; ">$</span>
-                                                <input form="editFood" class="form-control" type="text" name="dishPrice" value="<?php echo $_SESSION['food']->fprice; ?>"/>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label">烹饪餐厅</label>
-                                        <div class="col-lg-10">
-                                            <input form="editFood" class="form-control" type="text" value="<?php echo $_SESSION['food']->dname; ?>" disabled/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label" for="optionsCheckbox2">变更烹饪餐厅</label>
-                                        <div class="col-lg-10">
-                                <span>
-                                <?php
-                                $num = count($diners);
-                                for($j = 0; $j<$num; $j++){
-                                    echo '<label style="padding-right: 15px;">';
-                                    echo '<input form="editFood" type="radio"';
-
-                                    if($_SESSION['food']->did==$diners[$j]->did){
-                                            echo "disabled ";
-                                    }
-
-                                    echo 'name="newDiner" value="'.$diners[$j]->did.'"/>';
-                                    echo "  ".$diners[$j]->dname;
-                                    echo '</label>';
-                                }
-                                ?>
-                                </span>
-                                        </div>
-                                    </div>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">图片</label>
                                         <div class="col-lg-10">
@@ -169,37 +120,36 @@
                                                     <div class="row bootstrap-admin-light-padding-bottom">
                                                         <div class="col-md-4">
                                                             <a class="thumbnail">
-                                                                <img data-src="holder.js/260x180" alt="260x180" style="width: 100%; height: 100%;" src="/copex/upload/<?php
+                                                                <?php
                                                                 if(isset($_SESSION['upload'])){
+                                                                    echo '<img data-src="holder.js/260x180" alt="260x180" style="width: 100%; height: 100%;" src="/copex/upload/';
                                                                     echo $_SESSION['upload']['upload_data']['raw_name'];
+                                                                    echo '.jpg">';
                                                                 }else{
-                                                                    echo  $_SESSION['food']->fpicture;
+                                                                    echo '<img data-src="holder.js/260x180" alt="260x180" style="width: 100%; height: 100%;" src="/copex/images/empty.jpg" >';
                                                                 }
-                                                                ?>.jpg">
+                                                                ?>
                                                             </a>
                                                             <?php
-
-                                                            echo '<input form="editFood" type="hidden" name="dishPicture" value="';
+                                                            echo '<input form="newFood" type="hidden" name="dishPicture" value="';
                                                             if(isset($_SESSION['upload'])){
                                                                 echo $_SESSION['upload']['upload_data']['raw_name'];
-                                                            }else{
-                                                                echo $_SESSION['food']->fpicture;
                                                             }
-                                                            echo '">';
+                                                            echo '"required />';
 
                                                             ?>
                                                         </div>
 
                                                         <div class="col-md-8">
-                                                            <label class="col-lg-2 control-label">更换图片:</label>
+                                                            <label class="col-lg-2 control-label">添加图片:</label>
                                                         </div>
                                                         <div class="col-lg-8" style="margin-top: 10px;">
 
-                                                                <input form="uploadFood" class="form-control" type="file" name="picture" />
+                                                            <input form="upload_1" class="form-control" type="file" name="picture" required />
                                                         </div>
                                                         <div class="col-lg-8" style="margin-top: 10px;">
                                                             <span>
-                                                                <button form="uploadFood" type="submit" class="btn btn-sm btn-info">
+                                                                <button form="upload_1" type="submit" class="btn btn-sm btn-info">
                                                                     <i class="glyphicon glyphicon-upload"> 确认上传</i>
                                                                 </button>
                                                             </span>
@@ -215,20 +165,52 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">菜名</label>
+                                        <div class="col-lg-10">
+                                            <input form="newFood" class="form-control" type="text" name="dishName" required />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">价格</label>
+                                        <div class="col-lg-10">
+                                            <div class="input-group">
+                                                <span class="input-group-addon" style="border-bottom-right-radius:0px;border-top-right-radius: 0px; ">$</span>
+                                                <input form="newFood" class="form-control" type="text" name="dishPrice" required />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label" for="optionsCheckbox2">添加烹饪餐厅</label>
+                                        <div class="col-lg-10">
+                                            <span>
+                                            <?php
+                                            $num = count($diners);
+                                            for($j = 0; $j<$num; $j++){
+                                                echo '<label style="padding-right: 15px;">';
+                                                echo '<input form="newFood" type="radio"';
+                                                echo 'name="newDiner" value="'.$diners[$j]->did.'" required />';
+                                                echo "  ".$diners[$j]->dname;
+                                                echo '</label>';
+                                            }
+                                            ?>
+                                            </span>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="textarea-wysihtml5">简介</label>
                                         <div class="col-lg-10">
-                                            <textarea form="editFood" id="textarea-wysihtml5" name="dishDes" class="form-control textarea-wysihtml5" style="width: 100%; height: 200px" value="<?php echo $_SESSION['food']->fdes;?>"></textarea>
+                                            <textarea form="newFood" id="textarea-wysihtml5" name="dishDes" class="form-control textarea-wysihtml5" style="width: 100%; height: 200px"></textarea>
                                         </div>
                                     </div>
-                                    <button form="editFood" type="submit" class="btn btn-primary">
+                                    <button form="newFood" type="submit" class="btn btn-primary">
                                         <i class="glyphicon glyphicon-inbox"> 保存修改</i>
                                     </button>
                                     <?php
-                                    $attributes1 = array('class'=>'btn btn-default','type'=>'reset');
-                                    echo anchor('dishcontroller/undoFood','<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes1);
                                     $attributes2 = array('class'=>'btn btn-success','type'=>'reset','style'=>'margin-left:5px;');
-                                    echo anchor('dishcontroller/showDishPanel','<i class="glyphicon glyphicon-backward"> 回菜品列表</i>',$attributes2);
+                                    echo anchor('dishcontroller/goback','<i class="glyphicon glyphicon-backward"> 回菜品列表</i>',$attributes2);
                                     ?>
                                 </fieldset>
                             </div>

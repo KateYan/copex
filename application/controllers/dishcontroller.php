@@ -250,4 +250,175 @@ class Dishcontroller extends MY_Controller{
         }
         return redirect('dishcontroller/showSideDetail');
     }
+
+    // show  add food
+    public function showAddFood($errorCode = null){
+        // check if there is error code
+        $eMsg = array(
+            'wrong' => "菜名和价格,图片不可为空！价格不能超过$100",
+            'success' => "添加成功！"
+        );
+
+        if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+            $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
+        }
+        // find all diners
+        $this->load->model('diner');
+        $data['diners'] = $this->diner->allDiners();
+
+        $data['title'] = "Copex | 添加菜品";
+        $this->load->view('partials/adminHeader',$data);
+        $this->load->view('admin/newFood',$data);
+        $this->load->view('partials/adminFooter');
+    }
+
+    // new food upload
+    // upload file
+    public function upload_1(){
+
+        $config['upload_path'] = './upload/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['overwrite'] = 'FALSE';
+        $config['max_size'] = '204800';
+        $config['max_width']  = '1024';
+        $config['max_height']  = '768';
+
+        $this->load->library('upload', $config);
+        // check if upload successfully
+        if ($this->upload->do_upload('picture')) { //success
+            $upload = array('upload_data' =>$this->upload->data()); //store picture's info
+            if(isset($_SESSION['upload'])){
+                unset($_SESSION['upload']);
+            }
+            $_SESSION['upload'] = $upload;
+
+            return redirect('dishcontroller/showAddFood');
+        } else { //upload failed
+            $data['error'] = array('error' =>$this->upload->display_errors());//store error info
+            var_dump($data['error']); //打印错误信息
+        }
+    }
+
+    // add new food
+    public function newFood(){
+//        var_dump($_POST);
+//        die();
+        if(!isset($_POST)){
+            return redirect('dishcontroller/showDishPanel');
+        }
+
+        // check if all input are fit the validation rules
+        if($this->form_validation->run()==FALSE){
+            return redirect('dishcontroller/showAddFood/wrong');
+        }
+        // store food information into db
+        $value = array();
+        $columnName = array("fname","fprice","fpicture","fdes","did");
+        $value['fname'] = $this->input->post('dishName');
+        $value['fprice'] = $this->input->post('dishPrice');
+        $value['fpicture'] = $this->input->post('dishPicture');
+        $value['fdes'] = $this->input->post('dishDes');
+        $value['did'] = $this->input->post('newDiner');
+
+
+        $this->load->model('market');
+        $foodId = $this->market->newFood($columnName,$value);
+
+        return redirect("dishcontroller/showFoodDetail?foodId=$foodId");
+    }
+
+
+    // add new side dish
+    // show  add side dish
+    public function showAddSideDish($errorCode = null){
+        // check if there is error code
+        $eMsg = array(
+            'wrong' => "菜名和价格,图片不可为空！价格不能超过$100",
+            'success' => "添加成功！"
+        );
+
+        if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+            $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
+        }
+        // find all diners
+        $this->load->model('diner');
+        $data['diners'] = $this->diner->allDiners();
+
+        $data['title'] = "Copex | 添加菜品";
+        $this->load->view('partials/adminHeader',$data);
+        $this->load->view('admin/newSideDish',$data);
+        $this->load->view('partials/adminFooter');
+    }
+
+    // new food upload
+    // upload file
+    public function upload_2(){
+
+        $config['upload_path'] = './upload/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['overwrite'] = 'FALSE';
+        $config['max_size'] = '204800';
+        $config['max_width']  = '1024';
+        $config['max_height']  = '768';
+
+        $this->load->library('upload', $config);
+        // check if upload successfully
+        if ($this->upload->do_upload('picture')) { //success
+            $upload = array('upload_data' =>$this->upload->data()); //store picture's info
+            if(isset($_SESSION['upload'])){
+                unset($_SESSION['upload']);
+            }
+            $_SESSION['upload'] = $upload;
+
+            return redirect('dishcontroller/showAddSideDish');
+        } else { //upload failed
+            $data['error'] = array('error' =>$this->upload->display_errors());//store error info
+            var_dump($data['error']); //打印错误信息
+        }
+    }
+
+    // add new food
+    public function newSideDish(){
+//        var_dump($_POST);
+//        die();
+        if(!isset($_POST)){
+            return redirect('dishcontroller/showDishPanel');
+        }
+
+        // check if all input are fit the validation rules
+        if($this->form_validation->run()==FALSE){
+            return redirect('dishcontroller/showAddSideDish/wrong');
+        }
+        // store side dish information into db
+        $value = array();
+        $columnName = array("sname","sprice","spicture","sdes","did");
+        $value['sname'] = $this->input->post('dishName');
+        $value['sprice'] = $this->input->post('dishPrice');
+        $value['spicture'] = $this->input->post('dishPicture');
+        $value['sdes'] = $this->input->post('dishDes');
+        $value['did'] = $this->input->post('newDiner');
+
+
+        $this->load->model('market');
+        $sideId = $this->market->newSideDish($columnName,$value);
+
+        return redirect("dishcontroller/showSideDetail?sideId=$sideId");
+    }
+
+
+    public function goback(){
+        if(isset($_SESSION['food'])){
+            unset($_SESSION['food']);
+        }
+
+        if(isset($_SESSION['side'])){
+            unset($_SESSION['side']);
+        }
+
+        if(isset($_SESSION['upload'])){
+            unset($_SESSION['upload']);
+        }
+
+        return redirect('dishcontroller/showDishPanel');
+    }
 }

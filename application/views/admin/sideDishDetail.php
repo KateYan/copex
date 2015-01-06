@@ -78,7 +78,12 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default bootstrap-admin-no-table-panel">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">编辑主食</div>
+                            <div class="text-muted bootstrap-admin-box-title">编辑小食
+                                <?php
+                                $attributes2 = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'margin-left:5px;','style'=>'float:right;');
+                                echo anchor('dishcontroller/goback','<i class="glyphicon glyphicon-backward"> 回菜品列表</i>',$attributes2);
+                                ?>
+                            </div>
                         </div>
                         <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
                             <div class="form-horizontal">

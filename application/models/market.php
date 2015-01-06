@@ -301,4 +301,48 @@ class Market extends CI_Model {
         }
         $this->db->query($sql);
     }
+
+    // create new food
+    public function newFood($columnName,$value){
+        $num = count($columnName);
+        $sql = "INSERT INTO food(";
+        for($i=0;$i<$num;$i++){
+            $name = $columnName[$i];
+
+            $sql .= "$name";
+            $sql .= ($i == ($num-1))? ") VALUES(" : ',';
+        }
+
+        for($j=0;$j<$num;$j++){
+            $name = $columnName[$j];
+
+            $sql .= "'$value[$name]'";
+            $sql .= ($j == ($num-1))? ');' : ',';
+        }
+        $this->db->query($sql);
+        $foodId = $this->db->insert_id();
+        return $foodId;
+    }
+
+    // create new side dish
+    public function newSideDish($columnName,$value){
+        $num = count($columnName);
+        $sql = "INSERT INTO sidedish(";
+        for($i=0;$i<$num;$i++){
+            $name = $columnName[$i];
+
+            $sql .= "$name";
+            $sql .= ($i == ($num-1))? ") VALUES(" : ',';
+        }
+
+        for($j=0;$j<$num;$j++){
+            $name = $columnName[$j];
+
+            $sql .= "'$value[$name]'";
+            $sql .= ($j == ($num-1))? ');' : ',';
+        }
+        $this->db->query($sql);
+        $sideId = $this->db->insert_id();
+        return $sideId;
+    }
 }
