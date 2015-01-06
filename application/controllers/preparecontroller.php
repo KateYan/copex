@@ -48,53 +48,54 @@ class Preparecontroller extends MY_Controller{
         }
 
         $this->load->model('order');
-        if(!$this->order->getOrderItem($this->input->post('diner'),$date)){
+        if($this->order->getOrderItem($this->input->post('diner'),$date)){
+            $prepare_item = $this->order->getOrderItem($this->input->post('diner'),$date);
+//            var_dump($prepare_item);
+//            die();
+            $_SESSION['prepare_item'] = $prepare_item;
+            // compare each food and add them up
+            $food = $prepare_item['food'];
+            $container1 = array();
+            $foodList = array();
 
-        }
-        $prepare_item = $this->order->getOrderItem($this->input->post('diner'),$date);
-        $_SESSION['prepare_item'] = $prepare_item;
-        // compare each food and add them up
-        $food = $prepare_item['food'];
-        $container1 = array();
-        $foodList = array();
-
-        foreach ($food as $item) {
-            $key = $item->fid . '_' . $item->fname;
-            if (empty($container1[$key])) {
-                $container1[$key] = $item->amount;
+            foreach ($food as $item) {
+                $key = $item->fid . '_' . $item->fname;
+                if (empty($container1[$key])) {
+                    $container1[$key] = $item->amount;
+                }
+                else {
+                    $container1[$key] += $item->amount;
+                }
             }
-            else {
-                $container1[$key] += $item->amount;
+            foreach ($container1 as $key => $item) {
+                list($fid, $fname) = explode('_', $key);
+                $foodList[] = array('fid' => $fid, 'fname' => $fname, 'amount' => $item);
             }
-        }
-        foreach ($container1 as $key => $item) {
-            list($fid, $fname) = explode('_', $key);
-            $foodList[] = array('fid' => $fid, 'fname' => $fname, 'amount' => $item);
-        }
 
 
-        // compare each sidedish and add them up
-        $side = $prepare_item['side'];
-        $container2 = array();
-        $sideList = array();
+            // compare each sidedish and add them up
+            $side = $prepare_item['side'];
+            $container2 = array();
+            $sideList = array();
 
-        foreach ($side as $item) {
-            $key = $item->sid . '_' . $item->sname;
-            if (empty($container2[$key])) {
-                $container2[$key] = $item->amount;
+            foreach ($side as $item) {
+                $key = $item->sid . '_' . $item->sname;
+                if (empty($container2[$key])) {
+                    $container2[$key] = $item->amount;
+                }
+                else {
+                    $container2[$key] += $item->amount;
+                }
             }
-            else {
-                $container2[$key] += $item->amount;
+            foreach ($container2 as $key => $item) {
+                list($sid, $sname) = explode('_', $key);
+                $sideList[] = array('sid' => $sid, 'sname' => $sname, 'amount' => $item);
             }
-        }
-        foreach ($container2 as $key => $item) {
-            list($sid, $sname) = explode('_', $key);
-            $sideList[] = array('sid' => $sid, 'sname' => $sname, 'amount' => $item);
-        }
 
-        $data['foodList'] = $foodList;
-        $data['sideList'] = $sideList;
-
+            $data['foodList'] = $foodList;
+            $data['sideList'] = $sideList;
+        }
+        
         $data['title'] = "Copex | 备餐管理";
         $this->load->view('partials/adminHeader',$data);
         $this->load->view('admin/dishes_diner',$data);
