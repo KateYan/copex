@@ -77,7 +77,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>餐厅“<?php echo $dname;?>”--订单分配单</h1>
+                        <h1>----<?php
+                            echo '餐厅“'.$_SESSION['diner']['dname'].'”';
+                            echo '----校区“'.$_SESSION['campusList']['cname'].'”';
+                            ?>：订单详情</h1>
                     </div>
                 </div>
             </div>
@@ -90,7 +93,7 @@
                                 <span class="noPrint">
                                     <?php
                                     $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-right:5px;');
-                                    echo anchor('preparecontroller/showDinerDishPanel','<i class="glyphicon glyphicon-backward"> 回配餐主页</i>',$attributes);
+                                    echo anchor('preparecontroller/goback','<i class="glyphicon glyphicon-backward"> 回配餐主页</i>',$attributes);
                                     ?>
                                     <button class="btn btn-sm btn-primary" onclick="printOrder()" style="float: right;margin-right: 5px;">
                                         <i class="glyphicon glyphicon-ok-sign"></i>
@@ -110,10 +113,10 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                if(empty($prepare_item['food'])){
+                                if(empty($foodList)){
                                     echo "没有订单需要配餐。";
                                 }else{
-                                    foreach($prepare_item['food'] as $food){
+                                    foreach($foodList as $food){
                                         echo '<tr>';
                                         echo '<td>'.$food->oid.'</td>';
                                         echo '<td>'.$food->fname.'</td>';
@@ -146,10 +149,10 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                if(empty($prepare_item['side'])){
+                                if(empty($sideList)){
                                     echo "没有订单需要配餐。";
                                 }else{
-                                    foreach($prepare_item['side'] as $side){
+                                    foreach($sideList as $side){
                                         echo '<tr>';
                                         echo '<td>'.$side->oid.'</td>';
                                         echo '<td>'.$side->sname.'</td>';

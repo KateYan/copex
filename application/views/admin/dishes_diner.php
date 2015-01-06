@@ -135,7 +135,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-header">
-                    <h1>备餐管理----<?php echo '餐厅“'.$diner['dname'].'”'; ?></h1>
+                    <h1>备餐管理----<?php echo '餐厅“'.$_SESSION['diner']['dname'].'”'; ?></h1>
                 </div>
             </div>
         </div>
@@ -147,8 +147,11 @@
                         <div class="text-muted bootstrap-admin-box-title">需要准备的主食
                             <span class="noPrint">
                                 <?php
-                                $attributes = array('id'=>'distribution','class'=>'btn btn-sm btn-success','style'=>'float: right;');
-                                echo anchor('preparecontroller/showDistribution','<i class="glyphicon glyphicon-search"></i>
+                                $attributes = array('class'=>'btn btn-sm btn-warning','type'=>'reset','style'=>'float:right;margin-right:5px;');
+                                echo anchor('preparecontroller/goback','<i class="glyphicon glyphicon-backward"> 回备餐主页</i>',$attributes);
+
+                                $attributes = array('id'=>'distribution','class'=>'btn btn-sm btn-success','style'=>'float: right;margin-right:5px;');
+                                echo anchor('preparecontroller/showChooseCampus','<i class="glyphicon glyphicon-search"></i>
                                              查看分配列表',$attributes);
                                 ?>
                                 <button class="btn btn-sm btn-primary" onclick="printOrder()" style="float: right;margin-right: 5px;">
@@ -169,11 +172,11 @@
                             </thead>
                             <tbody>
                             <?php
-                            if(empty($foodList)){
+                            if(empty($_SESSION['prepare']['foodList'])){
                                 echo "本餐厅不需要准备主食";
                             }else{
-                                $num = count($foodList);
-                                foreach($foodList as $food){
+                                $num = count($_SESSION['prepare']['foodList']);
+                                foreach($_SESSION['prepare']['foodList'] as $food){
                                     echo '<tr>';
                                     echo '<td>'.$food['fid'].'</td>';
                                     echo '<td>'.$food['fname'].'</td>';
@@ -207,11 +210,11 @@
                             </thead>
                             <tbody>
                             <?php
-                            if(empty($sideList)){
+                            if(empty($_SESSION['prepare']['sideList'])){
                                 echo "本餐厅不需要准备小食";
                             }else{
-                                $num = count($sideList);
-                                foreach($sideList as $side){
+                                $num = count($_SESSION['prepare']['sideList']);
+                                foreach($_SESSION['prepare']['sideList'] as $side){
                                     echo '<tr>';
                                     echo '<td>'.$side['sid'].'</td>';
                                     echo '<td>'.$side['sname'].'</td>';
