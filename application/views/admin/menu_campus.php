@@ -141,6 +141,8 @@
                                 <?php
                                 if(isset($Msg['menuchanged'])){
                                     echo '<span style="color: #be2221;"><b>'.$Msg['menuchanged'].'</b></span>';
+                                }elseif(isset($Msg['deletemenu'])){
+                                    echo '<span style="color: #be2221;"><b>'.$Msg['deletemenu'].'</b></span>';
                                 }
 
                                 $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;');
@@ -203,6 +205,8 @@
                                 <?php
                                 if(isset($Msg['sidemenuchanged'])){
                                     echo '<span style="color: #be2221;"><b>'.$Msg['sidemenuchanged'].'</b></span>';
+                                }elseif(isset($Msg['deleteSidemenu'])){
+                                    echo '<span style="color: #be2221;"><b>'.$Msg['deleteSidemenu'].'</b></span>';
                                 }
 
                                 $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;');

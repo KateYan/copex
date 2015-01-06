@@ -50,7 +50,9 @@ class MenuController extends MY_Controller{
         // check if there is error code
         $Msg = array(
             'menuchanged' => "主食菜单已更换成功！",
-            'sidemenuchanged'=>"小食菜单已更换成功！"
+            'sidemenuchanged'=>"小食菜单已更换成功！",
+            'deletemenu' => "删除主食菜单成功！",
+            'deleteSidemenu' => "删除小食菜单成功！"
         );
 
         if(!empty($message) && isset($Msg["$message"])){
@@ -198,7 +200,8 @@ class MenuController extends MY_Controller{
         // check if there is error code
         $eMsg = array(
             'wrong' => "请输入正确的库存数据（最高3位数）",
-            'success' => "修改库存成功！"
+            'success' => "修改库存成功！",
+            'using' => "--该菜单正在使用，不能删除！"
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
@@ -233,7 +236,8 @@ class MenuController extends MY_Controller{
         // check if there is error code
         $eMsg = array(
             'wrong' => "请输入正确的库存数据（最高3位数）",
-            'success' => "修改库存成功！"
+            'success' => "修改库存成功！",
+            'using' => "--该菜单正在使用，不能删除！"
         );
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
             $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
@@ -293,5 +297,33 @@ class MenuController extends MY_Controller{
         $this->load->model('menuitem');
         $this->menuitem->updateSideMenuInventory($_POST['menu'],$side);
         return redirect('menucontroller/showSideMenuDetail/success');
+    }
+
+    // delete menu
+    public function deleteMenu(){
+        if(!isset($_SESSION['menuDetail'])){
+            return redirect('menucontroller/showMenus');
+        }
+        if($_SESSION['menuDetail']->mstatus == 1){
+            return redirect('menucontroller/showMenuDetail/using');
+        }
+
+        $this->load->model('menuitem');
+        $this->menuitem->deleteMenu($_SESSION['menuDetail']->mid);
+        return redirect('menucontroller/showMenus/deletemenu');
+    }
+
+    // delete side menu
+    public function deleteSideMenu(){
+        if(!isset($_SESSION['menuDetail'])){
+            return redirect('menucontroller/showMenus');
+        }
+        if($_SESSION['sideMenuDetail']->sideMenuStatus == 1){
+            return redirect('menucontroller/showSideMenuDetail/using');
+        }
+
+        $this->load->model('menuitem');
+        $this->menuitem->deleteSideMenu($_SESSION['sideMenuDetail']->sideMenuID);
+        return redirect('menucontroller/showMenus/deleteSidemenu');
     }
 }

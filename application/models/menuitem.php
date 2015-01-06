@@ -132,4 +132,16 @@ class Menuitem extends CI_Model {
             $this->db->query($sql);
         }
     }
+
+    // delete not using daily menu
+    public function deleteMenu($menuId){
+        $sql = "DELETE FROM dailymenu WHERE mid=$menuId";
+        $this->db->query($sql);
+    }
+
+    //delete not using side menu
+    public function deleteSideMenu($menuId){
+        $sql = "DELETE FROM sidemenu WHERE sideMenuID=$menuId";
+        $this->db->query($sql);
+    }
 }

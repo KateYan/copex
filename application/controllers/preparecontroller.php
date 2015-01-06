@@ -95,7 +95,7 @@ class Preparecontroller extends MY_Controller{
             $data['foodList'] = $foodList;
             $data['sideList'] = $sideList;
         }
-        
+
         $data['title'] = "Copex | 备餐管理";
         $this->load->view('partials/adminHeader',$data);
         $this->load->view('admin/dishes_diner',$data);

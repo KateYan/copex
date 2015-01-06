@@ -71,7 +71,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>菜单管理</h1>
+                        <h1>菜单管理
+                            <?php
+                            if(isset($eMsg['using'])){
+                                echo '<span style="color: #be2221;"><b>'.$eMsg['using'].'</b></span>';
+                            }
+                            ?>
+                        </h1>
                     </div>
                 </div>
             </div>
@@ -80,9 +86,18 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default bootstrap-admin-no-table-panel">
                         <div class="panel-heading">
+                            <?php
+                            $attributes = array('id'=>'deleteMenu');
+                            echo form_open('menucontroller/deleteMenu',$attributes);
+                            echo form_close();
+                            ?>
                             <div class="text-muted bootstrap-admin-box-title">菜单详情
+
+                                <button form="deleteMenu" type="submit" class="btn btn-sm btn-danger" style="float: right;">
+                                    <i class="glyphicon glyphicon-remove"> 删除该菜单</i>
+                                </button>
                                 <?php
-                                $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-top:0px;');
+                                $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-right:5px;');
                                 echo anchor('menucontroller/showMenus','<i class="glyphicon glyphicon-backward"> 回菜单列表</i>',$attributes);
                                 ?>
                             </div>
