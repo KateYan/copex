@@ -150,7 +150,7 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
 
         <div class="order_password">
             <div class="passPay">支付密码</div>
-            <input name="password" type="password" class="passWord" required />
+            <input name="password" type="password" class="passWord" />
         </div>
         <p style="padding:7px 0 15px 3%; color:red;"></p>
     </div>
@@ -202,6 +202,24 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
         </ul>
     </div>
 </div>
+<!--no password-->
+<div id="nopw" class="layer" <?php echo (isset($eMsg['nopw']))?'style="display: block;"': ''; ?>>
+    <div class="black_layer"></div>
+    <div class="layer_summary">
+        <br />
+        <p><?php echo (isset($eMsg['nopw']))?$eMsg['nopw']: ''; ?></p>
+        <ul class="finishLay">
+            <li></li>
+            <li></li>
+            <li><?php
+                $attributes = array('class'=>'btn_again','onclick'=>'closeWindow()');
+                echo anchor('marketcontroller/showSideDish','关闭',$attributes);
+                ?>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--wrong password-->
 <div id="wrong_password" class="layer" <?php echo (isset($eMsg['wrongpw']))?'style="display: block;"': ''; ?>>
     <div class="black_layer"></div>
     <div class="layer_summary">
@@ -210,7 +228,12 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
         <ul class="finishLay">
             <li></li>
             <li></li>
-            <li><a href="#" onclick = "closeWindow()">关闭</a></li>
+            <li>
+                <?php
+                $attributes = array('class'=>'btn_again','onclick'=>'closeWindow()');
+                echo anchor('marketcontroller/showSideDish','关闭',$attributes);
+                ?>
+            </li>
         </ul>
     </div>
 </div>

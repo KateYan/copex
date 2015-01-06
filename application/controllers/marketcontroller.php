@@ -116,7 +116,7 @@ class Marketcontroller extends MY_Controller{
         }
         // error message setting
         $eMsg = array(
-            'nopw' => "密码不能为空",
+            'nopw' => "支付密码不能为空哦",
             'wrongpw'=> "您输入的密码不正确",
             'timelimit' => "超时了！"
         );
