@@ -17,7 +17,6 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style" />
     <meta content="telephone=no" name="format-detection" />
     <meta name="viewport" content="width=device-width; maximum-scale=1.0;  user-scalable=no; initial-scale=1.0" />
-<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="/copex/css/reset.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="/copex/js/jquery-1.11.1.min.js" ></script>
