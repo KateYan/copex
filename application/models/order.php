@@ -339,7 +339,7 @@ class Order extends CI_Model {
         for($i = 0; $i < $num; $i++){
             $orderId = $oid[$i];
             $sql_food .= "$orderId->oid";
-            $sql_food .= ($i == ($num-1))? ') GROUP BY orderitem.oid;' : ',';
+            $sql_food .= ($i == ($num-1))? ');' : ',';
         }
         $query_food = $this->db->query($sql_food);
         if($query_food->num_rows()!=0){
@@ -356,7 +356,7 @@ class Order extends CI_Model {
         for($i = 0; $i < $num; $i++){
             $orderId = $oid[$i];
             $sql_side .= "$orderId->oid";
-            $sql_side .= ($i == ($num-1))? ') GROUP BY orderitem.oid;' : ',';
+            $sql_side .= ($i == ($num-1))? ');' : ',';
         }
         $query_side = $this->db->query($sql_side);
         if($query_side->num_rows()!=0){
@@ -389,7 +389,7 @@ class Order extends CI_Model {
         for($i = 0; $i < $num; $i++){
             $orderId = $oid[$i];
             $sql_food .= "$orderId->oid";
-            $sql_food .= ($i == ($num-1))? ') GROUP BY orderitem.oid;' : ',';
+            $sql_food .= ($i == ($num-1))? ');' : ',';
         }
         $query_food = $this->db->query($sql_food);
         if($query_food->num_rows()!=0){
@@ -406,7 +406,7 @@ class Order extends CI_Model {
         for($i = 0; $i < $num; $i++){
             $orderId = $oid[$i];
             $sql_side .= "$orderId->oid";
-            $sql_side .= ($i == ($num-1))? ') GROUP BY orderitem.oid;' : ',';
+            $sql_side .= ($i == ($num-1))? ');' : ',';
         }
         $query_side = $this->db->query($sql_side);
         if($query_side->num_rows()!=0){

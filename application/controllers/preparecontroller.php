@@ -30,6 +30,9 @@ class Preparecontroller extends MY_Controller{
         $this->load->model('diner');
         if(isset($_POST['diner'])){
             $dinerId = $_POST['diner'];
+            if(isset($_SESSION['prepare'])){
+                unset($_SESSION['prepare']);
+            }
             $this->diner->findDiner($this->input->post('diner'));
         }else{
             $dinerId = $_SESSION['diner']['did'];
@@ -100,6 +103,10 @@ class Preparecontroller extends MY_Controller{
             $_SESSION['prepare']['foodList'] = $foodList;
             $_SESSION['prepare']['sideList'] = $sideList;
         }
+//        var_dump($prepare_item);
+//        var_dump($_SESSION['prepare']);
+
+//        die();
 
         $data['title'] = "Copex | 备餐管理";
         $this->load->view('partials/adminHeader',$data);
@@ -196,6 +203,7 @@ class Preparecontroller extends MY_Controller{
             $campusList = array('cid'=>$campus->cid,'cname'=>$campus->cname,'foodList'=>$foodList,'sideList'=>$sideList);
         }
 
+//        var_dump($prepare_campus_item);
 //        var_dump($campusList);
 //        die();
 
