@@ -422,4 +422,42 @@ class Order extends CI_Model {
 
         return $prepare_campus_item;
     }
+
+    // get one order's full detail
+    // get dishes that need to prepare
+    public function getOrderDetailById($oid){
+        $sql = "SELECT `order`.*,campus.cname FROM `order` JOIN campus ON `order`.cid = campus.cid WHERE oid=$oid";
+        $query_order = $this->db->query($sql);
+        $order = $query_order->row(0);
+
+        $food = array();
+        $sql_food = "SELECT food.fname,orderitem.amount,orderitem.price,diner.dname FROM ((`order` JOIN orderitem ON orderitem.oid=`order`.oid) JOIN food ON orderitem.dishid = food.fid) JOIN diner ON food.did = diner.did WHERE orderitem.dishtype ='0' AND orderitem.oid='$oid'";
+
+        $query_food = $this->db->query($sql_food);
+        if($query_food->num_rows()!=0){
+            $result_food = $query_food->result();
+            $num_food = count($result_food);
+            for($i = 0; $i < $num_food; $i++){
+                $food[] = $result_food[$i];
+            }
+        }
+
+        // and get sidedish
+        $side = array();
+        $sql_side = "SELECT sidedish.sname,orderitem.amount,orderitem.price,diner.dname FROM ((`order` JOIN orderitem ON orderitem.oid=`order`.oid) JOIN sidedish ON orderitem.dishid = sidedish.sid) JOIN diner ON sidedish.did = diner.did WHERE orderitem.dishtype ='1' AND orderitem.oid='$oid'";
+
+        $query_side = $this->db->query($sql_side);
+        if($query_side->num_rows()!=0){
+            $result_side = $query_side->result();
+            $num_side = count($result_side);
+            for($i = 0; $i < $num_side; $i++){
+                $side[] = $result_side[$i];
+            }
+        }
+        // build the return array
+
+        $detailOrder = array('order'=>$order,'food'=>$food,'side'=>$side);
+
+        return $detailOrder;
+    }
 }

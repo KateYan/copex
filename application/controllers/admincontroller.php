@@ -89,15 +89,21 @@ class Admincontroller extends MY_Controller{
         $_SESSION['order_campus'] = array('cid'=>$campus->cid,'cname'=>$campus->cname);
 
         $data['title'] = "Copex | 订单管理";
-        // show today's order that needed to prepare
 
-        $time = date("H:i:s");
-        if($time>='00:00:00'&&$time<='12:00:00'){
-            $date = date('Y-m-d');
+        // get orderTimeRange
+        $userType = 'vip';
+        $this->load->model('market');
+        $orderTimeRange = $this->market->orderTimeRange($userType);
+        $orderStart = $orderTimeRange['orderStart'];
+        $orderEnd = date("00:00:00");
+        $time = date('H:i:s');
+        if($time >= $orderEnd && $time< $orderStart){
+            $date = date("Y-m-d");
         }else{
             $date = date('Y-m-d',strtotime('+1 day'));
         }
-        // find orders that need to prepare
+
+        // show today's order that needed to prepare
         $this->load->model('order');
         if($this->order->getOrdersByCampusDate($campusId,$date)){// check number of orders
             $data['prepareOrder'] = $this->order->getOrdersByCampusDate($campusId,$date);
@@ -117,12 +123,13 @@ class Admincontroller extends MY_Controller{
 
         $this->load->model('order');
         if(!empty($orderId)){
-            $data['orderFood'] = $this->order->orderFoodDetail($orderId);
-            $data['orderSidedish'] = $this->order->orderSidedishDetail($orderId);
+            $data['orderDetail'] = $this->order->getOrderDetailById($orderId);
+//            var_dump($data['orderDetail']);
+//            die();
 
             $data['title'] = "Copex | 订单详情";
             $this->load->view('partials/adminHeader',$data);
-            $this->load->view('admin/orderDetails');
+            $this->load->view('admin/orderDetail',$data);
             $this->load->view('partials/adminFooter');
         }
         return false;
