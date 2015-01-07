@@ -39,7 +39,8 @@
             echo '<span class="menuD_summary" style="margin-left: 5px;">';
 
             echo '<h4 style="margin-bottom: 5px;">'."订单号：".$order['order']->oid.'</h4>';
-            echo '<h4 style="margin-bottom: 5px;">'."下单时间： ".$order['order']->odate.'</h4>';
+            $odate = date("m-d H:i",strtotime($order['order']->odate));
+            echo '<h4 style="margin-bottom: 5px;">'."下单时间： ".$odate.'</h4>';
             echo '<h4 style="margin-bottom: 5px;">'."税款：$ ".$order['order']->tax.'</h4>';
             echo '<h4 style="margin-bottom: 5px;">'."总价：$ ".$order['order']->totalcost.'</h4>';
             if($order['order']->oispaid==0){
