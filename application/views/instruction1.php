@@ -28,7 +28,7 @@
 <img src="/copex/images/page01_04.jpg" width="100%" />
 <img src="/copex/images/page01_05.jpg" width="100%" />
 <img src="/copex/images/page01_06.jpg" width="100%" />
-<img src="/copex/images/page01_07.jpg" width="100%" />
+<a href=""><img src="/copex/images/page01_07.jpg" width="100%" /></a>
 <img src="/copex/images/page01_08.jpg" width="100%" />
 
 <?php
