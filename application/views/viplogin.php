@@ -35,9 +35,11 @@
 <div class="login_footer">
     <?php
     $attributes = array('class'=>'btn_loginFoot inotMemb');
-    echo anchor('marketcontroller/showDailyMenu','我还不是会员',$attributes)
+    echo anchor('marketcontroller/showDailyMenu','我还不是会员',$attributes);
+
+    $attributes = array('class'=>'btn_loginFoot whyResMember');
+    echo anchor('userstatuscontroller/showInstruction2','为什么要成为会员',$attributes);
     ?>
-    <a class="btn_loginFoot whyResMember">为什么要成为会员</a>
 </div>
 </body>
 </html>
