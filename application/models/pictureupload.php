@@ -11,6 +11,7 @@ class Pictureupload extends CI_Model{
     var $picture_path;
     var $picture_recomd_path;
     var $picture_normal_path;
+    var $file_name;
 
     function __construct(){
         parent::__construct();
@@ -37,6 +38,8 @@ class Pictureupload extends CI_Model{
         $file_path = $image_data['file_path'];
         $width = $image_data['image_width'];
         $height = $image_data['image_height'];
+
+        $this->file_name = $file_name;
 
        // 1.resize for recommend food
         $config1['source_image'] = $image_data['full_path'];
@@ -67,7 +70,6 @@ class Pictureupload extends CI_Model{
         $config2['height'] = '165';
 
         $this->cropFood($config2);
-//        return $config2;
 
         // 3.resize for normal food
         $config3['source_image'] = $image_data['full_path'];
@@ -84,7 +86,6 @@ class Pictureupload extends CI_Model{
 
         $this->reSize($config3);
 
-
         // 2. crop for recommend food
         $config4['source_image'] = $this->picture_normal_path."/$file_name";
         $config4['maintain_ratio'] = false;
@@ -97,8 +98,9 @@ class Pictureupload extends CI_Model{
         $config4['width'] = '190';
         $config4['height'] = '215';
 
-        $error = $this->cropFood($config4);
-//        return $config2;
+        $this->cropFood($config4);
+
+        return $this;
     }
 
     public function reSize($config){

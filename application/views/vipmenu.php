@@ -55,7 +55,7 @@ echo form_open('marketcontroller/showSideDish',$attributes);
         $id = $key+1;
         echo "<input type='hidden' name='fid$id' value='".$sale->fid."'>";
         echo '<div class="menu_block">';
-        echo '<div class="menuD_img"><img src="/copex/upload/'.$sale->fpicture.'.jpg" width="100%" height="100%"/></div>';
+        echo '<div class="menuD_img"><img src="/copex/upload/normal/'.$sale->fpicture.'" width="100%" height="100%"/></div>';
         echo '<div class="menuD_summary">';
         echo '<h4>'.$sale->fname.'</h4>';
         echo '<p class="menuDP">$'.$sale->fprice.'</p>';

@@ -79,7 +79,7 @@
     echo '<input type="radio" id="recomdItem" name="fid" value="'.$recomdItem->fid.'">';
     echo '<label for="recomdItem">';
     echo '<div class="manaRecom_menu">';
-    echo ' <img src="/copex/upload/'.$recomdItem->fpicture.'.jpg" width="100%" >';
+    echo ' <img src="/copex/upload/recommend/'.$recomdItem->fpicture.'" width="100%" >';
     ?>
         <ul>
             <li><?php echo $recomdItem->fname;?><i class="borderWidth"></i></li>
@@ -101,8 +101,8 @@
                 echo '<div class="tdySal_menu_item"><input type="radio" id="'.$sale->fid.'" name="fid" value="'.$sale->fid.'">';
                 echo '<label class="tdyS_m_block" for="'.$sale->fid.'">';
                 echo '<span class="tdyS_m_img">';
-                echo '<img src="/copex/upload/';
-                echo $sale->fpicture.'.jpg" width="100%">';
+                echo '<img src="/copex/upload/normal/';
+                echo $sale->fpicture.'" width="100%">';
                 echo '</span>';
                 echo '<span class="menu_title">'.$sale->fname." $".$sale->fprice.'</span>';
                 echo '</label> </div>';
