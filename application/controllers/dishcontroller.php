@@ -157,8 +157,6 @@ class Dishcontroller extends MY_Controller{
 
         // check if all input are fit the validation rules
         if($this->form_validation->run()==FALSE){
-            echo "Eroor";
-            die();
             return redirect('dishcontroller/showSideDetail/wrong');
         }
 

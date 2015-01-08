@@ -179,7 +179,7 @@
                                                             </a>
                                                             <?php
 
-                                                            echo '<input form="uploadSideDish" type="hidden" name="dishPicture" value="';
+                                                            echo '<input form="editSideDish" type="hidden" name="dishPicture" value="';
                                                             if(isset($_SESSION['upload'])){
                                                                 echo $_SESSION['upload'];
                                                             }else{
@@ -201,7 +201,7 @@
                                                                 <span>
                                                                     <?php
                                                                     $attributes_undo = array('class'=>'btn btn-sm btn-default','type'=>'reset');
-                                                                    echo anchor('dishcontroller/undoFood',' 取消修改',$attributes_undo);
+                                                                    echo anchor('dishcontroller/undoSideDish',' 取消修改',$attributes_undo);
                                                                     ?>
                                                                 </span>
                                                             </div>
