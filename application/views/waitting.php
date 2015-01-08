@@ -22,7 +22,7 @@
 </head>
 <body>
 <div class="timeout">
-    <img src="/copex/css/images/waiting.png" width="234"/>
+    <img src="/copex/css/images/waitting.png" width="234"/>
 </div>
 </body>
 </html>
