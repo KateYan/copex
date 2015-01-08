@@ -163,11 +163,15 @@
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
                                                     <div class="text-muted bootstrap-admin-box-title">预览
-                                                    <?php
-                                                    if(isset($_SESSION['error'])){
-                                                        echo $_SESSION['error'][0];
-                                                    }
-                                                    ?>
+                                                        <span style="color: #be2221;">
+                                                            <b>
+                                                                <?php
+                                                                if(isset($_SESSION['error'])){
+                                                                    echo $_SESSION['error'];
+                                                                }
+                                                                ?>
+                                                            </b>
+                                                        </span>
                                                     </div>
                                                     <div class="pull-right"><span class="badge"></span></div>
                                                 </div>

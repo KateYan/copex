@@ -24,7 +24,7 @@ class Pictureupload extends CI_Model{
     }
 
     public function do_upload(){
-        $error = array();
+//        $error = array();
         $config = array(
             'upload_path' => './upload/',
             'allowed_types' => 'jpg|jpeg',
@@ -36,7 +36,7 @@ class Pictureupload extends CI_Model{
         $this->load->library('upload',$config);
 
         if(!$this->upload->do_upload()){
-            $error[] = $this->upload->display_errors();
+            $error = $this->upload->display_errors();
             return $error;
         }
 //        $this->upload->do_upload();
@@ -112,6 +112,7 @@ class Pictureupload extends CI_Model{
 
     public function do_upload_sidedish(){
 
+//        $error = array();
         $config = array(
             'upload_path' => './upload/side/',
             'allowed_types' => 'jpg|jpeg',
@@ -121,7 +122,11 @@ class Pictureupload extends CI_Model{
             'max_height' => 0,
         );
         $this->load->library('upload',$config);
-        $this->upload->do_upload();
+
+        if(!$this->upload->do_upload()){
+            $error = $this->upload->display_errors();
+            return $error;
+        }
         $image_data = $this->upload->data();
         $file_name = $image_data['file_name'];
         $width = $image_data['image_width'];

@@ -224,6 +224,17 @@ class Dishcontroller extends MY_Controller{
         if($this->input->post('picture')){
             $picture = $this->pictureupload->do_upload_sidedish();
 
+            if(!isset($picture->file_name)){
+                if(isset($_SESSION['error'])){
+                    unset($_SESSION['error']);
+                }
+                $_SESSION['error'] = $picture;
+            }else{
+                if(isset($_SESSION['error'])){
+                    unset($_SESSION['error']);
+                }
+            }
+
             if(isset($_SESSION['upload'])){
                 unset($_SESSION['upload']);
             }
@@ -238,6 +249,9 @@ class Dishcontroller extends MY_Controller{
     public function undoSideDish(){
         if(isset($_SESSION['upload'])){
             unset($_SESSION['upload']);
+        }
+        if(isset($_SESSION['error'])){
+            unset($_SESSION['error']);
         }
         return redirect('dishcontroller/showSideDetail');
     }
@@ -281,7 +295,6 @@ class Dishcontroller extends MY_Controller{
                     unset($_SESSION['error']);
                 }
             }
-            $picture = $this->pictureupload->do_upload();
 
             if(isset($_SESSION['upload'])){
                 unset($_SESSION['upload']);
@@ -350,7 +363,18 @@ class Dishcontroller extends MY_Controller{
 
         $this->load->model('pictureupload');
         if($this->input->post('picture')){
+
             $picture = $this->pictureupload->do_upload_sidedish();
+            if(!isset($picture->file_name)){
+                if(isset($_SESSION['error'])){
+                    unset($_SESSION['error']);
+                }
+                $_SESSION['error'] = $picture;
+            }else{
+                if(isset($_SESSION['error'])){
+                    unset($_SESSION['error']);
+                }
+            }
 
             if(isset($_SESSION['upload'])){
                 unset($_SESSION['upload']);
@@ -360,6 +384,7 @@ class Dishcontroller extends MY_Controller{
             return redirect('dishcontroller/showAddSideDish');
         }
         return redirect('dishcontroller/showAddSideDish/wrong');
+
     }
 
     // add new food
@@ -401,6 +426,10 @@ class Dishcontroller extends MY_Controller{
 
         if(isset($_SESSION['upload'])){
             unset($_SESSION['upload']);
+        }
+
+        if(isset($_SESSION['error'])){
+            unset($_SESSION['error']);
         }
 
         return redirect('dishcontroller/showDishPanel');
