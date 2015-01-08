@@ -9,11 +9,15 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Pictureupload extends CI_Model{
 
     var $picture_path;
+    var $picture_recomd_path;
+    var $picture_normal_path;
 
     function __construct(){
         parent::__construct();
 
         $this->picture_path = realpath(APPPATH.'../upload');
+        $this->picture_recomd_path = realpath(APPPATH.'../upload/recommend');
+        $this->picture_normal_path = realpath(APPPATH.'../upload/normal');
     }
 
     function do_upload(){
@@ -29,12 +33,14 @@ class Pictureupload extends CI_Model{
         $this->load->library('upload',$config);
         $this->upload->do_upload();
         $image_data = $this->upload->data();
+        $file_name = $image_data['file_name'];
+        $file_path = $image_data['file_path'];
         $width = $image_data['image_width'];
         $height = $image_data['image_height'];
 
-       // 1.resize
+       // 1.resize for recommend food
         $config1['source_image'] = $image_data['full_path'];
-
+        $config1['new_image'] = $this->picture_recomd_path;
         $config1['maintain_ratio'] = TRUE;
         if($width <= $height){
             $config1['master_dim'] = 'width';
@@ -49,10 +55,8 @@ class Pictureupload extends CI_Model{
 
 
         // 2. crop for recommend food
-        $config2['image_library'] = 'gd2';
-        $config2['source_image'] = $image_data['full_path'];
-        $config2['new_image'] = $this->picture_path.'\recommend';
-        $config2['maintain_ration'] = false;
+        $config2['source_image'] = $this->picture_recomd_path."/$file_name";
+        $config2['maintain_ratio'] = false;
         if($width <= $height){
             $config2['y_axis'] = floor(($height*395/$width-165)/2);
         }else{
@@ -62,32 +66,49 @@ class Pictureupload extends CI_Model{
         $config2['width'] = '395';
         $config2['height'] = '165';
 
-        $error = $this->cropFood($config2);
-        return $error;
-////        $this->cropFood($config2);
-//        $this->load->library('image_lib',$config2);
-//        $this->image_lib->crop();
-//        $config_rec['width'] = '395';
-//        $config_rec['height'] = '165';
-//        $config2['source_image'] = $image_data['full_path'];
-//        $config1['new_image'] = $this->picture_path.'/recommend';
+        $this->cropFood($config2);
+//        return $config2;
 
-//        $this->load->library('image_lib',$config2);
-//        if(!$this->image_lib->crop()){
-//
-//            $error = $this->image_lib->display_errors();
-//            return $error;
-//        }
+        // 3.resize for normal food
+        $config3['source_image'] = $image_data['full_path'];
+        $config3['new_image'] = $this->picture_normal_path;
+        $config3['maintain_ratio'] = TRUE;
+        if($width <= $height){
+            $config3['master_dim'] = 'width';
+        }else{
+            $config3['master_dim'] = 'height';
+        }
+
+        $config3['width'] = '190';
+        $config3['height'] = '215';
+
+        $this->reSize($config3);
 
 
+        // 2. crop for recommend food
+        $config4['source_image'] = $this->picture_normal_path."/$file_name";
+        $config4['maintain_ratio'] = false;
+        if($width <= $height){
+            $config4['y_axis'] = floor(($height*190/$width-215)/2);
+        }else{
+            $config4['x_axis'] = floor(($width*215/$height-190)/2);
+        }
+
+        $config4['width'] = '190';
+        $config4['height'] = '215';
+
+        $error = $this->cropFood($config4);
+//        return $config2;
     }
 
     public function reSize($config){
-        $this->load->library('image_lib',$config);
+        $this->load->library('image_lib');
+        $this->image_lib->initialize($config);
         $this->image_lib->resize();
     }
     public function cropFood($config){
-        $this->load->library('image_lib',$config);
+        $this->load->library('image_lib');
+        $this->image_lib->initialize($config);
 //        $this->image_lib->crop();
         if(!$this->image_lib->crop()){
 
