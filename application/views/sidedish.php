@@ -90,7 +90,7 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
             echo "<input type='checkbox' id='sd$id' name='sd$id' style='display:none;' class='side-dish'>";
             echo "<label for='sd$id' class=";
             echo (isset($selectedSd[$id]))?'"sd-selected"':'';
-            echo '><div class="menuD_img sd_img"><img src="/copex/upload/';
+            echo '><div class="menuD_img sd_img"><img src="/copex/upload/side/';
             echo $sideDish[$i]->spicture;
             echo '" width="100%" height="100%" /></div>';
             echo '<div class="menuD_title sd_title">'.$sideDish[$i]->sname.'</div>';

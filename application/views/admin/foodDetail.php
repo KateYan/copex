@@ -162,7 +162,13 @@
                                         <div class="col-lg-10">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
-                                                    <div class="text-muted bootstrap-admin-box-title">预览</div>
+                                                    <div class="text-muted bootstrap-admin-box-title">预览
+                                                    <?php
+                                                    if(isset($_SESSION['error'])){
+                                                        echo $_SESSION['error'][0];
+                                                    }
+                                                    ?>
+                                                    </div>
                                                     <div class="pull-right"><span class="badge"></span></div>
                                                 </div>
                                                 <div class="bootstrap-admin-panel-content">

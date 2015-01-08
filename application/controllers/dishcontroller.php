@@ -183,6 +183,16 @@ class Dishcontroller extends MY_Controller{
         $this->load->model('pictureupload');
         if($this->input->post('picture')){
             $picture = $this->pictureupload->do_upload();
+            if(!isset($picture->file_name)){
+                if(isset($_SESSION['error'])){
+                    unset($_SESSION['error']);
+                }
+                $_SESSION['error'] = $picture;
+            }else{
+                if(isset($_SESSION['error'])){
+                    unset($_SESSION['error']);
+                }
+            }
 
             if(isset($_SESSION['upload'])){
                 unset($_SESSION['upload']);
@@ -200,6 +210,9 @@ class Dishcontroller extends MY_Controller{
     public function undoFood(){
         if(isset($_SESSION['upload'])){
             unset($_SESSION['upload']);
+        }
+        if(isset($_SESSION['error'])){
+            unset($_SESSION['error']);
         }
         return redirect('dishcontroller/showFoodDetail');
     }
@@ -256,6 +269,18 @@ class Dishcontroller extends MY_Controller{
 
         $this->load->model('pictureupload');
         if($this->input->post('picture')){
+
+            $picture = $this->pictureupload->do_upload();
+            if(!isset($picture->file_name)){
+                if(isset($_SESSION['error'])){
+                    unset($_SESSION['error']);
+                }
+                $_SESSION['error'] = $picture;
+            }else{
+                if(isset($_SESSION['error'])){
+                    unset($_SESSION['error']);
+                }
+            }
             $picture = $this->pictureupload->do_upload();
 
             if(isset($_SESSION['upload'])){

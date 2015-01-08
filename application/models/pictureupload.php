@@ -24,17 +24,22 @@ class Pictureupload extends CI_Model{
     }
 
     public function do_upload(){
-
+        $error = array();
         $config = array(
             'upload_path' => './upload/',
-            'allowed_types' => 'gif|jpg|png|jpeg',
+            'allowed_types' => 'jpg|jpeg',
             'overwrite' => FALSE,
             'max_size' => 2048,
-            'max_width' => 1500,
-            'max_height' => 1500,
+            'max_width' => 0,
+            'max_height' => 0,
         );
         $this->load->library('upload',$config);
-        $this->upload->do_upload();
+
+        if(!$this->upload->do_upload()){
+            $error[] = $this->upload->display_errors();
+            return $error;
+        }
+//        $this->upload->do_upload();
         $image_data = $this->upload->data();
         $file_name = $image_data['file_name'];
         $file_path = $image_data['file_path'];
@@ -109,11 +114,11 @@ class Pictureupload extends CI_Model{
 
         $config = array(
             'upload_path' => './upload/side/',
-            'allowed_types' => 'gif|jpg|png|jpeg',
+            'allowed_types' => 'jpg|jpeg',
             'overwrite' => FALSE,
             'max_size' => 2048,
-            'max_width' => 1500,
-            'max_height' => 1500,
+            'max_width' => 0,
+            'max_height' => 0,
         );
         $this->load->library('upload',$config);
         $this->upload->do_upload();
@@ -159,7 +164,10 @@ class Pictureupload extends CI_Model{
     public function reSize($config){
         $this->load->library('image_lib');
         $this->image_lib->initialize($config);
-        $this->image_lib->resize();
+
+        if(!$this->image_lib->resize()){
+        }
+//        $this->image_lib->resize();
     }
     public function cropFood($config){
         $this->load->library('image_lib');
