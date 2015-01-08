@@ -16,7 +16,7 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style" />
     <meta content="telephone=no" name="format-detection" />
     <meta name="viewport" content="width=device-width; maximum-scale=1.0;  user-scalable=no; initial-scale=1.0" />
-    <title>修改成功</title>
+    <title>等待起航</title>
     <link href="/copex/css/masterpage.css" rel="stylesheet" type="text/css" />
     <link href="/copex/css/bgRed.css" rel="stylesheet" type="text/css" />
 </head>
