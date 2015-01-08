@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2015 at 07:16 AM
+-- Generation Time: Jan 08, 2015 at 06:55 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -183,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `food` (
   `fpicture` varchar(60) NOT NULL,
   PRIMARY KEY (`fid`),
   KEY `did` (`did`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10011 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10012 ;
 
 --
 -- Dumping data for table `food`
@@ -198,7 +198,8 @@ INSERT INTO `food` (`fid`, `did`, `fname`, `fdes`, `fprice`, `fpicture`) VALUES
 (10006, 10001, '芋头牛腩煲', NULL, 14.99, 'niunanbao.jpg'),
 (10007, 10001, '招牌粉蒸肉', NULL, 9.99, 'fenzhengrou.jpg'),
 (10008, 10002, '宫保鸡丁', NULL, 11.69, 'gongbaojiding.jpg'),
-(10009, 10001, '酸辣牛肚', NULL, 12.99, 'niudu.jpg');
+(10009, 10001, '酸辣牛肚', '', 12.99, 'niudu.jpg'),
+(10011, 10001, '穿靴子的猫', '', 59.99, 'cat.jpg');
 
 -- --------------------------------------------------------
 
@@ -326,10 +327,10 @@ CREATE TABLE IF NOT EXISTS `sidedish` (
 --
 
 INSERT INTO `sidedish` (`sid`, `did`, `sname`, `sdes`, `sprice`, `spicture`) VALUES
-(50001, 10001, '麻辣热干面', NULL, 6.99, '4_03img01'),
-(50002, 10002, '成都冒菜', NULL, 6.99, '4_03img03'),
-(50003, 10002, '鲜肉叉烧包', '', 6.99, '3_08'),
-(50004, 10002, '东北小菜', NULL, 5.99, '4_03img04');
+(50001, 10001, '麻辣热干面', NULL, 6.99, '4_03img01.jpg'),
+(50002, 10002, '成都冒菜', NULL, 6.99, '4_03img03.jpg'),
+(50003, 10002, '鲜肉叉烧包', '', 6.99, '3_08.jpg'),
+(50004, 10002, '东北小菜', NULL, 5.99, '4_03img04.jpg');
 
 -- --------------------------------------------------------
 
@@ -415,7 +416,7 @@ INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `
 (10299, 10001, NULL, '1234567893', 'cde8e1a7e5b11006d7f1930ce63e9462', '::1', 1, '2015-01-04 04:49:55', '2015-01-03 20:55:52'),
 (10300, 10002, NULL, '6131231234', '05d1131727e33e10ec7195aa77f6090e', '::1', 1, '2015-01-05 00:09:09', '2015-01-05 00:08:52'),
 (10301, 10002, NULL, NULL, '20f16dbde9f389fb902074b9a48881a3', '::1', 0, '2015-01-07 15:44:08', '2015-01-07 15:43:06'),
-(10302, 10001, NULL, NULL, 'e089cde0cb1dba5629577807517594e5', '::1', 0, '2015-01-08 05:38:30', '2015-01-07 15:49:52');
+(10302, 10001, NULL, NULL, 'e089cde0cb1dba5629577807517594e5', '::1', 0, '2015-01-08 15:17:52', '2015-01-07 15:49:52');
 
 -- --------------------------------------------------------
 
