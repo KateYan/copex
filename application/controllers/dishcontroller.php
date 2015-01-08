@@ -188,6 +188,15 @@ class Dishcontroller extends MY_Controller{
     // upload file
     public function uploadFood(){
 
+        $this->load->model('pictureupload');
+        if($this->input->post('picture')){
+            echo "Hello";
+            $hello = $this->pictureupload->do_upload();
+            var_dump($hello);
+        }
+        var_dump($_POST);
+        die();
+
         $config['upload_path'] = './upload/';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['overwrite'] = 'FALSE';
@@ -197,7 +206,7 @@ class Dishcontroller extends MY_Controller{
 
         $this->load->library('upload', $config);
         // check if upload successfully
-        if ($this->upload->do_upload('picture')) { //success
+        if ($this->upload->do_upload('userfile')) { //success
             $upload = array('upload_data' =>$this->upload->data()); //store picture's info
             if(isset($_SESSION['upload'])){
                 unset($_SESSION['upload']);

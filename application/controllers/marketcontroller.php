@@ -53,10 +53,13 @@ class Marketcontroller extends MY_Controller{
         $time = date('H:i:s');
         if($time>='00:00:00'&&$time<'13:00:00'){
             $data['date'] = date('m月d日');
+            $day = date('Y-m-d');
         }else{
             $data['date'] = date('m月d日',strtotime('+1 day'));
+            $day = date('Y-m-d',strtotime('+1 day'));
         }
 
+        $data['weekDay'] = $this->weekDay($day);
         $data['title'] = '午餐菜单';
         $data['uphone'] = $_SESSION['uphone'];
 
@@ -461,5 +464,27 @@ class Marketcontroller extends MY_Controller{
         //find if user has ordered today
         $this->load->model('order');
         return $this->order->orderToday($_SESSION['uid'],$now,$start);
+    }
+
+    // get weekday
+    public function weekDay($date){
+        $day = date("w",strtotime($date));
+        if($day=="0"){
+            $weekDay = " 周日";
+        }elseif($day=="1"){
+            $weekDay = " 周一";
+        }elseif($day=="2"){
+            $weekDay = " 周二";
+        }elseif($day=="3"){
+            $weekDay = " 周三";
+        }elseif($day=="4"){
+            $weekDay = " 周四";
+        }elseif($day=="5"){
+            $weekDay = " 周五";
+        }elseif($day=="6"){
+            $weekDay = " 周六";
+        }
+
+        return $weekDay;
     }
 }

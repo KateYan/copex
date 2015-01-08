@@ -59,7 +59,7 @@
 </head>
 
 <body>
-<header id="main_title"><?php echo $date; ?> 午餐菜单</header>
+<header id="main_title"><?php echo $date; echo $weekDay; ?> 午餐菜单</header>
 <?php
     $attributes = array('class'=>'formcontrol', 'id'=>'menuItem');
     echo form_open('marketcontroller/orderGenerate',$attributes);

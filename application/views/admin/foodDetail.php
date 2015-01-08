@@ -195,18 +195,20 @@
                                                         </div>
                                                         <div class="col-lg-8" style="margin-top: 10px;">
 
-                                                                <input form="uploadFood" class="form-control" type="file" name="picture" />
+                                                                <input form="uploadFood" class="form-control" type="file" name="userfile" />
                                                         </div>
                                                         <div class="col-lg-8" style="margin-top: 10px;">
                                                             <span>
-                                                                <button form="uploadFood" type="submit" class="btn btn-sm btn-info">
-                                                                    <i class="glyphicon glyphicon-upload"> 确认上传</i>
-                                                                </button>
+
+                                                                <input form="uploadFood" type="submit" class="btn btn-sm btn-info" name="picture" value=" 确认上传"/>
+<!--                                                                <button form="uploadFood" type="submit" name="picture" class="btn btn-sm btn-info">-->
+<!--                                                                    <i class="glyphicon glyphicon-upload"> 确认上传</i>-->
+<!--                                                                </button>-->
                                                             </span>
                                                             <span>
                                                                 <?php
                                                                 $attributes_undo = array('class'=>'btn btn-sm btn-default','type'=>'reset');
-                                                                echo anchor('dishcontroller/undoFood','<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes_undo);
+                                                                echo anchor('dishcontroller/undoFood',' 取消修改',$attributes_undo);
                                                                 ?>
                                                             </span>
                                                         </div>

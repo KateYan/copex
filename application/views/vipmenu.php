@@ -43,7 +43,7 @@
     </script>
 </head>
 <body>
-<header id="Header"><?php echo $date; ?> 午餐菜单</header>
+<header id="Header"><?php echo $date; echo $weekDay; ?> 午餐菜单</header>
 <?php
 $attributes = array('class'=>'formcontrol', 'id'=>'vipmenuitem');
 echo form_open('marketcontroller/showSideDish',$attributes);
