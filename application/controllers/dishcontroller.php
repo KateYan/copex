@@ -196,8 +196,9 @@ class Dishcontroller extends MY_Controller{
             $_SESSION['upload'] = $picture->file_name;
 //            echo $_SESSION['upload']->file_name;
 //            die();
+            return redirect('dishcontroller/showFoodDetail');
         }
-        return redirect('dishcontroller/showFoodDetail');
+        return redirect('dishcontroller/showFoodDetail/wrong');
 
     }
 
@@ -266,27 +267,21 @@ class Dishcontroller extends MY_Controller{
     // upload file
     public function upload_1(){
 
-        $config['upload_path'] = './upload/';
-        $config['allowed_types'] = 'gif|jpg|png';
-        $config['overwrite'] = 'FALSE';
-        $config['max_size'] = '204800';
-        $config['max_width']  = '1024';
-        $config['max_height']  = '768';
+        $this->load->model('pictureupload');
+        if($this->input->post('picture')){
+            $picture = $this->pictureupload->do_upload();
 
-        $this->load->library('upload', $config);
-        // check if upload successfully
-        if ($this->upload->do_upload('picture')) { //success
-            $upload = array('upload_data' =>$this->upload->data()); //store picture's info
             if(isset($_SESSION['upload'])){
                 unset($_SESSION['upload']);
             }
-            $_SESSION['upload'] = $upload;
 
+            $_SESSION['upload'] = $picture->file_name;
+//            echo $_SESSION['upload']->file_name;
+//            die();
             return redirect('dishcontroller/showAddFood');
-        } else { //upload failed
-            $data['error'] = array('error' =>$this->upload->display_errors());//store error info
-            var_dump($data['error']); //打印错误信息
         }
+        return redirect('dishcontroller/showAddFood/wrong');
+
     }
 
     // add new food

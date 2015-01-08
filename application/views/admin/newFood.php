@@ -122,9 +122,9 @@
                                                             <a class="thumbnail">
                                                                 <?php
                                                                 if(isset($_SESSION['upload'])){
-                                                                    echo '<img data-src="holder.js/260x180" alt="260x180" style="width: 100%; height: 100%;" src="/copex/upload/';
-                                                                    echo $_SESSION['upload']['upload_data']['raw_name'];
-                                                                    echo '.jpg">';
+                                                                    echo '<img data-src="holder.js/260x180" alt="260x180" style="width: 100%; height: 100%;" src="/copex/upload/recommend/';
+                                                                    echo $_SESSION['upload'];
+                                                                    echo '">';
                                                                 }else{
                                                                     echo '<img data-src="holder.js/260x180" alt="260x180" style="width: 100%; height: 100%;" src="/copex/images/empty.jpg" >';
                                                                 }
@@ -133,32 +133,43 @@
                                                             <?php
                                                             echo '<input form="newFood" type="hidden" name="dishPicture" value="';
                                                             if(isset($_SESSION['upload'])){
-                                                                echo $_SESSION['upload']['upload_data']['raw_name'];
+                                                                echo $_SESSION['upload'];
                                                             }
                                                             echo '"required />';
 
                                                             ?>
                                                         </div>
 
-                                                        <div class="col-md-8">
-                                                            <label class="col-lg-2 control-label">添加图片:</label>
-                                                        </div>
-                                                        <div class="col-lg-8" style="margin-top: 10px;">
-
-                                                            <input form="upload_1" class="form-control" type="file" name="picture" required />
-                                                        </div>
-                                                        <div class="col-lg-8" style="margin-top: 10px;">
-                                                            <span>
-                                                                <button form="upload_1" type="submit" class="btn btn-sm btn-info">
-                                                                    <i class="glyphicon glyphicon-upload"> 确认上传</i>
-                                                                </button>
-                                                            </span>
-                                                            <span>
+                                                        <div class="col-md-4">
+                                                            <a class="thumbnail">
                                                                 <?php
-                                                                $attributes_undo = array('class'=>'btn btn-sm btn-default','type'=>'reset');
-                                                                echo anchor('dishcontroller/undoFood','<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes_undo);
+                                                                if(isset($_SESSION['upload'])){
+                                                                    echo '<img data-src="holder.js/260x180" alt="260x180" style="width: 100%; height: 100%;" src="/copex/upload/normal/';
+                                                                    echo $_SESSION['upload'];
+                                                                    echo '">';
+                                                                }else{
+                                                                    echo '<img data-src="holder.js/260x180" alt="260x180" style="width: 100%; height: 100%;" src="/copex/images/empty.jpg" >';
+                                                                }
                                                                 ?>
-                                                            </span>
+                                                            </a>
+                                                        </div>
+
+                                                        <div class="col-lg-4">
+                                                            <input form="upload_1" class="form-control" type="file" name="userfile" />
+                                                            <!--                                                        </div>-->
+                                                            <div style="margin-top: 10px;">
+                                                                <span style="margin-top: 10px;">
+
+                                                                    <input form="upload_1" type="submit" class="btn btn-sm btn-info" name="picture" value=" 确认上传"/>
+
+                                                                </span>
+                                                                <span>
+                                                                    <?php
+                                                                    $attributes_undo = array('class'=>'btn btn-sm btn-default','type'=>'reset');
+                                                                    echo anchor('dishcontroller/undoFood',' 取消修改',$attributes_undo);
+                                                                    ?>
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
