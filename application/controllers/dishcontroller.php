@@ -47,8 +47,6 @@ class Dishcontroller extends MY_Controller{
             $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
         }
 
-//        var_dump($_SESSION['food']);
-//        die();
         $data['title'] = "Copex | 编辑菜品";
 
         // clean the session and get foodId
@@ -179,7 +177,6 @@ class Dishcontroller extends MY_Controller{
         return redirect('dishcontroller/showSideDetail/success');
     }
 
-
     // upload file
     public function uploadFood(){
 
@@ -219,8 +216,6 @@ class Dishcontroller extends MY_Controller{
             }
 
             $_SESSION['upload'] = $picture->file_name;
-//            echo $_SESSION['upload']->file_name;
-//            die();
             return redirect('dishcontroller/showSideDetail');
         }
         return redirect('dishcontroller/showSideDetail/wrong');
@@ -268,8 +263,6 @@ class Dishcontroller extends MY_Controller{
             }
 
             $_SESSION['upload'] = $picture->file_name;
-//            echo $_SESSION['upload']->file_name;
-//            die();
             return redirect('dishcontroller/showAddFood');
         }
         return redirect('dishcontroller/showAddFood/wrong');
@@ -304,7 +297,6 @@ class Dishcontroller extends MY_Controller{
         return redirect("dishcontroller/showFoodDetail?foodId=$foodId");
     }
 
-
     // add new side dish
     // show  add side dish
     public function showAddSideDish($errorCode = null){
@@ -331,27 +323,18 @@ class Dishcontroller extends MY_Controller{
     // upload file
     public function upload_2(){
 
-        $config['upload_path'] = './upload/';
-        $config['allowed_types'] = 'gif|jpg|png';
-        $config['overwrite'] = 'FALSE';
-        $config['max_size'] = '204800';
-        $config['max_width']  = '1024';
-        $config['max_height']  = '768';
+        $this->load->model('pictureupload');
+        if($this->input->post('picture')){
+            $picture = $this->pictureupload->do_upload_sidedish();
 
-        $this->load->library('upload', $config);
-        // check if upload successfully
-        if ($this->upload->do_upload('picture')) { //success
-            $upload = array('upload_data' =>$this->upload->data()); //store picture's info
             if(isset($_SESSION['upload'])){
                 unset($_SESSION['upload']);
             }
-            $_SESSION['upload'] = $upload;
 
+            $_SESSION['upload'] = $picture->file_name;
             return redirect('dishcontroller/showAddSideDish');
-        } else { //upload failed
-            $data['error'] = array('error' =>$this->upload->display_errors());//store error info
-            var_dump($data['error']); //打印错误信息
         }
+        return redirect('dishcontroller/showAddSideDish/wrong');
     }
 
     // add new food
@@ -366,7 +349,7 @@ class Dishcontroller extends MY_Controller{
         if($this->form_validation->run()==FALSE){
             return redirect('dishcontroller/showAddSideDish/wrong');
         }
-        // store side dish information into db
+        // store food information into db
         $value = array();
         $columnName = array("sname","sprice","spicture","sdes","did");
         $value['sname'] = $this->input->post('dishName');
@@ -381,7 +364,6 @@ class Dishcontroller extends MY_Controller{
 
         return redirect("dishcontroller/showSideDetail?sideId=$sideId");
     }
-
 
     public function goback(){
         if(isset($_SESSION['food'])){
