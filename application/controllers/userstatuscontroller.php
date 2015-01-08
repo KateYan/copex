@@ -106,4 +106,8 @@ class Userstatuscontroller extends MY_Controller {
         $this->load->view('instruction3');
     }
 
+    public function showWaitting(){
+        $this->load->view('waitting');
+    }
+
 }

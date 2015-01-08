@@ -138,23 +138,23 @@
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="optionsCheckbox2">变更烹饪餐厅</label>
                                         <div class="col-lg-10">
-                                <span>
-                                <?php
-                                $num = count($diners);
-                                for($j = 0; $j<$num; $j++){
-                                    echo '<label style="padding-right: 15px;">';
-                                    echo '<input form="editSideDish" type="radio"';
+                                            <span>
+                                            <?php
+                                            $num = count($diners);
+                                            for($j = 0; $j<$num; $j++){
+                                                echo '<label style="padding-right: 15px;">';
+                                                echo '<input form="editSideDish" type="radio"';
 
-                                    if($_SESSION['side']->did==$diners[$j]->did){
-                                        echo "disabled ";
-                                    }
+                                                if($_SESSION['side']->did==$diners[$j]->did){
+                                                    echo "disabled ";
+                                                }
 
-                                    echo 'name="newDiner" value="'.$diners[$j]->did.'"/>';
-                                    echo "  ".$diners[$j]->dname;
-                                    echo '</label>';
-                                }
-                                ?>
-                                </span>
+                                                echo 'name="newDiner" value="'.$diners[$j]->did.'"/>';
+                                                echo "  ".$diners[$j]->dname;
+                                                echo '</label>';
+                                            }
+                                            ?>
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="form-group">
