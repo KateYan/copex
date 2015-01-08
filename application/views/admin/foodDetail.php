@@ -171,7 +171,7 @@
                                                             <a class="thumbnail">
                                                                 <img data-src="holder.js/260x180" alt="260x180" style="width: 100%; height: 100%;" src="/copex/upload/recommend/<?php
                                                                 if(isset($_SESSION['upload'])){
-                                                                    echo $_SESSION['upload']->file_name;
+                                                                    echo $_SESSION['upload'];
                                                                 }else{
                                                                     echo  $_SESSION['food']->fpicture;
                                                                 }
@@ -181,7 +181,7 @@
 
                                                             echo '<input form="editFood" type="hidden" name="dishPicture" value="';
                                                             if(isset($_SESSION['upload'])){
-                                                                echo $_SESSION['upload']->file_name;
+                                                                echo $_SESSION['upload'];
                                                             }else{
                                                                 echo $_SESSION['food']->fpicture;
                                                             }
@@ -194,7 +194,7 @@
                                                             <a class="thumbnail">
                                                                 <img data-src="holder.js/260x180" alt="260x180" style="width: 100%; height: 100%;" src="/copex/upload/normal/<?php
                                                                 if(isset($_SESSION['upload'])){
-                                                                    echo $_SESSION['upload']->file_name;
+                                                                    echo $_SESSION['upload'];
                                                                 }else{
                                                                     echo  $_SESSION['food']->fpicture;
                                                                 }

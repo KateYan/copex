@@ -78,16 +78,13 @@ class Dishcontroller extends MY_Controller{
 
     // edit food information
     public function editFood(){
-        var_dump($_POST);
-        die();
+
         if(empty($_POST)){
             return redirect('dishcontroller/showDishPanel');
         }
 
         // check if all input are fit the validation rules
         if($this->form_validation->run()==FALSE){
-            echo "Eroor";
-            die();
             return redirect('dishcontroller/showFoodDetail/wrong');
         }
 
@@ -191,22 +188,16 @@ class Dishcontroller extends MY_Controller{
         $this->load->model('pictureupload');
         if($this->input->post('picture')){
             $picture = $this->pictureupload->do_upload();
-        }
 
-
-        if (isset($picture)) { //success
             if(isset($_SESSION['upload'])){
                 unset($_SESSION['upload']);
             }
-            $_SESSION['upload'] = $picture;
 
-//            var_dump($_SESSION['upload']->file_name);
+            $_SESSION['upload'] = $picture->file_name;
+//            echo $_SESSION['upload']->file_name;
 //            die();
-
-            return redirect('dishcontroller/showFoodDetail');
-        } else { //upload failed
-
         }
+        return redirect('dishcontroller/showFoodDetail');
 
     }
 
