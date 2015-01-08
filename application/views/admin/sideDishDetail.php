@@ -169,19 +169,19 @@
                                                     <div class="row bootstrap-admin-light-padding-bottom">
                                                         <div class="col-md-4">
                                                             <a class="thumbnail">
-                                                                <img data-src="holder.js/260x180" alt="260x180" style="width: 100%; height: 100%;" src="/copex/upload/<?php
+                                                                <img data-src="holder.js/260x180" alt="260x180" style="width: 100%; height: 100%;" src="/copex/upload/side/<?php
                                                                 if(isset($_SESSION['upload'])){
-                                                                    echo $_SESSION['upload']['upload_data']['raw_name'];
+                                                                    echo $_SESSION['upload'];
                                                                 }else{
                                                                     echo  $_SESSION['side']->spicture;
                                                                 }
-                                                                ?>.jpg">
+                                                                ?>">
                                                             </a>
                                                             <?php
 
-                                                            echo '<input form="editSideDish" type="hidden" name="dishPicture" value="';
+                                                            echo '<input form="uploadSideDish" type="hidden" name="dishPicture" value="';
                                                             if(isset($_SESSION['upload'])){
-                                                                echo $_SESSION['upload']['upload_data']['raw_name'];
+                                                                echo $_SESSION['upload'];
                                                             }else{
                                                                 echo $_SESSION['side']->spicture;
                                                             }
@@ -189,26 +189,22 @@
 
                                                             ?>
                                                         </div>
+                                                        <div class="col-lg-4">
+                                                            <input form="uploadSideDish" class="form-control" type="file" name="userfile" />
+                                                            <!--                                                        </div>-->
+                                                            <div style="margin-top: 10px;">
+                                                                <span style="margin-top: 10px;">
 
-                                                        <div class="col-md-8">
-                                                            <label class="col-lg-2 control-label">更换图片:</label>
-                                                        </div>
-                                                        <div class="col-lg-8" style="margin-top: 10px;">
+                                                                    <input form="uploadSideDish" type="submit" class="btn btn-sm btn-info" name="picture" value=" 确认上传"/>
 
-                                                            <input form="uploadSideDish" class="form-control" type="file" name="picture" />
-                                                        </div>
-                                                        <div class="col-lg-8" style="margin-top: 10px;">
-                                                            <span>
-                                                                <button form="uploadSideDish" type="submit" class="btn btn-sm btn-info">
-                                                                    <i class="glyphicon glyphicon-upload"> 确认上传</i>
-                                                                </button>
-                                                            </span>
-                                                            <span>
-                                                                <?php
-                                                                $attributes_undo = array('class'=>'btn btn-sm btn-default','type'=>'reset');
-                                                                echo anchor('dishcontroller/undoSideDish','<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes_undo);
-                                                                ?>
-                                                            </span>
+                                                                </span>
+                                                                <span>
+                                                                    <?php
+                                                                    $attributes_undo = array('class'=>'btn btn-sm btn-default','type'=>'reset');
+                                                                    echo anchor('dishcontroller/undoFood',' 取消修改',$attributes_undo);
+                                                                    ?>
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

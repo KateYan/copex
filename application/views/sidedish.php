@@ -92,7 +92,7 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
             echo (isset($selectedSd[$id]))?'"sd-selected"':'';
             echo '><div class="menuD_img sd_img"><img src="/copex/upload/';
             echo $sideDish[$i]->spicture;
-            echo '.jpg" width="100%" height="100%" /></div>';
+            echo '" width="100%" height="100%" /></div>';
             echo '<div class="menuD_title sd_title">'.$sideDish[$i]->sname.'</div>';
             echo '<div class="menuD_price sd_price">$<span class="sd_price_num">'.$sideDish[$i]->sprice.'</span></div></label></li>';
         }

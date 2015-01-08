@@ -11,6 +11,7 @@ class Pictureupload extends CI_Model{
     var $picture_path;
     var $picture_recomd_path;
     var $picture_normal_path;
+    var $picture_side_path;
     var $file_name;
 
     function __construct(){
@@ -19,17 +20,18 @@ class Pictureupload extends CI_Model{
         $this->picture_path = realpath(APPPATH.'../upload');
         $this->picture_recomd_path = realpath(APPPATH.'../upload/recommend');
         $this->picture_normal_path = realpath(APPPATH.'../upload/normal');
+        $this->picture_side_path = realpath(APPPATH.'../upload/side');
     }
 
-    function do_upload(){
+    public function do_upload(){
 
         $config = array(
             'upload_path' => './upload/',
             'allowed_types' => 'gif|jpg|png|jpeg',
             'overwrite' => FALSE,
             'max_size' => 2048,
-            'max_width' => 1024,
-            'max_height' => 768,
+            'max_width' => 1500,
+            'max_height' => 1500,
         );
         $this->load->library('upload',$config);
         $this->upload->do_upload();
@@ -45,7 +47,7 @@ class Pictureupload extends CI_Model{
         $config1['source_image'] = $image_data['full_path'];
         $config1['new_image'] = $this->picture_recomd_path;
         $config1['maintain_ratio'] = TRUE;
-        if($width <= $height){
+        if(($width/$height)<=(395/165)){
             $config1['master_dim'] = 'width';
         }else{
             $config1['master_dim'] = 'height';
@@ -60,7 +62,7 @@ class Pictureupload extends CI_Model{
         // 2. crop for recommend food
         $config2['source_image'] = $this->picture_recomd_path."/$file_name";
         $config2['maintain_ratio'] = false;
-        if($width <= $height){
+        if(($width/$height)<=(395/165)){
             $config2['y_axis'] = floor(($height*395/$width-165)/2);
         }else{
             $config2['x_axis'] = floor(($width*165/$height-395)/2);
@@ -75,7 +77,7 @@ class Pictureupload extends CI_Model{
         $config3['source_image'] = $image_data['full_path'];
         $config3['new_image'] = $this->picture_normal_path;
         $config3['maintain_ratio'] = TRUE;
-        if($width <= $height){
+        if(($width/$height)<=(190/215)){
             $config3['master_dim'] = 'width';
         }else{
             $config3['master_dim'] = 'height';
@@ -86,10 +88,10 @@ class Pictureupload extends CI_Model{
 
         $this->reSize($config3);
 
-        // 2. crop for recommend food
+        // 4. crop for recommend food
         $config4['source_image'] = $this->picture_normal_path."/$file_name";
         $config4['maintain_ratio'] = false;
-        if($width <= $height){
+        if(($width/$height)<=(190/215)){
             $config4['y_axis'] = floor(($height*190/$width-215)/2);
         }else{
             $config4['x_axis'] = floor(($width*215/$height-190)/2);
@@ -100,6 +102,57 @@ class Pictureupload extends CI_Model{
 
         $this->cropFood($config4);
 
+        return $this;
+    }
+
+    public function do_upload_sidedish(){
+
+        $config = array(
+            'upload_path' => './upload/side/',
+            'allowed_types' => 'gif|jpg|png|jpeg',
+            'overwrite' => FALSE,
+            'max_size' => 2048,
+            'max_width' => 1500,
+            'max_height' => 1500,
+        );
+        $this->load->library('upload',$config);
+        $this->upload->do_upload();
+        $image_data = $this->upload->data();
+        $file_name = $image_data['file_name'];
+        $width = $image_data['image_width'];
+        $height = $image_data['image_height'];
+
+        $this->file_name = $file_name;
+
+        // 1.resize for recommend food
+        $config1['source_image'] = $image_data['full_path'];
+//        $config1['new_image'] = $this->picture_recomd_path;
+        $config1['maintain_ratio'] = TRUE;
+        if(($width/$height)<=(260/130)){
+            $config1['master_dim'] = 'width';
+        }else{
+            $config1['master_dim'] = 'height';
+        }
+
+        $config1['width'] = '260';
+        $config1['height'] = '130';
+
+        $this->reSize($config1);
+
+
+        // 2. crop for side dish
+        $config2['source_image'] = $this->picture_side_path."/$file_name";
+        $config2['maintain_ratio'] = false;
+        if(($width/$height)<=(260/130)){
+            $config2['y_axis'] = floor(($height*260/$width-130)/2);
+        }else{
+            $config2['x_axis'] = floor(($width*130/$height-260)/2);
+        }
+
+        $config2['width'] = '260';
+        $config2['height'] = '130';
+
+        $this->cropFood($config2);
         return $this;
     }
 
