@@ -51,6 +51,7 @@ class Pictureupload extends CI_Model{
        // 1.resize for recommend food
         $config1['source_image'] = $image_data['full_path'];
         $config1['new_image'] = $this->picture_recomd_path;
+        $config1['quality'] = 100;
         $config1['maintain_ratio'] = TRUE;
         if(($width/$height)<=(395/165)){
             $config1['master_dim'] = 'width';
@@ -81,6 +82,7 @@ class Pictureupload extends CI_Model{
         // 3.resize for normal food
         $config3['source_image'] = $image_data['full_path'];
         $config3['new_image'] = $this->picture_normal_path;
+        $config3['quality'] = 100;
         $config3['maintain_ratio'] = TRUE;
         if(($width/$height)<=(190/215)){
             $config3['master_dim'] = 'width';
@@ -136,6 +138,7 @@ class Pictureupload extends CI_Model{
 
         // 1.resize for recommend food
         $config1['source_image'] = $image_data['full_path'];
+        $config1['quality'] = 100;
 //        $config1['new_image'] = $this->picture_recomd_path;
         $config1['maintain_ratio'] = TRUE;
         if(($width/$height)<=(260/130)){
