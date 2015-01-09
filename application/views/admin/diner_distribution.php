@@ -95,8 +95,8 @@
                                     $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-right:5px;');
                                     echo anchor('preparecontroller/goback','<i class="glyphicon glyphicon-backward"> 回配餐主页</i>',$attributes);
                                     ?>
-                                    <button class="btn btn-sm btn-primary" onclick="printOrder()" style="float: right;margin-right: 5px;">
-                                        <i class="glyphicon glyphicon-ok-sign"></i>
+                                    <button class="btn btn-sm btn-success" onclick="printOrder()" style="float: right;margin-right: 5px;">
+                                        <i class="glyphicon glyphicon-print"></i>
                                         打印菜品分配核对单
                                     </button>
                                 </span>

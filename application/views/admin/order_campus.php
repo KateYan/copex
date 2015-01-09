@@ -176,15 +176,19 @@
             <div class="panel-heading">
                 <div class="text-muted bootstrap-admin-box-title">预备订单--(点击订单号查看详情)
                     <span class="noPrint">
-                        <button form="confirmPickedup" class="btn btn-sm btn-primary" style="float: right;margin-left: 5px;">
+                        <?php
+                        $attributes = array('class'=>'btn btn-sm btn-warning','type'=>'reset','style'=>'float:right;margin-left:5px;');
+                        echo anchor('admincontroller/goback','<i class="glyphicon glyphicon-backward"> 回订单主页</i>',$attributes);
+                        ?>
+                        <button form="confirmPickedup" class="btn btn-sm btn-info" style="float: right;margin-left: 5px;">
                             <i class="glyphicon glyphicon-ok-sign"></i>
                             提交确认收货
                         </button>
-                        <button form="confirmPaid" class="btn btn-sm btn-success" style="float: right;margin-left: 5px;">
+                        <button form="confirmPaid" class="btn btn-sm btn-primary" style="float: right;margin-left: 5px;">
                             <i class="glyphicon glyphicon-ok-sign"></i>
                             提交确认付款
                         </button>
-                        <button class="btn btn-sm btn-warning" onclick="printOrder()" style="float: right;margin-left: 5px;">
+                        <button class="btn btn-sm btn-success" onclick="printOrder()" style="float: right;margin-left: 5px;">
                             <i class="glyphicon glyphicon-print"></i>
                             打印订单
                         </button>
@@ -276,11 +280,11 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="text-muted bootstrap-admin-box-title">订单历史--(点击订单号查看详情)
-                            <button form="history_confirmPickedup" class="btn btn-sm btn-primary" style="float: right;margin-left: 5px;">
+                            <button form="history_confirmPickedup" class="btn btn-sm btn-info" style="float: right;margin-left: 5px;">
                                 <i class="glyphicon glyphicon-ok-sign"></i>
                                 提交确认收货
                             </button>
-                            <button form="history_confirmPaid" class="btn btn-sm btn-success" style="float: right;">
+                            <button form="history_confirmPaid" class="btn btn-sm btn-primary" style="float: right;">
                                 <i class="glyphicon glyphicon-ok-sign"></i>
                                 提交确认付款
                             </button>

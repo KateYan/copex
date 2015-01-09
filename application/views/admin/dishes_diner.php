@@ -154,8 +154,8 @@
                                 echo anchor('preparecontroller/showChooseCampus','<i class="glyphicon glyphicon-search"></i>
                                              查看分配列表',$attributes);
                                 ?>
-                                <button class="btn btn-sm btn-primary" onclick="printOrder()" style="float: right;margin-right: 5px;">
-                                    <i class="glyphicon glyphicon-ok-sign"></i>
+                                <button class="btn btn-sm btn-success" onclick="printOrder()" style="float: right;margin-right: 5px;">
+                                    <i class="glyphicon glyphicon-print"></i>
                                     打印需要准备的菜品列表
                                 </button>
                             </span>

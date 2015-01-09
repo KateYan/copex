@@ -81,8 +81,11 @@
                         <div class="panel-heading">
                             <div class="text-muted bootstrap-admin-box-title">订单详情
                                 <?php
-                                $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;');
-                                echo anchor('admincontroller/showOrders','<i class="glyphicon glyphicon-backward"> 返回订单列表</i>',$attributes);
+                                $attributes = array('class'=>'btn btn-sm btn-warning','type'=>'reset','style'=>'float:right;margin-left:5px;');
+                                echo anchor('admincontroller/goback','<i class="glyphicon glyphicon-backward"> 回订单管理主页</i>',$attributes);
+
+                                $attributes = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'float:right;');
+                                echo anchor('admincontroller/showOrders','<i class="glyphicon glyphicon-backward"> 回校区-订单列表</i>',$attributes);
                                 ?>
                             </div>
                         </div>

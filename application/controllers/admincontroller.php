@@ -176,4 +176,12 @@ class Admincontroller extends MY_Controller{
         unset($_SESSION['username']);
         return redirect('admincontroller/showAdminLogin');
     }
+
+    public function goback(){
+        if(isset($_SESSION['order_campus'])){
+            unset($_SESSION['order_campus']);
+        }
+
+        return redirect('admincontroller/showOrderPanel');
+    }
 }
