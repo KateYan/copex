@@ -29,7 +29,7 @@ class Pictureupload extends CI_Model{
             'upload_path' => './upload/',
             'allowed_types' => 'jpg|jpeg',
             'overwrite' => FALSE,
-            'max_size' => 2048,
+            'max_size' => 0,
             'max_width' => 0,
             'max_height' => 0,
         );
@@ -53,14 +53,14 @@ class Pictureupload extends CI_Model{
         $config1['new_image'] = $this->picture_recomd_path;
         $config1['quality'] = 100;
         $config1['maintain_ratio'] = TRUE;
-        if(($width/$height)<=(395/165)){
+        if(($width/$height)<=(790/330)){
             $config1['master_dim'] = 'width';
         }else{
             $config1['master_dim'] = 'height';
         }
 
-        $config1['width'] = '395';
-        $config1['height'] = '165';
+        $config1['width'] = '790';
+        $config1['height'] = '330';
 
         $this->reSize($config1);
 
@@ -68,14 +68,14 @@ class Pictureupload extends CI_Model{
         // 2. crop for recommend food
         $config2['source_image'] = $this->picture_recomd_path."/$file_name";
         $config2['maintain_ratio'] = false;
-        if(($width/$height)<=(395/165)){
-            $config2['y_axis'] = floor(($height*395/$width-165)/2);
+        if(($width/$height)<=(790/330)){
+            $config2['y_axis'] = floor(($height*790/$width-330)/2);
         }else{
-            $config2['x_axis'] = floor(($width*165/$height-395)/2);
+            $config2['x_axis'] = floor(($width*330/$height-790)/2);
         }
 
-        $config2['width'] = '395';
-        $config2['height'] = '165';
+        $config2['width'] = '790';
+        $config2['height'] = '330';
 
         $this->cropFood($config2);
 
@@ -84,28 +84,28 @@ class Pictureupload extends CI_Model{
         $config3['new_image'] = $this->picture_normal_path;
         $config3['quality'] = 100;
         $config3['maintain_ratio'] = TRUE;
-        if(($width/$height)<=(190/215)){
+        if(($width/$height)<=(380/430)){
             $config3['master_dim'] = 'width';
         }else{
             $config3['master_dim'] = 'height';
         }
 
-        $config3['width'] = '190';
-        $config3['height'] = '215';
+        $config3['width'] = '380';
+        $config3['height'] = '430';
 
         $this->reSize($config3);
 
         // 4. crop for recommend food
         $config4['source_image'] = $this->picture_normal_path."/$file_name";
         $config4['maintain_ratio'] = false;
-        if(($width/$height)<=(190/215)){
-            $config4['y_axis'] = floor(($height*190/$width-215)/2);
+        if(($width/$height)<=(380/430)){
+            $config4['y_axis'] = floor(($height*380/$width-430)/2);
         }else{
-            $config4['x_axis'] = floor(($width*215/$height-190)/2);
+            $config4['x_axis'] = floor(($width*430/$height-380)/2);
         }
 
-        $config4['width'] = '190';
-        $config4['height'] = '215';
+        $config4['width'] = '380';
+        $config4['height'] = '430';
 
         $this->cropFood($config4);
 
@@ -119,7 +119,7 @@ class Pictureupload extends CI_Model{
             'upload_path' => './upload/side/',
             'allowed_types' => 'jpg|jpeg',
             'overwrite' => FALSE,
-            'max_size' => 2048,
+            'max_size' => 0,
             'max_width' => 0,
             'max_height' => 0,
         );
@@ -141,14 +141,14 @@ class Pictureupload extends CI_Model{
         $config1['quality'] = 100;
 //        $config1['new_image'] = $this->picture_recomd_path;
         $config1['maintain_ratio'] = TRUE;
-        if(($width/$height)<=(260/130)){
+        if(($width/$height)<=(520/260)){
             $config1['master_dim'] = 'width';
         }else{
             $config1['master_dim'] = 'height';
         }
 
-        $config1['width'] = '260';
-        $config1['height'] = '130';
+        $config1['width'] = '520';
+        $config1['height'] = '260';
 
         $this->reSize($config1);
 
@@ -156,14 +156,14 @@ class Pictureupload extends CI_Model{
         // 2. crop for side dish
         $config2['source_image'] = $this->picture_side_path."/$file_name";
         $config2['maintain_ratio'] = false;
-        if(($width/$height)<=(260/130)){
-            $config2['y_axis'] = floor(($height*260/$width-130)/2);
+        if(($width/$height)<=(520/260)){
+            $config2['y_axis'] = floor(($height*520/$width-260)/2);
         }else{
-            $config2['x_axis'] = floor(($width*130/$height-260)/2);
+            $config2['x_axis'] = floor(($width*260/$height-520)/2);
         }
 
-        $config2['width'] = '260';
-        $config2['height'] = '130';
+        $config2['width'] = '520';
+        $config2['height'] = '260';
 
         $this->cropFood($config2);
         return $this;

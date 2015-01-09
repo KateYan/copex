@@ -179,6 +179,8 @@ class Dishcontroller extends MY_Controller{
 
     // upload file
     public function uploadFood(){
+//        var_dump($_POST);
+//        die();
 
         $this->load->model('pictureupload');
         if($this->input->post('picture')){
