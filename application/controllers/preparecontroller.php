@@ -153,6 +153,8 @@ class Preparecontroller extends MY_Controller{
         $campusId = $_POST['campus'];
         $this->load->model('market');
         $campus = $this->market->getCampusById($campusId);
+        $foodList = array();
+        $sideList = array();
 
         $this->load->model('order');
         if ($this->order->getOrderItemByCampus($_SESSION['diner']['did'],$campus->cid, $date)) {
@@ -164,7 +166,7 @@ class Preparecontroller extends MY_Controller{
             // compare each food and add them up
             $food = $prepare_campus_item['food'];
             $container1 = array();
-            $foodList = array();
+//            $foodList = array();
 
             foreach ($food as $item) {
                 $key = $item->fid . '_' . $item->fname;
@@ -184,7 +186,7 @@ class Preparecontroller extends MY_Controller{
             // compare each sidedish and add them up
             $side = $prepare_campus_item['side'];
             $container2 = array();
-            $sideList = array();
+//            $sideList = array();
 
             foreach ($side as $item) {
                 $key = $item->sid . '_' . $item->sname;
@@ -200,8 +202,9 @@ class Preparecontroller extends MY_Controller{
                 $sideList[] = array('sid' => $sid, 'sname' => $sname, 'amount' => $item);
             }
 
-            $campusList = array('cid'=>$campus->cid,'cname'=>$campus->cname,'foodList'=>$foodList,'sideList'=>$sideList);
+//            $campusList = array('cid'=>$campus->cid,'cname'=>$campus->cname,'foodList'=>$foodList,'sideList'=>$sideList);
         }
+        $campusList = array('cid'=>$campus->cid,'cname'=>$campus->cname,'foodList'=>$foodList,'sideList'=>$sideList);
 
 //        var_dump($prepare_campus_item);
 //        var_dump($campusList);
