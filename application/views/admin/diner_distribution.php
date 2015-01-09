@@ -118,7 +118,13 @@
                                 }else{
                                     foreach($foodList as $food){
                                         echo '<tr>';
-                                        echo '<td>'.$food->oid.'</td>';
+
+                                        echo '<td>';
+                                        $attributes = array('class'=>'noPrint');
+                                        echo anchor("admincontroller/showOrderDetail/$food->oid",$food->oid,$attributes);
+                                        echo '<p class="print">'.$food->oid.'</p>';
+                                        echo '</td>';
+
                                         echo '<td>'.$food->fname.'</td>';
                                         echo '<td>'.$food->amount.'</td>';
                                         echo '</tr>';
@@ -154,7 +160,13 @@
                                 }else{
                                     foreach($sideList as $side){
                                         echo '<tr>';
-                                        echo '<td>'.$side->oid.'</td>';
+
+                                        echo '<td>';
+                                        $attributes = array('class'=>'noPrint');
+                                        echo anchor("admincontroller/showOrderDetail/$side->oid",$side->oid,$attributes);
+                                        echo '<p class="print">'.$side->oid.'</p>';
+                                        echo '</td>';
+
                                         echo '<td>'.$side->sname.'</td>';
                                         echo '<td>'.$side->amount.'</td>';
                                         echo '</tr>';

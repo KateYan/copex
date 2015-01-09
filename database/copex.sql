@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2015 at 06:55 PM
+-- Generation Time: Jan 09, 2015 at 06:04 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `campus` (
   `cname` varchar(20) NOT NULL,
   `caddr` varchar(30) NOT NULL,
   PRIMARY KEY (`cid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10012 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10003 ;
 
 --
 -- Dumping data for table `campus`
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `coperationline` (
   PRIMARY KEY (`lineid`),
   KEY `cid` (`cid`,`did`),
   KEY `did` (`did`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10020 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10023 ;
 
 --
 -- Dumping data for table `coperationline`
@@ -112,6 +112,9 @@ INSERT INTO `coperationline` (`lineid`, `cid`, `did`) VALUES
 (10012, 10001, 10003),
 (10010, 10001, 10004),
 (10007, 10001, 10005),
+(10020, 10001, 10006),
+(10021, 10001, 10007),
+(10022, 10001, 10008),
 (10013, 10002, 10003),
 (10011, 10002, 10004),
 (10008, 10002, 10005);
@@ -130,15 +133,17 @@ CREATE TABLE IF NOT EXISTS `dailymenu` (
   PRIMARY KEY (`mid`),
   KEY `cid` (`cid`),
   KEY `mdate` (`mdate`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10024 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10009 ;
 
 --
 -- Dumping data for table `dailymenu`
 --
 
 INSERT INTO `dailymenu` (`mid`, `cid`, `mdate`, `mstatus`) VALUES
-(10005, 10001, '2014-12-09', 1),
-(10006, 10002, '2014-12-09', 1);
+(10005, 10001, '2014-12-09', 0),
+(10006, 10002, '2014-12-09', 0),
+(10007, 10001, '2015-01-09', 1),
+(10008, 10002, '2015-01-09', 1);
 
 -- --------------------------------------------------------
 
@@ -155,18 +160,21 @@ CREATE TABLE IF NOT EXISTS `diner` (
   `daddr` varchar(30) NOT NULL,
   `dinfo` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`did`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10006 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10009 ;
 
 --
 -- Dumping data for table `diner`
 --
 
 INSERT INTO `diner` (`did`, `dname`, `contact`, `dphone`, `demail`, `daddr`, `dinfo`) VALUES
-(10001, 'T&T', '', '6473106789', 'tt123@gmail.com', '123 bay street', ''),
-(10002, 'benben resturaunt', NULL, '6471234567', 'benben@hotmail.com', '', ''),
-(10003, 'UTSG餐厅', NULL, NULL, 'utsg@gmail.com', '', ''),
-(10004, 'YouK餐厅', '王女士', '6479876541', 'youk@gmail.com', '57 Onion Road', ''),
-(10005, '羊城小馆', '王先生', '9876543211', 'asdghdfiu@gmail.com', '610 bay street', '');
+(10001, '风味小厨', '', '6473106789', 'tt123@gmail.com', '123 bay street', ''),
+(10002, '魔锅坊', '', '6471234567', 'benben@hotmail.com', '123 bay street', ''),
+(10003, '西北楼', '', '6474564567', 'utsg@gmail.com', '123 bay street', ''),
+(10004, '刘厨房', '王女士', '6479876541', 'youk@gmail.com', '57 Onion Road', ''),
+(10005, '台味轩', '王先生', '9876543211', 'asdghdfiu@gmail.com', '610 bay street', ''),
+(10006, '雨晴', '', '6471231234', 'asdf@yahoo.com', '123 bay street', ''),
+(10007, '乐活', '', '6471234567', 'asdfasdf@gmail.com', '123 bay street', ''),
+(10008, '老房子', '', '6477894564', 'asdfqwe@gmail.com', '123 bay street', '');
 
 -- --------------------------------------------------------
 
@@ -183,23 +191,21 @@ CREATE TABLE IF NOT EXISTS `food` (
   `fpicture` varchar(60) NOT NULL,
   PRIMARY KEY (`fid`),
   KEY `did` (`did`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10012 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10010 ;
 
 --
 -- Dumping data for table `food`
 --
 
 INSERT INTO `food` (`fid`, `did`, `fname`, `fdes`, `fprice`, `fpicture`) VALUES
-(10001, 10001, '红烧鸭子', '', 9.95, '1_04img01.jpg'),
-(10002, 10002, '地三鲜', '', 6.95, 'disanxian.jpg'),
-(10003, 10001, '蜜辣烤翅', NULL, 6.95, '1_04img02.jpg'),
-(10004, 10002, '清蒸鲤鱼', NULL, 9.99, '4_03img02.jpg'),
-(10005, 10001, '口水鸡', NULL, 12.69, 'koushuiji.jpg'),
-(10006, 10001, '芋头牛腩煲', NULL, 14.99, 'niunanbao.jpg'),
-(10007, 10001, '招牌粉蒸肉', NULL, 9.99, 'fenzhengrou.jpg'),
-(10008, 10002, '宫保鸡丁', NULL, 11.69, 'gongbaojiding.jpg'),
-(10009, 10001, '酸辣牛肚', '', 12.99, 'niudu.jpg'),
-(10011, 10001, '穿靴子的猫', '', 59.99, 'cat.jpg');
+(10001, 10006, '酥肉扣碗', '', 9.95, 'surou.jpg'),
+(10002, 10002, '藕片黑椒牛肉', '', 6.95, 'oupianheijiaoniu.jpg'),
+(10003, 10002, '麻辣香锅', '', 6.95, 'malazonghexiangguo.jpg'),
+(10004, 10002, '高丽菜豆瓣鱼', '', 9.99, 'gaolidoubanyu.jpg'),
+(10005, 10002, '爆炒回锅肉', '', 12.69, 'huiguorou.jpg'),
+(10006, 10002, '尖椒鸡丁', '', 14.99, 'jianjiaojiding.jpg'),
+(10007, 10003, '新疆大盘鸡', '', 9.99, 'dapanji.jpg'),
+(10008, 10001, '萝卜炖软骨', '', 11.69, 'luobodunruangu.jpg');
 
 -- --------------------------------------------------------
 
@@ -217,19 +223,25 @@ CREATE TABLE IF NOT EXISTS `menuitem` (
   KEY `fid` (`fid`,`mid`),
   KEY `mid` (`mid`),
   KEY `mid_2` (`mid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10061 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10049 ;
 
 --
 -- Dumping data for table `menuitem`
 --
 
 INSERT INTO `menuitem` (`mitemid`, `fid`, `mid`, `isrecomd`, `minventory`) VALUES
-(10037, 10001, 10005, 1, 14),
-(10038, 10003, 10005, 0, 11),
-(10039, 10002, 10005, 0, 11),
+(10037, 10001, 10005, 1, 9),
+(10038, 10003, 10005, 0, 8),
+(10039, 10002, 10005, 0, 10),
 (10040, 10004, 10006, 1, 48),
 (10041, 10007, 10006, 0, 48),
-(10042, 10008, 10006, 0, 50);
+(10042, 10008, 10006, 0, 50),
+(10043, 10003, 10007, 1, NULL),
+(10044, 10005, 10007, 0, NULL),
+(10045, 10006, 10007, 0, NULL),
+(10046, 10007, 10008, 1, NULL),
+(10047, 10006, 10008, 0, NULL),
+(10048, 10008, 10008, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -250,7 +262,7 @@ CREATE TABLE IF NOT EXISTS `order` (
   PRIMARY KEY (`oid`),
   KEY `uid` (`uid`),
   KEY `cid` (`cid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2753671 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2753674 ;
 
 --
 -- Dumping data for table `order`
@@ -262,7 +274,10 @@ INSERT INTO `order` (`oid`, `uid`, `cid`, `odate`, `fordate`, `ostatus`, `oispai
 (2753667, 10185, 10001, '2015-01-05 20:00:41', '2015-01-06', 1, 1, 4.01, 34.85),
 (2753668, 10185, 10001, '2015-01-06 15:08:22', '2015-01-07', 1, 1, 5.69, 49.47),
 (2753669, 10185, 10002, '2015-01-06 15:08:48', '2015-01-07', 0, 1, 3.51, 30.48),
-(2753670, 10185, 10001, '2015-01-06 22:26:25', '2015-01-07', 0, 1, 4.52, 39.31);
+(2753670, 10185, 10001, '2015-01-06 22:26:25', '2015-01-07', 1, 1, 4.52, 39.31),
+(2753671, 10185, 10001, '2015-01-08 20:17:48', '2015-01-09', 0, 1, 4.4, 38.24),
+(2753672, 10303, 10001, '2015-01-08 20:19:16', '2015-01-09', 0, 0, 0.9, 7.85),
+(2753673, 10185, 10001, '2015-01-08 20:20:50', '2015-01-09', 0, 1, 2.72, 23.61);
 
 -- --------------------------------------------------------
 
@@ -279,7 +294,7 @@ CREATE TABLE IF NOT EXISTS `orderitem` (
   `dishtype` tinyint(1) NOT NULL,
   PRIMARY KEY (`oitemid`),
   KEY `oid` (`oid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10419 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10425 ;
 
 --
 -- Dumping data for table `orderitem`
@@ -303,7 +318,13 @@ INSERT INTO `orderitem` (`oitemid`, `amount`, `oid`, `dishid`, `price`, `dishtyp
 (10415, 1, 2753669, 50002, 6.99, 1),
 (10416, 2, 2753670, 10003, 6.95, 0),
 (10417, 2, 2753670, 10002, 6.95, 0),
-(10418, 1, 2753670, 50002, 6.99, 1);
+(10418, 1, 2753670, 50002, 6.99, 1),
+(10419, 2, 2753671, 10001, 9.95, 0),
+(10420, 1, 2753671, 10003, 6.95, 0),
+(10421, 1, 2753671, 50003, 6.99, 1),
+(10422, 1, 2753672, 10002, 6.95, 0),
+(10423, 2, 2753673, 10003, 6.95, 0),
+(10424, 1, 2753673, 50001, 6.99, 1);
 
 -- --------------------------------------------------------
 
@@ -320,14 +341,14 @@ CREATE TABLE IF NOT EXISTS `sidedish` (
   `spicture` varchar(30) NOT NULL,
   PRIMARY KEY (`sid`),
   KEY `did` (`did`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=50007 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=50005 ;
 
 --
 -- Dumping data for table `sidedish`
 --
 
 INSERT INTO `sidedish` (`sid`, `did`, `sname`, `sdes`, `sprice`, `spicture`) VALUES
-(50001, 10001, '麻辣热干面', NULL, 6.99, '4_03img01.jpg'),
+(50001, 10001, '麻辣热干面', '', 6.99, '4_03img01.jpg'),
 (50002, 10002, '成都冒菜', NULL, 6.99, '4_03img03.jpg'),
 (50003, 10002, '鲜肉叉烧包', '', 6.99, '3_08.jpg'),
 (50004, 10002, '东北小菜', NULL, 5.99, '4_03img04.jpg');
@@ -380,9 +401,9 @@ INSERT INTO `sidemenuitem` (`sideItemID`, `sid`, `sideMenuID`, `sinventory`) VAL
 (14, 50003, 10002, 50),
 (15, 50001, 10002, 50),
 (16, 50004, 10002, 50),
-(21, 50001, 10009, 49),
+(21, 50001, 10009, 48),
 (22, 50002, 10009, 45),
-(23, 50003, 10009, 46),
+(23, 50003, 10009, 45),
 (24, 50004, 10009, 46);
 
 -- --------------------------------------------------------
@@ -404,19 +425,20 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`uid`),
   KEY `cid` (`cid`,`vipid`),
   KEY `vipid` (`vipid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10303 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10304 ;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `last_login`, `created`) VALUES
-(10185, 10001, 10142, '6131231234', '208795b584c83f3bae579f721868d1cbd4884783362387f95f50e35f810a3f50', '::1', 1, '2015-01-07 15:38:19', '2014-12-20 04:38:21'),
+(10185, 10001, 10142, '6131231234', '208795b584c83f3bae579f721868d1cbd4884783362387f95f50e35f810a3f50', '::1', 1, '2015-01-09 01:18:39', '2014-12-20 04:38:21'),
 (10298, 10002, NULL, '1231234123', '474411562182ddb5617d587f97c901c4', '::1', 1, '2015-01-03 19:39:03', '2015-01-03 19:15:55'),
 (10299, 10001, NULL, '1234567893', 'cde8e1a7e5b11006d7f1930ce63e9462', '::1', 1, '2015-01-04 04:49:55', '2015-01-03 20:55:52'),
 (10300, 10002, NULL, '6131231234', '05d1131727e33e10ec7195aa77f6090e', '::1', 1, '2015-01-05 00:09:09', '2015-01-05 00:08:52'),
 (10301, 10002, NULL, NULL, '20f16dbde9f389fb902074b9a48881a3', '::1', 0, '2015-01-07 15:44:08', '2015-01-07 15:43:06'),
-(10302, 10001, NULL, NULL, 'e089cde0cb1dba5629577807517594e5', '::1', 0, '2015-01-08 15:17:52', '2015-01-07 15:49:52');
+(10302, 10001, NULL, NULL, 'e089cde0cb1dba5629577807517594e5', '::1', 0, '2015-01-08 15:17:52', '2015-01-07 15:49:52'),
+(10303, 10001, NULL, '1231231234', 'dfb3863762a64ef643d5c9ed51e60d2c', '::1', 1, '2015-01-09 01:19:19', '2015-01-09 01:18:45');
 
 -- --------------------------------------------------------
 
@@ -440,7 +462,7 @@ CREATE TABLE IF NOT EXISTS `vipcard` (
 
 INSERT INTO `vipcard` (`vipid`, `vnumber`, `vpassword`, `vbalance`) VALUES
 (10141, 4975, '912ec803b2ce49e4a541068d495ab570', 150),
-(10142, 9646, 'a152e841783914146e4bcd4f39100686', 180.74),
+(10142, 9646, 'a152e841783914146e4bcd4f39100686', 118.89),
 (10151, 8923, 'd432eb18017c004fd305969713a17aa8', 150),
 (10153, 4565, 'a152e841783914146e4bcd4f39100686', 50),
 (10155, 5693, 'a152e841783914146e4bcd4f39100686', 50),

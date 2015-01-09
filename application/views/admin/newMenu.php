@@ -82,7 +82,9 @@
                         <div class="panel-heading">
                             <div class="text-muted bootstrap-admin-box-title">添加菜单
                                 <?php
-                                $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-top:0px;');
+                                $attributes = array('class'=>'btn btn-sm btn-warning','type'=>'reset','style'=>'float:right;');
+                                echo anchor('menucontroller/goback','<i class="glyphicon glyphicon-backward"> 回菜单管理主页</i>',$attributes);
+                                $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-right:5px;');
                                 echo anchor('menucontroller/showMenus','<i class="glyphicon glyphicon-backward"> 回菜单列表</i>',$attributes);
                                 ?>
                             </div>

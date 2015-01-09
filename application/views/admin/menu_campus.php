@@ -144,8 +144,11 @@
                                 }elseif(isset($Msg['deletemenu'])){
                                     echo '<span style="color: #be2221;"><b>'.$Msg['deletemenu'].'</b></span>';
                                 }
+                                $attributes = array('class'=>'btn btn-sm btn-warning','type'=>'reset','style'=>'float:right;margin-right:5px;');
+                                echo anchor('menucontroller/goback','<i class="glyphicon glyphicon-backward"> 回菜单管理主页</i>',$attributes);
 
-                                $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;');
+
+                                $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;margin-right:5px;');
                                 echo anchor('menucontroller/showAddMenu','<i class="glyphicon glyphicon-plus"></i>
                                          添加主食菜单',$attributes);
                                 ?>

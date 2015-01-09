@@ -326,4 +326,31 @@ class MenuController extends MY_Controller{
         $this->menuitem->deleteSideMenu($_SESSION['sideMenuDetail']->sideMenuID);
         return redirect('menucontroller/showMenus/deleteSidemenu');
     }
+
+    // go back
+    public function goback(){
+        if(isset($_SESSION['menus'])){
+            unset($_SESSION['menus']);
+        }
+        if(isset($_SESSION['menu_campus'])){
+            unset($_SESSION['menu_campus']);
+        }
+        if(isset($_SESSION['sideMenus'])){
+            unset($_SESSION['sideMenus']);
+        }
+        if(isset($_SESSION['menuDetail'])){
+            unset($_SESSION['menuDetail']);
+        }
+        if(isset($_SESSION['menuItems'])){
+            unset($_SESSION['menuItems']);
+        }
+        if(isset($_SESSION['sideMenuDetail'])){
+            unset($_SESSION['sideMenuDetail']);
+        }
+        if(isset($_SESSION['sideMenuItems'])){
+            unset($_SESSION['sideMenuItems']);
+        }
+
+        return redirect('menucontroller/showMenuManage');
+    }
 }
