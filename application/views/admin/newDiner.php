@@ -99,8 +99,6 @@
                                         }elseif(isset($eMsg['deletesuccess'])){
                                             echo '<span style="color: #be2221;"><b>'.$eMsg['deletesuccess'].'</b></span>';
                                         }
-                                        //                            $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-top:0px;');
-                                        //                            echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-backward"> 回餐厅列表</i>',$attributes);
                                         ?>
                                     </legend>
                                     <?php

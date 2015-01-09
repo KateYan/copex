@@ -86,7 +86,7 @@
                     echo anchor('#','<i class="glyphicon glyphicon-remove"> 删除本餐厅</i>',$attributes);
                     ?>
                     <?php
-                    $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-right:5px;');
+                    $attributes = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'float:right;margin-right:5px;');
                     echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-backward"> 回餐厅列表</i>',$attributes);
                     ?>
                 </div>
