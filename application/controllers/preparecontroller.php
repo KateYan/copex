@@ -156,6 +156,9 @@ class Preparecontroller extends MY_Controller{
         $foodList = array();
         $sideList = array();
 
+//        echo $date;
+//        die();
+
         $this->load->model('order');
         if ($this->order->getOrderItemByCampus($_SESSION['diner']['did'],$campus->cid, $date)) {
             $prepare_campus_item = $this->order->getOrderItemByCampus($_SESSION['diner']['did'], $campus->cid, $date);
@@ -254,6 +257,9 @@ class Preparecontroller extends MY_Controller{
         }
         if(isset($_SESSION['campusList'])){
             unset($_SESSION['campusList']);
+        }
+        if(isset($_SESSION['prepare_campus_item'])){
+            unset($_SESSION['prepare_campus_item']);
         }
 
         return redirect('preparecontroller/showDinerDishPanel');
