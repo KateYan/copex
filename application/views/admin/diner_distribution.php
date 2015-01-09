@@ -92,8 +92,12 @@
                             <div class="text-muted bootstrap-admin-box-title">主食分配单
                                 <span class="noPrint">
                                     <?php
-                                    $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-right:5px;');
+                                    $attributes = array('class'=>'btn btn-sm btn-warning','type'=>'reset','style'=>'float:right;margin-right:5px;');
                                     echo anchor('preparecontroller/goback','<i class="glyphicon glyphicon-backward"> 回配餐主页</i>',$attributes);
+
+                                    $attributes = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'float:right;margin-right:5px;');
+                                    echo anchor('preparecontroller/showChooseCampus','<i class="glyphicon glyphicon-backward"> 返回校区选择</i>',$attributes);
+
                                     ?>
                                     <button class="btn btn-sm btn-success" onclick="printOrder()" style="float: right;margin-right: 5px;">
                                         <i class="glyphicon glyphicon-print"></i>

@@ -150,7 +150,7 @@
                                 $attributes = array('class'=>'btn btn-sm btn-warning','type'=>'reset','style'=>'float:right;margin-right:5px;');
                                 echo anchor('preparecontroller/goback','<i class="glyphicon glyphicon-backward"> 回备餐主页</i>',$attributes);
 
-                                $attributes = array('id'=>'distribution','class'=>'btn btn-sm btn-success','style'=>'float: right;margin-right:5px;');
+                                $attributes = array('id'=>'distribution','class'=>'btn btn-sm btn-primary','style'=>'float: right;margin-right:5px;');
                                 echo anchor('preparecontroller/showChooseCampus','<i class="glyphicon glyphicon-search"></i>
                                              查看分配列表',$attributes);
                                 ?>

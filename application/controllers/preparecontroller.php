@@ -156,9 +156,6 @@ class Preparecontroller extends MY_Controller{
         $foodList = array();
         $sideList = array();
 
-//        echo $date;
-//        die();
-
         $this->load->model('order');
         if ($this->order->getOrderItemByCampus($_SESSION['diner']['did'],$campus->cid, $date)) {
             $prepare_campus_item = $this->order->getOrderItemByCampus($_SESSION['diner']['did'], $campus->cid, $date);
@@ -205,13 +202,8 @@ class Preparecontroller extends MY_Controller{
                 $sideList[] = array('sid' => $sid, 'sname' => $sname, 'amount' => $item);
             }
 
-//            $campusList = array('cid'=>$campus->cid,'cname'=>$campus->cname,'foodList'=>$foodList,'sideList'=>$sideList);
         }
         $campusList = array('cid'=>$campus->cid,'cname'=>$campus->cname,'foodList'=>$foodList,'sideList'=>$sideList);
-
-//        var_dump($prepare_campus_item);
-//        var_dump($campusList);
-//        die();
 
         $_SESSION['campusList'] = $campusList;
 

@@ -164,14 +164,16 @@
                $attributes = array('class'=>'btn btn-sm btn-warning','type'=>'reset','style'=>'float:right;margin-right:5px;');
                echo anchor('preparecontroller/goback','<i class="glyphicon glyphicon-backward"> 回配餐主页</i>',$attributes);
 
-               $attributes = array('id'=>'distribution','class'=>'btn btn-sm btn-success','style'=>'float: right;margin-right:5px;');
-               echo anchor('preparecontroller/showOrderDistribution','<i class="glyphicon glyphicon-search"></i>
-                                             查看订单分配',$attributes);
+               $attributes = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'float:right;margin-right:5px;');
+               echo anchor('preparecontroller/showChooseCampus','<i class="glyphicon glyphicon-backward"> 返回校区选择</i>',$attributes);
+
+               $attributes = array('id'=>'distribution','class'=>'btn btn-sm btn-primary','style'=>'float: right;margin-right:5px;');
+               echo anchor('preparecontroller/showOrderDistribution','<i class="glyphicon glyphicon-search"></i> 查看订单分配',$attributes);
 
 
-               echo '<button class="btn btn-sm btn-primary" onclick="printDishes()" style="float: right;margin-right: 5px;">';
+               echo '<button class="btn btn-sm btn-success" onclick="printDishes()" style="float: right;margin-right: 5px;">';
 
-               echo '<i class="glyphicon glyphicon-ok-sign"></i>'."打印需要准备的菜品列表";
+               echo '<i class="glyphicon glyphicon-print"></i>'." 打印需要准备的菜品列表";
 
                echo '</button>';
                echo '</span></div></div>';
