@@ -144,11 +144,8 @@
                             <div class="panel-heading">
                                 <div class="text-muted bootstrap-admin-box-title">会员列表--(点击用户Id编辑VIP用户信息)
                                     <?php
-                                    $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;');
-                                    echo anchor('vipcontroller/showAddVipCard','<i class="glyphicon glyphicon-plus"></i>
-                                         添加会员卡',$attributes);
 
-                                    $attributes = array('class'=>'btn btn-sm btn-primary','style'=>'float: right;margin-right:5px;');
+                                    $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;margin-right:5px;');
                                     echo anchor('vipcontroller/showAddVip','<i class="glyphicon glyphicon-plus"></i>
                                          添加新会员',$attributes);
                                     ?>

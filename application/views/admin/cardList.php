@@ -129,7 +129,13 @@
     <div class="col-lg-12">
     <div class="panel panel-default">
     <div class="panel-heading">
-    <div class="text-muted bootstrap-admin-box-title">会员卡列表</div>
+    <div class="text-muted bootstrap-admin-box-title">会员卡列表
+    <?php
+    $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;');
+    echo anchor('cardcontroller/showAddCard','<i class="glyphicon glyphicon-plus"></i>
+                                         添加会员卡',$attributes);
+    ?>
+    </div>
 </div>
     <div class="bootstrap-admin-panel-content">
     <table class="table table-striped table-bordered" id="example">
