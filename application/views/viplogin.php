@@ -32,6 +32,7 @@
     </span>
     <p style="color:red;z-index: 5000;"><?php echo (isset($eMsg))? $eMsg : '';  ?></p>
     <button style="border:none;" form="viplogin" class="btn_login">登录</button>
+
 <div class="login_footer">
     <?php
     $attributes = array('class'=>'btn_loginFoot inotMemb');
