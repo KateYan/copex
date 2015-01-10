@@ -96,7 +96,7 @@
                                     <i class="glyphicon glyphicon-remove"> 删除该菜单</i>
                                 </button>
                                 <?php
-                                $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-right:5px;');
+                                $attributes = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'float:right;margin-right:5px;');
                                 echo anchor('menucontroller/showMenus','<i class="glyphicon glyphicon-backward"> 回菜单列表</i>',$attributes);
                                 ?>
                             </div>
@@ -171,7 +171,11 @@
                                                         for($i = 0;$i<$num; $i++){
                                                             echo '<tr>';
                                                             echo '<input form="sideMenuInventory" type="hidden" name="side'.$i.'" value="'.$_SESSION['sideMenuItems'][$i]->sid.'"/>';
-                                                            echo '<td>'.$_SESSION['sideMenuItems'][$i]->sid.'</td>';
+
+                                                            echo '<td>';
+                                                            echo anchor("dishcontroller/showSideDetail?sideId=".$_SESSION['sideMenuItems'][$i]->sid,$_SESSION['sideMenuItems'][$i]->sid);
+                                                            echo '</td>';
+                                                            
                                                             echo '<td>'.$_SESSION['sideMenuItems'][$i]->sname.'</td>';
                                                             echo '<td>'."$".$_SESSION['sideMenuItems'][$i]->sprice.'</td>';
                                                             echo '<td>';

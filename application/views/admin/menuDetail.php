@@ -97,7 +97,7 @@
                                     <i class="glyphicon glyphicon-remove"> 删除该菜单</i>
                                 </button>
                                 <?php
-                                $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-right:5px;');
+                                $attributes = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'float:right;margin-right:5px;');
                                 echo anchor('menucontroller/showMenus','<i class="glyphicon glyphicon-backward"> 回菜单列表</i>',$attributes);
                                 ?>
                             </div>
@@ -180,7 +180,11 @@
                                                             }
                                                             echo '</td>';
                                                             echo '<input form="menuInventory" type="hidden" name="food'.$i.'" value="'.$_SESSION['menuItems'][$i]->fid.'"/>';
-                                                            echo '<td>'.$_SESSION['menuItems'][$i]->fid.'</td>';
+
+                                                            echo '<td>';
+                                                            echo anchor("dishcontroller/showFoodDetail?foodId=".$_SESSION['menuItems'][$i]->fid,$_SESSION['menuItems'][$i]->fid);
+                                                            echo '</td>';
+
                                                             echo '<td>'.$_SESSION['menuItems'][$i]->fname.'</td>';
                                                             echo '<td>'."$".$_SESSION['menuItems'][$i]->fprice.'</td>';
                                                             echo '<td>';
