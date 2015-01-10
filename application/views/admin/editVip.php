@@ -78,7 +78,12 @@
     <div class="col-lg-12">
         <div class="panel panel-default bootstrap-admin-no-table-panel">
             <div class="panel-heading">
-                <div class="text-muted bootstrap-admin-box-title">编辑会员</div>
+                <div class="text-muted bootstrap-admin-box-title">编辑会员
+                    <?php
+                    $attributes = array('class'=>'btn btn-sm btn-warning','type'=>'reset','style'=>'float:right;margin-top:0px;');
+                    echo anchor('vipcontroller/showVipPanel','<i class="glyphicon glyphicon-backward"> 回VIP列表</i>',$attributes);
+                    ?>
+                </div>
             </div>
             <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
                 <div class="form-horizontal">
