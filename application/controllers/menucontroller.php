@@ -177,15 +177,22 @@ class MenuController extends MY_Controller{
 
     // add new side menu
     public function addSideMenu(){
+
         // count how many side dish admin chose to make a new side menu
         $num = count($_POST);
         if($num != 5){
             return redirect('menucontroller/showAddSideMenu/wrong');
         }
         // store all 4 side dish into an array
+        // first get num of all side dish
+        $this->load->model('market');
+        $sideDish = $this->market->getAllSideDish();
+        $num_sideDish = count($sideDish);
         $sideMenuItem = array();
-        for($i = 0;$i<4;$i++){
-            $sideMenuItem[] = $_POST["sideMenu-$i"];
+        for($i = 0;$i<$num_sideDish;$i++){
+            if(isset($_POST[$sideDish[$i]->sid])){
+                $sideMenuItem[] = $_POST[$sideDish[$i]->sid];
+            }
         }
         // create new side menu
         $date = date('Y-m-d');

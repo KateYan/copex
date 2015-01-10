@@ -175,7 +175,7 @@
                                                             echo '<td>';
                                                             echo anchor("dishcontroller/showSideDetail?sideId=".$_SESSION['sideMenuItems'][$i]->sid,$_SESSION['sideMenuItems'][$i]->sid);
                                                             echo '</td>';
-                                                            
+
                                                             echo '<td>'.$_SESSION['sideMenuItems'][$i]->sname.'</td>';
                                                             echo '<td>'."$".$_SESSION['sideMenuItems'][$i]->sprice.'</td>';
                                                             echo '<td>';

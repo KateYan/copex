@@ -137,7 +137,7 @@
                                                             echo '<th>'.$sideDish[$i]->sid.'</th>';
                                                             echo '<th>'.$sideDish[$i]->sname.'</th>';
                                                             echo '<th>'."$".$sideDish[$i]->sprice.'</th>';
-                                                            echo '<th>'.'<input form="addSideMenu" type="checkbox" name="sideMenu-'.$i.'" value="'.$sideDish[$i]->sid.'"/></th>';
+                                                            echo '<th>'.'<input form="addSideMenu" type="checkbox" name="'.$sideDish[$i]->sid.'" value="'.$sideDish[$i]->sid.'"/></th>';
                                                             echo '</tr>';
                                                         }
                                                         ?>
