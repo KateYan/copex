@@ -94,7 +94,7 @@
                                 echo anchor('basiccontroller/deleteCampus','<i class="glyphicon glyphicon-remove"> 删除本校区</i>',$attributes);
                                 ?>
                                 <?php
-                                $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-right:5px;');
+                                $attributes = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'float:right;margin-right:5px;');
                                 echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-backward"> 回管理主页</i>',$attributes);
                                 ?>
                             </div>

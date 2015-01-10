@@ -82,7 +82,7 @@
                         <div class="panel-heading">
                             <div class="text-muted bootstrap-admin-box-title">校区管理
                                 <?php
-                                $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-top:0px;');
+                                $attributes = array('class'=>'btn btn-sm btn-warning','type'=>'reset','style'=>'float:right;margin-top:0px;');
                                 echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-backward"> 回管理主页</i>',$attributes);
                                 ?>
                             </div>
