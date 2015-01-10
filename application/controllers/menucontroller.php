@@ -52,7 +52,9 @@ class MenuController extends MY_Controller{
             'menuchanged' => "主食菜单已更换成功！",
             'sidemenuchanged'=>"小食菜单已更换成功！",
             'deletemenu' => "删除主食菜单成功！",
-            'deleteSidemenu' => "删除小食菜单成功！"
+            'deleteSidemenu' => "删除小食菜单成功！",
+            'nosetfinven' =>"您选择的菜单还没有设置库存，请设置后再更换！",
+            'nosetsinven' =>"您选择的菜单还没有设置库存，请设置后再更换！"
         );
 
         if(!empty($message) && isset($Msg["$message"])){
@@ -88,6 +90,15 @@ class MenuController extends MY_Controller{
         if(!isset($_POST['menu'])){
             return redirect('menucontroller/showMenus');
         }
+        // get menu's inventroy first
+        $this->load->model('menuitem');
+        $menuitems = $this->menuitem->getMenuItems($_POST['menu']);
+        foreach($menuitems as $menuitem){
+            if(empty($menuitem->minventory)){
+                return redirect('menucontroller/showMenus/nosetfinven');
+            }
+        }
+
         // change menu status by using posted menu's id
         $this->load->model('market');{
             $this->market->changeMenu($_POST['menu-campus'],$_POST['menu']);
@@ -100,6 +111,15 @@ class MenuController extends MY_Controller{
         if(!isset($_POST['sideMenu'])){
             return redirect('menucontroller/showMenus');
         }
+        // get menu's inventroy first
+        $this->load->model('menuitem');
+        $menuitems = $this->menuitem->getSideMenuItems($_POST['sideMenu']);
+        foreach($menuitems as $menuitem){
+            if(empty($menuitem->sinventory)){
+                return redirect('menucontroller/showMenus/nosetsinven');
+            }
+        }
+
         // change menu status by using posted menu's id
         $this->load->model('market');{
             $this->market->changeSideMenu($_POST['sidemenu-campus'],$_POST['sideMenu']);

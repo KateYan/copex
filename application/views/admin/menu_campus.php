@@ -128,7 +128,7 @@
                 ?>
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>菜单管理----校区<?php echo $_SESSION['menu_campus']['cname']; ?></h1>
+                        <h1>菜单管理--校区<?php echo $_SESSION['menu_campus']['cname']; ?></h1>
                     </div>
                 </div>
             </div>
@@ -143,6 +143,8 @@
                                     echo '<span style="color: #be2221;"><b>'.$Msg['menuchanged'].'</b></span>';
                                 }elseif(isset($Msg['deletemenu'])){
                                     echo '<span style="color: #be2221;"><b>'.$Msg['deletemenu'].'</b></span>';
+                                }elseif(isset($Msg['nosetfinven'])){
+                                    echo '<span style="color: #be2221;"><b>'.$Msg['nosetfinven'].'</b></span>';
                                 }
                                 $attributes = array('class'=>'btn btn-sm btn-warning','type'=>'reset','style'=>'float:right;margin-right:5px;');
                                 echo anchor('menucontroller/goback','<i class="glyphicon glyphicon-backward"> 回菜单管理主页</i>',$attributes);
@@ -210,6 +212,8 @@
                                     echo '<span style="color: #be2221;"><b>'.$Msg['sidemenuchanged'].'</b></span>';
                                 }elseif(isset($Msg['deleteSidemenu'])){
                                     echo '<span style="color: #be2221;"><b>'.$Msg['deleteSidemenu'].'</b></span>';
+                                }elseif(isset($Msg['nosetsinven'])){
+                                    echo '<span style="color: #be2221;"><b>' . $Msg['nosetsinven'] . '</b></span>';
                                 }
 
                                 $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;');

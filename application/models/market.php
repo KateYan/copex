@@ -207,10 +207,11 @@ class Market extends CI_Model {
 
         $sql = "SELECT dailymenu.*,campus.cname FROM dailymenu JOIN campus ON dailymenu.cid = campus.cid WHERE dailymenu.mid=$menuId";
         $query = $this->db->query($sql);
-        if(count($query->result())!=1){
+        if($query->num_rows()!=1){
             return false;
         }
-        return $query->row(0);
+        $menu = $query->row(0);
+        return $menu;
 
     }
 
@@ -219,10 +220,11 @@ class Market extends CI_Model {
 
         $sql = "SELECT sidemenu.*,campus.cname FROM sidemenu JOIN campus ON sidemenu.cid = campus.cid WHERE sidemenu.sideMenuID=$sideMenuId";
         $query = $this->db->query($sql);
-        if(count($query->result())!=1){
+        if($query->num_rows()!=1){
             return false;
         }
-        return $query->row(0);
+        $menu = $query->row(0);
+        return $menu;
     }
 
     // update  pickup and order time range
