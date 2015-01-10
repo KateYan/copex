@@ -33,7 +33,7 @@
     <p style="color:red;z-index: 5000;"><?php echo (isset($eMsg))? $eMsg : '';  ?></p>
     <button style="border:none;" form="viplogin" class="btn_login">登录</button>
 
-<div class="login_footer">
+<div class="btn_resetOrder" style="bottom:20px; left:0; width:100%; height:30px;">
     <?php
     $attributes = array('class'=>'btn_loginFoot inotMemb');
     echo anchor('marketcontroller/showDailyMenu','我还不是会员',$attributes);
