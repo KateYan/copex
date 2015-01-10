@@ -83,7 +83,7 @@
                             <div class="text-muted bootstrap-admin-box-title">校区管理
                                 <?php
                                 $attributes = array('class'=>'btn btn-sm btn-warning','type'=>'reset','style'=>'float:right;margin-top:0px;');
-                                echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-backward"> 回管理主页</i>',$attributes);
+                                echo anchor('basiccontroller/goback','<i class="glyphicon glyphicon-backward"> 回基本管理主页</i>',$attributes);
                                 ?>
                             </div>
                         </div>
@@ -139,7 +139,7 @@
                                     </button>
                                     <?php
                                     $attributes = array('class'=>'btn btn-success','type'=>'reset');
-                                    echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-backward"> 回管理主页</i>',$attributes);
+                                    echo anchor('basiccontroller/goback','<i class="glyphicon glyphicon-backward"> 回基本管理主页</i>',$attributes);
                                     ?>
                                 </fieldset>
                             </div>

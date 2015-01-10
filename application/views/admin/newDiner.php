@@ -83,7 +83,7 @@
                             <div class="text-muted bootstrap-admin-box-title">添加餐厅
                                 <?php
                                 $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-top:0px;');
-                                echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-backward"> 回餐厅列表</i>',$attributes);
+                                echo anchor('dinercontroller/goback','<i class="glyphicon glyphicon-backward"> 回餐厅列表</i>',$attributes);
                                 ?>
                             </div>
                         </div>
@@ -175,7 +175,7 @@
                                     </button>
                                     <?php
                                     $attributes = array('class'=>'btn btn-success','type'=>'reset');
-                                    echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-backward"> 回餐厅列表</i>',$attributes);
+                                    echo anchor('dinercontroller/goback','<i class="glyphicon glyphicon-backward"> 回餐厅列表</i>',$attributes);
                                     ?>
                                 </fieldset>
                             </div>

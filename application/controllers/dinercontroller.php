@@ -218,4 +218,13 @@ class Dinercontroller extends MY_Controller{
         // diner is in use
         return redirect('dinercontroller/showDinerDetail/inuse');
     }
+
+    // unset session for go back
+    public function goback(){
+        if(isset($_SESSION['diner'])){
+            unset($_SESSION['diner']);
+        }
+
+        return redirect('dinercontroller/showDinerManage');
+    }
 }

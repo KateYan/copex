@@ -86,7 +86,12 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default bootstrap-admin-no-table-panel">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">时间规则管理</div>
+                            <div class="text-muted bootstrap-admin-box-title">时间规则管理
+                                <?php
+                                $attributes = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'float:right;');
+                                echo anchor('basiccontroller/goback','<i class="glyphicon glyphicon-backward"> 回基本管理主页</i>',$attributes);
+                                ?>
+                            </div>
                         </div>
                         <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
                             <div class="form-horizontal">
@@ -173,7 +178,7 @@
                                     </a>
                                     <?php
                                     $attributes = array('class'=>'btn btn-success','type'=>'reset');
-                                    echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-backward"> 回基本管理</i>',$attributes);
+                                    echo anchor('basiccontroller/goback','<i class="glyphicon glyphicon-backward"> 回基本管理</i>',$attributes);
                                     ?>
                                 </fieldset>
                             </div>

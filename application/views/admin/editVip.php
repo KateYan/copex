@@ -142,7 +142,7 @@
                         </a>
                         <?php
                         $attributes = array('class'=>'btn btn-success','type'=>'reset');
-                        echo anchor('vipcontroller/showVipPanel','<i class="glyphicon glyphicon-backward"> 回VIP列表</i>',$attributes);
+                        echo anchor('vipcontroller/goback','<i class="glyphicon glyphicon-backward"> 回VIP列表</i>',$attributes);
                         ?>
                     </fieldset>
                 </div>

@@ -92,7 +92,7 @@
                     echo anchor('dinercontroller/deleteDiner','<i class="glyphicon glyphicon-remove"> 删除本餐厅</i>',$attributes);
 
                     $attributes = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'float:right;margin-right:5px;');
-                    echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-backward"> 回餐厅列表</i>',$attributes);
+                    echo anchor('dinercontroller/goback','<i class="glyphicon glyphicon-backward"> 回餐厅列表</i>',$attributes);
                     ?>
                 </div>
             </div>
@@ -250,7 +250,7 @@
                         echo anchor("dinercontroller/showDinerDetail/$did",'<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes);
 
                         $attributes1 = array('class'=>'btn btn-success','type'=>'reset');
-                        echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-backward"> 回餐厅列表</i>',$attributes1);
+                        echo anchor('dinercontroller/goback','<i class="glyphicon glyphicon-backward"> 回餐厅列表</i>',$attributes1);
                         ?>
                     </fieldset>
                 </div>

@@ -256,7 +256,7 @@
                                     $attributes1 = array('class'=>'btn btn-default','type'=>'reset');
                                     echo anchor('dishcontroller/undoFood','<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes1);
                                     $attributes2 = array('class'=>'btn btn-success','type'=>'reset','style'=>'margin-left:5px;');
-                                    echo anchor('dishcontroller/showDishPanel','<i class="glyphicon glyphicon-backward"> 回菜品列表</i>',$attributes2);
+                                    echo anchor('dishcontroller/goback','<i class="glyphicon glyphicon-backward"> 回菜品列表</i>',$attributes2);
                                     ?>
                                 </fieldset>
                             </div>

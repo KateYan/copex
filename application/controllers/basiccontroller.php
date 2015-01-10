@@ -294,4 +294,13 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
             return redirect('basiccontroller/showBasicManage');
         }
+
+        // clear session for basiccontrolelr
+        public function goback(){
+            if(isset($_SESSION['rule'])){
+                unset($_SESSION['rule']);
+            }
+
+            return redirect('basiccontroller/showBasicManage');
+        }
     }

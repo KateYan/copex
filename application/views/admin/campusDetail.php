@@ -95,7 +95,7 @@
                                 ?>
                                 <?php
                                 $attributes = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'float:right;margin-right:5px;');
-                                echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-backward"> 回管理主页</i>',$attributes);
+                                echo anchor('basiccontroller/goback','<i class="glyphicon glyphicon-backward"> 回基本管理主页</i>',$attributes);
                                 ?>
                             </div>
                         </div>
@@ -222,7 +222,7 @@
                                     echo anchor('basiccontroller/showCampusDetail','<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes);
 
                                     $attributes1 = array('class'=>'btn btn-success','type'=>'reset','style'=>'margin-left:5px;');
-                                    echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-backward"> 回校区列表</i>',$attributes1);
+                                    echo anchor('basiccontroller/goback','<i class="glyphicon glyphicon-backward"> 回基本管理主页</i>',$attributes1);
                                     ?>
                                 </fieldset>
                             </div>
