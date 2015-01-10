@@ -175,9 +175,10 @@
                                     $num = count($vipUser);
                                     for($i=0;$i<$num;$i++){
                                         echo '<tr>';
-                                        echo '<td><a href="showEditVip?vipUser='.$vipUser[$i]->uid.'">';
-                                        echo $vipUser[$i]->uid;
-                                        echo '</a></td>';
+                                        echo '<td>';
+                                        $uid = $vipUser[$i]->uid;
+                                        echo anchor("vipcontroller/showEditVip?vipUser=$uid",$uid);
+                                        echo '</td>';
                                         echo '<td>'.$vipUser[$i]->vipid.'</td>';
                                         echo '<td>'.$vipUser[$i]->uphone.'</td>';
                                         if($vipUser[$i]->ordered==0){

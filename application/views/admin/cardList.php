@@ -94,13 +94,13 @@
             echo anchor('menucontroller/showMenuManage','<i class="glyphicon glyphicon-chevron-right"></i> 5. 菜单管理',$attributes);
             ?>
         </li>
-        <li class="active">
+        <li>
             <?php
             $attributes = array('id'=>'manageVip');
             echo anchor('vipcontroller/showVipPanel','<i class="glyphicon glyphicon-chevron-right"></i> 6. 会员管理',$attributes);
             ?>
         </li>
-        <li>
+        <li class="active">
             <?php
             $attributes = array('id'=>'manageBasic');
             echo anchor('cardcontroller/showCardList','<i class="glyphicon glyphicon-chevron-right"></i> 7. 会员卡管理',$attributes);
@@ -137,153 +137,31 @@
     <tr>
     <th>会员卡ID</th>
     <th>会员卡卡号</th>
-    <th>会员卡密码</th>
+<!--    <th>会员卡密码</th>-->
     <th>会员卡余额</th>
-    <th>会员卡绑定状态</th>
+    <th>用户ID</th>
 </tr>
 </thead>
 <tbody>
-
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Firefox 1.0</td>
-    <td>Win 98+ / OSX.2+</td>
-    <td class="center">1.7</td>
-    <td class="center">A</td>
-</tr>
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Firefox 1.5</td>
-    <td>Win 98+ / OSX.2+</td>
-    <td class="center">1.8</td>
-    <td class="center">A</td>
-</tr>
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Firefox 2.0</td>
-    <td>Win 98+ / OSX.2+</td>
-    <td class="center">1.8</td>
-    <td class="center">A</td>
-</tr>
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Firefox 3.0</td>
-    <td>Win 2k+ / OSX.3+</td>
-    <td class="center">1.9</td>
-    <td class="center">A</td>
-</tr>
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Camino 1.0</td>
-    <td>OSX.2+</td>
-    <td class="center">1.8</td>
-    <td class="center">A</td>
-</tr>
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Camino 1.5</td>
-    <td>OSX.3+</td>
-    <td class="center">1.8</td>
-    <td class="center">A</td>
-</tr>
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Netscape 7.2</td>
-    <td>Win 95+ / Mac OS 8.6-9.2</td>
-    <td class="center">1.7</td>
-    <td class="center">A</td>
-</tr>
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Netscape Browser 8</td>
-    <td>Win 98SE+</td>
-    <td class="center">1.7</td>
-    <td class="center">A</td>
-</tr>
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Netscape Navigator 9</td>
-    <td>Win 98+ / OSX.2+</td>
-    <td class="center">1.8</td>
-    <td class="center">A</td>
-</tr>
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Mozilla 1.0</td>
-    <td>Win 95+ / OSX.1+</td>
-    <td class="center">1</td>
-    <td class="center">A</td>
-</tr>
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Mozilla 1.1</td>
-    <td>Win 95+ / OSX.1+</td>
-    <td class="center">1.1</td>
-    <td class="center">A</td>
-</tr>
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Mozilla 1.2</td>
-    <td>Win 95+ / OSX.1+</td>
-    <td class="center">1.2</td>
-    <td class="center">A</td>
-</tr>
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Mozilla 1.3</td>
-    <td>Win 95+ / OSX.1+</td>
-    <td class="center">1.3</td>
-    <td class="center">A</td>
-</tr>
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Mozilla 1.4</td>
-    <td>Win 95+ / OSX.1+</td>
-    <td class="center">1.4</td>
-    <td class="center">A</td>
-</tr>
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Mozilla 1.5</td>
-    <td>Win 95+ / OSX.1+</td>
-    <td class="center">1.5</td>
-    <td class="center">A</td>
-</tr>
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Mozilla 1.6</td>
-    <td>Win 95+ / OSX.1+</td>
-    <td class="center">1.6</td>
-    <td class="center">A</td>
-</tr>
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Mozilla 1.7</td>
-    <td>Win 98+ / OSX.1+</td>
-    <td class="center">1.7</td>
-    <td class="center">A</td>
-</tr>
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Mozilla 1.8</td>
-    <td>Win 98+ / OSX.1+</td>
-    <td class="center">1.8</td>
-    <td class="center">A</td>
-</tr>
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Seamonkey 1.1</td>
-    <td>Win 98+ / OSX.2+</td>
-    <td class="center">1.8</td>
-    <td class="center">A</td>
-</tr>
-<tr class="gradeA">
-    <td>Gecko</td>
-    <td>Epiphany 2.20</td>
-    <td>Gnome</td>
-    <td class="center">1.8</td>
-    <td class="center">A</td>
-</tr>
+<?php
+foreach($vipcards as $vipcard){
+    echo '<tr class="gradeA">';
+    echo '<td>';
+    echo anchor("cardcontroller/cardDetail?card=$vipcard->vipid",$vipcard->vipid);
+    echo '</td>';
+    echo '<td>'.$vipcard->vnumber.'</td>';
+//    echo '<td>'.$vipcard->vpassword.'</td>';
+    echo '<td>$ '.$vipcard->vbalance.'</td>';
+    echo '<td>';
+    if($vipcard->uid==NULL){
+        echo "未使用";
+    }else{
+        echo anchor("vipcontroller/showEditVip?vipUser=$vipcard->uid",$vipcard->uid);
+    }
+    echo '</td>';
+    echo '</tr>';
+}
+?>
 </tbody>
 </table>
 </div>

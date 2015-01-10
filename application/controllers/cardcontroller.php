@@ -11,6 +11,12 @@ class Cardcontroller extends MY_Controller{
 
     // show card list
     public function showCardList(){
+        //find all vipcards
+        $this->load->model('vipcard');
+        $data['vipcards'] = $this->vipcard->findAllCards();
+//        var_dump($data['vipcards']);
+//        die();
+
 
 
         $data['title'] = "Copex | 会员卡管理";
