@@ -87,7 +87,7 @@
                     <div class="panel panel-default bootstrap-admin-no-table-panel">
                         <div class="panel-heading">
                             <div class="text-muted bootstrap-admin-box-title">时间规则管理
-                                
+
                                 <?php
                                 $attributes = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'float:right;');
                                 echo anchor('basiccontroller/goback','<i class="glyphicon glyphicon-backward"> 回基本管理主页</i>',$attributes);

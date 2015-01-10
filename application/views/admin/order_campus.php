@@ -312,40 +312,41 @@
                             <?php
                             if(!isset($historyOrder)){
                                 echo "暂时还没有用户点今天的菜，请稍等片刻后刷新看看。";
-                            }
-                            $num = count($historyOrder);
-                            echo '<input form="history_confirmPaid" type="hidden" name = "orderNumber" value="'.$num.'"/>';
-                            echo '<input form="history_confirmPickedup" type="hidden" name = "orderNumber" value="'.$num.'"/>';
-                            for($i=0;$i<$num;$i++){
-                                echo '<tr>';
-                                echo '<td><a href="showOrderDetail/'.$historyOrder[$i]->orderNumber.'">';
-                                echo $historyOrder[$i]->orderNumber;
-                                echo '</a></td>';
-                                echo '<td>'.$historyOrder[$i]->campus.'</td>';
-                                echo '<td>'.$historyOrder[$i]->userId.'</td>';
-                                echo '<td>'.$historyOrder[$i]->cardNumber.'</td>';
-                                echo '<td>'.$historyOrder[$i]->userPhone.'</td>';
-                                $fordate = date("m月d日",strtotime($historyOrder[$i]->forDate));
-                                echo '<td>'.$fordate.'</td>';
-                                echo '<td>'.$historyOrder[$i]->orderDate.'</td>';
-                                echo '<td>'."$".$historyOrder[$i]->totalCost.'</td>';
-                                if($historyOrder[$i]->isPaid==0){
-                                    echo '<td>'."否".'</td>';
-                                    echo '<td><input form="history_confirmPaid" type="checkbox" name="order'.$i.'" value ="'.$historyOrder[$i]->orderNumber.'" /></td>';
-                                }elseif($historyOrder[$i]->isPaid==1){
-                                    echo '<td>'."是".'</td>';
-                                    echo '<td><input form="history_confirmPaid" type="hidden" /></td>';
-                                }
+                            }else{
+                                $num = count($historyOrder);
+                                echo '<input form="history_confirmPaid" type="hidden" name = "orderNumber" value="'.$num.'"/>';
+                                echo '<input form="history_confirmPickedup" type="hidden" name = "orderNumber" value="'.$num.'"/>';
+                                for($i=0;$i<$num;$i++){
+                                    echo '<tr>';
+                                    echo '<td><a href="showOrderDetail/'.$historyOrder[$i]->orderNumber.'">';
+                                    echo $historyOrder[$i]->orderNumber;
+                                    echo '</a></td>';
+                                    echo '<td>'.$historyOrder[$i]->campus.'</td>';
+                                    echo '<td>'.$historyOrder[$i]->userId.'</td>';
+                                    echo '<td>'.$historyOrder[$i]->cardNumber.'</td>';
+                                    echo '<td>'.$historyOrder[$i]->userPhone.'</td>';
+                                    $fordate = date("m月d日",strtotime($historyOrder[$i]->forDate));
+                                    echo '<td>'.$fordate.'</td>';
+                                    echo '<td>'.$historyOrder[$i]->orderDate.'</td>';
+                                    echo '<td>'."$".$historyOrder[$i]->totalCost.'</td>';
+                                    if($historyOrder[$i]->isPaid==0){
+                                        echo '<td>'."否".'</td>';
+                                        echo '<td><input form="history_confirmPaid" type="checkbox" name="order'.$i.'" value ="'.$historyOrder[$i]->orderNumber.'" /></td>';
+                                    }elseif($historyOrder[$i]->isPaid==1){
+                                        echo '<td>'."是".'</td>';
+                                        echo '<td><input form="history_confirmPaid" type="hidden" /></td>';
+                                    }
 
-                                if($historyOrder[$i]->isPickedup==0){
-                                    echo '<td>'."否".'</td>';
-                                    echo '<td><input form="history_confirmPickedup" type="checkbox" name="order'.$i.'" value ="'.$historyOrder[$i]->orderNumber.'" /></td>';
-                                }elseif($historyOrder[$i]->isPickedup==1){
-                                    echo '<td>'."是".'</td>';
-                                    echo '<td><input form="history_confirmPickedup" type="hidden" /></td>';
-                                }
+                                    if($historyOrder[$i]->isPickedup==0){
+                                        echo '<td>'."否".'</td>';
+                                        echo '<td><input form="history_confirmPickedup" type="checkbox" name="order'.$i.'" value ="'.$historyOrder[$i]->orderNumber.'" /></td>';
+                                    }elseif($historyOrder[$i]->isPickedup==1){
+                                        echo '<td>'."是".'</td>';
+                                        echo '<td><input form="history_confirmPickedup" type="hidden" /></td>';
+                                    }
 
-                                echo '</tr>';
+                                    echo '</tr>';
+                                }
                             }
                             ?>
                             </tbody>
