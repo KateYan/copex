@@ -81,7 +81,7 @@
                             <div class="text-muted bootstrap-admin-box-title">添加新会员
                                 <?php
                                 $attributes = array('class'=>'btn btn-sm btn-warning','type'=>'reset','style'=>'float:right;margin-top:0px;');
-                                echo anchor('vipcontroller/showVipPanel','<i class="glyphicon glyphicon-backward"> 回VIP列表</i>',$attributes);
+                                echo anchor('vipcontroller/goback','<i class="glyphicon glyphicon-backward"> 回VIP列表</i>',$attributes);
                                 ?>
                             </div>
                         </div>

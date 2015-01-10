@@ -152,4 +152,12 @@ class Vipcontroller extends MY_Controller{
 
     }
 
+    // clear session for go back anchor
+    public function goback(){
+        if(isset($_SESSION['vipUser'])){
+            unset($_SESSION['vipUser']);
+        }
+        return redirect('vipcontroller/showVipPanel');
+    }
+
 }
