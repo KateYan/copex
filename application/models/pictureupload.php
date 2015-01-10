@@ -27,7 +27,7 @@ class Pictureupload extends CI_Model{
 //        $error = array();
         $config = array(
             'upload_path' => './upload/',
-            'allowed_types' => 'gif|jpg|jpeg|jpe|png',
+            'allowed_types' => 'jpg|jpeg',
             'overwrite' => FALSE,
             'max_size' => 0,
             'max_width' => 0,
@@ -117,7 +117,7 @@ class Pictureupload extends CI_Model{
 //        $error = array();
         $config = array(
             'upload_path' => './upload/side/',
-            'allowed_types' => 'gif|jpg|jpeg|jpe|png',
+            'allowed_types' => 'jpg|jpeg',
             'overwrite' => FALSE,
             'max_size' => 0,
             'max_width' => 0,
