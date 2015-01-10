@@ -140,10 +140,12 @@
                                                         $num = count($food);
                                                         for($i = 0;$i<$num; $i++){
                                                             echo '<tr>';
-                                                            echo '<th>'.$food[$i]->fid.'</th>';
-                                                            echo '<th>'.$food[$i]->fname.'</th>';
-                                                            echo '<th>'."$".$food[$i]->fprice.'</th>';
-                                                            echo '<th>'.'<input form="addMenu" type="radio" name="menu-recommend" value="'.$food[$i]->fid.'"/></th>';
+                                                            echo '<td>';
+                                                            echo anchor("dishcontroller/showFoodDetail?foodId=".$food[$i]->fid,$food[$i]->fid);
+                                                            echo '</td>';
+                                                            echo '<td>'.$food[$i]->fname.'</td>';
+                                                            echo '<td>'."$".$food[$i]->fprice.'</td>';
+                                                            echo '<td>'.'<input form="addMenu" type="radio" name="menu-recommend" value="'.$food[$i]->fid.'"/></td>';
                                                             echo '</tr>';
                                                         }
                                                         ?>
@@ -175,10 +177,12 @@
                                                         $num = count($food);
                                                         for($i = 0;$i<$num; $i++){
                                                             echo '<tr>';
-                                                            echo '<th>'.$food[$i]->fid.'</th>';
-                                                            echo '<th>'.$food[$i]->fname.'</th>';
-                                                            echo '<th>'."$".$food[$i]->fprice.'</th>';
-                                                            echo '<th>'.'<input form="addMenu" type="radio" name="menu-onsale1" value="'.$food[$i]->fid.'"/></th>';
+                                                            echo '<td>';
+                                                            echo anchor("dishcontroller/showFoodDetail?foodId=".$food[$i]->fid,$food[$i]->fid);
+                                                            echo '</td>';
+                                                            echo '<td>'.$food[$i]->fname.'</td>';
+                                                            echo '<td>'."$".$food[$i]->fprice.'</td>';
+                                                            echo '<td>'.'<input form="addMenu" type="radio" name="menu-onsale1" value="'.$food[$i]->fid.'"/></td>';
                                                             echo '</tr>';
                                                         }
                                                         ?>
@@ -210,10 +214,12 @@
                                                         $num = count($food);
                                                         for($i = 0;$i<$num; $i++){
                                                             echo '<tr>';
-                                                            echo '<th>'.$food[$i]->fid.'</th>';
-                                                            echo '<th>'.$food[$i]->fname.'</th>';
-                                                            echo '<th>'."$".$food[$i]->fprice.'</th>';
-                                                            echo '<th>'.'<input form="addMenu" type="radio" name="menu-onsale2" value="'.$food[$i]->fid.'"/></th>';
+                                                            echo '<td>';
+                                                            echo anchor("dishcontroller/showFoodDetail?foodId=".$food[$i]->fid,$food[$i]->fid);
+                                                            echo '</td>';
+                                                            echo '<td>'.$food[$i]->fname.'</td>';
+                                                            echo '<td>'."$".$food[$i]->fprice.'</td>';
+                                                            echo '<td>'.'<input form="addMenu" type="radio" name="menu-onsale2" value="'.$food[$i]->fid.'"/></td>';
                                                             echo '</tr>';
                                                         }
                                                         ?>

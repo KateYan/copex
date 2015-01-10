@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 09, 2015 at 11:58 PM
+-- Generation Time: Jan 10, 2015 at 05:52 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `coperationline` (
   PRIMARY KEY (`lineid`),
   KEY `cid` (`cid`,`did`),
   KEY `did` (`did`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10023 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10024 ;
 
 --
 -- Dumping data for table `coperationline`
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `diner` (
   `daddr` varchar(30) NOT NULL,
   `dinfo` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`did`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10009 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10012 ;
 
 --
 -- Dumping data for table `diner`
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `diner` (
 
 INSERT INTO `diner` (`did`, `dname`, `contact`, `dphone`, `demail`, `daddr`, `dinfo`) VALUES
 (10001, '风味小厨', '', '6473106789', 'tt123@gmail.com', '123 bay street', ''),
-(10002, '魔锅坊', '', '6471234567', 'benben@hotmail.com', '123 bay street', ''),
+(10002, '小渔村', '', '6471234567', 'benben@hotmail.com', '123 bay street', ''),
 (10003, '西北楼', '', '6474564567', 'utsg@gmail.com', '123 bay street', ''),
 (10004, '刘厨房', '王女士', '6479876541', 'youk@gmail.com', '57 Onion Road', ''),
 (10005, '台味轩', '王先生', '9876543211', 'asdghdfiu@gmail.com', '610 bay street', ''),
@@ -191,21 +191,21 @@ CREATE TABLE IF NOT EXISTS `food` (
   `fpicture` varchar(60) NOT NULL,
   PRIMARY KEY (`fid`),
   KEY `did` (`did`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10010 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10011 ;
 
 --
 -- Dumping data for table `food`
 --
 
 INSERT INTO `food` (`fid`, `did`, `fname`, `fdes`, `fprice`, `fpicture`) VALUES
-(10001, 10006, '酥肉扣碗', '', 9.95, 'surou.jpg'),
+(10001, 10006, '酥肉扣碗', '', 6.95, 'surou.jpg'),
 (10002, 10002, '藕片黑椒牛肉', '', 6.95, 'oupianheijiaoniu.jpg'),
-(10003, 10002, '麻辣香锅', '', 6.95, 'malazonghexiangguo.jpg'),
-(10004, 10002, '高丽菜豆瓣鱼', '', 9.99, 'gaolidoubanyu.jpg'),
-(10005, 10002, '爆炒回锅肉', '', 12.69, 'huiguorou.jpg'),
-(10006, 10002, '尖椒鸡丁', '', 14.99, 'jianjiaojiding.jpg'),
-(10007, 10003, '新疆大盘鸡', '', 9.99, 'dapanji.jpg'),
-(10008, 10001, '萝卜炖软骨', '', 11.69, 'luobodunruangu.jpg');
+(10003, 10002, '麻辣香锅', '', 8.85, 'malazonghexiangguo.jpg'),
+(10004, 10002, '高丽菜豆瓣鱼', '', 6.95, 'gaolidoubanyu.jpg'),
+(10005, 10002, '爆炒回锅肉', '', 6.95, 'huiguorou.jpg'),
+(10006, 10002, '尖椒鸡丁', '', 6.95, 'jianjiaojiding.jpg'),
+(10007, 10003, '新疆大盘鸡', '', 9.96, 'dapanji.jpg'),
+(10008, 10001, '萝卜炖软骨', '', 8.85, 'luobodunruangu.jpg');
 
 -- --------------------------------------------------------
 
@@ -344,17 +344,17 @@ CREATE TABLE IF NOT EXISTS `sidedish` (
   `spicture` varchar(30) NOT NULL,
   PRIMARY KEY (`sid`),
   KEY `did` (`did`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=50005 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=50007 ;
 
 --
 -- Dumping data for table `sidedish`
 --
 
 INSERT INTO `sidedish` (`sid`, `did`, `sname`, `sdes`, `sprice`, `spicture`) VALUES
-(50001, 10001, '麻辣热干面', '', 6.99, '4_03img01.jpg'),
-(50002, 10002, '成都冒菜', NULL, 6.99, '4_03img03.jpg'),
-(50003, 10002, '鲜肉叉烧包', '', 6.99, '3_08.jpg'),
-(50004, 10002, '东北小菜', NULL, 5.99, '4_03img04.jpg');
+(50001, 10002, '可口可乐', '', 1.79, 'coke.jpg'),
+(50002, 10002, '健怡可乐', '', 1.79, 'dietcoke.jpg'),
+(50003, 10002, '冰茶', '', 1.79, 'icetea.jpg'),
+(50004, 10004, '辣卤牛肉', '', 5.99, 'laluniurou.jpg');
 
 -- --------------------------------------------------------
 
@@ -369,7 +369,7 @@ CREATE TABLE IF NOT EXISTS `sidemenu` (
   `sideMenuStatus` tinyint(1) NOT NULL,
   PRIMARY KEY (`sideMenuID`),
   KEY `cid` (`cid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10010 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10011 ;
 
 --
 -- Dumping data for table `sidemenu`
@@ -393,7 +393,7 @@ CREATE TABLE IF NOT EXISTS `sidemenuitem` (
   PRIMARY KEY (`sideItemID`),
   KEY `sid` (`sid`,`sideMenuID`),
   KEY `mid` (`sideMenuID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `sidemenuitem`
@@ -435,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`uid`, `cid`, `vipid`, `uphone`, `uhash`, `ip`, `ordered`, `last_login`, `created`) VALUES
-(10185, 10001, 10142, '6131231234', '208795b584c83f3bae579f721868d1cbd4884783362387f95f50e35f810a3f50', '::1', 1, '2015-01-09 22:08:53', '2014-12-20 04:38:21'),
+(10185, 10001, 10142, '6131231234', '208795b584c83f3bae579f721868d1cbd4884783362387f95f50e35f810a3f50', '::1', 1, '2015-01-10 00:10:28', '2014-12-20 04:38:21'),
 (10298, 10002, NULL, '1231234123', '474411562182ddb5617d587f97c901c4', '::1', 1, '2015-01-03 19:39:03', '2015-01-03 19:15:55'),
 (10299, 10001, NULL, '1234567893', 'cde8e1a7e5b11006d7f1930ce63e9462', '::1', 1, '2015-01-04 04:49:55', '2015-01-03 20:55:52'),
 (10300, 10002, NULL, '6131231234', '05d1131727e33e10ec7195aa77f6090e', '::1', 1, '2015-01-05 00:09:09', '2015-01-05 00:08:52'),

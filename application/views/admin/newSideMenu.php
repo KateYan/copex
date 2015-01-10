@@ -134,10 +134,12 @@
                                                         $num = count($sideDish);
                                                         for($i = 0;$i<$num; $i++){
                                                             echo '<tr>';
-                                                            echo '<th>'.$sideDish[$i]->sid.'</th>';
-                                                            echo '<th>'.$sideDish[$i]->sname.'</th>';
-                                                            echo '<th>'."$".$sideDish[$i]->sprice.'</th>';
-                                                            echo '<th>'.'<input form="addSideMenu" type="checkbox" name="'.$sideDish[$i]->sid.'" value="'.$sideDish[$i]->sid.'"/></th>';
+                                                            echo '<td>';
+                                                            echo anchor("dishcontroller/showSideDetail?sideId=".$sideDish[$i]->sid,$sideDish[$i]->sid);
+                                                            echo '</td>';
+                                                            echo '<td>'.$sideDish[$i]->sname.'</td>';
+                                                            echo '<td>'."$".$sideDish[$i]->sprice.'</td>';
+                                                            echo '<td>'.'<input form="addSideMenu" type="checkbox" name="'.$sideDish[$i]->sid.'" value="'.$sideDish[$i]->sid.'"/></td>';
                                                             echo '</tr>';
                                                         }
                                                         ?>
