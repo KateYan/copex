@@ -69,7 +69,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>菜品管理</h1>
+                        <h1>菜品管理
+                            <?php
+                            if(isset($eMsg['inuse'])){
+                                echo '<span style="color: #be2221;"><b>'.$eMsg['inuse'].'</b></span>';
+                            }
+                            ?>
+                        </h1>
                     </div>
                 </div>
             </div>
@@ -80,7 +86,10 @@
                         <div class="panel-heading">
                             <div class="text-muted bootstrap-admin-box-title">编辑主食
                                 <?php
-                                $attributes2 = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'margin-left:5px;','style'=>'float:right;');
+                                $attributes = array('class'=>'btn btn-sm btn-danger','type'=>'reset','style'=>'float: right;');
+                                echo anchor('dishcontroller/deleteFood','<i class="glyphicon glyphicon-remove"> 删除本菜品</i>',$attributes);
+
+                                $attributes2 = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'margin-right:5px;float:right;');
                                 echo anchor('dishcontroller/goback','<i class="glyphicon glyphicon-backward"> 回菜品列表</i>',$attributes2);
                                 ?>
                             </div>

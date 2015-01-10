@@ -90,8 +90,7 @@
                     <?php
                     $attributes = array('class'=>'btn btn-sm btn-danger','type'=>'reset','style'=>'float: right;');
                     echo anchor('dinercontroller/deleteDiner','<i class="glyphicon glyphicon-remove"> 删除本餐厅</i>',$attributes);
-                    ?>
-                    <?php
+
                     $attributes = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'float:right;margin-right:5px;');
                     echo anchor('dinercontroller/showDinerManage','<i class="glyphicon glyphicon-backward"> 回餐厅列表</i>',$attributes);
                     ?>

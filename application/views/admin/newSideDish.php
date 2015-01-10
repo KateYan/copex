@@ -80,7 +80,7 @@
                         <div class="panel-heading">
                             <div class="text-muted bootstrap-admin-box-title">添加新小食
                                 <?php
-                                $attributes2 = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'margin-left:5px;','style'=>'float:right;');
+                                $attributes2 = array('class'=>'btn btn-sm btn-warning','type'=>'reset','style'=>'margin-left:5px;','style'=>'float:right;');
                                 echo anchor('dishcontroller/goback','<i class="glyphicon glyphicon-backward"> 回菜品列表</i>',$attributes2);
                                 ?>
                             </div>

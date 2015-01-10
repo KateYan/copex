@@ -144,4 +144,58 @@ class Menuitem extends CI_Model {
         $sql = "DELETE FROM sidemenu WHERE sideMenuID=$menuId";
         $this->db->query($sql);
     }
+
+    // check food status
+    public function checkFoodStatus($foodId){
+        // find inuse menu
+        $sql = "SELECT mid FROM dailymenu WHERE mstatus=1";
+        $query = $this->db->query($sql);
+        $menus = $query->result();
+
+        foreach($menus as $menu){
+            $sql_food = "SELECT fid FROM menuitem WHERE mid=$menu->mid";
+            $query_food = $this->db->query($sql_food);
+            $foods = $query_food->result();
+
+            foreach($foods as $food ){
+                if($food->fid == $foodId){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    // check side dish status
+    public function checkSideDishStatus($sideId){
+        // find inuse menu
+        $sql = "SELECT sideMenuID FROM sidemenu WHERE sideMenuStatus=1";
+        $query = $this->db->query($sql);
+        $menus = $query->result();
+
+        foreach($menus as $menu){
+            $sql_side = "SELECT sid FROM sidemenuitem WHERE sideMenuID=$menu->sideMenuID";
+            $query_side = $this->db->query($sql_side);
+            $sides = $query_side->result();
+
+            foreach($sides as $side ){
+                if($side->sid == $sideId){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    // delete food
+    public function deleteFood($foodId){
+        $sql = "DELETE FROM food WHERE fid = $foodId";
+        $this->db->query($sql);
+    }
+
+    // delete sidedish
+    public function deleteSideDish($sideId){
+        $sql = "DELETE FROM sidedish WHERE sid = $sideId";
+        $this->db->query($sql);
+    }
 }

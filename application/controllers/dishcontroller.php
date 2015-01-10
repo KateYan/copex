@@ -19,7 +19,16 @@ class Dishcontroller extends MY_Controller{
     }
 
     // show panel
-    public function showDishPanel(){
+    public function showDishPanel($errorCode = null){
+        // check if there is error code
+        $eMsg = array(
+            'fooddeleted' => "删除主食成功！",
+            'sidedeleted' => "删除小食成功！"
+        );
+
+        if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+            $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
+        }
         // get all dishes
         // 1. get food list from database
         $this->load->model('market');
@@ -40,7 +49,8 @@ class Dishcontroller extends MY_Controller{
         // check if there is error code
         $eMsg = array(
             'wrong' => "菜名和价格不可为空！价格不能超过$100",
-            'success' => "修改成功！"
+            'success' => "修改成功！",
+            'inuse' => "该主食正在使用，不可直接删除！"
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
@@ -110,7 +120,8 @@ class Dishcontroller extends MY_Controller{
         // check if there is error code
         $eMsg = array(
             'wrong' => "菜名和价格不可为空！价格不能超过$100",
-            'success' => "修改成功！"
+            'success' => "修改成功！",
+            'inuse' => "该小食正在使用，不可直接删除！"
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
@@ -435,5 +446,37 @@ class Dishcontroller extends MY_Controller{
         }
 
         return redirect('dishcontroller/showDishPanel');
+    }
+
+    // delete food
+    public function deleteFood(){
+        if(!isset($_SESSION['food']->fid)){
+            return redirect('dishcontroller/showDishPanel');
+        }
+
+        // check if this food is in use
+        $this->load->model('menuitem');
+
+        if($this->menuitem->checkFoodStatus($_SESSION['food']->fid)){
+            $this->menuitem->deleteFood($_SESSION['food']->fid);
+            return redirect('dishcontroller/showDishPanel/fooddeleted');
+        }
+        return redirect('dishcontroller/showFoodDetail/inuse');
+    }
+
+    // delete food
+    public function deleteSideDish(){
+        if(!isset($_SESSION['side']->sid)){
+            return redirect('dishcontroller/showDishPanel');
+        }
+
+        // check if this food is in use
+        $this->load->model('menuitem');
+
+        if($this->menuitem->checkSideDishStatus($_SESSION['side']->sid)){
+            $this->menuitem->deleteSideDish($_SESSION['side']->sid);
+            return redirect('dishcontroller/showDishPanel/sidedeleted');
+        }
+        return redirect('dishcontroller/showSideDetail/inuse');
     }
 }
