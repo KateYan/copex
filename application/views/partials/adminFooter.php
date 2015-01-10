@@ -35,5 +35,8 @@
 <script type="text/javascript" src="/copex/bootstrap/vendors/bootstrap-wysihtml5-rails-b3/vendor/assets/javascripts/bootstrap-wysihtml5/core-b3.js"></script>
 <script type="text/javascript" src="/copex/bootstrap/vendors/twitter-bootstrap-wizard/jquery.bootstrap.wizard-for.bootstrap3.js"></script>
 <script type="text/javascript" src="/copex/bootstrap/vendors/boostrap3-typeahead/bootstrap3-typeahead.min.js"></script>
+
+<script type="text/javascript" src="/copex/bootstrap/vendors/datatables/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/copex/bootstrap/js/DT_bootstrap.js"></script>
 </body>
 </html>

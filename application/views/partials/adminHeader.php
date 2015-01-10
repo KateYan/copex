@@ -28,6 +28,10 @@
     <link rel="stylesheet" media="screen" href="/copex/bootstrap/css/bootstrap-admin-theme-change-size.css">
     <link rel="stylesheet" media="print" href="/copex/bootstrap/css/bootstrap-admin-theme-change-size.css">
 
+    <!-- Datatables -->
+    <link rel="stylesheet" media="screen" href="/copex/bootstrap/css/DT_bootstrap.css">
+    <link rel="stylesheet" media="print" href="/copex/bootstrap/css/DT_bootstrap.css">
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script type="text/javascript" src="/copex/bootstrap/js/html5shiv.js"></script>

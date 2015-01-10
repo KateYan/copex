@@ -14,8 +14,8 @@ class Cardcontroller extends MY_Controller{
 
 
         $data['title'] = "Copex | 会员卡管理";
-//        $this->load->view('partials/adminHeader',$data);
+        $this->load->view('partials/adminHeader',$data);
         $this->load->view('admin/cardList',$data);
-//        $this->load->view('partials/adminFooter');
+        $this->load->view('partials/adminFooter');
     }
 }
