@@ -168,9 +168,9 @@
                         foreach($diners as $diner){
                             echo '<tr>';
                             $did = $diner->did;
-                            echo '<td><a href="showDinerDetail?dinerId='.$diner->did.'">';
-                            echo $diner->did;
-                            echo '</a></td>';
+                            echo '<td>';
+                            echo anchor("dinercontroller/showDinerDetail?dinerId=".$diner->did,$diner->did);
+                            echo '</td>';
                             echo '<td>'.$diner->dname.'</td>';
                             echo '<td>'.$diner->contact.'</td>';
                             echo '<td>'.$diner->dphone.'</td>';

@@ -58,6 +58,61 @@ class Diner extends CI_Model
         return $query->result();
     }
 
+    // check diner status
+    public function checkDinerStatus($did){
+        // find in use menu first
+        $sql = "SELECT mid FROM dailymenu WHERE mstatus=1";
+        $query = $this->db->query($sql);
+        $memus = $query->result();
+
+        foreach($memus as $menu){
+            // find menuitem's fid
+            $sql_food = "SELECT fid FROM menuitem WHERE mid=$menu->mid";
+            $query_food = $this->db->query($sql_food);
+            $foods = $query_food->result();
+
+            foreach($foods as $food){
+                // find food's diner
+                $sql_diner = "SELECT did FROM food WHERE fid=$food->fid";
+                $query_diner = $this->db->query($sql_diner);
+                $diners = $query_diner->result();
+
+                foreach($diners as $diner){
+                    if($diner->did == $did){
+                        return false;
+                    }
+                }
+            }
+        }
+
+        // find in use menu first
+        $sql = "SELECT sideMenuID FROM sidemenu WHERE sideMenuStatus=1";
+        $query = $this->db->query($sql);
+        $memus = $query->result();
+
+        foreach($memus as $menu){
+            // side dish menuitem's fid
+            $sql_side = "SELECT sid FROM sidemenuitem WHERE sideMenuID=$menu->sideMenuID";
+            $query_side = $this->db->query($sql_side);
+            $sides = $query_side->result();
+
+            foreach($sides as $side){
+                // find sidedish's diner
+                $sql_diner = "SELECT did FROM sidedish WHERE sid=$side->sid";
+                $query_diner = $this->db->query($sql_diner);
+                $diners = $query_diner->result();
+
+                foreach($diners as $diner){
+                    if($diner->did == $did){
+                        return false;
+                    }
+                }
+            }
+        }
+        // no match means the diner is safe to be deleted
+        return true;
+    }
+
     // delete diner
     public function deleteDiner($did){
         $sql = "DELETE FROM diner WHERE did = '$did'";

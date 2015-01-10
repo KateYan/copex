@@ -71,7 +71,13 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="page-header">
-            <h1>餐厅管理</h1>
+            <h1>餐厅管理
+                <?php
+                if(isset($eMsg['inuse'])){
+                    echo '<span style="color: #be2221;"><b>'.$eMsg['inuse'].'</b></span>';
+                }
+                ?>
+            </h1>
         </div>
     </div>
 </div>
@@ -83,7 +89,7 @@
                 <div class="text-muted bootstrap-admin-box-title">参看餐厅详情并编辑
                     <?php
                     $attributes = array('class'=>'btn btn-sm btn-danger','type'=>'reset','style'=>'float: right;');
-                    echo anchor('#','<i class="glyphicon glyphicon-remove"> 删除本餐厅</i>',$attributes);
+                    echo anchor('dinercontroller/deleteDiner','<i class="glyphicon glyphicon-remove"> 删除本餐厅</i>',$attributes);
                     ?>
                     <?php
                     $attributes = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'float:right;margin-right:5px;');

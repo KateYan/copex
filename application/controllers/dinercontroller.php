@@ -46,7 +46,8 @@ class Dinercontroller extends MY_Controller{
             'success'=>"修改已成功!",
             'delerror'=>"请选中校区再删除！",
             'deletesuccess'=>"删除校区成功！",
-            'addsuccess'=>"添加新餐厅成功，您可以继续对它进行编辑！"
+            'addsuccess'=>"添加新餐厅成功，您可以继续对它进行编辑！",
+            'inuse' =>"该餐厅尚有菜品在使用的菜单中，不能删除！"
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
@@ -206,9 +207,15 @@ class Dinercontroller extends MY_Controller{
         if(!isset($_SESSION['diner']['did'])){
             return redirect('dinercontroller/showDinerManage');
         }
+        // check if diner is in use
         $this->load->model('diner');
-        $this->diner->deleteDiner($_SESSION['diner']['did']);
+        if($this->diner->checkDinerStatus($_SESSION['diner']['did'])){
+            $this->load->model('diner');
+            $this->diner->deleteDiner($_SESSION['diner']['did']);
 
-        return redirect('dinercontroller/showDinerManage/deletesuccess');
+            return redirect('dinercontroller/showDinerManage/deletesuccess');
+        }
+        // diner is in use
+        return redirect('dinercontroller/showDinerDetail/inuse');
     }
 }
