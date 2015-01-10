@@ -104,10 +104,16 @@
                     echo anchor('vipcontroller/showVipPanel','<i class="glyphicon glyphicon-chevron-right"></i> 6. 会员管理',$attributes);
                     ?>
                 </li>
+                <li>
+                    <?php
+                    $attributes = array('id'=>'manageBasic');
+                    echo anchor('cardcontroller/showCardList','<i class="glyphicon glyphicon-chevron-right"></i> 7. 会员卡管理',$attributes);
+                    ?>
+                </li>
                 <li class="active">
                     <?php
                     $attributes = array('id'=>'manageBasic');
-                    echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-chevron-right"></i> 7. 基本管理',$attributes);
+                    echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-chevron-right"></i> 8. 基本管理',$attributes);
                     ?>
                 </li>
             </ul>

@@ -114,7 +114,13 @@
                 <li>
                     <?php
                     $attributes = array('id'=>'manageBasic');
-                    echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-chevron-right"></i> 7. 基本管理',$attributes);
+                    echo anchor('cardcontroller/showCardList','<i class="glyphicon glyphicon-chevron-right"></i> 7. 会员卡管理',$attributes);
+                    ?>
+                </li>
+                <li>
+                    <?php
+                    $attributes = array('id'=>'manageBasic');
+                    echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-chevron-right"></i> 8. 基本管理',$attributes);
                     ?>
                 </li>
             </ul>

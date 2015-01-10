@@ -106,7 +106,13 @@
                     <li>
                         <?php
                         $attributes = array('id'=>'manageBasic');
-                        echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-chevron-right"></i> 7. 基本管理',$attributes);
+                        echo anchor('cardcontroller/showCardList','<i class="glyphicon glyphicon-chevron-right"></i> 7. 会员卡管理',$attributes);
+                        ?>
+                    </li>
+                    <li>
+                        <?php
+                        $attributes = array('id'=>'manageBasic');
+                        echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-chevron-right"></i> 8. 基本管理',$attributes);
                         ?>
                     </li>
                 </ul>
@@ -139,8 +145,12 @@
                                 <div class="text-muted bootstrap-admin-box-title">会员列表--(点击用户Id编辑VIP用户信息)
                                     <?php
                                     $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;');
+                                    echo anchor('vipcontroller/showAddVipCard','<i class="glyphicon glyphicon-plus"></i>
+                                         添加会员卡',$attributes);
+
+                                    $attributes = array('class'=>'btn btn-sm btn-primary','style'=>'float: right;margin-right:5px;');
                                     echo anchor('vipcontroller/showAddVip','<i class="glyphicon glyphicon-plus"></i>
-                                         添加会员',$attributes);
+                                         添加新会员',$attributes);
                                     ?>
                                 </div>
                             </div>
