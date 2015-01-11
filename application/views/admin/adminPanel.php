@@ -250,7 +250,7 @@
                         <div class="panel-heading">
                             <div class="text-muted bootstrap-admin-box-title">使用指南</div>
                         </div>
-                        <div class="bootstrap-admin-panel-content" style="height:200px;overflow: scroll;">
+                        <div class="bootstrap-admin-panel-content" style="height:300px;overflow: scroll;">
                             <p><b>一. 订单管理</b></p>
                             <p>1. 根据校区不同，显示不同校区需要准备的订单和历史订单。</p>
                             <p>2. 订单管理主页分两部分，a.需要准备的订单；b.所有订单历史（包含需要准备的订单）。</p>
