@@ -191,7 +191,7 @@
                             <ul>
                                 <?php
                                 echo '<li>';
-                                echo anchor('dinercontroller/showDinerManage','1. 订单管理');
+                                echo anchor('admincontroller/showOrderPanel','1. 订单管理');
                                 echo '</li>';
 
                                 echo '<li>';
