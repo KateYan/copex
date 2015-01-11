@@ -63,8 +63,6 @@ class Vipcontroller extends MY_Controller{
 
     // save edit vip user's information
     public function editVip(){
-//        var_dump($_POST);
-//        die();
 
         $userId = $_POST['userId'];
         $this->load->model('user');
@@ -137,12 +135,12 @@ class Vipcontroller extends MY_Controller{
     public function showAddVip($errorCode = null){
         // check if there is error code
         $eMsg = array(
-            'wrong' => "请按照输入要求插入新VIP用户信息！",
+            'wrongphoneformat' => "请输入10位有效电话号码",
             'oldvip' => "该手机号已对应有存在的VIP用户！",
-            'oldcard' => "该会员卡已使用！",
-            'notmatch' => "两次输入的密码不匹配！",
-            'faild' => "添加会员失败！",
-            'success' => "会员已成功添加！"
+            'emptycard' => "请输入四位有效会员卡号！",
+            'nocard' => "您输入的会员卡不存在！",
+            'inuse' => "该会员卡已被其他用户使用！",
+            'wrongbalance' => "请输入50-300的会员卡余额"
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
@@ -157,36 +155,51 @@ class Vipcontroller extends MY_Controller{
 
     // using posted new vip information to add new vip
     public function addVip(){
+//        var_dump($_POST);
+//        echo $_POST['vipNumber'];
+//        die();
         // check all inputs validation
+        // 1. check phone number
+        $this->form_validation->set_rules('vipPhone','Phone','trim|required|integer|numeric|exact_length[10]');
         if($this->form_validation->run()==FALSE){
-            return redirect('vipcontroller/showAddVip/wrong');
+            return redirect('vipcontroller/showAddVip/wrongphoneformat');
         }
+
         $this->load->model('user');
         // check if phone number has already exit
         $table = "user";
         $columnName['uphone'] = "uphone";
-        if($this->user->findVip($table,$columnName['uphone'],$_POST['userPhone'])){
+        if($this->user->findVip($table,$columnName['uphone'],$_POST['vipPhone'])){
             return redirect('vipcontroller/showAddVip/oldvip');
         }
-        // check if vip card number has already exit
-        $table = "vipcard";
-        $columnName['vnumber'] = "vnumber";
-        if($this->user->findVip($table,$columnName['vnumber'],$this->input->post('vipNumber'))){
-            return redirect('vipcontroller/showAddVip/oldcard');
-        }
-        // check if two password are match
-        if($_POST['newPassword'] !=$_POST['checkNewPassword']){
-            return redirect('vipcontroller/showAddVip/notmatch');
-        }
-        $passWord = md5($_POST['newPassword']);
 
-        // create new VIP
-        $newVip = $this->user->newVip($_POST['userPhone'],$_POST['vipNumber'],$_POST['vipBalance'],$passWord);
-        if(!$newVip){
-            return redirect('vipcontroller/showAddVip/faild');
-        }
-        return redirect('vipcontroller/showAddVip/success');
+        if(!isset($_POST['vipNumber'])){//update card number
+            return redirect('vipcontroller/showAddVip/emptycard');
+        }else{
+            // check vip-card's status
+            $this->load->model('vipcard');
+            $vipCard = $this->vipcard->findVipCardByNumber($_POST['vipNumber']);
 
+            if(!$vipCard){// if the card entered doesn't exist
+                return redirect('vipcontroller/showAddVip/nocard');
+            }elseif($vipCard->uid != null){// if the card is in use
+                return redirect('vipcontroller/showAddVip/inuse');
+            }else{// the card is safe to use
+                // check if there is card's balance is posted
+                if(!isset($_POST['vipBalance'])){
+                    return redirect('vipcontroller/showAddVip/wrongbalance');
+                }else{
+                    $this->form_validation->set_rules('vipBalance','VipCardBalance','trim|required|greater_than[49]|less_than[301]');
+                    if($this->form_validation->run()==FALSE){
+                        return redirect('vipcontroller/showAddVip/wrongbalance');
+                    }
+                    // create new vip user
+                    $vip = $this->user->newVip($_POST['vipPhone'],$_POST['vipNumber'],$_POST['vipBalance']);
+                    return redirect("vipcontroller/showEditVip?vipUser=$vip");
+                }
+
+            }
+        }
     }
 
     // clear session for go back anchor

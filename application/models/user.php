@@ -180,24 +180,24 @@ class User extends CI_Model {
     /*
      * create new vip user
      */
-    public function newVip($uphone,$vnumber,$vbalance,$vpassword){
-        // first create new vipcard row
-        $sql1 = "INSERT INTO vipcard(vnumber,vbalance,vpassword) VALUES (".$this->db->escape($vnumber).",".$this->db->escape($vbalance).",".$this->db->escape($vpassword).")";
-        $this->db->query($sql1);
-        $vipid = $this->db->insert_id();
-
+    public function newVip($uphone,$vnumber,$vbalance){
+        // first update card
+        $sql_balance = "UPDATE vipcard SET vbalance=
+".$this->db->escape($vbalance)." WHERE vnumber=".$this->db->escape($vnumber)."";
+        $this->db->query($sql_balance);
+        // find card's id
+        $sql_card = "SELECT vipid FROM vipcard WHERE vnumber=$vnumber";
+        $query_card = $this->db->query($sql_card);
+        $card = $query_card->row(0);
         // create new vip user basic information
 
         $uhash = hash('md5', rand(10000,99999));
         $created = date('Y-m-d H:i:s');
-        $sql2 = "INSERT INTO `user`(vipid,uphone,uhash,ordered,created) VALUES (".$this->db->escape($vipid).",".$this->db->escape($uphone).",".$this->db->escape($uhash).",'0',".$this->db->escape($created).")";
-        $this->db->query($sql2);
-        $num = $this->db->affected_rows();
+        $sql_vip = "INSERT INTO `user`(vipid,uphone,uhash,ordered,created) VALUES (".$this->db->escape($card->vipid).",".$this->db->escape($uphone).",".$this->db->escape($uhash).",'0',".$this->db->escape($created).")";
+        $this->db->query($sql_vip);
+        $vip = $this->db->insert_id();
 
-        if($num == 1){
-            return true;
-        }
-        return false;
+        return $vip;
 
     }
 

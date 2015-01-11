@@ -104,56 +104,44 @@
                                     echo form_open('vipcontroller/addVip',$attributes);
                                     echo form_close();
                                     ?>
-                                    <div class="form-group<?php if(isset($eMsg['oldvip'])){echo " has-error";}?>">
+                                    <div class="form-group<?php if(isset($eMsg['wrongphoneformat'])||isset($eMsg['oldvip'])){echo " has-error";}?>">
                                         <label class="col-lg-2 control-label">联系电话</label>
                                         <div class="col-lg-10">
-                                            <input form="addVip" class="form-control" type="tel" name="userPhone"/>
+                                            <input form="addVip" class="form-control" type="tel" name="vipPhone" <?php if(isset($_SESSION['error']['uphone'])){$phone = $_SESSION['error']['uphone'];echo "value=$phone";}?>/>
                                             <?php
                                             if(isset($eMsg['oldvip'])){
                                                 echo '<span class="help-block">'.$eMsg['oldvip'].'</span>';
-                                            }else{
-                                                echo '<span class="help-block">'."请输入10位不含除数字外任何字符的有效手机号码".'</span>';
+                                            }elseif(isset($eMsg['wrongphoneformat'])){
+                                                echo '<span class="help-block">'.$eMsg['wrongphoneformat'].'</span>';
                                             }
                                             ?>
                                         </div>
                                     </div>
-                                    <div class="form-group<?php if(isset($eMsg['oldcard'])){echo " has-error";}?>">
+                                    <div class="form-group<?php if(isset($eMsg['emptycard'])||isset($eMsg['nocard'])||isset($eMsg['inuse'])){echo " has-error";}?>">
                                         <label class="col-lg-2 control-label">会员卡号</label>
                                         <div class="col-lg-10">
-                                            <input form="addVip" class="form-control" type="text" name="vipNumber"/>
+                                            <input form="addVip" class="form-control" type="text" name="vipNumber" <?php if(isset($_SESSION['error']['vnumber'])){$number = $_SESSION['error']['vnumber'];echo "value=$number";}?>/>
                                             <?php
-                                            if(isset($eMsg['oldcard'])){
-                                                echo '<span class="help-block">'.$eMsg['oldcard'].'</span>';
-                                            }else{
-                                                echo '<span class="help-block">'."请输入4位有效会员卡卡号".'</span>';
+                                            if(isset($eMsg['emptycard'])){
+                                                echo '<span class="help-block">'.$eMsg['emptycard'].'</span>';
+                                            }elseif(isset($eMsg['nocard'])){
+                                                echo '<span class="help-block">'.$eMsg['nocard'].'</span>';
+                                            }elseif(isset($eMsg['inuse'])){
+                                                echo '<span class="help-block">'.$eMsg['inuse'].'</span>';
                                             }
                                             ?>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group<?php if(isset($eMsg['wrongbalance'])){echo " has-error";}?>">
                                         <label class="col-lg-2 control-label">会员卡面额</label>
                                         <div class="col-lg-10">
                                             <div class="input-group">
                                                 <span class="input-group-addon" style="border-bottom-right-radius:0px;border-top-right-radius: 0px; ">$</span>
-                                                <input form="addVip" class="form-control" type="text" name="vipBalance"/>
+                                                <input form="addVip" class="form-control" type="text" name="vipBalance" <?php if(isset($_SESSION['error']['vbalance'])){$balance = $_SESSION['error']['vbalance'];echo "value=$balance";}?>/>
                                             </div>
-                                            <span class="help-block">请输入$50-$300之间的面值</span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label">设置支付密码</label>
-                                        <div class="col-lg-10">
-                                            <input form="addVip" class="form-control" type="password" name="newPassword" />
-                                            <span class="help-block">请输入不含除数字/字母/下划线/破折号以外其他字符的6-10位密码</span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group<?php if(isset($eMsg['notmatch'])){echo " has-error";}?>">
-                                        <label class="col-lg-2 control-label">确认支付密码</label>
-                                        <div class="col-lg-10">
-                                            <input form="addVip" class="form-control" type="password" name="checkNewPassword" />
                                             <?php
-                                            if(isset($eMsg['notmatch'])){
-                                                echo '<span class="help-block">'.$eMsg['notmatch'].'</span>';
+                                            if(isset($eMsg['wrongbalance'])){
+                                                echo '<span class="help-block">'.$eMsg['wrongbalance'].'</span>';
                                             }
                                             ?>
                                         </div>
