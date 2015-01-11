@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: kunyan
  * Date: 1/10/2015
- * Time: 3:56 PM
+ * Time: 6:10 PM
  */
 ?>
 <!-- Vendors -->
@@ -78,7 +78,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default bootstrap-admin-no-table-panel">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">编辑会员卡
+                            <div class="text-muted bootstrap-admin-box-title">添加新会员卡
 
                                 <?php
                                 if(isset($eMsg['success'])){
@@ -95,67 +95,66 @@
                                 <fieldset>
                                     <legend>会员卡信息</legend>
                                     <?php
-                                    $attributes = array('id'=>'editVipCard');
-                                    echo form_open('cardcontroller/editVipCard',$attributes);
+                                    $attributes = array('id'=>'addCard');
+                                    echo form_open('cardcontroller/addCard',$attributes);
                                     echo form_close();
                                     ?>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label">会员卡ID</label>
-                                        <div class="col-lg-10">
-                                            <input form="editVipCard" class="form-control" type="text" name="vipId" value="<?php echo $_SESSION['vipCard']->vipid; ?>" readonly/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
+
+                                    <div class="form-group<?php if(isset($eMsg['wrong'])||isset($eMsg['wrongpass'])){echo " has-error";}?>">
                                         <label class="col-lg-2 control-label">会员卡号</label>
                                         <div class="col-lg-10">
-                                            <input form="editVipCard" class="form-control" type="text" name="vipNumber" value="<?php echo $_SESSION['vipCard']->vnumber; ?>" disabled/>
+                                            <input form="addCard" class="form-control" type="text" name="vipNumber" required/>
+                                            <?php
+                                            if(isset($eMsg['wrong'])){
+                                                echo '<span class="help-block">'."请输入4位有效数字作为会员卡号".'</span>';
+                                            }
+                                            ?>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group<?php if(isset($eMsg['wrong'])||isset($eMsg['wrongpass'])){echo " has-error";}?>">
                                         <label class="col-lg-2 control-label">会员卡余额</label>
                                         <div class="col-lg-10">
                                             <div class="input-group">
                                                 <span class="input-group-addon" style="border-bottom-right-radius:0px;border-top-right-radius: 0px; ">$</span>
-                                                <input form="editVipCard" class="form-control" type="text" name="vipBalance" value="<?php echo $_SESSION['vipCard']->vbalance; ?>"/>
+                                                <input form="addCard" class="form-control" type="text" name="vipBalance" required/>
                                             </div>
                                             <?php
                                             if(isset($eMsg['wrong'])){
-                                                echo '<span class="help-block">'.$eMsg['wrong'].'</span>';
+                                                echo '<span class="help-block">'."请输入50-300的会员卡余额".'</span>';
                                             }
                                             ?>
                                         </div>
                                     </div>
-                                    <div class="form-group<?php if(isset($eMsg['pswmiss'])||isset($eMsg['wrongpass'])){echo " has-error";}?>">
-                                        <label class="col-lg-2 control-label">重置支付密码</label>
+                                    <div class="form-group<?php if(isset($eMsg['pswmiss'])||isset($eMsg['wrongpass'])||isset($eMsg['wrong'])){echo " has-error";}?>">
+                                        <label class="col-lg-2 control-label">支付密码</label>
                                         <div class="col-lg-10">
-                                            <input form="editVipCard" class="form-control" type="password" name="newPassword" />
+                                            <input form="addCard" class="form-control" type="password" name="newPassword" required />
                                             <?php
-                                            if(isset($eMsg['pswmiss'])){
-                                                echo '<span class="help-block">'.$eMsg['pswmiss'].'</span>';
-                                            }elseif(isset($eMsg['wrongpass'])){
-                                                echo '<span class="help-block">'.$eMsg['wrongpass'].'</span>';
+                                            if(isset($eMsg['wrong'])){
+                                                echo '<span class="help-block">'."输入不含除数字/字母/下划线/破折号以外其他字符的6-10位密码".'</span>';
                                             }
                                             ?>
                                         </div>
                                     </div>
-                                    <div class="form-group<?php if(isset($eMsg['pswnotmatch'])){echo " has-error";}?>">
-                                        <label class="col-lg-2 control-label">再次输入重置密码</label>
+                                    <div class="form-group<?php if(isset($eMsg['pswnotmatch'])||isset($eMsg['wrong'])){echo " has-error";}?>">
+                                        <label class="col-lg-2 control-label">再次输入支付密码</label>
                                         <div class="col-lg-10">
-                                            <input form="editVipCard" class="form-control" type="password" name="checkNewPassword" />
+                                            <input form="addCard" class="form-control" type="password" name="checkNewPassword" required />
                                             <?php
                                             if(isset($eMsg['pswnotmatch'])){
                                                 echo '<span class="help-block">'.$eMsg['pswnotmatch'].'</span>';
+                                            }elseif(isset($eMsg['pswnotmatch'])){
+                                                echo '<span class="help-block">'."输入不含除数字/字母/下划线/破折号以外其他字符的6-10位密码".'</span>';
                                             }
                                             ?>
                                         </div>
                                     </div>
-                                    <button form="editVipCard" type="submit" class="btn btn-primary">
+                                    <button form="addCard" type="submit" class="btn btn-primary">
                                         <i class="glyphicon glyphicon-inbox"> 保存修改</i>
                                     </button>
                                     <?php
                                     $attributes = array('class'=>'btn btn-default','type'=>'reset','style'=>'margin-right:5px;');
-                                    $vipId = $_SESSION['vipCard']->vipid;
-                                    echo anchor("cardcontroller/cardDetail/$vipId",'<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes);
+                                    echo anchor("cardcontroller/addCard",'<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes);
 
                                     $attributes = array('class'=>'btn btn-success','type'=>'reset');
                                     echo anchor('cardcontroller/goback','<i class="glyphicon glyphicon-backward"> 回会员卡列表</i>',$attributes);

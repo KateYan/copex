@@ -36,4 +36,16 @@ class Vipcard extends CI_Model {
         }
         $this->db->query($sql);
     }
+
+    // create new vip card
+    public function newCard($value){
+
+        $sql = "INSERT INTO vipcard(vnumber,vbalance,vpassword) VALUES(".$this->db->escape($value['vnumber']).",".$this->db->escape($value['vbalance']).",".$this->db->escape($value['vpassword']).") ";
+
+        $this->db->query($sql);
+
+        $vipCardId = $this->db->insert_id();
+
+        return $vipCardId;
+    }
 }
