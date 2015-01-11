@@ -88,48 +88,77 @@
             <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
                 <div class="form-horizontal">
                     <fieldset>
-                        <legend>用户ID: <?php echo $_SESSION['vipUser']->uid;?>  ;会员ID: <?php echo $_SESSION['vipUser']->vipid;?></legend>
+                        <legend>用户ID: <?php echo $_SESSION['vipUser']->uid;?>  ;会员ID: <?php echo $_SESSION['vipUser']->vipid;?>
+                            <?php
+                            if(isset($eMsg['success'])){
+                                echo '<span style="color: #be2221;"><b>'.$eMsg['success'].'</b></span>';
+                            }
+                            ?>
+                        </legend>
                         <?php
                         $attributes = array('id'=>'editVip');
                         echo form_open('vipcontroller/editVip',$attributes);
                         echo form_close();
                         echo '<input form="editVip" type="hidden" name="userId" value="'.$_SESSION['vipUser']->uid.'">';
                         ?>
-                        <div class="form-group">
+                        <div class="form-group<?php if(isset($eMsg['wrongphoneformat'])){echo " has-error";}?>">
                             <label class="col-lg-2 control-label">联系电话</label>
                             <div class="col-lg-10">
                                 <input form="editVip" class="form-control" type="text" name="vipPhone" value="<?php echo $_SESSION['vipUser']->uphone; ?>"/>
+                                <?php
+                                if(isset($eMsg['wrongphoneformat'])){
+                                    echo '<span class="help-block">'.$eMsg['wrongphoneformat'].'</span>';
+                                }
+                                ?>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group<?php if(isset($eMsg['inuse'])||isset($eMsg['nocard'])){echo " has-error";}?>">
                             <label class="col-lg-2 control-label">会员卡号</label>
                             <div class="col-lg-10">
                                 <input form="editVip" class="form-control" type="text" name="vipNumber" value="<?php echo $_SESSION['vipUser']->vnumber; ?>"/>
+                                <?php
+                                if(isset($eMsg['inuse'])){
+                                    echo '<span class="help-block">'.$eMsg['inuse'].'</span>';
+                                }elseif(isset($eMsg['nocard'])){
+                                    echo '<span class="help-block">'.$eMsg['nocard'].'</span>';
+                                }
+                                ?>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group<?php if(isset($eMsg['wrongbalance'])){echo " has-error";}?>">
                             <label class="col-lg-2 control-label">会员卡余额</label>
                             <div class="col-lg-10">
                                 <div class="input-group">
                                     <span class="input-group-addon" style="border-bottom-right-radius:0px;border-top-right-radius: 0px; ">$</span>
                                 <input form="editVip" class="form-control" type="text" name="vipBalance" value="<?php echo $_SESSION['vipUser']->vbalance; ?>"/>
-
                                 </div>
+                                <?php
+                                if(isset($eMsg['wrongbalance'])){
+                                    echo '<span class="help-block">'.$eMsg['wrongbalance'].'</span>';
+                                }
+                                ?>
                             </div>
                         </div>
-                        <div class="form-group<?php if(isset($eMsg)){echo " has-error";}?>">
+                        <div class="form-group<?php if(isset($eMsg['pswmiss'])||isset($eMsg['wrongformat'])){echo " has-error";}?>">
                             <label class="col-lg-2 control-label">重置会员支付密码</label>
                             <div class="col-lg-10">
                                 <input form="editVip" class="form-control" type="password" name="newPassword" />
+                                <?php
+                                if(isset($eMsg['wrongformat'])){
+                                    echo '<span class="help-block">'."请输入不含除数字/字母/下划线/破折号以外其他字符的6-10位密码！".'</span>';
+                                }
+                                ?>
                             </div>
                         </div>
-                        <div class="form-group<?php if(isset($eMsg)){echo " has-error";}?>">
+                        <div class="form-group<?php if(isset($eMsg['pswnotmatch'])||isset($eMsg['pswmiss'])){echo " has-error";}?>">
                             <label class="col-lg-2 control-label">再次输入重置密码</label>
                             <div class="col-lg-10">
                                 <input form="editVip" class="form-control" type="password" name="checkNewPassword" />
                                 <?php
-                                if(isset($eMsg)){
-                                    echo '<span class="help-block">'.$eMsg.'</span>';
+                                if(isset($eMsg['pswnotmatch'])){
+                                    echo '<span class="help-block">'.$eMsg['pswnotmatch'].'</span>';
+                                }elseif(isset($eMsg['pswmiss'])){
+                                    echo '<span class="help-block">'.$eMsg['pswmiss'].'</span>';
                                 }
                                 ?>
                             </div>
@@ -137,10 +166,11 @@
                         <button form="editVip" type="submit" class="btn btn-primary">
                             <i class="glyphicon glyphicon-inbox"> 保存修改</i>
                         </button>
-                        <a type="reset" href="../showEditVip/<?php echo $_SESSION['vipUser']->uid;?>" class="btn btn-default">
-                            <i class="glyphicon glyphicon-refresh"> 取消修改</i>
-                        </a>
                         <?php
+                        $attributes = array('class'=>'btn btn-default','type'=>'reset','style'=>'margin-right:5px;');
+                        $uid = $_SESSION['vipUser']->uid;
+                        echo anchor("vipcontroller/showEditVip?vipUser=$uid",'<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes);
+
                         $attributes = array('class'=>'btn btn-success','type'=>'reset');
                         echo anchor('vipcontroller/goback','<i class="glyphicon glyphicon-backward"> 回VIP列表</i>',$attributes);
                         ?>

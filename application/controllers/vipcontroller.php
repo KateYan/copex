@@ -12,11 +12,6 @@ class Vipcontroller extends MY_Controller{
     public function __construct(){
         parent::__construct();
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('userPhone','Phone','trim|required|integer|numeric|exact_length[10]');
-        $this->form_validation->set_rules('vipNumber','VipCardNumber','trim|required|integer|numeric|exact_length[4]');
-        $this->form_validation->set_rules('vipBalance','VipCardBalance','trim|required|greater_than[49]|less_than[301]');
-        $this->form_validation->set_rules('newPassword','VipPassword','trim|required|min_length[6]|max_length[10]|alpha_dash');
-        $this->form_validation->set_rules('checkNewPassword','AgainPassword','trim|required|min_length[6]|max_length[10]|alpha_dash');
     }
     //show Vip user manage panel
     public function showVipPanel(){
@@ -38,11 +33,15 @@ class Vipcontroller extends MY_Controller{
             'pswnotmatch' => "两次输入密码不同！请再次输入",
             'pswmiss' => "只有输入两次新密码才能重置支付密码！",
             'nocard' => "您输入的会员卡不存在！",
-            'inuse' => "您输入的会员卡正在被别的用户使用！"
+            'inuse' => "您输入的会员卡正在被别的用户使用！",
+            'wrongformat' => "密码格式不正确",
+            'wrongbalance' => "请输入50到300的余额",
+            'success' => "修改会员成功！",
+            'wrongphoneformat' => "请输入10位有效电话号码"
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
-            $data["eMsg"] = $eMsg["$errorCode"];
+            $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
         }
 
         $data['title'] = "Copex | 编辑VIP";
@@ -64,6 +63,8 @@ class Vipcontroller extends MY_Controller{
 
     // save edit vip user's information
     public function editVip(){
+//        var_dump($_POST);
+//        die();
 
         $userId = $_POST['userId'];
         $this->load->model('user');
@@ -71,32 +72,55 @@ class Vipcontroller extends MY_Controller{
             $columnName = "cid";
             $this->user->updateVip($userId,$columnName,$_POST['campusId']);
         }
-        if(!empty($_POST['vipPhone'])){//update phone
+        if(isset($_POST['vipPhone'])){//update phone
+//            echo "empty";
+//            die();
+            $_SESSION['vipUser']->uphone = $_POST['vipPhone'];
             // check if vnumber is 4-digits number
+            $this->form_validation->set_rules('vipPhone','Phone','trim|required|integer|numeric|exact_length[10]');
+            if($this->form_validation->run()==FALSE){
+                return redirect('vipcontroller/showEditVip/wrongphoneformat');
+            }
+
+            // update it
             $columnName = "uphone";
             $this->user->updateVip($userId,$columnName,$_POST['vipPhone']);
+
         }
-        if(!empty($_POST['vipNumber'])){//update card number
+        if(isset($_POST['vipNumber'])){//update card number
+            $_SESSION['vipUser']->vnumber = $_POST['vipNumber'];
             // check vip-card's status
             $this->load->model('vipcard');
             $vipCard = $this->vipcard->findVipCardByNumber($_POST['vipNumber']);
 
-            if(!$vipCard){
+            if(!$vipCard){// if the card entered doesn't exist
                 return redirect('vipcontroller/showEditVip/nocard');
-            }elseif($vipCard->uid == $userId){
+            }elseif($vipCard->uid != $userId){// if the card is in use
                 return redirect('vipcontroller/showEditVip/inuse');
+            }else{// the card is safe to use
+                $this->user->changeVipCardForUser($userId,$_POST['vipNumber']);
             }
-
-            if(!$this->user->changeVipCardForUser($userId,$_POST['vipNumber'])){
-                return redirect('vipcontroller/showEditVip/wooo');
-            }
-
         }
-        if(!empty($_POST['vipBalance'])){// update balance
+        if(isset($_POST['vipBalance'])){// update balance
+            $_SESSION['vipUser']->vbalance = $_POST['vipBalance'];
+            // check if balance is validate to use
+            $this->form_validation->set_rules('vipBalance','VipCardBalance','trim|required|greater_than[49]|less_than[301]');
+            if($this->form_validation->run()==FALSE){
+                return redirect('vipcontroller/showEditVip/wrongbalance');
+            }
+
             $columnName = "vbalance";
             $this->user->updateVipCardByUser($userId,$columnName,$_POST['vipBalance']);
         }
-        if(!empty($_POST['newPassword'])&&!empty($_POST['checkNewPassword'])){
+        if(isset($_POST['newPassword'])&&isset($_POST['checkNewPassword'])){
+            // check if entered pasword validate the format
+            $this->form_validation->set_rules('newPassword','VipPassword','trim|min_length[6]|max_length[10]|alpha_dash');
+            $this->form_validation->set_rules('checkNewPassword','AgainPassword','trim|min_length[6]|max_length[10]|alpha_dash');
+
+            if($this->form_validation->run()==FALSE){
+                return redirect('vipcontroller/showEditVip/wrongformat');
+            }
+
             if($_POST['newPassword']!=$_POST['checkNewPassword']){
                 return redirect('vipcontroller/showEditVip/pswnotmatch');
             }
@@ -106,8 +130,7 @@ class Vipcontroller extends MY_Controller{
         }elseif((!empty($_POST['newPassword'])&&empty($_POST['checkNewPassword']))||(empty($_POST['newPassword'])&&!empty($_POST['checkNewPassword']))){
             return redirect('vipcontroller/showEditVip/pswmiss');// didn't fulfill both password area
         }
-        unset($_SESSION['vipUser']);
-        return redirect('vipcontroller/showVipPanel');
+        return redirect('vipcontroller/showEditVip/success');
     }
 
     // show add vip user's page

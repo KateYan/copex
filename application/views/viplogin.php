@@ -28,31 +28,31 @@
     </script>
 </head>
 <body>
-<div class="content_new_l">
-    <strong>
-        <img src="/copex/css/images/memberLogin@2x.png" width="100" />
-    </strong>
-    <?php
-    $attributes=array('class'=>'login_form','id'=>'viplogin');
-    echo form_open('userlogincontroller/vipLogin',$attributes);
-    ?>
-	<span class="loginTextBox">
-    	<input name="phoneNumber" type="tel" class="login_telText" placeholder="请输入手机号"/>
-    </span>
-    <p style="color:red;z-index: 5000;"><?php echo (isset($eMsg))? $eMsg : '';  ?></p>
-    <button style="border:none;" form="viplogin" class="btn_login">登录</button>
-    <?php
-    echo form_close();
-    ?>
-</div>
-<div class="login_footer">
-    <?php
-    $attributes = array('class'=>'btn_loginFoot inotMemb');
-    echo anchor('marketcontroller/showDailyMenu','我还不是会员',$attributes);
+    <div class="content_new_l">
+        <strong>
+            <img src="/copex/css/images/memberLogin@2x.png" width="100" />
+        </strong>
+        <?php
+        $attributes=array('class'=>'login_form','id'=>'viplogin');
+        echo form_open('userlogincontroller/vipLogin',$attributes);
+        ?>
+        <span class="loginTextBox">
+            <input name="phoneNumber" type="tel" class="login_telText" placeholder="请输入手机号"/>
+        </span>
+        <p style="color:red;z-index: 5000;"><?php echo (isset($eMsg))? $eMsg : '';  ?></p>
+        <button style="border:none;" form="viplogin" class="btn_login">登录</button>
+        <?php
+        echo form_close();
+        ?>
+    </div>
+    <div class="login_footer">
+        <?php
+        $attributes = array('class'=>'btn_loginFoot inotMemb');
+        echo anchor('marketcontroller/showDailyMenu','我还不是会员',$attributes);
 
-    $attributes = array('class'=>'btn_loginFoot whyResMember');
-    echo anchor('userstatuscontroller/showInstruction2','为什么要成为会员',$attributes);
-    ?>
-</div>
+        $attributes = array('class'=>'btn_loginFoot whyResMember');
+        echo anchor('userstatuscontroller/showInstruction2','为什么要成为会员',$attributes);
+        ?>
+    </div>
 </body>
 </html>
