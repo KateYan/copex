@@ -185,13 +185,29 @@
                 <div class="col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">Details</div>
+                            <div class="text-muted bootstrap-admin-box-title">COPEX系统运营管理项</div>
                         </div>
                         <div class="bootstrap-admin-panel-content">
                             <ul>
-                                <li>An admin theme built with <a href="http://getbootstrap.com" target="_blank">Bootstrap 3.x.</a></li>
-                                <li>Free for personal and commercial use</li>
-                                <li>Inspired by and based on <a href="https://github.com/VinceG/Bootstrap-Admin-Theme" target="_blank">Bootstrap-Admin-Theme</a></li>
+                                <?php
+                                echo '<li>';
+                                echo anchor('dinercontroller/showDinerManage','1. 订单管理');
+                                echo '</li>';
+
+                                echo '<li>';
+                                echo anchor('preparecontroller/showDinerDishPanel','2. 备餐管理');
+                                echo '</li>';
+
+                                echo '<li>';
+                                echo anchor('menucontroller/showMenuManage','3. 菜单管理');
+                                echo '</li>';
+
+                                echo '<li>';
+                                echo anchor('dishcontroller/showDishPanel','4. 菜品管理');
+                                echo '</li>';
+
+
+                                ?>
                             </ul>
                         </div>
                     </div>
@@ -199,19 +215,29 @@
                 <div class="col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">Source</div>
+                            <div class="text-muted bootstrap-admin-box-title">COPEX系统维护管理项</div>
                         </div>
                         <div class="bootstrap-admin-panel-content">
                             <ul>
-                                <li>
-                                    <a href="https://github.com/meritoo/Bootstrap-3-Admin-Theme" target="_blank">Github Repository</a>
-                                </li>
-                                <li>
-                                    <a href="https://github.com/meritoo/Bootstrap-3-Admin-Theme/archive/master.zip">Download (.zip package)</a>
-                                </li>
-                                <li>
-                                    License: MIT (see below)
-                                </li>
+                                <?php
+                                echo '<li>';
+                                echo anchor('dinercontroller/showDinerManage','1. 餐厅管理');
+                                echo '</li>';
+
+                                echo '<li>';
+                                echo anchor('vipcontroller/showVipPanel','2. 会员管理');
+                                echo '</li>';
+
+                                echo '<li>';
+                                echo anchor('cardcontroller/showCardList','3. 会员卡管理');
+                                echo '</li>';
+
+                                echo '<li>';
+                                echo anchor('basiccontroller/showBasicManage','4. 基本管理');
+                                echo '</li>';
+
+
+                                ?>
                             </ul>
                         </div>
                     </div>
@@ -222,14 +248,40 @@
                 <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">License</div>
+                            <div class="text-muted bootstrap-admin-box-title">使用指南</div>
                         </div>
-                        <div class="bootstrap-admin-panel-content">
-                            <p>The MIT License (MIT)</p>
-                            <p>Copyright © 2013 - Meritoo.pl &lt;github [at] meritoo [dot] pl&gt;</p>
-                            <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
-                            <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
-                            <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+                        <div class="bootstrap-admin-panel-content" style="height:200px;overflow: scroll;">
+                            <p><b>一. 订单管理</b></p>
+                            <p>1. 根据校区不同，显示不同校区需要准备的订单和历史订单。</p>
+                            <p>2. 订单管理主页分两部分，a.需要准备的订单；b.所有订单历史（包含需要准备的订单）。</p>
+                            <p>3. 对所有订单的操作分为两大类，一类为变更订单付款状态，另一类为变更订单收货的状态。一个订单只有当既付款了，也收货了，才算正常完成。</p>
+                            <p>4. 预备订单部分配有打印功能，打印显示某校区需要准备的所有订单列表。同时，点击订单号可以查看该订单的详情（包含具体菜品内容）</p>
+                            <p><b>二. 备餐管理</b></p>
+                            <p>1. 首先选择要备餐的餐厅，会显示该餐厅今天需要准备的主食和小食菜品两类。同时可以点击打印，给各个餐厅准备菜品。</p>
+                            <p>2. 点击“查看分配列表”，选择校区，可以查看该餐厅需要往该校区准备的菜品有多少，以供配餐人员对刚从餐厅取出的菜品按校区进行分类。可以打印。</p>
+                            <p>3. 接着可以点击“订单分配”，查看该餐厅配往该校区的菜品属于哪些个订单。可以打印。</p>
+                            <p><b>三. 餐厅管理</b></p>
+                            <p>1. 餐厅管理主页包含所有餐厅列表，包含操作：a.点击餐厅ID查看详情。b.点击按钮添加新餐厅</p>
+                            <p>2. 餐厅编辑中，如果餐厅有菜品处于正在当前使用菜单中使用的而状态，删除餐厅会不成功。</p>
+                            <p><b>四. 菜品管理</b></p>
+                            <p>1. 菜品管理主页会显示所有主食和小食的菜品列表，包含操作：a. 编辑菜品；b.添加菜品</p>
+                            <p>2. 对于编辑菜品，如果需要变更菜品图片，需要先进行图片上传，然后再编辑菜品其他信息。</p>
+                            <p>3. 对于新建菜品，也请先上传菜品图片再添加菜品其他信息。</p>
+                            <p>4. 上传菜品请尽量不要使用中文图片名。</p>
+                            <p><b>五. 菜单管理</b></p>
+                            <p>1. 选择校区查看该校区主食菜单列表和小食菜单列表。</p>
+                            <p>2. 菜单操作包含：a.更改菜单库存；b.变更使用菜单；c.添加菜单；d.删除未在使用的菜单。</p>
+                            <p><b>六. 会员管理</b></p>
+                            <p>1. 会员管理主页显示所有会员信息列表。</p>
+                            <p>2. 点击会员用户ID可以查看会员所有信息，并可以为其变更会员卡或者充值。</p>
+                            <p>3. 点击添加按钮添加新会员。</p>
+                            <p><b>七. 会员卡管理</b></p>
+                            <p>1. 会员卡管理可以添加新会员卡或者修改预存的支付密码。</p>
+                            <p><b>八. 基本管理</b></p>
+                            <p>1. 基本管理分为两大块：a.时间管理；b.校区管理。</p>
+                            <p>2. 时间管理可以更改下单起止时间和取餐起止时间。</p>
+                            <p>3. 校区管理可以修改校区信息或者删除校区。</p>
+
                         </div>
                     </div>
                 </div>

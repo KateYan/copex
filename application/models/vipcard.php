@@ -56,15 +56,7 @@ class Vipcard extends CI_Model {
             return false;
         }
         $vipcard = $query->row(0);
-//        if($vipcard->uid!=null){
-//            return 1;
-//        }
         return $vipcard;
     }
 
-//    // update card's balance
-//    public function updateCardBalance($vnumber,$vbalance){
-//        $sql = "UPDATE vipcard SET vbalance=$vbalance WHERE vnumber=$vnumber";
-//        $this->db->query($sql);
-//    }
 }
