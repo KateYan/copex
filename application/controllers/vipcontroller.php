@@ -36,7 +36,9 @@ class Vipcontroller extends MY_Controller{
         // check if there is error code
         $eMsg = array(
             'pswnotmatch' => "两次输入密码不同！请再次输入",
-            'pswmiss' => "只有输入两次新密码才能重置支付密码！"
+            'pswmiss' => "只有输入两次新密码才能重置支付密码！",
+            'nocard' => "您输入的会员卡不存在！",
+            'inuse'
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
@@ -75,8 +77,15 @@ class Vipcontroller extends MY_Controller{
             $this->user->updateVip($userId,$columnName,$_POST['vipPhone']);
         }
         if(!empty($_POST['vipNumber'])){//update card number
-            $columnName = "vnumber";
-            $this->user->updateVipCard($userId,$columnName,$_POST['vipNumber']);
+            // check vip-card's status
+            $this->load->model('vipcard');
+            if($this->vipcard->findVipCardByNumber($_POST['vipNumber'])){
+                $columnName = "vnumber";
+                $this->user->updateVipCard($userId,$columnName,$_POST['vipNumber']);
+            }else{
+                return redirect('vipcontroller/showEditVip/nocard');
+            }
+
         }
         if(!empty($_POST['vipBalance'])){// update balance
             $columnName = "vbalance";
