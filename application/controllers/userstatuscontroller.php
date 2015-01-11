@@ -110,4 +110,8 @@ class Userstatuscontroller extends MY_Controller {
         $this->load->view('waitting');
     }
 
+    public function showMapping(){
+        $this->load->view('mapping');
+    }
+
 }

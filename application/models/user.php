@@ -148,10 +148,23 @@ class User extends CI_Model {
         $num = $this->db->affected_rows();
 
     }
+    // change vipcard for user
+    public function changeVipCardForUser($userId,$vnumber){
+        // FIND CARD first
+        $sql = "SELECT vipid FROM vipcard WHERE vnumber= $vnumber";
+        $query = $this->db->query($sql);
+        if($query->num_rows()!=1){
+            return false;
+        }
+        $vipcard = $query->row(0);
+        //change vipid for user
+        $sql_vip = "UPDATE `user` SET vipid=$vipcard->vipid WHERE uid=$userId";
+        $this->db->query($sql_vip);
+    }
     /*
      * update vip card information
      */
-    public function updateVipCard($userId,$columnName,$value){
+    public function updateVipCardByUser($userId,$columnName,$value){
 
         // find vipid first
         $sql0 = "SELECT vipid FROM `user` WHERE uid = $userId";
@@ -163,9 +176,6 @@ class User extends CI_Model {
         // find vipcard
         $sql = "UPDATE `vipcard` SET ".$columnName."='$value' WHERE vipid='$vipid'";
         $this->db->query($sql);
-        // check if the updating is successfully finished
-        $num = $this->db->affected_rows();
-
     }
     /*
      * create new vip user

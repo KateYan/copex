@@ -48,4 +48,17 @@ class Vipcard extends CI_Model {
 
         return $vipCardId;
     }
+    // find vip card by number
+    public function findVipCardByNumber($vnumber){
+        $sql = "SELECT vipcard.*, `user`.uid FROM vipcard LEFT JOIN `user` ON vipcard.vipid=`user`.vipid WHERE vipcard.vnumber=$vnumber";
+        $query = $this->db->query($sql);
+        if($query->num_rows() == 0){
+            return false;
+        }
+        $vipcard = $query->row(0);
+//        if($vipcard->uid!=null){
+//            return 1;
+//        }
+        return $vipcard;
+    }
 }

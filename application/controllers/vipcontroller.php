@@ -38,7 +38,7 @@ class Vipcontroller extends MY_Controller{
             'pswnotmatch' => "两次输入密码不同！请再次输入",
             'pswmiss' => "只有输入两次新密码才能重置支付密码！",
             'nocard' => "您输入的会员卡不存在！",
-            'inuse'
+            'inuse' => "您输入的会员卡正在被别的用户使用！"
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
@@ -79,17 +79,22 @@ class Vipcontroller extends MY_Controller{
         if(!empty($_POST['vipNumber'])){//update card number
             // check vip-card's status
             $this->load->model('vipcard');
-            if($this->vipcard->findVipCardByNumber($_POST['vipNumber'])){
-                $columnName = "vnumber";
-                $this->user->updateVipCard($userId,$columnName,$_POST['vipNumber']);
-            }else{
+            $vipCard = $this->vipcard->findVipCardByNumber($_POST['vipNumber']);
+
+            if(!$vipCard){
                 return redirect('vipcontroller/showEditVip/nocard');
+            }elseif($vipCard->uid == $userId){
+                return redirect('vipcontroller/showEditVip/inuse');
+            }
+
+            if(!$this->user->changeVipCardForUser($userId,$_POST['vipNumber'])){
+                return redirect('vipcontroller/showEditVip/wooo');
             }
 
         }
         if(!empty($_POST['vipBalance'])){// update balance
             $columnName = "vbalance";
-            $this->user->updateVipCard($userId,$columnName,$_POST['vipBalance']);
+            $this->user->updateVipCardByUser($userId,$columnName,$_POST['vipBalance']);
         }
         if(!empty($_POST['newPassword'])&&!empty($_POST['checkNewPassword'])){
             if($_POST['newPassword']!=$_POST['checkNewPassword']){
@@ -97,7 +102,7 @@ class Vipcontroller extends MY_Controller{
             }
             $columnName = "vpassword";
             $newPassword = md5($_POST['newPassword']);
-            $this->user->updateVipCard($userId,$columnName,$newPassword);
+            $this->user->updateVipCardByUser($userId,$columnName,$newPassword);
         }elseif((!empty($_POST['newPassword'])&&empty($_POST['checkNewPassword']))||(empty($_POST['newPassword'])&&!empty($_POST['checkNewPassword']))){
             return redirect('vipcontroller/showEditVip/pswmiss');// didn't fulfill both password area
         }
