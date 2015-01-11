@@ -20,9 +20,18 @@
     <title>会员登录</title>
     <link href="/copex/css/masterpage.css" rel="stylesheet" type="text/css" />
     <link href="/copex/css/viplogin.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/copex/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(".content_new_l").css("height", document.documentElement.clientHeight - 50 +"px")
+        })
+    </script>
 </head>
 <body>
-<strong><img src="/copex/css/images/memberLogin@2x.png" width="100" /></strong>
+<div class="content_new_l">
+    <strong>
+        <img src="/copex/css/images/memberLogin@2x.png" width="100" />
+    </strong>
     <?php
     $attributes=array('class'=>'login_form','id'=>'viplogin');
     echo form_open('userlogincontroller/vipLogin',$attributes);
@@ -32,7 +41,10 @@
     </span>
     <p style="color:red;z-index: 5000;"><?php echo (isset($eMsg))? $eMsg : '';  ?></p>
     <button style="border:none;" form="viplogin" class="btn_login">登录</button>
-
+    <?php
+    echo form_close();
+    ?>
+</div>
 <div class="login_footer">
     <?php
     $attributes = array('class'=>'btn_loginFoot inotMemb');
