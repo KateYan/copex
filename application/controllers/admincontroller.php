@@ -119,20 +119,40 @@ class Admincontroller extends MY_Controller{
     }
 
     // show one order's detail with order's id
-    public function showOrderDetail($orderId=null){
+    public function showOrderDetail($errorCode = null){
+
+        // check if there is error code
+        $eMsg = array(
+            'notsafe' => "该订单未付款或未取款，请变更状态后再删除！"
+        );
+
+        if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+            $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
+        }
 
         $this->load->model('order');
-        if(!empty($orderId)){
-            $data['orderDetail'] = $this->order->getOrderDetailById($orderId);
-//            var_dump($data['orderDetail']);
-//            die();
-
-            $data['title'] = "Copex | 订单详情";
-            $this->load->view('partials/adminHeader',$data);
-            $this->load->view('admin/orderDetail',$data);
-            $this->load->view('partials/adminFooter');
+        if(!isset($_GET['orderId'])){
+            if(isset($_SESSION['orderDetail'])){
+                $orderId = $_SESSION['orderDetail']['order']->oid;
+            }
+        }else{
+            $orderId = $_GET['orderId'];
         }
-        return false;
+
+        $orderDetail = $this->order->getOrderDetailById($orderId);
+
+        //clear session
+        if(isset($_SESSION['orderDetail'])){
+            unset($_SESSION['orderDetail']);
+        }
+        $_SESSION['orderDetail'] = $orderDetail;
+
+
+        $data['title'] = "Copex | 订单详情";
+        $this->load->view('partials/adminHeader',$data);
+        $this->load->view('admin/orderDetail',$data);
+        $this->load->view('partials/adminFooter');
+
     }
 
     // change order's status into ispaid
@@ -181,7 +201,28 @@ class Admincontroller extends MY_Controller{
         if(isset($_SESSION['order_campus'])){
             unset($_SESSION['order_campus']);
         }
+        if(isset($_SESSION['orderDetail'])){
+            unset($_SESSION['orderDetail']);
+        }
 
         return redirect('admincontroller/showOrderPanel');
+    }
+
+    //delete order
+    public function deleteOrder(){
+        if(!$this->input->post('orderId')){
+            return redirect('admincontroller/showOrderDetail');
+        }
+
+        $orderId = $this->input->post('orderId');
+        // check if order is safe to be deleted
+        if($_SESSION['orderDetail']['order']->ostatus == 0 || $_SESSION['orderDetail']['order']->oispaid == 0){
+            return redirect('admincontroller/showOrderDetail/notsafe');
+        }
+        $this->load->model('order');
+        $this->order->deleteOrder($orderId);
+        unset($_SESSION['orderDetail']);
+
+        return redirect('admincontroller/showOrders');
     }
 }

@@ -460,4 +460,11 @@ class Order extends CI_Model {
 
         return $detailOrder;
     }
+
+    // delete order
+
+    public function deleteOrder($orderId){
+        $sql = "DELETE FROM `order` WHERE oid = $orderId";
+        $this->db->query($sql);
+    }
 }

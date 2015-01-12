@@ -232,7 +232,7 @@
                             $oid = $prepareOrder[$i]->orderNumber;
                             echo '<td>';
                             $attributes = array('class'=>'noPrint');
-                            echo anchor("admincontroller/showOrderDetail/$oid",$oid,$attributes);
+                            echo anchor("admincontroller/showOrderDetail?orderId=$oid",$oid,$attributes);
                             echo '<p class="print">'.$oid.'</p>';
                             echo '</td>';
                             echo '<td>'.$prepareOrder[$i]->campus.'</td>';
@@ -324,9 +324,12 @@
                                 echo '<input form="history_confirmPickedup" type="hidden" name = "orderNumber" value="'.$num.'"/>';
                                 for($i=0;$i<$num;$i++){
                                     echo '<tr>';
-                                    echo '<td><a href="showOrderDetail/'.$historyOrder[$i]->orderNumber.'">';
-                                    echo $historyOrder[$i]->orderNumber;
-                                    echo '</a></td>';
+
+                                    echo '<td>';
+                                    $orderNumber = $historyOrder[$i]->orderNumber;
+                                    echo anchor("admincontroller/showOrderDetail?orderId=$orderNumber",$orderNumber);
+                                    echo '</td>';
+
                                     echo '<td>'.$historyOrder[$i]->campus.'</td>';
                                     echo '<td>'.$historyOrder[$i]->userId.'</td>';
                                     echo '<td>'.$historyOrder[$i]->cardNumber.'</td>';

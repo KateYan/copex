@@ -70,7 +70,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>订单详情</h1>
+                        <h1>订单详情
+                            <?php
+                            if(isset($eMsg['notsafe'])){
+                                echo '<span style="color: #be2221;"><b>'.$eMsg['notsafe'].'</b></span>';
+                            }
+                            ?>
+                        </h1>
                     </div>
                 </div>
             </div>
@@ -79,7 +85,16 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default bootstrap-admin-no-table-panel">
                         <div class="panel-heading">
+                            <?php
+                            $attributes = array('id'=>'deleteOrder');
+                            echo form_open('admincontroller/deleteOrder',$attributes);
+                            echo form_close();
+                            ?>
                             <div class="text-muted bootstrap-admin-box-title">订单详情
+                                <input form="deleteOrder" type="hidden" name="orderId" value="<?php echo $_SESSION['orderDetail']['order']->oid;?>"/>
+                                <button form="deleteOrder" type="submit" class="btn btn-sm btn-danger" style="float: right;margin-left:5px;">
+                                    <i class="glyphicon glyphicon-remove"> 删除该菜单</i>
+                                </button>
                                 <?php
                                 $attributes = array('class'=>'btn btn-sm btn-warning','type'=>'reset','style'=>'float:right;margin-left:5px;');
                                 echo anchor('admincontroller/goback','<i class="glyphicon glyphicon-backward"> 回订单管理主页</i>',$attributes);
@@ -94,48 +109,48 @@
                                 <fieldset>
                                     <legend>订单ID:
                                         <?php
-                                        echo $orderDetail['order']->oid;
+                                        echo $_SESSION['orderDetail']['order']->oid;
                                         echo "--用户ID:";
-                                        echo $orderDetail['order']->uid;
+                                        echo $_SESSION['orderDetail']['order']->uid;
                                         echo "--校区:";
-                                        echo $orderDetail['order']->cname;
+                                        echo $_SESSION['orderDetail']['order']->cname;
                                         ?>
                                     </legend>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="focusedInput">下单时间</label>
                                         <div class="col-lg-10">
-                                            <input readonly  class="form-control"  value="<?php echo $orderDetail['order']->odate; ?>"/>
+                                            <input readonly  class="form-control"  value="<?php echo $_SESSION['orderDetail']['order']->odate; ?>"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">取餐日期</label>
                                         <div class="col-lg-10">
-                                            <input readonly class="form-control" type="text"  value="<?php echo $orderDetail['order']->fordate;?>"/>
+                                            <input readonly class="form-control" type="text"  value="<?php echo $_SESSION['orderDetail']['order']->fordate;?>"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="disabledInput">付款状态</label>
                                         <div class="col-lg-10">
-                                            <input readonly class="form-control" type="text"  value="<?php if($orderDetail['order']->oispaid==1){echo "已付款";}else{echo "未付款";}?>"/>
+                                            <input readonly class="form-control" type="text"  value="<?php if($_SESSION['orderDetail']['order']->oispaid==1){echo "已付款";}else{echo "未付款";}?>"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="disabledInput">取餐状态</label>
                                         <div class="col-lg-10">
-                                            <input readonly class="form-control" type="text"  value="<?php if($orderDetail['order']->ostatus==1){echo "已取餐";}else{echo "未取餐";}?>"/>
+                                            <input readonly class="form-control" type="text"  value="<?php if($_SESSION['orderDetail']['order']->ostatus==1){echo "已取餐";}else{echo "未取餐";}?>"/>
                                         </div>
                                     </div>
-                                    <div class="form-group<?php if(isset($eMsg['wrong'])){echo " has-error";}?>">
+                                    <div class="form-group">
                                         <label class="col-lg-2 control-label" for="optionsCheckbox2">税款</label>
                                         <div class="col-lg-10">
-                                            <input readonly class="form-control" type="text" value="<?php echo '$'.$orderDetail['order']->tax;?>"/>
+                                            <input readonly class="form-control" type="text" value="<?php echo '$'.$_SESSION['orderDetail']['order']->tax;?>"/>
 
                                         </div>
                                     </div>
-                                    <div class="form-group<?php if(isset($eMsg['wrong'])){echo " has-error";}?>">
+                                    <div class="form-group">
                                         <label class="col-lg-2 control-label" for="optionsCheckbox2">总价</label>
                                         <div class="col-lg-10">
-                                            <input readonly class="form-control" type="text" value="<?php echo '$'.$orderDetail['order']->totalcost;?>"/>
+                                            <input readonly class="form-control" type="text" value="<?php echo '$'.$_SESSION['orderDetail']['order']->totalcost;?>"/>
 
                                         </div>
                                     </div>
@@ -159,22 +174,22 @@
                                                         </thead>
                                                         <tbody>
                                                         <?php
-                                                        $num = count($orderDetail['food']);
+                                                        $num = count($_SESSION['orderDetail']['food']);
                                                         for($i = 0;$i<$num; $i++){
                                                             echo '<tr>';
-                                                            echo '<th>'.$orderDetail['food'][$i]->fname.'</th>';
-                                                            echo '<th>$'.$orderDetail['food'][$i]->price.'</th>';
-                                                            echo '<th>'.$orderDetail['food'][$i]->amount.'</th>';
-                                                            echo '<th>'.$orderDetail['food'][$i]->dname.'</th>';
+                                                            echo '<th>'.$_SESSION['orderDetail']['food'][$i]->fname.'</th>';
+                                                            echo '<th>$'.$_SESSION['orderDetail']['food'][$i]->price.'</th>';
+                                                            echo '<th>'.$_SESSION['orderDetail']['food'][$i]->amount.'</th>';
+                                                            echo '<th>'.$_SESSION['orderDetail']['food'][$i]->dname.'</th>';
                                                             echo '</tr>';
                                                         }
-                                                        $num = count($orderDetail['side']);
+                                                        $num = count($_SESSION['orderDetail']['side']);
                                                         for($i = 0;$i<$num; $i++){
                                                             echo '<tr>';
-                                                            echo '<th>'.$orderDetail['side'][$i]->sname.'</th>';
-                                                            echo '<th>$'.$orderDetail['side'][$i]->price.'</th>';
-                                                            echo '<th>'.$orderDetail['side'][$i]->amount.'</th>';
-                                                            echo '<th>'.$orderDetail['side'][$i]->dname.'</th>';
+                                                            echo '<th>'.$_SESSION['orderDetail']['side'][$i]->sname.'</th>';
+                                                            echo '<th>$'.$_SESSION['orderDetail']['side'][$i]->price.'</th>';
+                                                            echo '<th>'.$_SESSION['orderDetail']['side'][$i]->amount.'</th>';
+                                                            echo '<th>'.$_SESSION['orderDetail']['side'][$i]->dname.'</th>';
                                                             echo '</tr>';
                                                         }
                                                         ?>
