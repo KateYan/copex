@@ -103,8 +103,9 @@
                 echo '<span class="tdyS_m_img">';
                 echo '<img src="/copex/upload/normal/';
                 echo $sale->fpicture.'" width="100%">';
-                echo '</span>';
                 echo '<span class="menu_title">'.$sale->fname." $".$sale->fprice.'</span>';
+                echo '</span>';
+//                echo '<span class="menu_title">'.$sale->fname." $".$sale->fprice.'</span>';
                 echo '</label> </div>';
 
             }

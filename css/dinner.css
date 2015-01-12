@@ -54,6 +54,7 @@ label{
     margin: 5px 0;
     position: relative;
     overflow: hidden;
+    border-radius: 5px;
 }
 /*for choosing different food's id with only one out of multiple inputs*/
 input[type="radio"]{
