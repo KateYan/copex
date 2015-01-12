@@ -33,7 +33,7 @@ class Userlogincontroller extends MY_Controller{
         }
         $data['title'] = '选择你所在的校区';
         $this->load->model('market');
-        $data['result'] = $this->market->getCampusList();
+        $data['result'] = $this->market->getUseCampusList();
         $this->load->view('campus',$data);
     }
     /*

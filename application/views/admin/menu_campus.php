@@ -179,7 +179,7 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                if(!isset($_SESSION['menus'])){
+                                if(!isset($_SESSION['menus'])||empty($_SESSION['menus'])){
                                     echo "本该校区暂时还未添加任何主食菜单！";
                                 }else{
                                     $num = count($_SESSION['menus']);
@@ -245,7 +245,7 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                if(!isset($_SESSION['sideMenus'])){
+                                if(!isset($_SESSION['sideMenus'])||empty($_SESSION['sideMenus'])){
                                     echo "本该校区暂时还未添加任何小食菜单！";
                                 }else{
                                     $number = count($_SESSION['sideMenus']);

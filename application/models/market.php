@@ -16,6 +16,15 @@ class Market extends CI_Model {
         return $query->result();
     }
 
+    // select all campus which has inuse menus
+    public function getUseCampusList(){
+
+        $sql = "SELECT campus.* FROM (campus JOIN dailymenu ON campus.cid=dailymenu.cid) JOIN sidemenu ON campus.cid=sidemenu.cid WHERE dailymenu.mstatus=1 AND sidemenu.sideMenuStatus=1";
+
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+
     // get campus's address by using session['cid']
     public function getCampusById($cid){
         $sql = "SELECT * FROM campus WHERE cid='$cid'";
