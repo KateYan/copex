@@ -77,7 +77,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>基本管理</h1>
+                        <h1>基本管理
+                            <?php
+                            if(isset($eMsg['success'])){
+                                echo '<span style="color: #be2221;"><b>'.$eMsg['success'].'</b></span>';
+                            }
+                            ?>
+                        </h1>
                     </div>
                 </div>
             </div>
@@ -113,7 +119,7 @@
                                         echo '<input form="editTime" type="hidden" name="userType" value="'.$_SESSION['rule']['userType'].'" />'
                                         ?>
                                     </legend>
-                                    <div class="form-group">
+                                    <div class="form-group<?php if(isset($eMsg['pstartwrg'])){echo " has-error";}?>">
                                         <label class="col-lg-2 control-label" for="focusedInput">取餐起始时间</label>
                                         <div class="col-lg-10">
                                             <input form="editTime" class="form-control" type="text" name="pickup-start" value="<?php echo $_SESSION['rule']['timeRange']['value'][0]; ?>"/>
@@ -121,14 +127,12 @@
                                                 <?php
                                                 if(isset($eMsg['pstartwrg'])){
                                                     echo $eMsg['pstartwrg'];
-                                                }else{
-                                                    echo "请输入'XX:XX:XX'格式的24小时制时间";
                                                 }
                                                 ?>
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group<?php if(isset($eMsg['pendwrg'])){echo " has-error";}?>">
                                         <label class="col-lg-2 control-label">取餐结束时间</label>
                                         <div class="col-lg-10">
                                             <input form="editTime" class="form-control" type="text" name="pickup-end" value="<?php echo $_SESSION['rule']['timeRange']['value'][1]; ?>"/>
@@ -136,14 +140,12 @@
                                                 <?php
                                                 if(isset($eMsg['pendwrg'])){
                                                     echo $eMsg['pendwrg'];
-                                                }else{
-                                                    echo "请输入'XX:XX:XX'格式的24小时制时间";
                                                 }
                                                 ?>
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group<?php if(isset($eMsg['ostartwrg'])){echo " has-error";}?>">
                                         <label class="col-lg-2 control-label">下单起始时间</label>
                                         <div class="col-lg-10">
                                             <input readonly form="editTime" class="form-control" type="text" name="order-start" value="<?php echo $_SESSION['rule']['timeRange']['value'][2]; ?>"/>
@@ -151,22 +153,18 @@
                                                 <?php
                                                 if(isset($eMsg['ostartwrg'])){
                                                     echo $eMsg['ostartwrg'];
-                                                }else{
-                                                    echo "请输入'XX:XX:XX'格式的24小时制时间";
                                                 }
                                                 ?>
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group<?php if(isset($eMsg['oendwrg'])){echo " has-error";}?>">
                                         <label class="col-lg-2 control-label">下单结束时间</label>
                                         <div class="col-lg-10">
                                             <input form="editTime" class="form-control" type="text" name="order-end" value="<?php echo $_SESSION['rule']['timeRange']['value'][3]; ?>"/>
                                             <span class="help-block"><?php
                                                 if(isset($eMsg['oendwrg'])){
                                                     echo $eMsg['oendwrg'];
-                                                }else{
-                                                    echo "请输入'XX:XX:XX'格式的24小时制时间";
                                                 }
                                                 ?>
                                             </span>

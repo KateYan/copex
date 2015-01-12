@@ -43,10 +43,11 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
         public function showEditTime($errorCode = null){
             // check if there is error code
             $eMsg = array(
-                'pstartwrg' => "取餐起始时间错误！",
-                'pendwrg' => "取餐结束时间错误！",
-                'ostartwrg' => "下单起始时间错误！",
-                'oendwrg' => "下单结束时间错误！"
+                'pstartwrg' => "取餐起始时间错误！请输入'XX:XX:XX'格式的24小时制时间。",
+                'pendwrg' => "取餐结束时间错误！请输入'XX:XX:XX'格式的24小时制时间。",
+                'ostartwrg' => "下单起始时间错误！请输入'XX:XX:XX'格式的24小时制时间。",
+                'oendwrg' => "下单结束时间错误！请输入'XX:XX:XX'格式的24小时制时间。",
+                'success' => "修改时间成功！"
             );
 
             if(!empty($errorCode) && isset($eMsg["$errorCode"])){
@@ -105,15 +106,15 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
             $this->load->model('market');
             $this->market->updateTimeSetting($_POST['userType'],$timeList);
 
-            return redirect('basiccontroller/showEditTime');
+            return redirect('basiccontroller/showEditTime/success');
         }
 
         // time validate
         public function validateTimeSetting($time){
-            if(true){
-//                if($time>=date('00:00:00')&&$time<=date('23:59:59')){
+
+            $pattern = "/^(((1|0?)[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9]))$/";
+            if(preg_match($pattern,$time)){
                     return true;
-//                }
             }
             return false;
         }
