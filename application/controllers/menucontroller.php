@@ -93,8 +93,12 @@ class MenuController extends MY_Controller{
         // get menu's inventroy first
         $this->load->model('menuitem');
         $menuitems = $this->menuitem->getMenuItems($_POST['menu']);
+
+
         foreach($menuitems as $menuitem){
-            if(empty($menuitem->minventory)){
+            if($menuitem->minventory==null){
+//                echo $menuitem->minventory;
+//                die();
                 return redirect('menucontroller/showMenus/nosetfinven');
             }
         }
@@ -296,6 +300,9 @@ class MenuController extends MY_Controller{
 
     //update inventory
     public function menuInventory(){
+
+//        var_dump($_POST);
+//        die();
         if($this->form_validation->run()==FALSE){
             return redirect('menucontroller/showMenuDetail/wrong');
         }
