@@ -239,9 +239,20 @@ class Marketcontroller extends MY_Controller{
                 return redirect('marketcontroller/showDailyMenu/outofinventory');
             }
 
+            // generate fordate
+            // find order start time
+            $userType = 'user';
+            $this->load->model('market');
+            $orderTimeRange = $this->market->orderTimeRange($userType);
+
             $uid = $_SESSION['uid'];
             $odate = date('Y-m-d H:i:s');
-            $fordate = date('Y-m-d',strtotime('+1 day'));
+            if($orderTimeRange['orderStart']<$orderTimeRange['orderEnd']){
+                $fordate = date('Y-m-d',strtotime('+1 day'));
+            }else{
+                $fordate = date('Y-m-d');
+            }
+
 
             $this->load->model('order');
             $orderId = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$fordate,$orderItemId,$_SESSION['uphone']);
