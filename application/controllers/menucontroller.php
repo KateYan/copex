@@ -119,7 +119,7 @@ class MenuController extends MY_Controller{
         $this->load->model('menuitem');
         $menuitems = $this->menuitem->getSideMenuItems($_POST['sideMenu']);
         foreach($menuitems as $menuitem){
-            if(empty($menuitem->sinventory)){
+            if($menuitem->sinventory==null){
                 return redirect('menucontroller/showMenus/nosetsinven');
             }
         }
