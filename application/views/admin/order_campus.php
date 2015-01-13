@@ -312,7 +312,7 @@
                     </div>
                 </div>
                 <div class="bootstrap-admin-panel-content">
-                    <table class="table table-striped">
+                    <table class="table table-striped table-bordered" id="example">
                         <thead>
                         <tr>
                             <th>订单号</th>
