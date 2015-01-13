@@ -182,6 +182,32 @@
             </div>
 
             <div class="row">
+                <div class="col-lg-12">
+                    <div class="navbar navbar-default bootstrap-admin-navbar-thin">
+                        <ol class="breadcrumb bootstrap-admin-breadcrumb">
+                            <li>
+                                <a>
+                                    <b>
+                                    <?php
+                                    echo "COPEX 的点击量： ";
+
+                                    if(isset($clickTimes)){
+                                        echo $clickTimes;
+                                    }
+
+                                    ?>
+                                    </b>
+                                </a>
+                            </li>
+
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
                 <div class="col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">

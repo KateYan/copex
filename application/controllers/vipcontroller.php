@@ -140,7 +140,7 @@ class Vipcontroller extends MY_Controller{
             'emptycard' => "请输入四位有效会员卡号！",
             'nocard' => "您输入的会员卡不存在！",
             'inuse' => "该会员卡已被其他用户使用！",
-            'wrongbalance' => "请输入50-300的会员卡余额"
+            'wrongbalance' => "请输入0-300的会员卡余额"
         );
 
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
@@ -189,7 +189,7 @@ class Vipcontroller extends MY_Controller{
                 if(!isset($_POST['vipBalance'])){
                     return redirect('vipcontroller/showAddVip/wrongbalance');
                 }else{
-                    $this->form_validation->set_rules('vipBalance','VipCardBalance','trim|required|greater_than[49]|less_than[301]');
+                    $this->form_validation->set_rules('vipBalance','VipCardBalance','trim|required|greater_than[0]|less_than[301]');
                     if($this->form_validation->run()==FALSE){
                         return redirect('vipcontroller/showAddVip/wrongbalance');
                     }

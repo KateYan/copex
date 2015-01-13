@@ -57,6 +57,9 @@ class Admincontroller extends MY_Controller{
         if(!isset($_SESSION['username'])){// fobid non-loged user to see admin panel
             return redirect('admincontroller/showAdminLogin');
         }
+        // get click rate
+        $this->load->model('market');
+        $data['clickTimes'] = $this->market->getClick();
         $data['title'] = "Copex | 控制面板";
         $this->load->view('partials/adminHeader',$data);
         $this->load->view('admin/adminPanel');

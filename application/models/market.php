@@ -356,4 +356,28 @@ class Market extends CI_Model {
         $sideId = $this->db->insert_id();
         return $sideId;
     }
+
+    // update web's click rate
+    public function updateClick(){
+        // get old click number
+        $sql = "SELECT `value` FROM click WHERE `key`='clickTimes'";
+        $query = $this->db->query($sql);
+        $result = $query->row(0);
+        $num = $result->value;
+
+        $num ++;
+        //update
+        $sql_update = "UPDATE click SET `value`=$num WHERE `key`='clickTimes'";
+        $this->db->query($sql_update);
+    }
+
+    //get click times
+    public function getClick(){
+        $sql = "SELECT `value` FROM click WHERE `key`='clickTimes'";
+        $query = $this->db->query($sql);
+        $result = $query->row(0);
+        $num = $result->value;
+        return $num;
+
+    }
 }

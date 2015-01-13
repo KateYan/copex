@@ -71,7 +71,7 @@ class Cardcontroller extends MY_Controller{
 
         // check all inputs validation
         if(isset($_POST['vipBalance'])){
-            $this->form_validation->set_rules('vipBalance','VipCardBalance','trim|required|greater_than[49]|less_than[301]');
+            $this->form_validation->set_rules('vipBalance','VipCardBalance','trim|required|greater_than[0]|less_than[301]');
 
             if($this->form_validation->run()==FALSE){
                 return redirect('cardcontroller/cardDetail/wrong');
@@ -135,7 +135,7 @@ class Cardcontroller extends MY_Controller{
         $value = array();
         // check all inputs validation
         $this->form_validation->set_rules('vipNumber','VipCardNumber','trim|required|integer|numeric|exact_length[4]');
-        $this->form_validation->set_rules('vipBalance','VipCardBalance','trim|required|greater_than[49]|less_than[301]');
+        $this->form_validation->set_rules('vipBalance','VipCardBalance','trim|required|greater_than[0]|less_than[301]');
         $this->form_validation->set_rules('newPassword','VipPassword','trim|required|min_length[6]|max_length[10]|alpha_dash');
         $this->form_validation->set_rules('checkNewPassword','AgainPassword','trim|required|min_length[6]|max_length[10]|alpha_dash');
 

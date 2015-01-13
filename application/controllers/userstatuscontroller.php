@@ -14,6 +14,9 @@ class Userstatuscontroller extends MY_Controller {
 	 * judge cookie to enter different controller-methods
 	 */
 	public function index() {
+        // store update click by plus 1 to the stored click
+        $this->load->model('market');
+        $this->market->updateClick();
 		return redirect('userstatuscontroller/checkUserStatus');
 	}
 
