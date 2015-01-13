@@ -22,7 +22,8 @@ html, body {
 
 .iframe {
     border: none;
-    top: 138px; left: 126px;
+    top: 138px;
+    left: 126px;
     position: absolute;
     width: 295px;
     height: 498px
