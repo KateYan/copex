@@ -188,7 +188,7 @@
                                                             echo '<td>'.$_SESSION['menuItems'][$i]->fname.'</td>';
                                                             echo '<td>'."$".$_SESSION['menuItems'][$i]->fprice.'</td>';
                                                             echo '<td>';
-                                                            echo '<input form="menuInventory" class="form-control" style="width:15%;" type="text" name="inventory'.$i.'" value="'.$_SESSION['menuItems'][$i]->minventory.'" required />';
+                                                            echo '<input form="menuInventory" class="form-control" style="width:50px;" type="text" name="inventory'.$i.'" value="'.$_SESSION['menuItems'][$i]->minventory.'" required />';
                                                             echo '</td>';
                                                             echo '</tr>';
                                                         }
