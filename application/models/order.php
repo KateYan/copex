@@ -290,7 +290,7 @@ class Order extends CI_Model {
 
     // find all orders to show order history for user
     public function getAllOrdersByCampus($campusId){
-        $sql = "SELECT `order`.oid as orderNumber,`order`.oispaid as isPaid,`order`.ostatus as isPickedup,`campus`.cname as campus,`order`.fordate as forDate,`order`.odate as orderDate,`order`.totalcost as totalCost,`user`.uphone as userPhone,`user`.vipid as vipId,`user`.uid as userId, vipcard.vnumber as cardNumber FROM ((`order` JOIN campus ON `order`.cid = `campus`.cid) JOIN `user` ON  `order`.uid = `user`.uid) LEFT JOIN vipcard ON `user`.vipid = vipcard.vipid  WHERE `order`.cid='$campusId' ORDER BY `order`.odate DESC,`user`.uid DESC";
+        $sql = "SELECT `order`.oid as orderNumber,`order`.oispaid as isPaid,`order`.ostatus as isPickedup,`campus`.cname as campus,`order`.fordate as forDate,`order`.odate as orderDate,`order`.totalcost as totalCost,`user`.uphone as userPhone,`user`.vipid as vipId,`user`.uid as userId, vipcard.vnumber as cardNumber FROM ((`order` JOIN campus ON `order`.cid = `campus`.cid) JOIN `user` ON  `order`.uid = `user`.uid) LEFT JOIN vipcard ON `user`.vipid = vipcard.vipid  WHERE `order`.cid='$campusId' ORDER BY `order`.odate DESC";
 
         $query = $this->db->query($sql);
         if($query->num_rows()==0){
