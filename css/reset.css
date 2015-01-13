@@ -1,9 +1,57 @@
-*{ margin:0; padding:0;}
-ul, li{ list-style-type:none;}
-.wrapper{ overflow:hidden; width:100%; position:relative;}
-.wrapper ul{ position:absolute; left:0; top:0;}
-.wrapper li { float:left; text-align:center}
-.coin, .pagination-n1{ position:absolute; bottom:20px; left:0; width:100%; height:10px; text-align:center; z-index:100}
-.coin a, .swiper-pagination-switch { display:inline-block; width:10px; height:10px; background-color:#bcbaba; border-radius:10px; margin:0 5px}
-a.currse_coin, .swiper-active-switch{ background-color:#333;}
-.btn_GoIn{ background:url(../images/btn_go.jpg) no-repeat 0 0; background-size:194px auto; width:194px; height:78px; display:block; margin:25px auto 0}
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul, li {
+    list-style-type: none;
+}
+
+.wrapper {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.wrapper ul {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.wrapper li {
+    float: left;
+    text-align: center
+}
+
+.coin, .pagination-n1 {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    text-align: center;
+    z-index: 100
+}
+
+.coin a, .swiper-pagination-switch {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #bcbaba;
+    border-radius: 10px;
+    margin: 0 5px
+}
+
+a.currse_coin, .swiper-active-switch {
+    background-color: #333;
+}
+
+.btn_GoIn {
+    background: url(../images/btn_go.jpg) no-repeat 0 0;
+    background-size: 194px auto;
+    width: 194px;
+    height: 78px;
+    display: block;
+    margin: 25px auto 0
+}
