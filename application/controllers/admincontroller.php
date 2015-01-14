@@ -112,8 +112,8 @@ class Admincontroller extends MY_Controller{
             $data['prepareOrder'] = $this->order->getOrdersByCampusDate($campusId,$date);
         }
         // find all orders for admin
-        if($this->order->getAllOrdersByCampus($campusId)){
-            $data['historyOrder'] = $this->order->getAllOrdersByCampus($campusId);
+        if($this->order->getAllHistoryOrdersByCampus($campusId,$date)){
+            $data['historyOrder'] = $this->order->getAllHistoryOrdersByCampus($campusId,$date);
         }
 
         $this->load->view('partials/adminHeader',$data);
@@ -178,8 +178,6 @@ class Admincontroller extends MY_Controller{
 
     // change order's status into ispaid
     public function confirmPickedup(){
-//        var_dump($_POST);
-//        die();
         // get total preparedOrder's number
         $orderNumber = $_POST['orderNumber'];
         // store all order's which are needed to be updated as ispaid into an numnered array
