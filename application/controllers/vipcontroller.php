@@ -35,7 +35,7 @@ class Vipcontroller extends MY_Controller{
             'nocard' => "您输入的会员卡不存在！",
             'inuse' => "您输入的会员卡正在被别的用户使用！",
             'wrongformat' => "密码格式不正确",
-            'wrongbalance' => "请输入50到300的余额",
+            'wrongbalance' => "请输入0到300的余额",
             'success' => "修改会员成功！",
             'wrongphoneformat' => "请输入10位有效电话号码"
         );
@@ -102,7 +102,7 @@ class Vipcontroller extends MY_Controller{
         if(isset($_POST['vipBalance'])){// update balance
             $_SESSION['vipUser']->vbalance = $_POST['vipBalance'];
             // check if balance is validate to use
-            $this->form_validation->set_rules('vipBalance','VipCardBalance','trim|required|greater_than[49]|less_than[301]');
+            $this->form_validation->set_rules('vipBalance','VipCardBalance','trim|required|greater_than[0]|less_than[301]');
             if($this->form_validation->run()==FALSE){
                 return redirect('vipcontroller/showEditVip/wrongbalance');
             }

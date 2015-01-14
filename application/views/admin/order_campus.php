@@ -334,10 +334,10 @@
                         if (!isset($historyOrder)) {
                             echo "暂时还没有用户点今天的菜，请稍等片刻后刷新看看。";
                         } else {
-                            $num = count($historyOrder);
-                            echo '<input form="history_confirmPaid" type="hidden" name = "orderNumber" value="' . $num . '"/>';
-                            echo '<input form="history_confirmPickedup" type="hidden" name = "orderNumber" value="' . $num . '"/>';
-                            for ($i = 0; $i < $num; $i++) {
+                            $num_history = count($historyOrder);
+                            echo '<input form="history_confirmPaid" type="hidden" name = "orderNumber" value="' . $num_history . '"/>';
+                            echo '<input form="history_confirmPickedup" type="hidden" name = "orderNumber" value="' . $num_history . '"/>';
+                            for ($i = 0; $i < $num_history; $i++) {
                                 echo '<tr>';
 
                                 echo '<td>';

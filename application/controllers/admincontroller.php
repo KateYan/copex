@@ -178,6 +178,8 @@ class Admincontroller extends MY_Controller{
 
     // change order's status into ispaid
     public function confirmPickedup(){
+//        var_dump($_POST);
+//        die();
         // get total preparedOrder's number
         $orderNumber = $_POST['orderNumber'];
         // store all order's which are needed to be updated as ispaid into an numnered array
