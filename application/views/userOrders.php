@@ -33,7 +33,7 @@
     if(isset($orders)){
         foreach($orders as $order){
             echo '<div class="menu_block">';
-            echo '<div class="menuD_img"><img src="/copex/upload/'.$order->fpicture.'.jpg" width="100%" /></div>';
+            echo '<div class="menuD_img"><img src="/copex/upload/'.$order->fpicture.'" width="100%" /></div>';
             echo '<div class="menuD_summary">';
             echo '<h4 style="margin-bottom: 5px;">'."订单号：".$order->oid.'</h4>';
 

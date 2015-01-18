@@ -6,14 +6,6 @@
  * Time: 10:08 AM
  */
 ?>
-<?php
-/**
- * Created by PhpStorm.
- * User: kunyan
- * Date: 12/21/2014
- * Time: 4:47 PM
- */
-?>
 
 <!-- Vendors -->
 <link rel="stylesheet" media="screen" href="vendors/bootstrap-datepicker/css/datepicker.css">
