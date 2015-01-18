@@ -67,7 +67,7 @@
     }
     ?>
     <a href="userstatuscontroller/checkUserStatus" class="btn_submitOrder btn_nowOrder" style="border:none;width: 95%;margin-top: 20px;margin-left:auto;">去点餐</a>
-    <a href="#" class="btn_submitOrder btn_nowOrder" style="border:none;width: 95%;margin-top: 20px;margin-left:auto;">找不到我们？Call: 6478922877</a>
+    <a href="tel://6478922877" class="btn_submitOrder btn_nowOrder" style="border:none;width: 95%;margin-top: 20px;margin-left:auto;">找不到我们？Call: 6478922877</a>
 </div>
 
 </body>
