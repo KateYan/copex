@@ -328,7 +328,7 @@
 
                         echo '<th>订单号</th>
                             <th>用户</th>
-                            <th>VIP卡号</th>
+                            <th>V卡号</th>
                             <th>电话</th>
                             <th>取餐日期</th>
                             <th>下单时间</th>
