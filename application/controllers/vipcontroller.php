@@ -63,7 +63,6 @@ class Vipcontroller extends MY_Controller{
 
     // save edit vip user's information
     public function editVip(){
-
         $userId = $_POST['userId'];
         $this->load->model('user');
         if(!empty($_POST['campusId'])){//update campus
@@ -110,7 +109,7 @@ class Vipcontroller extends MY_Controller{
             $columnName = "vbalance";
             $this->user->updateVipCardByUser($userId,$columnName,$_POST['vipBalance']);
         }
-        if(isset($_POST['newPassword'])&&isset($_POST['checkNewPassword'])){
+        if(!empty($_POST['newPassword'])&&!empty($_POST['checkNewPassword'])){
             // check if entered pasword validate the format
             $this->form_validation->set_rules('newPassword','VipPassword','trim|min_length[6]|max_length[10]|alpha_dash');
             $this->form_validation->set_rules('checkNewPassword','AgainPassword','trim|min_length[6]|max_length[10]|alpha_dash');
