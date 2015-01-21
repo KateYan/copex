@@ -220,7 +220,7 @@
                     <thead>
                     <tr>
                         <th>订单号</th>
-                        <th>校区</th>
+<!--                        <th>校区</th>-->
                         <th>用户</th>
                         <th>V卡号</th>
                         <th>电话</th>
@@ -249,13 +249,14 @@
                             echo anchor("admincontroller/showOrderDetail?orderId=$oid", $oid, $attributes);
                             echo '<p class="print">' . $oid . '</p>';
                             echo '</td>';
-                            echo '<td>' . $prepareOrder[$i]->campus . '</td>';
+//                            echo '<td>' . $prepareOrder[$i]->campus . '</td>';
                             echo '<td>' . $prepareOrder[$i]->userId . '</td>';
                             echo '<td>' . $prepareOrder[$i]->cardNumber . '</td>';
                             echo '<td>' . $prepareOrder[$i]->userPhone . '</td>';
-                            $fordate = date("m月d日", strtotime($prepareOrder[$i]->forDate));
+                            $fordate = date("m-d", strtotime($prepareOrder[$i]->forDate));
                             echo '<td>' . $fordate . '</td>';
-                            echo '<td>' . $prepareOrder[$i]->orderDate . '</td>';
+                            $odate =  date("y-m-d H:i", strtotime($prepareOrder[$i]->orderDate));
+                            echo '<td>' . $odate. '</td>';
                             echo '<td>' . "$" . $prepareOrder[$i]->totalCost . '</td>';
                             if ($prepareOrder[$i]->isPaid == 0) {
                                 echo '<td>' . "否" . '</td>';
@@ -326,7 +327,6 @@
                         echo '<tr>';
 
                         echo '<th>订单号</th>
-                            <th>校区</th>
                             <th>用户</th>
                             <th>VIP卡号</th>
                             <th>电话</th>
@@ -350,13 +350,14 @@
                             echo anchor("admincontroller/showOrderDetail?orderId=$orderNumber", $orderNumber);
                             echo '</td>';
 
-                            echo '<td>' . $historyOrder[$i]->campus . '</td>';
+//                            echo '<td>' . $historyOrder[$i]->campus . '</td>';
                             echo '<td>' . $historyOrder[$i]->userId . '</td>';
                             echo '<td>' . $historyOrder[$i]->cardNumber . '</td>';
                             echo '<td>' . $historyOrder[$i]->userPhone . '</td>';
-                            $fordate = date("m月d日", strtotime($historyOrder[$i]->forDate));
+                            $fordate = date("m-d", strtotime($historyOrder[$i]->forDate));
                             echo '<td>' . $fordate . '</td>';
-                            echo '<td>' . $historyOrder[$i]->orderDate . '</td>';
+                            $odate = date("y-m-d H:i", strtotime($historyOrder[$i]->orderDate));
+                            echo '<td>' . $odate . '</td>';
                             echo '<td>' . "$" . $historyOrder[$i]->totalCost . '</td>';
                             if ($historyOrder[$i]->isPaid == 0) {
                                 echo '<td>' . "否" . '</td>';
