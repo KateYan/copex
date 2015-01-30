@@ -24,13 +24,16 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
         public function showBasicDetail(){
 
             if($this->input->post('campus')){
-                $campusId = $this->input->post('campus');
-            }elseif(isset($_SESSION['basic_campus'])){
-                $campusId = $_SESSION['basic_campus']['cid'];
+
+                $campusID = $this->input->post('campus');
+            }elseif(isset($_SESSION['rule'])){
+                $campusID = $_SESSION['rule']['campusID'];
             }
 
+            // UPDATE SESSION
             $this->load->model('market');
-            $timeRange = $this->market->getTimeRange($campusId);
+            $timeRange = $this->market->getTimeRange($campusID);
+            $_SESSION['rule'] = $timeRange;
 
             $data['rule'] = $timeRange;
 
@@ -55,28 +58,36 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
                 $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
             }
 
-            // check if this controller is loaded from basic panel
-            if(isset($_GET['userType'])){
-                // unset session first
-                if(isset($_SESSION['rule'])){
-                    unset($_SESSION['rule']);
-                }
-                // set user type
-                $userType = $_GET['userType'];
-            }else{
-                if(!isset($_SESSION['rule'])){
-                    return redirect('basiccontroller/showBasicManage');
-                }
-                $userType = $_SESSION['rule']['userType'];
+            // check if there is campus session
+            if(!isset($_SESSION['rule'])){
+                return redirect('basiccontroller/showBasicPanel');
             }
+            $campusID = $_SESSION['rule']->campusID;
+
+            // check if this controller is loaded from basic panel
+            if(!isset($_GET['userType'])){
+                return redirect('basiccontroller/showBasicPanel');
+            }
+            // set user type
+            $userType = $_GET['userType'];
 
             $this->load->model('market');
-            $timeRange= $this->market->getTimeRange($userType);
+            $timeRange= $this->market->getTimeRange($campusID);
+            $orderStart = $userType."OrderStart";
+            $orderEnd = $userType."OrderEnd";
+            $pickupStart = $userType."PickupStart";
+            $pickupEnd = $userType."PickupEnd";
 
-            $ruleDetail = array('userType'=>$userType,'timeRange'=>$timeRange);
+            $timeSetting = array('orderStart' => $timeRange->$orderStart,
+                                'orderEnd' => $timeRange->$orderEnd,
+                                'pickupStart' => $timeRange->$pickupStart,
+                                'pickupEnd' => $timeRange->$pickupEnd
+                                );
+
+            $ruleDetail = array('userType'=>$userType,'timeRange'=>$timeSetting);
 
             // store session
-            $_SESSION['rule'] = $ruleDetail;
+            $_SESSION['ruleDetail'] = $ruleDetail;
 
             $data['title'] = "Copex | 时间限制管理";
             $this->load->view('partials/adminHeader',$data);
