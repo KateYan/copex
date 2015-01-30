@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: kunyan
- * Date: 1/10/2015
- * Time: 1:25 PM
+ * Date: 1/30/2015
+ * Time: 12:20 AM
  */
 ?>
 </head>
@@ -104,7 +104,7 @@
                     echo anchor('vipcontroller/showVipPanel', '<i class="glyphicon glyphicon-chevron-right"></i> 6. 会员管理', $attributes);
                     ?>
                 </li>
-                <li class="active">
+                <li>
                     <?php
                     $attributes = array('id' => 'manageBasic');
                     echo anchor('cardcontroller/showCardList', '<i class="glyphicon glyphicon-chevron-right"></i> 7. 会员卡管理', $attributes);
@@ -116,7 +116,7 @@
                     echo anchor('basiccontroller/showBasicPanel', '<i class="glyphicon glyphicon-chevron-right"></i> 8. 基本管理', $attributes);
                     ?>
                 </li>
-                <li>
+                <li class="active">
                     <?php
                     $attributes = array('id'=>'manageCampus');
                     echo anchor('campuscontroller/showCampusPanel','<i class="glyphicon glyphicon-chevron-right"></i> 9. 校区管理',$attributes);
@@ -130,7 +130,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>会员卡管理</h1>
+                        <h1>校区管理</h1>
                     </div>
                 </div>
             </div>
@@ -139,41 +139,40 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">会员卡列表
+                            <div class="text-muted bootstrap-admin-box-title">校区列表
                                 <?php
-                                $attributes = array('class' => 'btn btn-sm btn-success', 'style' => 'float: right;');
-                                echo anchor('cardcontroller/showAddCard', '<i class="glyphicon glyphicon-plus"></i>
-                                         添加会员卡', $attributes);
+                                if(isset($eMsg['deletesuccess'])){
+                                    echo '<span style="color: #be2221;"><b>'.$eMsg['deletesuccess'].'</b></span>';
+                                }
+
+                                $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;');
+                                echo anchor('campuscontroller/showAddCampus','<i class="glyphicon glyphicon-plus"></i>
+                                         添加校区',$attributes);
                                 ?>
                             </div>
                         </div>
                         <div class="bootstrap-admin-panel-content">
-                            <table class="table table-striped table-bordered" id="example">
+                            <table class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th>会员卡ID</th>
-                                    <th>会员卡卡号</th>
-                                    <th>会员卡余额</th>
-                                    <th>用户ID</th>
+                                    <th>校区ID</th>
+                                    <th>校区名</th>
+                                    <th>校区地址</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                foreach ($vipcards as $vipcard) {
-                                    echo '<tr class="gradeA">';
-                                    echo '<td>';
-                                    echo anchor("cardcontroller/cardDetail?card=$vipcard->vipid", $vipcard->vipid);
-                                    echo '</td>';
-                                    echo '<td>' . $vipcard->vnumber . '</td>';
-//    echo '<td>'.$vipcard->vpassword.'</td>';
-                                    echo '<td>$ ' . $vipcard->vbalance . '</td>';
-                                    echo '<td>';
-                                    if ($vipcard->uid == NULL) {
-                                        echo "未使用";
-                                    } else {
-                                        echo anchor("vipcontroller/showEditVip?vipUser=$vipcard->uid", $vipcard->uid);
-                                    }
-                                    echo '</td>';
+                                if(!isset($campus)){
+                                    echo "暂时没有任何校区！";
+                                }
+                                $num = count($campus);
+                                for($i = 0; $i<$num; $i++){
+                                    echo '<tr>';
+                                    echo '<td><a href="showCampusDetail?campusId='.$campus[$i]->cid.'">';
+                                    echo $campus[$i]->cid;
+                                    echo '</a></td>';
+                                    echo '<td>'.$campus[$i]->cname.'</td>';
+                                    echo '<td>'.$campus[$i]->caddr.'</td>';
                                     echo '</tr>';
                                 }
                                 ?>

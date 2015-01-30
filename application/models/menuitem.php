@@ -57,7 +57,7 @@ class Menuitem extends CI_Model {
 
     // store session for sidedishes
     public function storeSidedishInSession($sideDish){
-        for ($i = 1; $i <= 4 ; $i++) {
+        for ($i = 1; $i <= 6 ; $i++) {
             $j = $i-1;
             $_SESSION["sidedish$i"] = array('id'=>$sideDish[$j]->sid, 'name'=>$sideDish[$j]->sname,'price'=>$sideDish[$j]->sprice);
         }

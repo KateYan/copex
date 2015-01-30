@@ -55,6 +55,15 @@ class Market extends CI_Model {
 
         $_SESSION['campus'] = $campus;
     }
+
+    // check campus status
+    public function checkCampusStatus($cid){
+        $sql = "SELECT * FROM `order` WHERE oispaid = 0 and cid = $cid or ostatus = 0 and cid = $cid";
+        $query = $this->db->query($sql);
+        if($query->num_rows() != 0){
+            return ture;
+        }
+    }
     //get food information by using it's sid
     public function getFoodById($fid){
         $sql = "SELECT food.*,diner.did,diner.dname FROM food JOIN diner ON food.did = diner.did WHERE fid='$fid'";
@@ -106,55 +115,37 @@ class Market extends CI_Model {
     }
 
     // get order time range for user
-    public function orderTimeRange($userType){
-        $sql1 = "SELECT `value` FROM `basic` WHERE `key`='".$userType."_order_start'";
+    public function orderTimeRange($userType,$cid){
+        $sql = "SELECT ".$userType."OrderStart as orderStart,".$userType."OrderEnd as orderEnd FROM `basic` WHERE cid=$cid";
 
-        $sql2 = "SELECT `value` FROM `basic` WHERE `key`='".$userType."_order_end'";
-
-        $query1 = $this->db->query($sql1);
-        $timeStart = $query1->row(0);
-        $query2 = $this->db->query($sql2);
-        $timeEnd = $query2->row(0);
+        $query = $this->db->query($sql);
+        $timeRange = $query->row(0);
 
         // return order time range
-        $orderTimeRange = array('orderStart'=>$timeStart->value,'orderEnd'=>$timeEnd->value);
+        $orderTimeRange = array('orderStart'=>$timeRange->orderStart,'orderEnd'=>$timeRange->orderEnd);
         return $orderTimeRange;
     }
 
     // using user's type to get pickup time range
-    public function getPickupTime($userType){
-        $sql1 = "SELECT `value` FROM `basic` WHERE `key`='".$userType."_pickup_start'";
+    public function getPickupTime($userType,$cid){
+        $sql = "SELECT ".$userType."PickupStart as pickupStart,".$userType."PickupEnd as pickupEnd FROM `basic` WHERE cid=$cid";
 
-        $sql2 = "SELECT `value` FROM `basic` WHERE `key`='".$userType."_pickup_end'";
-
-        $query1 = $this->db->query($sql1);
-        $timeStart = $query1->row(0);
-        $query2 = $this->db->query($sql2);
-        $timeEnd = $query2->row(0);
+        $query = $this->db->query($sql);
+        $timeRange = $query->row(0);
 
         // return pickup time range
-        $pickupTimeRange = array('pickupStart'=>$timeStart->value,'pickupEnd'=>$timeEnd->value);
+        $pickupTimeRange = array('pickupStart'=>$timeRange->pickupStart,'pickupEnd'=>$timeRange->pickupEnd);
         return $pickupTimeRange;
     }
 
     // get user/vip's basic time rule
-    public function getTimeRange($userType){
-        $name = array();
-        $value = array();
+    public function getTimeRange($cid){
 
-        $sql= "SELECT * FROM basic WHERE `key` IN ('".$userType."_order_start','".$userType."_order_end','".$userType."_pickup_start','".$userType."_pickup_end') ORDER BY `key` DESC";
+        $sql= "SELECT campus.cid as campusID, campus.cname as campusName, basic.* FROM campus LEFT JOIN basic ON campus.cid = basic.cid WHERE campus.cid = $cid";
 
         $query = $this->db->query($sql);
-        $num = count($query->result());
-        $result = $query->result();
-        for($i=0;$i<$num;$i++){
-            $name[] = $result[$i]->key;
-            $value[] = $result[$i]->value;
-        }
 
-        $timeRange = array('name'=>$name,'value'=>$value);
-
-        return $timeRange;
+        return $query->row(0);
     }
 
     // get menulist by using campus' id
@@ -277,11 +268,14 @@ class Market extends CI_Model {
     }
 
     // add new campus
-    public function newCampus($value){
+    public function newCampus($value,$times){
         $sql = "INSERT INTO campus(cname,caddr) VALUES (".$this->db->escape($value['cname']).",".$this->db->escape($value['caddr']).")";
 
         $this->db->query($sql);
         $campusId = $this->db->insert_id(); // get new diner's id
+
+        $sql1 = "INSERT INTO basic(cid,userOrderStart,userOrderEnd,userPickupStart,userPickupEnd,vipOrderStart,vipOrderEnd,vipPickupStart,vipPickupEnd) VALUES('$campusId',".$this->db->escape($times[0]).",".$this->db->escape($times[1]).",".$this->db->escape($times[2]).",".$this->db->escape($times[3]).",".$this->db->escape($times[4]).",".$this->db->escape($times[5]).",".$this->db->escape($times[6]).",".$this->db->escape($times[7]).")";
+        $query1 = $this->db->query($sql1);
         return $campusId;
     }
 

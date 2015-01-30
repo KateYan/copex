@@ -85,7 +85,7 @@ class Marketcontroller extends MY_Controller{
         }
 
         // get orderTimeRange
-        $orderTimeRange = $this->market->orderTimeRange($userType);
+        $orderTimeRange = $this->market->orderTimeRange($userType,$_SESSION['cid']);
         $data['orderStart'] = $orderTimeRange['orderStart'];
         $data['orderEnd'] = $orderTimeRange['orderEnd'];
 
@@ -164,7 +164,7 @@ class Marketcontroller extends MY_Controller{
 
         //get sidedishes:
 
-        for ($i = 1; $i <= 4; $i++) {
+        for ($i = 1; $i <= 6; $i++) {
             if(!empty($_SESSION['POST']["sd$i"])){
                 $data['selectedSd']["$i"] = true;
             }
@@ -188,7 +188,7 @@ class Marketcontroller extends MY_Controller{
 
         $userType = 'user';
         // get orderTimeRange
-        $orderTimeRange = $this->market->orderTimeRange($userType);
+        $orderTimeRange = $this->market->orderTimeRange($userType,$_SESSION['cid']);
         $data['orderStart'] = $orderTimeRange['orderStart'];
         $data['orderEnd'] = $orderTimeRange['orderEnd'];
 
@@ -208,7 +208,7 @@ class Marketcontroller extends MY_Controller{
      */
     public function orderGenerate(){
         // test if still in order time range
-        if(!$this->checkTime()){
+        if(!$this->checkTime($_SESSION['cid'])){
             return redirect('marketcontroller/showDailyMenu/timelimit');
         }
         // check if phone number is valid
@@ -244,7 +244,7 @@ class Marketcontroller extends MY_Controller{
             // find order start time
             $userType = 'user';
             $this->load->model('market');
-            $orderTimeRange = $this->market->orderTimeRange($userType);
+            $orderTimeRange = $this->market->orderTimeRange($userType,$_SESSION['cid']);
 
             $uid = $_SESSION['uid'];
             $odate = date('Y-m-d H:i:s');
@@ -270,7 +270,7 @@ class Marketcontroller extends MY_Controller{
      */
     public function vipOrderGenerate(){
         // if in order time-range then generate vip order
-        if(!$this->checkTime()){
+        if(!$this->checkTime($_SESSION['cid'])){
             // out of order time range, show time alert
             return redirect('marketcontroller/showSideDish/timelimit');
         }
@@ -298,7 +298,7 @@ class Marketcontroller extends MY_Controller{
 
         $userType = 'vip';
         $this->load->model('market');
-        $orderTimeRange = $this->market->orderTimeRange($userType);
+        $orderTimeRange = $this->market->orderTimeRange($userType,$_SESSION['cid']);
         $time = date('H:i:s');
         if($time>=$orderTimeRange['orderStart']){
             $fordate = date('Y-m-d',strtotime('+1 day'));
@@ -326,10 +326,11 @@ class Marketcontroller extends MY_Controller{
             }
         }
 
+//        var_dump($_POST);
         // for posted side dish
         $sideDishList = array();
         $sideDishItem = array();
-        for($k = 1;$k <= 4; $k++){
+        for($k = 1;$k <= 6; $k++){
             if(isset($_POST["sd$k"])){
                 // update sidedishlist
                 $sideDishList[] = $_SESSION["sidedish$k"]['id'];
@@ -393,19 +394,19 @@ class Marketcontroller extends MY_Controller{
     /*
      * time check for user order dishes
      */
-    public function checkTime(){
+    public function checkTime($cid){
         $time = date('H:i:s'); //get timestamp for check if still in order time-range
         // get user type
         if(!empty($_SESSION['vipid'])){
             $userType = 'vip';
             // get order time range
             $this->load->model('market');
-            $orderTimeRange = $this->market->orderTimeRange($userType);
+            $orderTimeRange = $this->market->orderTimeRange($userType,$cid);
         }else{
             $userType = 'user';
             // get order time range
             $this->load->model('market');
-            $orderTimeRange = $this->market->orderTimeRange($userType);
+            $orderTimeRange = $this->market->orderTimeRange($userType,$cid);
         }
         if($orderTimeRange['orderStart']<=$orderTimeRange['orderEnd']){
             $result = $time>=$orderTimeRange['orderStart']&&$time<=$orderTimeRange['orderEnd'];
@@ -435,7 +436,7 @@ class Marketcontroller extends MY_Controller{
         if(!empty($_SESSION['vipid'])){
             $userType = 'vip';
             $this->load->model('market');
-            $orderTimeRange = $this->market->orderTimeRange($userType);
+            $orderTimeRange = $this->market->orderTimeRange($userType,$_SESSION['cid']);
             $time = date('H:i:s');
             if($time>=$orderTimeRange['orderStart']){
                 $data['date'] = date('m月d日',strtotime('+1 day'));
@@ -453,7 +454,7 @@ class Marketcontroller extends MY_Controller{
 
         // get user's pickup time range based on user's type
 
-        $pickupTimeRange = $this->market->getPickupTime($userType);
+        $pickupTimeRange = $this->market->getPickupTime($userType,$_SESSION['cid']);
         $data['timestart'] = $pickupTimeRange['pickupStart'];
         $data['timeend'] = $pickupTimeRange['pickupEnd'];
 
@@ -468,7 +469,7 @@ class Marketcontroller extends MY_Controller{
         // find order start time
         $userType = 'user';
         $this->load->model('market');
-        $orderTimeRange = $this->market->orderTimeRange($userType);
+        $orderTimeRange = $this->market->orderTimeRange($userType,$_SESSION['cid']);
         $orderStart = $orderTimeRange['orderStart'];
         // get today's start time
         $start = date("Y-m-d $orderStart");

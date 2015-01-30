@@ -181,7 +181,7 @@ class MenuController extends MY_Controller{
     public function showAddSideMenu($errorCode = null){
         // check if there is error code
         $eMsg = array(
-            'wrong' => "小食菜单必须有4款小食！",
+            'wrong' => "小食菜单必须有6款小食！",
             'success' => "成功添加小食菜单！"
         );
 
@@ -204,10 +204,10 @@ class MenuController extends MY_Controller{
 
         // count how many side dish admin chose to make a new side menu
         $num = count($_POST);
-        if($num != 5){
+        if($num != 7){
             return redirect('menucontroller/showAddSideMenu/wrong');
         }
-        // store all 4 side dish into an array
+        // store all 6 side dish into an array
         // first get num of all side dish
         $this->load->model('market');
         $sideDish = $this->market->getAllSideDish();
@@ -325,7 +325,8 @@ class MenuController extends MY_Controller{
             return redirect('menucontroller/showSideMenuDetail/wrong');
         }
         $side = array();
-        for($i=0;$i<4;$i++){
+        // using the number of sidedishes
+        for($i=0;$i<6;$i++){
             $side[] = array('fid'=>$_POST["side$i"],'inventory'=>$_POST["inventory$i"]);
         }
         $this->load->model('menuitem');

@@ -84,7 +84,7 @@ echo form_open('marketcontroller/vipOrderGenerate',$attributes);
 <div id="Contenter" style="margin:5px;">
     <ul class="menu_list">
         <?php
-        for($i = 0;$i <= 3; $i++){
+        for($i = 0;$i <= 5; $i++){
             $id = $i + 1;
             echo '<li class="side-dish-list">';
             echo "<input type='checkbox' id='sd$id' name='sd$id' style='display:none;' class='side-dish'>";

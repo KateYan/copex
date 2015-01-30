@@ -2,10 +2,11 @@
 /**
  * Created by PhpStorm.
  * User: kunyan
- * Date: 1/2/2015
- * Time: 12:11 AM
+ * Date: 12/22/2014
+ * Time: 5:49 PM
  */
 ?>
+
 <!-- Datatables -->
 <link rel="stylesheet" media="screen" href="/copex/bootstrap/css/DT_bootstrap.css">
 
@@ -67,7 +68,7 @@
                     echo anchor('admincontroller/showAdminPanel','<i class="glyphicon glyphicon-chevron-right"></i> 关于Copex',$attributes);
                     ?>
                 </li>
-                <li class="active">
+                <li>
                     <?php
                     $attributes = array('id'=>'manageOrder');
                     echo anchor('admincontroller/showOrderPanel','<i class="glyphicon glyphicon-chevron-right"></i> 1. 订单管理',$attributes);
@@ -109,7 +110,7 @@
                     echo anchor('cardcontroller/showCardList','<i class="glyphicon glyphicon-chevron-right"></i> 7. 会员卡管理',$attributes);
                     ?>
                 </li>
-                <li>
+                <li class="active">
                     <?php
                     $attributes = array('id'=>'manageBasic');
                     echo anchor('basiccontroller/showBasicPanel','<i class="glyphicon glyphicon-chevron-right"></i> 8. 基本管理',$attributes);
@@ -129,48 +130,63 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>订单管理</h1>
+                        <h1>基本管理--校区
+                        <?php
+                        echo $rule->campusName;
+                        ?>
+                        </h1>
                     </div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="panel panel-default bootstrap-admin-no-table-panel">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">选择校区查看订单</div>
+                            <div class="text-muted bootstrap-admin-box-title">时间规则管理--(点击用户类型对特定用户群进行再编辑)</div>
                         </div>
-                        <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                        <div class="bootstrap-admin-panel-content">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>适用范围</th>
+                                    <th>取餐起始时间</th>
+                                    <th>取餐结束时间</th>
+                                    <th>下单起始时间</th>
+                                    <th>下单结束时间</th>
 
-                            <div class="form-horizontal">
-                                <fieldset>
-                                    <?php
-                                    $attributes = array('id'=>'orderbycampus');
-                                    echo form_open('admincontroller/showOrders');
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                if(!isset($rule->cid)){
+                                    echo "暂时没有任何时间规则！";
+                                }else{
+                                    // for non-vip user
+                                    echo '<tr>';
+                                    echo '<td>';
+                                    echo anchor("basiccontroller/showEditTime?userType=user","普通用户");
+                                    echo '</td>';
+                                    echo '<td>'.$rule->userPickupStart.'</td>';
+                                    echo '<td>'.$rule->userPickupEnd.'</td>';
+                                    echo '<td>'.$rule->userOrderStart.'</td>';
+                                    echo '<td>'.$rule->userOrderEnd.'</td>';
+                                    echo '</td>';
 
-                                    ?>
-                                    <legend>校区</legend>
-                                    <div class="form-group has-success">
-                                        <label class="col-lg-2 control-label" for="selectCampus">选择要查看的校区</label>
-                                        <div class="col-lg-10">
-                                            <select id="selectCampus" name="campus" class="form-control">
-                                                <?php
-                                                foreach($campusList as $campus){
-                                                    echo '<option value="'.$campus->cid.'">';
-                                                    echo $campus->cname;
-                                                    echo '</option>';
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <button style="float:right;" type="submit" class="btn btn-primary">查看该校区订单</button>
-                                    <?php
-                                    echo form_close();
-                                    ?>
-                                </fieldset>
-                            </div>
-
+                                    //for vip user
+                                    echo '<tr>';
+                                    echo '<td>';
+                                    echo anchor("basiccontroller/showEditTime?userType=vip","VIP用户");
+                                    echo '</td>';
+                                    echo '<td>'.$rule->vipPickupStart.'</td>';
+                                    echo '<td>'.$rule->vipPickupEnd.'</td>';
+                                    echo '<td>'.$rule->vipOrderStart.'</td>';
+                                    echo '<td>'.$rule->vipOrderEnd.'</td>';
+                                    echo '</tr>';
+                                }
+                                ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

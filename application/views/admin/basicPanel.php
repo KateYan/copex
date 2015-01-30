@@ -2,11 +2,10 @@
 /**
  * Created by PhpStorm.
  * User: kunyan
- * Date: 12/22/2014
- * Time: 5:49 PM
+ * Date: 1/29/2015
+ * Time: 11:15 PM
  */
 ?>
-
 <!-- Datatables -->
 <link rel="stylesheet" media="screen" href="/copex/bootstrap/css/DT_bootstrap.css">
 
@@ -113,7 +112,13 @@
                 <li class="active">
                     <?php
                     $attributes = array('id'=>'manageBasic');
-                    echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-chevron-right"></i> 8. 基本管理',$attributes);
+                    echo anchor('basiccontroller/showBasicPanel','<i class="glyphicon glyphicon-chevron-right"></i> 8. 基本管理',$attributes);
+                    ?>
+                </li>
+                <li>
+                    <?php
+                    $attributes = array('id'=>'manageCampus');
+                    echo anchor('campuscontroller/showCampusPanel','<i class="glyphicon glyphicon-chevron-right"></i> 9. 校区管理',$attributes);
                     ?>
                 </li>
             </ul>
@@ -124,109 +129,52 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>基本管理</h1>
+                        <h1>菜单管理</h1>
                     </div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default bootstrap-admin-no-table-panel">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">时间规则管理--(点击用户类型对特定用户群进行再编辑)</div>
+                            <div class="text-muted bootstrap-admin-box-title">选择校区查看基本管理</div>
                         </div>
-                        <div class="bootstrap-admin-panel-content">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>适用范围</th>
-                                    <th>取餐起始时间</th>
-                                    <th>取餐结束时间</th>
-                                    <th>下单起始时间</th>
-                                    <th>下单结束时间</th>
+                        <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
 
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                if(!isset($rule)){
-                                    echo "暂时没有任何时间规则！";
-                                }
-                                $num = count($rule['userType']);
-                                $userType = $rule['userType'];
-                                for($i = 0; $i<$num; $i++){
-                                    echo '<tr>';
-                                    if($rule['userType'][$i]=="user"){
-                                        echo '<td>';
-                                        echo anchor("basiccontroller/showEditTime?userType=$userType[$i]","普通用户");
-                                        echo '</td>';
-                                    }elseif($rule['userType'][$i]=="vip"){
-                                        echo '<td>';
-                                        echo anchor("basiccontroller/showEditTime?userType=$userType[$i]","VIP用户");
-                                        echo '</td>';
-                                    }
-                                    echo '<td>'.$rule['timeRange'][$i]['value'][0].'</td>';
-                                    echo '<td>'.$rule['timeRange'][$i]['value'][1].'</td>';
-                                    echo '<td>'.$rule['timeRange'][$i]['value'][2].'</td>';
-                                    echo '<td>'.$rule['timeRange'][$i]['value'][3].'</td>';
-                                    echo '</tr>';
-                                }
-                                ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            <div class="form-horizontal">
+                                <fieldset>
+                                    <?php
+                                    $attributes = array('id'=>'basicbycampus');
+                                    echo form_open('basiccontroller/showBasicDetail');
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">校区管理
-                            <?php
-                            if(isset($eMsg['deletesuccess'])){
-                                echo '<span style="color: #be2221;"><b>'.$eMsg['deletesuccess'].'</b></span>';
-                            }
-
-                            $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;');
-                            echo anchor('basiccontroller/showAddCampus','<i class="glyphicon glyphicon-plus"></i>
-                                         添加校区',$attributes);
-                            ?>
+                                    ?>
+                                    <legend>校区</legend>
+                                    <div class="form-group has-success">
+                                        <label class="col-lg-2 control-label" for="selectCampus">选择要查看的校区</label>
+                                        <div class="col-lg-10">
+                                            <select id="selectCampus" name="campus" class="form-control">
+                                                <?php
+                                                foreach($campusList as $campus){
+                                                    echo '<option value="'.$campus->cid.'">';
+                                                    echo $campus->cname;
+                                                    echo '</option>';
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button style="float:right;" type="submit" class="btn btn-primary">查看基本时间设置</button>
+                                    <?php
+                                    echo form_close();
+                                    ?>
+                                </fieldset>
                             </div>
-                        </div>
-                        <div class="bootstrap-admin-panel-content">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>校区ID</th>
-                                    <th>校区名</th>
-                                    <th>校区地址</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                if(!isset($campus)){
-                                    echo "暂时没有任何校区！";
-                                }
-                                $num = count($campus);
-                                for($i = 0; $i<$num; $i++){
-                                    echo '<tr>';
-                                    echo '<td><a href="showCampusDetail?campusId='.$campus[$i]->cid.'">';
-                                    echo $campus[$i]->cid;
-                                    echo '</a></td>';
-                                    echo '<td>'.$campus[$i]->cname.'</td>';
-                                    echo '<td>'.$campus[$i]->caddr.'</td>';
-                                    echo '</tr>';
-                                }
-                                ?>
-                                </tbody>
-                            </table>
+
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

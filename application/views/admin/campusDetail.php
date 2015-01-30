@@ -71,7 +71,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>基本管理</h1>
+                        <h1>校区管理</h1>
                     </div>
                 </div>
             </div>
@@ -83,11 +83,11 @@
                             <div class="text-muted bootstrap-admin-box-title">参看校区详情并编辑
                                 <?php
                                 $attributes = array('class'=>'btn btn-sm btn-danger','type'=>'reset','style'=>'float: right;');
-                                echo anchor('basiccontroller/deleteCampus','<i class="glyphicon glyphicon-remove"> 删除本校区</i>',$attributes);
+                                echo anchor('campuscontroller/deleteCampus','<i class="glyphicon glyphicon-remove"> 删除本校区</i>',$attributes);
                                 ?>
                                 <?php
                                 $attributes = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'float:right;margin-right:5px;');
-                                echo anchor('basiccontroller/goback','<i class="glyphicon glyphicon-backward"> 回基本管理主页</i>',$attributes);
+                                echo anchor('campuscontroller/goback','<i class="glyphicon glyphicon-backward"> 回校区管理主页</i>',$attributes);
                                 ?>
                             </div>
                         </div>
@@ -104,17 +104,19 @@
                                             echo '<span style="color: #be2221;"><b>'.$eMsg['deletesuccess'].'</b></span>';
                                         }elseif(isset($eMsg['addsuccess'])){
                                             echo '<span style="color: #be2221;"><b>'.$eMsg['addsuccess'].'</b></span>';
+                                        }elseif(isset($eMsg['nodelete'])){
+                                            echo '<span style="color: #be2221;"><b>'.$eMsg['nodelete'].'</b></span>';
                                         }
                                         ?>
                                     </legend>
                                     <?php
                                     $attributes = array('id'=>'editCampus');
-                                    echo form_open('basiccontroller/editCampus',$attributes);
+                                    echo form_open('campuscontroller/editCampus',$attributes);
                                     echo form_close();
                                     ?>
                                     <?php
                                     $attributes = array('id'=>'removeSupportDiner');
-                                    echo form_open('basiccontroller/removeSupportDiner',$attributes);
+                                    echo form_open('campuscontroller/removeSupportDiner',$attributes);
                                     echo form_close();
                                     ?>
                                     <div class="form-group">
@@ -211,10 +213,10 @@
                                     </button>
                                     <?php
                                     $attributes = array('type'=>'reset','class'=>'btn btn-default');
-                                    echo anchor('basiccontroller/showCampusDetail','<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes);
+                                    echo anchor('campuscontroller/showCampusDetail','<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes);
 
                                     $attributes1 = array('class'=>'btn btn-success','type'=>'reset','style'=>'margin-left:5px;');
-                                    echo anchor('basiccontroller/goback','<i class="glyphicon glyphicon-backward"> 回基本管理主页</i>',$attributes1);
+                                    echo anchor('campuscontroller/goback','<i class="glyphicon glyphicon-backward"> 回基本管理主页</i>',$attributes1);
                                     ?>
                                 </fieldset>
                             </div>

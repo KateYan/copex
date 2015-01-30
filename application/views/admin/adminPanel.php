@@ -165,7 +165,13 @@
                 <li>
                     <?php
                     $attributes = array('id'=>'manageBasic');
-                    echo anchor('basiccontroller/showBasicManage','<i class="glyphicon glyphicon-chevron-right"></i> 8. 基本管理',$attributes);
+                    echo anchor('basiccontroller/showBasicPanel','<i class="glyphicon glyphicon-chevron-right"></i> 8. 基本管理',$attributes);
+                    ?>
+                </li>
+                <li>
+                    <?php
+                    $attributes = array('id'=>'manageCampus');
+                    echo anchor('campuscontroller/showCampusPanel','<i class="glyphicon glyphicon-chevron-right"></i> 9. 校区管理',$attributes);
                     ?>
                 </li>
             </ul>
@@ -259,7 +265,7 @@
                                 echo '</li>';
 
                                 echo '<li>';
-                                echo anchor('basiccontroller/showBasicManage','4. 基本管理');
+                                echo anchor('basiccontroller/showBasicPanel','4. 基本管理');
                                 echo '</li>';
 
 

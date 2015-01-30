@@ -71,7 +71,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>基本管理</h1>
+                        <h1>校区管理</h1>
                     </div>
                 </div>
             </div>
@@ -83,7 +83,7 @@
                             <div class="text-muted bootstrap-admin-box-title">校区管理
                                 <?php
                                 $attributes = array('class'=>'btn btn-sm btn-warning','type'=>'reset','style'=>'float:right;margin-top:0px;');
-                                echo anchor('basiccontroller/goback','<i class="glyphicon glyphicon-backward"> 回基本管理主页</i>',$attributes);
+                                echo anchor('campuscontroller/goback','<i class="glyphicon glyphicon-backward"> 回校区管理主页</i>',$attributes);
                                 ?>
                             </div>
                         </div>
@@ -94,12 +94,14 @@
                                         <?php
                                         if(isset($eMsg['wrong'])){
                                             echo '<span style="color: #be2221;"><b>'.$eMsg['wrong'].'</b></span>';
+                                        }elseif(isset($eMsg['timewrong'])){
+                                            echo '<span style="color: #be2221;"><b>'.$eMsg['timewrong'].'</b></span>';
                                         }
                                         ?>
                                     </legend>
                                     <?php
                                     $attributes = array('id'=>'addCampus');
-                                    echo form_open('basiccontroller/addCampus',$attributes);
+                                    echo form_open('campuscontroller/addCampus',$attributes);
                                     echo form_close();
                                     ?>
                                     <div class="form-group<?php if(isset($eMsg['wrong'])){echo " has-error";}?>">
@@ -134,12 +136,74 @@
                                             </span>
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label" >普通用户时间设置</label>
+                                        <div class="col-lg-10">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <div class="text-muted bootstrap-admin-box-title">下单时间段 + 取餐时间段</div>
+                                                </div>
+                                                <div class="bootstrap-admin-panel-content">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>下单开始时间</th>
+                                                            <th>下单结束时间</th>
+                                                            <th>取餐开始时间</th>
+                                                            <th>取餐结束时间</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td><input form="addCampus" class="form-control" type="text" name="userOrderStart"/></td>
+                                                            <td><input form="addCampus" class="form-control" type="text" name="userOrderEnd"/></td>
+                                                            <td><input form="addCampus" class="form-control" type="text" name="userPickupStart"/></td>
+                                                            <td><input form="addCampus" class="form-control" type="text" name="userPickupEnd"/></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label" >VIP时间设置</label>
+                                        <div class="col-lg-10">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <div class="text-muted bootstrap-admin-box-title">下单时间段 + 取餐时间段</div>
+                                                </div>
+                                                <div class="bootstrap-admin-panel-content">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>下单开始时间</th>
+                                                            <th>下单结束时间</th>
+                                                            <th>取餐开始时间</th>
+                                                            <th>取餐结束时间</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td><input form="addCampus" class="form-control" type="text" name="vipOrderStart"/></td>
+                                                            <td><input form="addCampus" class="form-control" type="text" name="vipOrderEnd"/></td>
+                                                            <td><input form="addCampus" class="form-control" type="text" name="vipPickupStart"/></td>
+                                                            <td><input form="addCampus" class="form-control" type="text" name="vipPickupEnd"/></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <button form="addCampus" type="submit" class="btn btn-primary">
                                         <i class="glyphicon glyphicon-inbox"> 保存修改</i>
                                     </button>
                                     <?php
                                     $attributes = array('class'=>'btn btn-success','type'=>'reset');
-                                    echo anchor('basiccontroller/goback','<i class="glyphicon glyphicon-backward"> 回基本管理主页</i>',$attributes);
+                                    echo anchor('campuscontroller/goback','<i class="glyphicon glyphicon-backward"> 回校区管理主页</i>',$attributes);
                                     ?>
                                 </fieldset>
                             </div>
