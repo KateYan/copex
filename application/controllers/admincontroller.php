@@ -96,7 +96,7 @@ class Admincontroller extends MY_Controller{
         // get orderTimeRange
         $userType = 'vip';
         $this->load->model('market');
-        $orderTimeRange = $this->market->orderTimeRange($userType);
+        $orderTimeRange = $this->market->orderTimeRange($userType,$campusId);
         $orderStart = $orderTimeRange['orderStart'];
         $orderEnd = date("00:00:00");
         $time = date('H:i:s');
