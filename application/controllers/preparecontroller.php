@@ -38,14 +38,12 @@ class Preparecontroller extends MY_Controller{
             $dinerId = $_SESSION['diner']['did'];
         }
 
-//        var_dump($_SESSION['diner']);
-//        die();
-
         // find food that need to prepare
         // get orderTimeRange
         $userType = 'vip';
         $this->load->model('market');
-        $orderTimeRange = $this->market->orderTimeRange($userType);
+        $campus = $this->market->getCampusList();
+        $orderTimeRange = $this->market->orderTimeRange($userType,$campus[0]->cid);
         $orderStart = $orderTimeRange['orderStart'];
         $orderEnd = date("00:00:00");
         $time = date('H:i:s');
@@ -138,7 +136,8 @@ class Preparecontroller extends MY_Controller{
         // get orderTimeRange
         $userType = 'vip';
         $this->load->model('market');
-        $orderTimeRange = $this->market->orderTimeRange($userType);
+        $campus = $this->market->getCampusList();
+        $orderTimeRange = $this->market->orderTimeRange($userType,$campus[0]->cid);
         $orderStart = $orderTimeRange['orderStart'];
         $orderEnd = date("00:00:00");
         $time = date('H:i:s');
