@@ -64,12 +64,12 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
             }
             $campusID = $_SESSION['rule']->campusID;
 
-            // check if this controller is loaded from basic panel
-            if(!isset($_GET['userType'])){
-                return redirect('basiccontroller/showBasicPanel');
-            }
             // set user type
-            $userType = $_GET['userType'];
+            if(!isset($_GET['userType'])){
+                $userType = $_SESSION['ruleDetail']['userType'];
+            }else{
+                $userType = $_GET['userType'];
+            }
 
             $this->load->model('market');
             $timeRange= $this->market->getTimeRange($campusID);
@@ -114,9 +114,18 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
             }
 
             //update time
-            $timeList = array($_POST['pickup-start'],$_POST['pickup-end'],$_POST['order-start'],$_POST['order-end']);
+            $orderStart = $_POST['userType']."OrderStart";
+            $orderEnd = $_POST['userType']."OrderEnd";
+            $pickupStart = $_POST['userType']."PickupStart";
+            $pickupEnd = $_POST['userType']."PickupEnd";
+
+            $nameList = array($pickupStart,$pickupEnd,$orderStart,$orderEnd);
+            $timeList = array($orderStart => $_POST['pickup-start'],
+                            $orderEnd => $_POST['pickup-end'],
+                            $pickupStart => $_POST['order-start'],
+                            $pickupEnd => $_POST['order-end']);
             $this->load->model('market');
-            $this->market->updateTimeSetting($_POST['userType'],$timeList);
+            $this->market->updateTimeSetting($_SESSION['rule']->campusID,$nameList,$timeList);
 
             return redirect('basiccontroller/showEditTime/success');
         }
@@ -138,6 +147,10 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
                 unset($_SESSION['rule']);
             }
 
-            return redirect('basiccontroller/showBasicManage');
+            if(isset($_SESSION['ruleDetail'])){
+                unset($_SESSION['ruleDetail']);
+            }
+
+            return redirect('basiccontroller/showBasicPanel');
         }
     }

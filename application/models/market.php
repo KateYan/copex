@@ -228,16 +228,16 @@ class Market extends CI_Model {
     }
 
     // update  pickup and order time range
-    public function updateTimeSetting($userType,$timeList){
-        $sql0 = "UPDATE basic SET `value`='$timeList[0]' WHERE `key`='".$userType."_pickup_start'";
-        $sql1 = "UPDATE basic SET `value`='$timeList[1]' WHERE `key`='".$userType."_pickup_end'";
-        $sql2 = "UPDATE basic SET `value`='$timeList[2]' WHERE `key`='".$userType."_order_start'";
-        $sql3 = "UPDATE basic SET `value`='$timeList[3]' WHERE `key`='".$userType."_order_end'";
+    public function updateTimeSetting($cid,$nameList,$timeList){
+        $num = count($nameList);
 
-        $this->db->query($sql0);
-        $this->db->query($sql1);
-        $this->db->query($sql2);
-        $this->db->query($sql3);
+        $sql = "UPDATE basic SET ";
+        for($i = 0; $i < $num; $i ++){
+            $name = $nameList[$i];
+            $sql .= "$name = ".$this->db->escape($timeList[$name])."";
+            $sql .= ($i == ($num-1))? "WHERE cid = $cid;" : ',';
+        }
+        $this->db->query($sql);
     }
 
     // get all diner's information
