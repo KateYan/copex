@@ -16,6 +16,13 @@ class Market extends CI_Model {
         return $query->result();
     }
 
+    // get all pickup places of one campus
+    public function getPickupPlacesByCampus($cid){
+        $sql = "SELECT * FROM pickupplace WHERE cid = $cid";
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+
     // select all campus which has inuse menus
     public function getUseCampusList(){
 

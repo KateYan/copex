@@ -120,10 +120,10 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
             $pickupEnd = $_POST['userType']."PickupEnd";
 
             $nameList = array($pickupStart,$pickupEnd,$orderStart,$orderEnd);
-            $timeList = array($orderStart => $_POST['pickup-start'],
-                            $orderEnd => $_POST['pickup-end'],
-                            $pickupStart => $_POST['order-start'],
-                            $pickupEnd => $_POST['order-end']);
+            $timeList = array($pickupStart => $_POST['pickup-start'],
+                            $pickupEnd => $_POST['pickup-end'],
+                            $orderStart => $_POST['order-start'],
+                            $orderEnd => $_POST['order-end']);
             $this->load->model('market');
             $this->market->updateTimeSetting($_SESSION['rule']->campusID,$nameList,$timeList);
 

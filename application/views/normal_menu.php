@@ -11,6 +11,15 @@
             var _W = document.documentElement.clientWidth;
             $(".manaRecom_menu").css("height", parseInt((_W - 18)*256/606)+"px");
             $(".tdyS_m_block").css("height", parseInt((_W - 18)*0.46*317/266)+"px");
+            //**********new part
+            $(".n_input").bind("click", function(){
+                $(this).parent().children(".select_area_block").fadeIn();
+            });
+            $(".select_area_block ul li").bind("click", function(){
+                $(this).addClass("selectLi").siblings().removeClass("selectLi");
+                $(this).parent().parent().parent(".n_input_block").children(".n_input").val($(this).html());
+                $(".select_area_block").hide();
+            });
 
 //        var startTime = $('#timestart').val().split(":"), endTime = $('#timeend').val().split(":");
 //        var s = new Date(), e = new Date(), n = new Date();
@@ -122,6 +131,41 @@
     $attributes = array('class'=>'btn_footer notInUTSC');
     echo anchor('userlogincontroller/loadCampus',"我不在$cname",$attributes);
     ?>
+<!--    new part -->
+    <br />
+    <div class="n_input_block">
+        <input type="text" class="n_input" placeholder="饮料选择" />
+
+        <div class="select_area_block">
+            <ul>
+                <?php
+                foreach ($drinks as $drink) {
+                    echo '<input type="radio" name="drink" id="'.$drink->sid.'" value="'.$drink->sid.'" style="display:none;", form="menuItem">';
+                    echo '<label for="'.$drink->sid.'"><li>'."  ";
+                    echo $drink->sname;
+                    echo '</li></label>';
+                }
+                ?>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="n_input_block n_input_rightB">
+        <input type="text" class="n_input" placeholder="取餐地点选择" />
+        <div class="select_area_block">
+            <ul>
+                <?php
+                foreach ($places as $place) {
+                    echo '<input type="radio" name="pickupplace" id="'.$place->placeID.'" value="'.$place->placeID.'" style="display:none;", form="menuItem">';
+                    echo '<label for="'.$place->placeID.'"><li>'."  ";
+                    echo $place->placeAddr;
+                    echo '</li></label>';
+                }
+                ?>
+            </ul>
+        </div>
+    </div>
     <div class="clear"></div>
 </div>
 <footer id="Footer">

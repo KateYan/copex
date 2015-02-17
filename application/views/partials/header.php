@@ -20,6 +20,7 @@
     <title><?php echo $title; ?></title>
     <link href="/copex/css/common.css?v=112312" rel="stylesheet" type="text/css" />
     <link href="/copex/css/masterpage.css" rel="stylesheet" type="text/css" />
+    <link href="/copex/css/normalmenu.css" rel="stylesheet" type="text/css" />
     <link href="/copex/css/dinner.css?v=112312" rel="stylesheet" type="text/css" />
     <!-- <link href="../../css/Gooddinner.css" rel="stylesheet" type="text/css" /> -->
     <script type="text/javascript" src="/copex/js/jquery-1.7.2.min.js"></script>

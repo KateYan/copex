@@ -1,0 +1,63 @@
+.n_input_block {
+    width: 46%;
+    float: left;
+    margin-top: 5px;
+}
+
+.n_input_rightB {
+    float: right;
+}
+
+.n_input {
+    width: 94%;
+    border: 1px solid #ccc;
+    padding: 6px 3%;
+    height: 20px;
+    line-height: 20px;
+    background: url(images/H5_downArrow_new.png) no-repeat 96% center;
+    background-size: 12px auto;
+    border-radius: 5px;
+}
+
+.select_area_block {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.select_area_block ul {
+    width: 280px;
+    height: 300px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -180px 0 0 -140px;
+    z-index: 2;
+    background-color: #fff;
+    border: 1px solid #dfdfdf;
+    overflow-y: auto;
+}
+
+.select_area_block ul li {
+    width: auto;
+    display: block;
+    height: 38px;
+    line-height: 38px;
+    padding-left: 15px;
+    border-bottom: 1px solid #dfdfdf;
+}
+
+.select_area_block ul li.selectLi {
+    font-size: 16px;
+    color: #64A600;
+}
+
+.n_input_block .passWord {
+    margin-right: 0;
+    width: 98%
+}

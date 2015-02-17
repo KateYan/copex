@@ -148,7 +148,7 @@
                                     <div class="form-group<?php if(isset($eMsg['ostartwrg'])){echo " has-error";}?>">
                                         <label class="col-lg-2 control-label">下单起始时间</label>
                                         <div class="col-lg-10">
-                                            <input readonly form="editTime" class="form-control" type="text" name="order-start" value="<?php echo $_SESSION['ruleDetail']['timeRange']['orderStart']; ?>"/>
+                                            <input form="editTime" class="form-control" type="text" name="order-start" value="<?php echo $_SESSION['ruleDetail']['timeRange']['orderStart']; ?>"/>
                                             <span class="help-block">
                                                 <?php
                                                 if(isset($eMsg['ostartwrg'])){
