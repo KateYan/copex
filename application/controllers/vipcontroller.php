@@ -63,6 +63,7 @@ class Vipcontroller extends MY_Controller{
 
     // save edit vip user's information
     public function editVip(){
+        
         $userId = $_POST['userId'];
         $this->load->model('user');
         if(!empty($_POST['campusId'])){//update campus
@@ -98,10 +99,10 @@ class Vipcontroller extends MY_Controller{
                 $this->user->changeVipCardForUser($userId,$_POST['vipNumber']);
             }
         }
-        if(isset($_POST['vipBalance'])){// update balance
-            $_SESSION['vipUser']->vbalance = $_POST['vipBalance'];
+        if(isset($_POST['addBalance'])){// update balance
+            $_SESSION['vipUser']->vbalance = $_POST['vipBalance'] + $_POST['addBalance'];
             // check if balance is validate to use
-            $this->form_validation->set_rules('vipBalance','VipCardBalance','trim|required|greater_than[0]|less_than[301]');
+            $this->form_validation->set_rules('addBalance','AddVipCardBalance','trim|required|greater_than[0]|less_than[301]');
             if($this->form_validation->run()==FALSE){
                 return redirect('vipcontroller/showEditVip/wrongbalance');
             }

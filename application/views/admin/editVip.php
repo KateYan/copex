@@ -125,12 +125,12 @@
                                 ?>
                             </div>
                         </div>
-                        <div class="form-group<?php if(isset($eMsg['wrongbalance'])){echo " has-error";}?>">
+                        <div class="form-group">
                             <label class="col-lg-2 control-label">会员卡余额</label>
                             <div class="col-lg-10">
                                 <div class="input-group">
                                     <span class="input-group-addon" style="border-bottom-right-radius:0px;border-top-right-radius: 0px; ">$</span>
-                                <input form="editVip" class="form-control" type="text" name="vipBalance" value="<?php echo $_SESSION['vipUser']->vbalance; ?>"/>
+                                <input form="editVip" class="form-control" type="text" name="vipBalance" value="<?php echo $_SESSION['vipUser']->vbalance; ?>" readonly />
                                 </div>
                                 <?php
                                 if(isset($eMsg['wrongbalance'])){
@@ -139,6 +139,22 @@
                                 ?>
                             </div>
                         </div>
+
+                        <div class="form-group<?php if(isset($eMsg['wrongbalance'])){echo " has-error";}?>">
+                            <label class="col-lg-2 control-label">充值</label>
+                            <div class="col-lg-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon" style="border-bottom-right-radius:0px;border-top-right-radius: 0px; ">$</span>
+                                    <input form="editVip" class="form-control" type="text" name="addBalance" />
+                                </div>
+                                <?php
+                                if(isset($eMsg['wrongbalance'])){
+                                    echo '<span class="help-block">'.$eMsg['wrongbalance'].'</span>';
+                                }
+                                ?>
+                            </div>
+                        </div>
+
                         <div class="form-group<?php if(isset($eMsg['pswmiss'])||isset($eMsg['wrongformat'])){echo " has-error";}?>">
                             <label class="col-lg-2 control-label">重置会员支付密码</label>
                             <div class="col-lg-10">

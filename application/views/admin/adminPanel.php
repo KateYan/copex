@@ -268,6 +268,10 @@
                                 echo anchor('basiccontroller/showBasicPanel','4. 基本管理');
                                 echo '</li>';
 
+                                echo '<li>';
+                                echo anchor('campuscontroller/showCampusPanel','5. 校区管理');
+                                echo '</li>';
+
 
                                 ?>
                             </ul>
