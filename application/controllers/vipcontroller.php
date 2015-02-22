@@ -108,7 +108,7 @@ class Vipcontroller extends MY_Controller{
             }
 
             $columnName = "vbalance";
-            $this->user->updateVipCardByUser($userId,$columnName,$_POST['vipBalance']);
+            $this->user->updateVipCardByUser($userId,$columnName,$_SESSION['vipUser']->vbalance);
 
             // record balance history
             $this->user->vipHistoryRecord($userId,$_POST['vipBalance'],$_POST['addBalance'],$_SESSION['vipUser']->vbalance);

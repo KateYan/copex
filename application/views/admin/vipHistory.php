@@ -196,7 +196,6 @@
                     </div>
                 </div>
                 <div class="bootstrap-admin-panel-content">
-                    <tbody>
                     <?php
                     if (empty($history)) {
                         echo "该用户暂时还未充过值。";

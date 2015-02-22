@@ -319,7 +319,6 @@
                     </div>
                 </div>
                 <div class="bootstrap-admin-panel-content">
-                    <tbody>
                     <?php
                     if (!isset($historyOrder)) {
                         echo "暂时还没有用户点今天的菜，请稍等片刻后刷新看看。";
