@@ -73,7 +73,7 @@ class Marketcontroller extends MY_Controller{
         $data['saleItem'] = $this->menuitem->saleItem($_SESSION['cid']);
 
         // get drink side dish
-        $data['drinks'] = $this->menuitem->drinks($_SESSION['cid']);
+//        $data['drinks'] = $this->menuitem->drinks($_SESSION['cid']);
 
         // create session to store all three food's information
         $this->menuitem->storeFoodInSession($data['recomdItem'],$data['saleItem']);
