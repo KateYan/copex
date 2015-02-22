@@ -18,6 +18,7 @@ class Marketcontroller extends MY_Controller{
         $this->load->library('form_validation');
         
         $this->form_validation->set_rules('uphone','Phone','trim|required|integer|numeric|exact_length[10]');
+//        $this->form_validation->set_rules('pickupplace','Place','trim|required');
         if(!isset($_SESSION['uid'])){
             return redirect('userstatuscontroller/checkUserStatus');
         }
@@ -34,8 +35,10 @@ class Marketcontroller extends MY_Controller{
             'nofulfill'=> "您还没有选择菜品或输入手机号哦！", // non-vip
             'nofoodpicked'=>"您还没有点任何一款主食哦！", // vip
             'wrongphone'=>"请输入正确的手机号",// non-vip
+//            'nopickupplace' => "请输入取餐地点", // non-vip
             'timelimit' => "超过订餐时间！",
             'outofinventory' => "您选的菜今天已经被全部预定了~",
+//            'noDrink' => "您选择的饮料今天已经卖光了哦~",
             'noenoughfood0' => "菜单上的第一个菜已经被预定光了！",
             'noenoughfood1' => "菜单上的第二个菜已经被预定光了！",
             'noenoughfood2' => "菜单上的第三个菜已经被预定光了！",
@@ -213,6 +216,7 @@ class Marketcontroller extends MY_Controller{
      * generate order for non-vip user
      */
     public function orderGenerate(){
+
         // test if still in order time range
         if(!$this->checkTime($_SESSION['cid'])){
             return redirect('marketcontroller/showDailyMenu/timelimit');
@@ -221,6 +225,11 @@ class Marketcontroller extends MY_Controller{
         if($this->form_validation->run() == FALSE){
             return redirect('marketcontroller/showDailyMenu/wrongphone');
         }
+        //check if user choose the pick up place
+
+//        if(!isset($_POST['pickupplace'])){
+//            return redirect('marketcontroller/showDailyMenu/nopickupplace');
+//        }
         // check if user has ordered before within the same day
         if(!$this->ifOrderedToday()){
             return redirect('marketcontroller/showDailyMenu/orderlimit');
@@ -237,14 +246,24 @@ class Marketcontroller extends MY_Controller{
             // this will be used to update user's account's related phone number
             $uphone = $this->input->post('uphone');
             $_SESSION['uphone'] = $uphone;
-            $orderItemId = $this->input->post('fid');
+            $orderItemId = array('food' => $this->input->post('fid'));
+            if(isset($_POST['drink'])){
+                $orderItemId['drink'] = $this->input->post('drink');
+            }
 
             // check inventory
             $this->load->model('order');
             $amount = 1;
-            if(!$this->order->checkFoodInventory($_SESSION['cid'],$orderItemId,$amount)){
+            // check food's inventory
+            if(!$this->order->checkFoodInventory($_SESSION['cid'],$orderItemId['food'],$amount)){
                 return redirect('marketcontroller/showDailyMenu/outofinventory');
             }
+//            // check drink's inventory
+//            if(isset($_POST['drink'])){
+//                if(!$this->order->checkSidedishInventory($_SESSION['cid'],$orderItemId['drink'],$amount)){
+//                    return redirect('marketcontroller/showDailyMenu/noDrink');
+//                }
+//            }
 
             // generate fordate
             // find order start time
@@ -262,7 +281,7 @@ class Marketcontroller extends MY_Controller{
 
 
             $this->load->model('order');
-            $orderId = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$fordate,$orderItemId,$_SESSION['uphone']);
+            $orderId = $this->order->userOrder($uid,$_SESSION['cid'],$_POST['pickupplace'],$odate,$fordate,$orderItemId,$_SESSION['uphone']);
 
             $_SESSION['orderId']= $orderId;
 
@@ -332,7 +351,6 @@ class Marketcontroller extends MY_Controller{
             }
         }
 
-//        var_dump($_POST);
         // for posted side dish
         $sideDishList = array();
         $sideDishItem = array();

@@ -102,27 +102,49 @@ class Order extends CI_Model {
     /*
      * using userid, date, and the foodid the user chosed to create order for non-vip user
      */
-    public function userOrder($uid,$cid,$odate,$fordate,$foodId,$uphone){
+    public function userOrder($uid,$cid,$odate,$fordate,$orderItem,$uphone){
 
         // find the food's information from food table using food's fid
+        $foodId = $orderItem['food'];
         $sqlFood = "SELECT * FROM food WHERE fid='$foodId'";
-        $query = $this->db->query($sqlFood);
-        if($query->num_rows()!=1){
+        $query_food = $this->db->query($sqlFood);
+        if($query_food->num_rows()!=1){
             return false;
         }
         // $query is a set of results, so it can't be used directly
         // using row(0) to get it as an array
-        $food = $query->row(0);
-        $tax = round($food->fprice * 0.13,2);
+        $food = $query_food->row(0);
+        $totalcost = $food -> fprice;
 
-        $totalcost = round($food->fprice + $tax,2);
+//        // find the drink's information from sidedish table using drink's sid
+//        if(isset($orderItem['drink'])){
+//            $drinkId = $orderItem['drink'];
+//            $sqlDrink = "SELECT * FROM sidedish WHERE sid='$drinkId'";
+//            $query_drink = $this->db->query($sqlDrink);
+//            if($query_drink->num_rows()!=1){
+//                return false;
+//            }
+//
+//            $drink = $query_drink->row(0);
+//            $totalcost += $drink -> sprice;
+//        }
+
+        $tax = round($totalcost * 0.13,2);
+
+        $totalcost = round($totalcost + $tax,2);
 
         // check inventory befor make order
         $amount=1;
-        $inventory = $this->checkFoodInventory($cid,$foodId,$amount);
-        if(!$inventory){
+        $inventory_food = $this->checkFoodInventory($cid,$foodId,$amount);
+        if(!$inventory_food){
             return false;
         }
+//        if(isset($drinkId)){
+//            $inventory_drink = $this->checkSidedishInventory($cid,$drinkId,$amount);
+//            if(!$inventory_drink){
+//                return false;
+//            }
+//        }
         // insert into order table a new row
         $sql = "INSERT INTO `order`(uid,cid,odate,fordate,tax,totalcost) VALUES (".$this->db->escape($uid).",".$this->db->escape($cid).",".$this->db->escape($odate).",".$this->db->escape($fordate).",".$this->db->escape($tax).",".$this->db->escape($totalcost).")";
         $this->db->query($sql);
@@ -131,11 +153,19 @@ class Order extends CI_Model {
         $oid = $this->db->insert_id();
 
         //insert the order's food into orderitem table
-        $sqlItem = "INSERT INTO orderitem(amount,oid,dishid,price,dishtype) VALUES('1',".$this->db->escape($oid).",".$this->db->escape($foodId).",".$this->db->escape($food->fprice).",'0')";
-        $this->db->query($sqlItem);
+        $sqlItem_food = "INSERT INTO orderitem(amount,oid,dishid,price,dishtype) VALUES('1',".$this->db->escape($oid).",".$this->db->escape($foodId).",".$this->db->escape($food->fprice).",'0')";
+        $this->db->query($sqlItem_food);
+
+//        if(isset($drinkId)){
+//            $sqlItem_drink = "INSERT INTO orderitem(amount,oid,dishid,price,dishtype) VALUES('1',".$this->db->escape($oid).",".$this->db->escape($drinkId).",".$this->db->escape($drink->sprice).",'1')";
+//            $this->db->query($sqlItem_drink);
+//        }
 
         // update the menuitem's inventory
-        $this->updateMenuItemInventory($cid,$foodId,$inventory,$amount);
+        $this->updateMenuItemInventory($cid,$foodId,$inventory_food,$amount);
+//        if(isset($drinkId)){
+//            $this->updateSideMenuItemInventory($cid,$drinkId,$inventory_drink,$amount);
+//        }
 
         // update the user's order-status into '1' and his phone number into new entered phone number
         $sqlOrdered = "UPDATE `user` SET `uphone` = '$uphone', `ordered`='1' WHERE `uid` ='$uid'";

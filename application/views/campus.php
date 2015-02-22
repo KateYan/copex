@@ -51,7 +51,7 @@
 <body>
 <div class="loginBox">
     <div class="logo_area">
-        <img src="/copex/css/images/logo.gif" width="50%">
+        <img src="/copex/css/images/newyear_logo.gif" width="50%">
         <p>校园美味 自成一派</p>
     </div>
     <span class="select_Campus">
