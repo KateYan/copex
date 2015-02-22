@@ -201,4 +201,30 @@ class User extends CI_Model {
 
     }
 
+    public function vipHistoryRecord($userId,$beforBalance,$addBalance,$afterBalance){
+        // 1. find vipcard for user
+        $sql_vipcard = "SELECT vipid FROM `user` WHERE uid = $userId";
+        $query_vipcard = $this->db->query($sql_vipcard);
+
+        if($query_vipcard -> num_rows != 1){
+            return false;
+        }
+
+        $vip = $query_vipcard -> row(0);
+        $vipid = $vip -> vipid;
+
+        // record new history into viphistory table
+        $sql_history = "INSERT INTO viphistory(vipid, befBalance, addBalance, aftBalance) VALUES (".$this->db->escape($vipid).",".$this->db->escape($beforBalance).",".$this->db->escape($addBalance).",".$this->db->escape($afterBalance).")";
+
+        $query_history = $this->db->query($sql_history);
+    }
+
+    // get vip user's history
+    public function getHistory($vipid){
+        $sql_history = "SELECT * FROM viphistory WHERE vipid = $vipid ORDER BY logTime DESC";
+        $query_history = $this->db->query($sql_history);
+
+        return $query_history->result();
+    }
+
 }

@@ -82,6 +82,9 @@
                     <?php
                     $attributes = array('class'=>'btn btn-sm btn-warning','type'=>'reset','style'=>'float:right;margin-top:0px;');
                     echo anchor('vipcontroller/goback','<i class="glyphicon glyphicon-backward"> 回VIP列表</i>',$attributes);
+
+                    $attributes = array('id'=>'distribution','class'=>'btn btn-sm btn-success','style'=>'float: right;margin-right:5px;');
+                    echo anchor('vipcontroller/showVipHistory','<i class="glyphicon glyphicon-search">查看会员历史</i>',$attributes);
                     ?>
                 </div>
             </div>

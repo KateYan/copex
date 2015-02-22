@@ -63,7 +63,7 @@ class Vipcontroller extends MY_Controller{
 
     // save edit vip user's information
     public function editVip(){
-        
+
         $userId = $_POST['userId'];
         $this->load->model('user');
         if(!empty($_POST['campusId'])){//update campus
@@ -109,6 +109,9 @@ class Vipcontroller extends MY_Controller{
 
             $columnName = "vbalance";
             $this->user->updateVipCardByUser($userId,$columnName,$_POST['vipBalance']);
+
+            // record balance history
+            $this->user->vipHistoryRecord($userId,$_POST['vipBalance'],$_POST['addBalance'],$_SESSION['vipUser']->vbalance);
         }
         if(!empty($_POST['newPassword'])&&!empty($_POST['checkNewPassword'])){
             // check if entered pasword validate the format
@@ -155,9 +158,7 @@ class Vipcontroller extends MY_Controller{
 
     // using posted new vip information to add new vip
     public function addVip(){
-//        var_dump($_POST);
-//        echo $_POST['vipNumber'];
-//        die();
+
         // check all inputs validation
         // 1. check phone number
         $this->form_validation->set_rules('vipPhone','Phone','trim|required|integer|numeric|exact_length[10]');
@@ -200,6 +201,20 @@ class Vipcontroller extends MY_Controller{
 
             }
         }
+    }
+
+    // show vip user's log history
+    public function showVipHistory(){
+        if(!isset($_SESSION['vipUser']->vipid)){
+            return redirect("vipcontroller/showVipPanel");
+        }
+        $this->load->model('user');
+        $data['history'] = $this->user->getHistory($_SESSION['vipUser']->vipid);
+
+        $this->load->view('partials/adminHeader',$data);
+        $this->load->view('admin/vipHistory');
+        $this->load->view('partials/adminFooter');
+
     }
 
     // clear session for go back anchor
