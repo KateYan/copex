@@ -84,7 +84,7 @@ class Marketcontroller extends MY_Controller{
         $data['cname'] = $campus->cname;
 
         // using the cid to get all the pickup places of this campus
-        $data['places'] = $this->market->getPickupPlacesByCampus($campus->cid);
+//        $data['places'] = $this->market->getPickupPlacesByCampus($campus->cid);
 
         // get user type for getting different order time range
         if(!empty($_SESSION['vipid'])){
