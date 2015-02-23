@@ -102,7 +102,7 @@ class Vipcontroller extends MY_Controller{
         if(isset($_POST['addBalance'])){// update balance
             $_SESSION['vipUser']->vbalance = $_POST['vipBalance'] + $_POST['addBalance'];
             // check if balance is validate to use
-            $this->form_validation->set_rules('addBalance','AddVipCardBalance','trim|required|greater_than[0]|less_than[301]');
+            $this->form_validation->set_rules('addBalance','AddVipCardBalance','trim|required|greater_than[-100]|less_than[301]');
             if($this->form_validation->run()==FALSE){
                 return redirect('vipcontroller/showEditVip/wrongbalance');
             }
