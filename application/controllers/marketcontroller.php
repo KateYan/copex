@@ -407,6 +407,12 @@ class Marketcontroller extends MY_Controller{
         // store order's id
         if($orderId){ // create order successfully
             $_SESSION['orderId'] = $orderId;
+
+            // update history
+            $this->load->model('user');
+            $minusBalance = round($totalCost_beforTax*1.13,2);
+            $newBalance = $balance - $minusBalance;
+            $this->user->vipHistoryRecord($uid,$balance,$minusBalance,$newBalance);
             // show order
             return redirect('marketcontroller/succeedOrdered');
         }else{
