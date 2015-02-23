@@ -281,7 +281,7 @@ class Marketcontroller extends MY_Controller{
 
 
             $this->load->model('order');
-            $orderId = $this->order->userOrder($uid,$_SESSION['cid'],$_POST['pickupplace'],$odate,$fordate,$orderItemId,$_SESSION['uphone']);
+            $orderId = $this->order->userOrder($uid,$_SESSION['cid'],$odate,$fordate,$orderItemId,$_SESSION['uphone']);
 
             $_SESSION['orderId']= $orderId;
 
