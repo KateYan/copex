@@ -210,6 +210,7 @@ class Vipcontroller extends MY_Controller{
         }
         $this->load->model('user');
         $data['history'] = $this->user->getHistory($_SESSION['vipUser']->vipid);
+        $data['title'] = "Copex | 会员历史";
 
         $this->load->view('partials/adminHeader',$data);
         $this->load->view('admin/vipHistory');

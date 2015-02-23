@@ -206,10 +206,10 @@
                         echo '<tr>';
 
                         echo '<th>编号</th>
-                            <th>充值时间</th>
-                            <th>充值前余额</th>
-                            <th>充值后余额</th>
-                            <th>充值金额</th>';
+                            <th>操作时间</th>
+                            <th>操作前余额</th>
+                            <th>操作后余额</th>
+                            <th>金额变动</th>';
                         echo '</tr>';
                         echo '</thead>';
 
