@@ -99,7 +99,7 @@ class Vipcontroller extends MY_Controller{
                 $this->user->changeVipCardForUser($userId,$_POST['vipNumber']);
             }
         }
-        if(isset($_POST['addBalance'])){// update balance
+        if(!empty($_POST['addBalance'])){// update balance
             $_SESSION['vipUser']->vbalance = $_POST['vipBalance'] + $_POST['addBalance'];
             // check if balance is validate to use
             $this->form_validation->set_rules('addBalance','AddVipCardBalance','trim|required|greater_than[-100]|less_than[301]');
