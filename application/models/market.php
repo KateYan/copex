@@ -17,11 +17,11 @@ class Market extends CI_Model {
     }
 
     // get all pickup places of one campus
-//    public function getPickupPlacesByCampus($cid){
-//        $sql = "SELECT * FROM pickupplace WHERE cid = $cid";
-//        $query = $this->db->query($sql);
-//        return $query->result();
-//    }
+    public function getPickupPlacesByCampus($cid){
+        $sql = "SELECT * FROM pickupplace WHERE cid = $cid";
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
 
     // select all campus which has inuse menus
     public function getUseCampusList(){
@@ -43,7 +43,7 @@ class Market extends CI_Model {
 
     // find campus' all information including coperationline
     public function findCampus($cid){
-        $sql1 = "SELECT * FROM campus WHERE cid = '$cid'";
+        $sql1 = "SELECT * FROM campus WHERE campus.cid = '$cid'";
         $query1 = $this->db->query($sql1);
         $result1 = $query1->result_array();
 
@@ -52,13 +52,31 @@ class Market extends CI_Model {
             'dname'=>array()
         );
 
+        $c_place = array(
+            'placeID'=>array(),
+            'placeName'=>array(),
+            'placeAddr'=>array()
+        );
+
         $sql2 = "SELECT coperationline.*,diner.dname FROM (coperationline JOIN diner ON coperationline.did = diner.did)JOIN campus ON coperationline.cid = campus.cid WHERE campus.cid = '$cid'";
         $query2 = $this->db->query($sql2);
         foreach($query2->result() as $line){
             $c_diner['did'][] = $line->did;
             $c_diner['dname'][] = $line->dname;
         }
-        $campus = array_merge($result1[0],$c_diner);
+
+        $sql3 = "SELECT pickupplace.* FROM campus JOIN pickupplace ON campus.cid = pickupplace.cid WHERE campus.cid = '$cid'";
+        $query3 = $this->db->query($sql3);
+        if($query3->num_rows() != 0){
+            foreach($query3->result() as $place){
+                $c_place['placeID'][] = $place->placeID;
+                $c_place['placeName'][] = $place->placeName;
+                $c_place['placeAddr'][] = $place->placeAddr;
+            }
+        }
+
+
+        $campus = array_merge($result1[0],$c_diner,$c_place);
 
         $_SESSION['campus'] = $campus;
     }
@@ -284,6 +302,15 @@ class Market extends CI_Model {
         $sql1 = "INSERT INTO basic(cid,userOrderStart,userOrderEnd,userPickupStart,userPickupEnd,vipOrderStart,vipOrderEnd,vipPickupStart,vipPickupEnd) VALUES('$campusId',".$this->db->escape($times[0]).",".$this->db->escape($times[1]).",".$this->db->escape($times[2]).",".$this->db->escape($times[3]).",".$this->db->escape($times[4]).",".$this->db->escape($times[5]).",".$this->db->escape($times[6]).",".$this->db->escape($times[7]).")";
         $query1 = $this->db->query($sql1);
         return $campusId;
+    }
+
+    // add pickup Place for campus
+    public function addPickupPlaceForCampus($campusID,$placeName,$placeAddr){
+        $sql = "INSERT INTO pickupplace(cid,placeName,placeAddr) VALUES (".$this->db->escape($campusID).",".$this->db->escape($placeName).",".$this->db->escape($placeAddr).")";
+
+        $query = $this->db->query($sql);
+        $placeID = $this->db->insert_id(); // get new pickupplace's id
+        return $placeID;
     }
 
     // update food info

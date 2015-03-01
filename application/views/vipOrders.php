@@ -56,9 +56,13 @@
             }
             echo '<h4 style="margin-bottom: 5px;">'."取餐日期：".$order['order']->fordate.'</h4>';
             echo '<h4 style="margin-bottom: 5px;">'."取餐校区：".$order['order']->cname.'</h4>';
-            echo '<h4 style="margin-bottom: 5px;">'."取餐地址：".$order['order']->caddr.'</h4>';
-
-
+            echo '<h4 style="margin-bottom: 5px;">'."取餐地址：";
+            if(!empty($order['order']->placeID)){
+                echo $order['order']->placeAddr;
+                echo '</h4>';
+            }else{
+                echo $order['order']->caddr.'</h4>';
+            }
 
             echo '</span></div>';
         }

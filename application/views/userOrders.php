@@ -30,16 +30,18 @@
 
 <div id="Contenter" class="dinner_cont">
     <?php
-    if(isset($orders)){
-        foreach($orders as $order){
+    if(isset($order)){
             echo '<div class="menu_block">';
-            echo '<div class="menuD_img"><img src="/copex/upload/'.$order->fpicture.'" width="100%" /></div>';
+            echo '<div class="menuD_img"><img src="/copex/upload/'.$food->fpicture.'" width="100%" /></div>';
             echo '<div class="menuD_summary">';
             echo '<h4 style="margin-bottom: 5px;">'."订单号：".$order->oid.'</h4>';
 
-            echo '<h4 style="margin-bottom: 5px;">'."主食：".$order->fname.'</h4>';
-            echo '<h4 style="margin-bottom: 5px;">'."数量：".$order->amount.'</h4>';
-            echo '<h4 style="margin-bottom: 5px;">'."单价：$ ".$order->price.'</h4>';
+            echo '<h4 style="margin-bottom: 5px;">'."主食：".$food->fname.'</h4>';
+            echo '<h4 style="margin-bottom: 5px;">'."数量：".$food->amount.'</h4>';
+            echo '<h4 style="margin-bottom: 5px;">'."单价：$ ".$food->price.'</h4>';
+        if(isset($drink)){
+            echo '<h4 style="margin-bottom: 5px;">'."饮料：".$drink->sname."   $".$drink->sprice.'</h4>';
+        }
             echo '<h4 style="margin-bottom: 5px;">'."税费：$ ".$order->tax.'</h4>';
             echo '<h4 style="margin-bottom: 5px;">'."总价：$ ".$order->totalcost.'</h4>';
             echo '<h4 style="margin-bottom: 5px;">'."下单时间： ".$order->odate.'</h4>';
@@ -59,7 +61,7 @@
             echo '<h4 style="margin-bottom: 5px;">'."取餐校区：".$order->cname.'</h4>';
             echo '<h4 style="margin-bottom: 5px;">'."取餐地址：".$order->caddr.'</h4>';
             echo '</div></div>';
-        }
+
     }else{
         echo '<div class="menu_block">';
         echo "您今天还没有下单哦";

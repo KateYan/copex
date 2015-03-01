@@ -84,6 +84,11 @@
                                 <?php
                                 $attributes = array('class'=>'btn btn-sm btn-danger','type'=>'reset','style'=>'float: right;');
                                 echo anchor('campuscontroller/deleteCampus','<i class="glyphicon glyphicon-remove"> 删除本校区</i>',$attributes);
+
+                                $attributes = array('class'=>'btn btn-sm btn-success','style'=>'float: right;margin-right:5px;');
+                                echo anchor('campuscontroller/showAddPickupPlace','<i class="glyphicon glyphicon-plus"></i>
+                                         添加取餐地点',$attributes);
+
                                 ?>
                                 <?php
                                 $attributes = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'float:right;margin-right:5px;');
@@ -113,10 +118,13 @@
                                     $attributes = array('id'=>'editCampus');
                                     echo form_open('campuscontroller/editCampus',$attributes);
                                     echo form_close();
-                                    ?>
-                                    <?php
+
                                     $attributes = array('id'=>'removeSupportDiner');
                                     echo form_open('campuscontroller/removeSupportDiner',$attributes);
+                                    echo form_close();
+
+                                    $attributes = array('id'=>'removePickupPlace');
+                                    echo form_open('campuscontroller/removePickupPlace',$attributes);
                                     echo form_close();
                                     ?>
                                     <div class="form-group">
@@ -140,6 +148,55 @@
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label" for="optionsCheckbox2">包含取餐地点列表</label>
+                                        <div class="col-lg-10">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <div class="text-muted bootstrap-admin-box-title">取餐地点如下
+                                                        <button style="float: right;" form="removePickupPlace" class="btn btn-sm btn-danger">
+                                                            <i class="glyphicon glyphicon-remove"></i>
+                                                            删除取餐地点
+                                                        </button>
+                                                        <?php
+                                                        if(isset($eMsg['delAPlaceError'])){
+                                                            echo '<span style="color: #be2221;float:right;"><b>'.$eMsg['delAPlaceError'].'</b></span>';
+                                                        } elseif(isset($eMsg['deletePlaceSuccess'])){
+                                                            echo '<span style="color: #be2221;float:right;"><b>'.$eMsg['deletePlaceSuccess'].'</b></span>';
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                                <div class="bootstrap-admin-panel-content">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>取餐地点ID</th>
+                                                            <th>地点名称</th>
+                                                            <th>具体地址</th>
+                                                            <th>删除地点</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <?php
+                                                        $num = count($_SESSION['campus']['placeID']);
+                                                        for($i = 0;$i<$num; $i++){
+                                                            echo '<tr>';
+                                                            echo '<th>'.$_SESSION['campus']['placeID'][$i].'</th>';
+                                                            echo '<th>'.$_SESSION['campus']['placeName'][$i].'</th>';
+                                                            echo '<th>'.$_SESSION['campus']['placeAddr'][$i].'</th>';
+                                                            echo '<th>'.'<input form="removePickupPlace" type="checkbox" name="place" value="'.$_SESSION['campus']['placeID'][$i].'"/></th>';
+                                                            echo '</tr>';
+                                                        }
+                                                        ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="optionsCheckbox2">配餐来源餐厅列表</label>
                                         <div class="col-lg-10">

@@ -84,13 +84,21 @@ class Userstatuscontroller extends MY_Controller {
             $this->load->model('order');
             // if user ordered already
             if($this->order->findUserOrder($_COOKIE['uid'],$today,$tomorrow)){
-                $data['orders'] = $this->order->findUserOrder($_COOKIE['uid'],$today,$tomorrow);
+                $order = $this->order->findUserOrder($_COOKIE['uid'],$today,$tomorrow);
+                $data['order'] = $order['order'];
+                $data['food'] = $order['food'];
+
+                if(isset($order['drink'])){
+                    $data['drink'] = $order['drink'];
+                }
+
             }
             $this->load->view('userOrders',$data);
         }else{ // for vip user
             $this->load->model('order');
             if($this->order->findVipOrder($_COOKIE['uid'],$today,$tomorrow)){
                 $data['orders'] = $this->order->findVipOrder($_COOKIE['uid'],$today,$tomorrow);
+
             }
             $this->load->view('vipOrders',$data);
         }

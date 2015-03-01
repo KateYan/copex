@@ -138,6 +138,61 @@ class Campuscontroller extends MY_Controller{
         return redirect('campuscontroller/showCampusDetail/deletesuccess');
     }
 
+    // delete pickup place
+    public function removePickupPlace(){
+        if(empty($_POST[''])){
+            return redirect('campuscontroller/showCampusDetail/delAPlaceError');
+        }
+
+        // using posted delete place id
+        // get number of all place
+        $this->load->model('market');
+        $diners = $this->market->getDinerList();
+        $num_place = count($_SESSION['campus']['placeID']);
+        $removeDiner = array();
+    }
+
+    // show add new pickup place
+    public function showAddPickupPlace($errorCode = null){
+
+        // check if there is error code
+        $eMsg = array(
+            'noName' => "请输入取餐地点名称或代号",
+            'noAddress' => "具体取餐地址不能为空",
+            'success' => "成功添加取餐点！"
+        );
+
+        if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+            $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
+        }
+
+        $data['title'] = "Copex | 添加取餐地点";
+        $this->load->view('partials/adminHeader',$data);
+        $this->load->view('admin/newPickupPlace',$data);
+        $this->load->view('partials/adminFooter');
+    }
+
+    // add pickup place for campus
+    public function addPickupPlace(){
+//        var_dump($_POST);
+//        die();
+        if(empty($_POST['placeName'])){
+            return redirect('campuscontroller/showAddPickupPlace/noName');
+        }
+
+        if(empty($_POST['placeAddr'])){
+            return redirect('campuscontroller/showAddPickupPlace/noAddress');
+        }
+
+        $this->load->model('market');
+        $placeID = $this->market->addPickupPlaceForCampus($_POST['cid'],$_POST['placeName'],$_POST['placeAddr']);
+
+        if($placeID){
+            return redirect('campuscontroller/showAddPickupPlace/success');
+        }
+
+    }
+
     // show add new campus
     public function showAddCampus($errorCode = null){
         // check if there is error code

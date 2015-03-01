@@ -73,7 +73,7 @@ class Marketcontroller extends MY_Controller{
         $data['saleItem'] = $this->menuitem->saleItem($_SESSION['cid']);
 
         // get drink side dish
-//        $data['drinks'] = $this->menuitem->drinks($_SESSION['cid']);
+        $data['drinks'] = $this->menuitem->drinks($_SESSION['cid']);
 
         // create session to store all three food's information
         $this->menuitem->storeFoodInSession($data['recomdItem'],$data['saleItem']);
@@ -84,7 +84,7 @@ class Marketcontroller extends MY_Controller{
         $data['cname'] = $campus->cname;
 
         // using the cid to get all the pickup places of this campus
-//        $data['places'] = $this->market->getPickupPlacesByCampus($campus->cid);
+        $data['places'] = $this->market->getPickupPlacesByCampus($campus->cid);
 
         // get user type for getting different order time range
         if(!empty($_SESSION['vipid'])){
@@ -131,7 +131,8 @@ class Marketcontroller extends MY_Controller{
         $eMsg = array(
             'nopw' => "支付密码不能为空哦",
             'wrongpw'=> "您输入的密码不正确",
-            'timelimit' => "超时了！"
+            'timelimit' => "超时了！",
+            'noPickup' => "您还没有选择取餐地点"
         );
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
             $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
@@ -201,6 +202,10 @@ class Marketcontroller extends MY_Controller{
         $data['orderStart'] = $orderTimeRange['orderStart'];
         $data['orderEnd'] = $orderTimeRange['orderEnd'];
 
+        // using the cid to get all the pickup places of this campus
+        $this->load->model('market');
+        $data['places'] = $this->market->getPickupPlacesByCampus($_SESSION['cid']);
+
 
         $data['title'] = '精选小食';
         //get error message
@@ -258,12 +263,12 @@ class Marketcontroller extends MY_Controller{
             if(!$this->order->checkFoodInventory($_SESSION['cid'],$orderItemId['food'],$amount)){
                 return redirect('marketcontroller/showDailyMenu/outofinventory');
             }
-//            // check drink's inventory
-//            if(isset($_POST['drink'])){
-//                if(!$this->order->checkSidedishInventory($_SESSION['cid'],$orderItemId['drink'],$amount)){
-//                    return redirect('marketcontroller/showDailyMenu/noDrink');
-//                }
-//            }
+            // check drink's inventory
+            if(isset($_POST['drink'])){
+                if(!$this->order->checkSidedishInventory($_SESSION['cid'],$orderItemId['drink'],$amount)){
+                    return redirect('marketcontroller/showDailyMenu/noDrink');
+                }
+            }
 
             // generate fordate
             // find order start time
@@ -295,7 +300,7 @@ class Marketcontroller extends MY_Controller{
      */
     public function vipOrderGenerate(){
         // if in order time-range then generate vip order
-        if(!$this->checkTime($_SESSION['cid'])){
+        if (!$this->checkTime($_SESSION['cid'])) {
             // out of order time range, show time alert
             return redirect('marketcontroller/showSideDish/timelimit');
         }
@@ -305,6 +310,10 @@ class Marketcontroller extends MY_Controller{
 
         if(empty($_POST['password'])){ //user didn't type in password
             return redirect('marketcontroller/showSideDish/nopw');
+        }
+
+        if(empty($_POST['pickupplace'])){ // vip user didn't choose pickup place
+            return redirect('marketcontroller/showSideDish/noPickup');
         }
         //1. check if the password is match or not by market moder's method validatePassword()
         $this->load->model('market');
@@ -401,7 +410,7 @@ class Marketcontroller extends MY_Controller{
         }else{
             // generate order
             $this->load->model('order');
-            $orderId = $this->order->vipOrderByCard($uid,$_SESSION['vipid'],$_SESSION['cid'],$odate,$fordate,$foodItem,$sideDishItem,$totalCost_beforTax);
+            $orderId = $this->order->vipOrderByCard($uid,$_SESSION['vipid'],$_SESSION['cid'],$_POST['pickupplace'],$odate,$fordate,$foodItem,$sideDishItem,$totalCost_beforTax);
         }
 
         // store order's id
