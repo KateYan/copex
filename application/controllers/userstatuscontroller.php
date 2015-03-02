@@ -27,7 +27,8 @@ class Userstatuscontroller extends MY_Controller {
 				//legal user
 				//request user model's method login() to set cookies and sessions for user
 				$this->user->login($oldUser);
-				return redirect('marketcontroller/showDailyMenu');
+//				return redirect('marketcontroller/showDailyMenu');
+				return redirect('userstatuscontroller/welcome');
 			} else {
 				//illegal user
 				setcookie('uid', '', time() - 3600,'/');
