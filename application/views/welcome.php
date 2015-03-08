@@ -19,11 +19,7 @@
     <meta content="yes" name="apple-mobile-web-app-capable"/>
     <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
     <meta content="telephone=no" name="format-detection"/>
-<<<<<<< HEAD
     <meta name="viewport" content="width=device-width, maximum-scale=1.0,  user-scalable=no, initial-scale=1.0"/>
-=======
-    <meta name="viewport" content="width=device-width; maximum-scale=1.0;  user-scalable=no; initial-scale=1.0"/>
->>>>>>> testing
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href="/copex/css/welcome/css/reset.css" rel="stylesheet" type="text/css"/>
