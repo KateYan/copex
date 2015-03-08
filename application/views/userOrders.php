@@ -39,7 +39,7 @@
             echo '<h4 style="margin-bottom: 5px;">'."主食：".$food->fname.'</h4>';
             echo '<h4 style="margin-bottom: 5px;">'."数量：".$food->amount.'</h4>';
             echo '<h4 style="margin-bottom: 5px;">'."单价：$ ".$food->price.'</h4>';
-        if(isset($drink)){
+        if(!empty($drink)){
             echo '<h4 style="margin-bottom: 5px;">'."饮料：".$drink->sname."   $".$drink->sprice.'</h4>';
         }
             echo '<h4 style="margin-bottom: 5px;">'."税费：$ ".$order->tax.'</h4>';

@@ -53,6 +53,9 @@
         function showWindow() {
             $("#orderedLimit").show();
         }
+        function showPickupPlace() {
+            $("#pickupPlace").show();
+        }
 
         function closeWindowNofulfill() {
             $("#nofulfill").hide();
@@ -69,6 +72,9 @@
         }
         function closeWindowNoDrink() {
             $("#noDrink").hide();
+        }
+        function closePickupPlace() {
+            $("#pickupPlace").hide();
         }
 
     </script>
@@ -150,6 +156,8 @@
 
             <div class="select_area_block">
                 <ul>
+                    <input type="radio" name="drink" id="defaultDrink" value="NULL" style="display:none;" />
+                    <label for="defaultDrink"><li>NULL</li></label>
                     <?php
                     foreach ($drinks as $drink) {
                         echo '<input type="radio" name="drink" id="' . $drink->sid . '" value="' . $drink->sid . '" style="display:none;" form="menuItem">';
@@ -165,30 +173,8 @@
 
         </div>
 
+        <a class="btn_footer notInUTSC" onclick="showPickupPlace()">我想就近取餐</a>
 
-        <?php
-        if(!empty($places)){
-            echo '<div class="n_input_block n_input_rightB">';
-            echo '<input type="text" class="n_input" placeholder="取餐地点选择" name="pickupplace"/>';
-            echo '<div class="select_area_block">';
-            echo '<ul>';
-
-            foreach ($places as $place) {
-                echo '<input type="radio" name="pickupplace" id="' . $place->placeID . '" value="' . $place->placeID . '" style="display:none;" >';
-
-                echo '<label for="'.$place->placeID.'"><li>'."  ";
-                echo $place->placeAddr;
-                echo "(会员专属特权)";
-                echo '</li></label>';
-
-            }
-
-            echo '</ul>';
-            echo '</div>';
-            echo '';
-            echo '</div>';
-        }
-        ?>
         <div class="clear"></div>
     </div>
     <footer id="Footer">
@@ -211,9 +197,10 @@
                 $end = date('06:00:00');
                 $start = date("H:i", strtotime($orderStart));
                 if ($time <= $orderStart && $time > $end) {
+                    echo '<br/>';
                     echo '<p style="margin-left: 5px;">今天的午餐0:00已经截止下单，明天的午餐要<span class="sorry">' . $start . '后才能下单哦</span></p>';
                     echo '<ul>';
-                    echo '<li></li>';
+                    echo '<br/>';
                     echo '<li>';
                     $attributes = array('class' => 'btn_again', 'onclick' => 'closeWindowTimeLimit()');
                     echo anchor('marketcontroller/showDailyMenu', " 今天" . $start . "后再订餐", $attributes);
@@ -352,6 +339,37 @@
                     <?php
                     $attributes = array('class' => 'btn_again', 'onclick' => 'closeWindowNoDrink()');
                     echo anchor('marketcontroller/showDailyMenu', '换别的饮料尝尝~', $attributes);
+                    ?>
+                </li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="pickupPlace" class="layer" >
+        <div class="black_layer"></div>
+        <div class="layer_summary">
+            <br/>
+
+            <p style="margin-left: 5px;">只有会员才可以选择以下取餐地点哦：
+                <?php
+                foreach($places as $place){
+                    if($place->placeAddr != $caddr){
+                        echo '<span class="sorry">'.$place->placeAddr.'</span>';
+                    }
+                }
+                ?></p>
+            <ul class="finishLay">
+                <li>
+                    <?php
+                    $attributes = array('class' => 'btn_again', 'onclick' => 'closePickupPlace()');
+                    echo anchor('userlogincontroller/showVipLogin', '立即加入会员~', $attributes);
+                    ?>
+                </li>
+                <li>
+                    <?php
+                    $attributes = array('class' => 'btn_again', 'onclick' => 'closePickupPlace()');
+                    echo anchor('marketcontroller/showDailyMenu', '继续以普通用户身份点餐', $attributes);
                     ?>
                 </li>
                 <li></li>

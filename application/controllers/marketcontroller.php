@@ -82,6 +82,7 @@ class Marketcontroller extends MY_Controller{
         $this->load->model('market');
         $campus = $this->market->getCampusById($_SESSION['cid']);
         $data['cname'] = $campus->cname;
+        $data['caddr'] = $campus->caddr;
 
         // using the cid to get all the pickup places of this campus
         $data['places'] = $this->market->getPickupPlacesByCampus($_SESSION['cid']);
@@ -260,7 +261,7 @@ class Marketcontroller extends MY_Controller{
                 return redirect('marketcontroller/showDailyMenu/outofinventory');
             }
             // check drink's inventory
-            if(isset($_POST['drink'])){
+            if(!empty($_POST['drink'])){
                 if(!$this->order->checkSidedishInventory($_SESSION['cid'],$orderItemId['drink'],$amount)){
                     return redirect('marketcontroller/showDailyMenu/noDrink');
                 }
