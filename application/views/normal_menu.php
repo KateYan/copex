@@ -155,6 +155,7 @@
                         echo '<input type="radio" name="drink" id="' . $drink->sid . '" value="' . $drink->sid . '" style="display:none;" form="menuItem">';
                         echo '<label for="'.$drink->sid.'"><li>'."  ";
                         echo $drink->sname;
+                        echo "   $".$drink->sprice;
                         echo '</li></label>';
 
                     }

@@ -501,7 +501,7 @@ class Order extends CI_Model
     // get dishes that need to prepare
     public function getOrderDetailById($oid)
     {
-        $sql = "SELECT `order`.*,campus.cname,campus.caddr,pickupplace.placeID,pickupplace.placeAddr FROM (`order` JOIN campus ON `order`.cid = campus.cid) LEFT JOIN pickupplace ON `order`.placeID = pickupplace.palceID WHERE oid=$oid";
+        $sql = "SELECT `order`.*,campus.cname,campus.caddr,pickupplace.placeID,pickupplace.placeAddr FROM (`order` JOIN campus ON `order`.cid = campus.cid) LEFT JOIN pickupplace ON `order`.placeID = pickupplace.placeID WHERE oid=$oid";
         $query_order = $this->db->query($sql);
         $order = $query_order->row(0);
 
