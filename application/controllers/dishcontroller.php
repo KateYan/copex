@@ -165,14 +165,16 @@ class Dishcontroller extends MY_Controller{
         }
 
         // check if all input are fit the validation rules
+        $this->form_validation->set_rules('stype','sideDishType','trim');
         if($this->form_validation->run()==FALSE){
             return redirect('dishcontroller/showSideDetail/wrong');
         }
 
         // update Food information into db
         $value = array();
-        $columnName = array("sid","sname","sprice","spicture","sdes");
+        $columnName = array("sid","stype","sname","sprice","spicture","sdes");
         $value['sid'] = $this->input->post('dishId');
+        $value['stype'] = $this->input->post('stype');
         $value['sname'] = $this->input->post('dishName');
         $value['sprice'] = $this->input->post('dishPrice');
         $value['spicture'] = $this->input->post('dishPicture');
@@ -409,13 +411,15 @@ class Dishcontroller extends MY_Controller{
         }
 
         // check if all input are fit the validation rules
+        $this->form_validation->set_rules('stype','sideDishType','trim|required');
         if($this->form_validation->run()==FALSE){
             return redirect('dishcontroller/showAddSideDish/wrong');
         }
         // store food information into db
         $value = array();
-        $columnName = array("sname","sprice","spicture","sdes","did");
+        $columnName = array("sname","stype","sprice","spicture","sdes","did");
         $value['sname'] = $this->input->post('dishName');
+        $value['stype'] = $this->input->post('stype');
         $value['sprice'] = $this->input->post('dishPrice');
         $value['spicture'] = $this->input->post('dishPicture');
         $value['sdes'] = $this->input->post('dishDes');

@@ -190,6 +190,18 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-lg-2 control-label" for="optionsCheckbox2">菜品类型</label>
+                                        <div class="col-lg-10">
+                                            <span>
+                                                <label style="padding-right: 15px;">
+                                                    <input form="newSideDish" type="radio"name="stype" value="1" required />   饮品</label>
+                                                <label style="padding-right: 15px;">
+                                                    <input form="newSideDish" type="radio"name="stype" value="0" required />   小菜</label>
+
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-lg-2 control-label" for="optionsCheckbox2">添加烹饪餐厅</label>
                                         <div class="col-lg-10">
                                             <span>

@@ -303,7 +303,8 @@ class Marketcontroller extends MY_Controller{
 
         unset($_SESSION['POST']);
         $_SESSION['POST'] = $_POST;
-        
+
+
         // use campus' id to check if it has pickup place
         // 1. if it does have, check if there is posted pickup place
         $this->load->model('market');

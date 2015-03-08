@@ -139,6 +139,18 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-lg-2 control-label" for="optionsCheckbox2">菜品类型</label>
+                                        <div class="col-lg-10">
+                                            <span>
+                                                <label style="padding-right: 15px;">
+                                                    <input form="editSideDish" type="radio"name="stype" value="1" <?php if($_SESSION['side']->stype == 1){echo "disabled";}?> />   饮品</label>
+                                                <label style="padding-right: 15px;">
+                                                    <input form="editSideDish" type="radio"name="stype" value="0" <?php if($_SESSION['side']->stype == 0){echo "disabled";}?>/>   小菜</label>
+
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-lg-2 control-label">烹饪餐厅</label>
                                         <div class="col-lg-10">
                                             <input form="editSideDish" class="form-control" type="text" value="<?php echo $_SESSION['side']->dname; ?>" disabled/>
