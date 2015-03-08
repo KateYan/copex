@@ -40,11 +40,8 @@
             });
             var swiperN1 = $('.swiper-n1').swiper({
                 pagination: '.pagination-n1',
-<<<<<<< HEAD
-                slidesPerSlide: 1,
-=======
+
                 slidesPerSlide: 1
->>>>>>> testing
             });
         }
         var i = 0;
