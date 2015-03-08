@@ -33,6 +33,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
             // UPDATE SESSION
             $this->load->model('market');
             $timeRange = $this->market->getTimeRange($campusID);
+            $data['places'] = $this->market->getPickupPlacesByCampus($campusID);
             $_SESSION['rule'] = $timeRange;
 
             $data['rule'] = $timeRange;
@@ -130,6 +131,113 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
             return redirect('basiccontroller/showEditTime/success');
         }
 
+        // show pickup place's pickup time range
+        public function showPlacePickupTime($errorCode = null){
+
+            // check if there is error code
+            $eMsg = array(
+                'pstartwrg' => "取餐起始时间错误！请输入'XX:XX:XX'格式的24小时制时间。",
+                'pendwrg' => "取餐结束时间错误！请输入'XX:XX:XX'格式的24小时制时间。",
+                'success' => "修改时间成功！"
+            );
+
+            if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+                $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
+            }
+
+            if(isset($_GET['placeID'])){
+                $placeID = $_GET['placeID'];
+            }else{
+                if(isset($_SESSION['pickupPlace'])){
+                    $placeID = $_SESSION['pickupPlace']->placeID;
+                }
+            }
+            $this->load->model('market');
+            $pickupPlace = $this->market->getPickupTimeRangeByPlace($placeID);
+
+            $_SESSION['pickupPlace'] = $pickupPlace;
+            $data['pickupPlace'] = $pickupPlace;
+
+            $data['title'] = "Copex | 取餐地点时间范围设定";
+            $this->load->view('partials/adminHeader',$data);
+            $this->load->view('admin/basic_place',$data);
+            $this->load->view('partials/adminFooter');
+        }
+
+        public function editPlacePickupTime(){
+
+            if(!$this->validateTimeSetting($_POST['pickup-start'])){
+                return redirect('basiccontroller/showPlacePickupTime/pstartwrg');
+            }
+
+            if(!$this->validateTimeSetting($_POST['pickup-end'])){
+                return redirect('basiccontroller/showPlacePickupTime/pendwrg');
+            }
+
+            //update time
+            $pickupStart = $_POST['pickup-start'];
+            $pickupEnd = $_POST['pickup-end'];
+
+            $this->load->model('market');
+            $this->market->updatePickupTimeSetting($_POST['placeID'],$pickupStart,$pickupEnd);
+
+            return redirect('basiccontroller/showPlacePickupTime/success');
+        }
+
+        // add pickup time range for pickup place
+        public function showAddPickupTime($errorCode = null){
+
+            // check if there is error code
+            $eMsg = array(
+                'pstartwrg' => "取餐起始时间错误！请输入'XX:XX:XX'格式的24小时制时间。",
+                'pendwrg' => "取餐结束时间错误！请输入'XX:XX:XX'格式的24小时制时间。",
+                'success' => "添加时间成功！"
+            );
+
+            if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+                $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
+            }
+
+
+            if(!isset($_SESSION['place'])){
+                return redirect('campuscontroller/showAddPickupPlace');
+            }
+
+            $this->load->model('market');
+            $place = $this->market->getPickupTimeRangeByPlace($_SESSION['place']->placeID);
+            $_SESSION['place'] = $place;
+
+            $data['title'] = "Copex | 取餐地点时间范围设定";
+            $this->load->view('partials/adminHeader',$data);
+            $this->load->view('admin/add_basic_place',$data);
+            $this->load->view('partials/adminFooter');
+        }
+
+        public function addPlacePickupTime(){
+
+            if(empty($_POST['pickup-start'])||!$this->validateTimeSetting($_POST['pickup-start'])){
+                return redirect('basiccontroller/showAddPickupTime/pstartwrg');
+            }
+
+            if(empty($_POST['pickup-end'])||!$this->validateTimeSetting($_POST['pickup-end'])){
+                return redirect('basiccontroller/showAddPickupTime/pendwrg');
+            }
+
+            //update time
+            $pickupStart = $_POST['pickup-start'];
+            $pickupEnd = $_POST['pickup-end'];
+
+            $this->load->model('market');
+            $ruleID = $this->market->addPickupTimeSetting($_POST['placeID'],$pickupStart,$pickupEnd);
+
+            $placeID = $_POST['placeID'];
+
+            if($ruleID){
+                return redirect("basiccontroller/showPlacePickupTime?placeID=$placeID");
+            }
+            // faild adding pickup time range
+        }
+
         // time validate
         public function validateTimeSetting($time){
 
@@ -149,6 +257,18 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
             if(isset($_SESSION['ruleDetail'])){
                 unset($_SESSION['ruleDetail']);
+            }
+
+            if(isset($_SESSION['pickupPlace'])){
+                unset($_SESSION['pickupPlace']);
+            }
+
+            if(isset($_SESSION['place'])){
+                unset($_SESSION['place']);
+            }
+
+            if(isset($_SESSION['campus'])){
+                unset($_SESSION['campus']);
             }
 
             return redirect('basiccontroller/showBasicPanel');

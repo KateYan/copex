@@ -3,7 +3,11 @@
  * Created by PhpStorm.
  * User: kunyan
  * Date: 3/1/2015
+<<<<<<< HEAD
  * Time: 12:37 PM
+=======
+ * Time: 8:50 AM
+>>>>>>> testing
  */
 ?>
 <!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
@@ -15,7 +19,11 @@
     <meta content="yes" name="apple-mobile-web-app-capable"/>
     <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
     <meta content="telephone=no" name="format-detection"/>
+<<<<<<< HEAD
     <meta name="viewport" content="width=device-width, maximum-scale=1.0,  user-scalable=no, initial-scale=1.0"/>
+=======
+    <meta name="viewport" content="width=device-width; maximum-scale=1.0;  user-scalable=no; initial-scale=1.0"/>
+>>>>>>> testing
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href="/copex/css/welcome/css/reset.css" rel="stylesheet" type="text/css"/>
@@ -32,7 +40,11 @@
             });
             var swiperN1 = $('.swiper-n1').swiper({
                 pagination: '.pagination-n1',
+<<<<<<< HEAD
                 slidesPerSlide: 1,
+=======
+                slidesPerSlide: 1
+>>>>>>> testing
             });
         }
         var i = 0;

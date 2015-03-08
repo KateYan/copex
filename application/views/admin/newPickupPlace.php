@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: kunyan
- * Date: 12/28/2014
- * Time: 4:25 PM
+ * Date: 3/1/2015
+ * Time: 10:55 AM
  */
 ?>
 
@@ -71,7 +71,12 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>菜单管理</h1>
+                        <h1>校区管理--
+                        <?php
+                        echo $_SESSION['campus']['cname'];
+                        ?>
+                            --添加取餐地点
+                        </h1>
                     </div>
                 </div>
             </div>
@@ -80,81 +85,73 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default bootstrap-admin-no-table-panel">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">添加菜单
+                            <div class="text-muted bootstrap-admin-box-title">添加取餐地点
                                 <?php
-                                $attributes = array('class'=>'btn btn-sm btn-success','type'=>'reset','style'=>'float:right;margin-top:0px;');
-                                echo anchor('menucontroller/showMenus','<i class="glyphicon glyphicon-backward"> 回菜单列表</i>',$attributes);
+                                $attributes = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'float:right;margin-right:5px;');
+                                echo anchor('campuscontroller/goback','<i class="glyphicon glyphicon-backward"> 回校区管理主页</i>',$attributes);
                                 ?>
                             </div>
                         </div>
                         <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
                             <div class="form-horizontal">
                                 <fieldset>
-                                    <legend>添加新小食菜单
+                                    <legend>添加取餐地点
                                         <?php
-                                        if(isset($eMsg['wrong'])){
+                                        if(isset($eMsg['success'])){
                                             echo '<span style="color: #be2221;"><b>'.$eMsg['wrong'].'</b></span>';
-                                        }elseif(isset($eMsg['success'])){
-                                            echo '<span style="color: #be2221;"><b>'.$eMsg['success'].'</b></span>';
                                         }
                                         ?>
                                     </legend>
                                     <?php
-                                    $attributes = array('id'=>'addSideMenu');
-                                    echo form_open('menucontroller/addSideMenu',$attributes);
+                                    $attributes = array('id'=>'addPickupPlace');
+                                    echo form_open('campuscontroller/addPickupPlace',$attributes);
                                     echo form_close();
                                     ?>
-                                    <div class="form-group<?php if(isset($eMsg['wrong'])){echo " has-error";}?>">
-                                        <label class="col-lg-2 control-label">校区</label>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label" for="focusedInput">校区ID</label>
                                         <div class="col-lg-10">
-                                            <input form="addSideMenu" class="form-control" type="hidden" name="sideMenu-cid" value="<?php echo $_SESSION['menu_campus']['cid'];?>" />
-                                            <input disabled class="form-control" type="text" value="<?php echo $_SESSION['menu_campus']['cname']?>" />
+                                            <input readonly form="addPickupPlace" type="text" class="form-control" name="cid" value="<?php echo $_SESSION['campus']['cid']; ?>"/>
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label" >添加6款小食</label>
+                                    <div class="form-group<?php if(isset($eMsg['noName'])){echo " has-error";}?>">
+                                        <label class="col-lg-2 control-label">取餐地点名称</label>
                                         <div class="col-lg-10">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <div class="text-muted bootstrap-admin-box-title">小食列表</div>
-                                                </div>
-                                                <div class="bootstrap-admin-panel-content">
-                                                    <table class="table table-striped">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>小食ID</th>
-                                                            <th>小食名</th>
-                                                            <th>单价</th>
-                                                            <th>选中</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <?php
-                                                        $num = count($sideDish);
-                                                        for($i = 0;$i<$num; $i++){
-                                                            echo '<tr>';
-                                                            echo '<td>';
-                                                            echo anchor("dishcontroller/showSideDetail?sideId=".$sideDish[$i]->sid,$sideDish[$i]->sid);
-                                                            echo '</td>';
-                                                            echo '<td>'.$sideDish[$i]->sname.'</td>';
-                                                            echo '<td>'."$".$sideDish[$i]->sprice.'</td>';
-                                                            echo '<td>'.'<input form="addSideMenu" type="checkbox" name="'.$sideDish[$i]->sid.'" value="'.$sideDish[$i]->sid.'"/></td>';
-                                                            echo '</tr>';
-                                                        }
-                                                        ?>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
+                                            <input form="addPickupPlace" class="form-control" type="text" name="placeName" />
+                                            <span class="help-block">
+                                                <?php
+                                                if(isset($eMsg['noName'])){
+                                                    echo $eMsg['noName'];
+                                                }
+                                                ?>
+                                            </span>
                                         </div>
                                     </div>
-                                    <button form="addSideMenu" type="submit" class="btn btn-primary">
-                                        <i class="glyphicon glyphicon-inbox"> 确认添加</i>
+                                    <div class="form-group<?php if(isset($eMsg['noPickupPlace'])){echo " has-error";}?>">
+                                        <label class="col-lg-2 control-label" for="optionsCheckbox2">取餐地点具体地址</label>
+                                        <div class="col-lg-10">
+                                            <input form="addPickupPlace" class="form-control" type="text" name="placeAddr" />
+                                            <span class="help-block">
+                                                <?php
+                                                if(isset($eMsg['noPickupPlace'])){
+                                                    echo $eMsg['noPickupPlace'];
+                                                }
+                                                ?>
+                                            </span>
+                                        </div>
+                                    </div>
+
+
+                                    <button form="addPickupPlace" type="submit" class="btn btn-primary">
+                                        <i class="glyphicon glyphicon-inbox"> 保存修改</i>
                                     </button>
                                     <?php
-                                    $attributes = array('class'=>'btn btn-success','type'=>'reset');
-                                    echo anchor('menucontroller/showMenus','<i class="glyphicon glyphicon-backward"> 回菜单列表</i>',$attributes);
+                                    $attributes = array('type'=>'reset','class'=>'btn btn-default');
+                                    echo anchor('campuscontroller/showAddPickupPlace','<i class="glyphicon glyphicon-refresh"> 取消修改</i>',$attributes);
+
+                                    $attributes1 = array('class'=>'btn btn-success','type'=>'reset','style'=>'margin-left:5px;');
+                                    echo anchor('campuscontroller/goback','<i class="glyphicon glyphicon-backward"> 回校区管理主页</i>',$attributes1);
                                     ?>
                                 </fieldset>
                             </div>

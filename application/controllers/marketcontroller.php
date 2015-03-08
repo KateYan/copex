@@ -73,7 +73,7 @@ class Marketcontroller extends MY_Controller{
         $data['saleItem'] = $this->menuitem->saleItem($_SESSION['cid']);
 
         // get drink side dish
-//        $data['drinks'] = $this->menuitem->drinks($_SESSION['cid']);
+        $data['drinks'] = $this->menuitem->drinks($_SESSION['cid']);
 
         // create session to store all three food's information
         $this->menuitem->storeFoodInSession($data['recomdItem'],$data['saleItem']);
@@ -84,7 +84,7 @@ class Marketcontroller extends MY_Controller{
         $data['cname'] = $campus->cname;
 
         // using the cid to get all the pickup places of this campus
-//        $data['places'] = $this->market->getPickupPlacesByCampus($campus->cid);
+        $data['places'] = $this->market->getPickupPlacesByCampus($_SESSION['cid']);
 
         // get user type for getting different order time range
         if(!empty($_SESSION['vipid'])){
@@ -131,7 +131,8 @@ class Marketcontroller extends MY_Controller{
         $eMsg = array(
             'nopw' => "支付密码不能为空哦",
             'wrongpw'=> "您输入的密码不正确",
-            'timelimit' => "超时了！"
+            'timelimit' => "超时了！",
+            'noPickup' => "您还没有选择取餐地点"
         );
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
             $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
@@ -201,6 +202,10 @@ class Marketcontroller extends MY_Controller{
         $data['orderStart'] = $orderTimeRange['orderStart'];
         $data['orderEnd'] = $orderTimeRange['orderEnd'];
 
+        // using the cid to get all the pickup places of this campus
+        $this->load->model('market');
+        $data['places'] = $this->market->getPickupPlacesByCampus($_SESSION['cid']);
+
 
         $data['title'] = '精选小食';
         //get error message
@@ -225,11 +230,7 @@ class Marketcontroller extends MY_Controller{
         if($this->form_validation->run() == FALSE){
             return redirect('marketcontroller/showDailyMenu/wrongphone');
         }
-        //check if user choose the pick up place
 
-//        if(!isset($_POST['pickupplace'])){
-//            return redirect('marketcontroller/showDailyMenu/nopickupplace');
-//        }
         // check if user has ordered before within the same day
         if(!$this->ifOrderedToday()){
             return redirect('marketcontroller/showDailyMenu/orderlimit');
@@ -258,12 +259,12 @@ class Marketcontroller extends MY_Controller{
             if(!$this->order->checkFoodInventory($_SESSION['cid'],$orderItemId['food'],$amount)){
                 return redirect('marketcontroller/showDailyMenu/outofinventory');
             }
-//            // check drink's inventory
-//            if(isset($_POST['drink'])){
-//                if(!$this->order->checkSidedishInventory($_SESSION['cid'],$orderItemId['drink'],$amount)){
-//                    return redirect('marketcontroller/showDailyMenu/noDrink');
-//                }
-//            }
+            // check drink's inventory
+            if(isset($_POST['drink'])){
+                if(!$this->order->checkSidedishInventory($_SESSION['cid'],$orderItemId['drink'],$amount)){
+                    return redirect('marketcontroller/showDailyMenu/noDrink');
+                }
+            }
 
             // generate fordate
             // find order start time
@@ -295,7 +296,7 @@ class Marketcontroller extends MY_Controller{
      */
     public function vipOrderGenerate(){
         // if in order time-range then generate vip order
-        if(!$this->checkTime($_SESSION['cid'])){
+        if (!$this->checkTime($_SESSION['cid'])) {
             // out of order time range, show time alert
             return redirect('marketcontroller/showSideDish/timelimit');
         }
@@ -306,6 +307,23 @@ class Marketcontroller extends MY_Controller{
         if(empty($_POST['password'])){ //user didn't type in password
             return redirect('marketcontroller/showSideDish/nopw');
         }
+
+
+        // use campus' id to check if it has pickup place
+        // 1. if it does have, check if there is posted pickup place
+        $this->load->model('market');
+        $places = $this->market->getPickupPlacesByCampus($_SESSION['cid']);
+        if(!empty($places)){ // the campus does have pickup place
+            if (!isset($_POST['pickupplace'])) { // vip user didn't choose pickup place
+                return redirect('marketcontroller/showSideDish/nopickupplace');
+            }
+
+            $pickupPlace = $this->input->post('pickupplace');
+
+        }else{
+            $pickupPlace = NULL;
+        }
+
         //1. check if the password is match or not by market moder's method validatePassword()
         $this->load->model('market');
         $passwordStatus = $this->market->validatePassword($_SESSION['vipid'],$this->input->post('password'));
@@ -397,11 +415,11 @@ class Marketcontroller extends MY_Controller{
                 return redirect('marketcontroller/showSideDish');
             }
             $this->load->model('order');
-            $orderId = $this->order->vipOrderByCash($uid,$_SESSION['vipid'],$_SESSION['cid'],$odate,$fordate,$foodList,$sideDishList,$totalCost_beforTax);
+            $orderId = $this->order->vipOrderByCash($uid,$_SESSION['vipid'],$_SESSION['cid'],$pickupPlace,$odate,$fordate,$foodList,$sideDishList,$totalCost_beforTax);
         }else{
             // generate order
             $this->load->model('order');
-            $orderId = $this->order->vipOrderByCard($uid,$_SESSION['vipid'],$_SESSION['cid'],$odate,$fordate,$foodItem,$sideDishItem,$totalCost_beforTax);
+            $orderId = $this->order->vipOrderByCard($uid,$_SESSION['vipid'],$_SESSION['cid'],$pickupPlace,$odate,$fordate,$foodItem,$sideDishItem,$totalCost_beforTax);
         }
 
         // store order's id
@@ -457,12 +475,15 @@ class Marketcontroller extends MY_Controller{
     public function succeedOrdered(){
         // get campus address using session['cid]
         $this->load->model('market');
-        $data['orderNumber'] = $_SESSION['orderId'];
         $campus = $this->market->getCampusById($_SESSION['cid']);
-        $data['address'] = $campus->caddr;
+
+        // find out pickup place and pickup time range by using $_SESSION['orderId']
+        $this->load->model('order');
+        $data['order'] = $this->order->getOrderDetailById($_SESSION['orderId']);
 
         // get user type for getting different order time range
         // and show different pickup date based on order time;
+
         if(!empty($_SESSION['vipid'])){
             $userType = 'vip';
             $this->load->model('market');
@@ -482,11 +503,17 @@ class Marketcontroller extends MY_Controller{
             $data['date'] = date('m月d日',strtotime('+1 day'));
         }
 
-        // get user's pickup time range based on user's type
-
-        $pickupTimeRange = $this->market->getPickupTime($userType,$_SESSION['cid']);
-        $data['timestart'] = $pickupTimeRange['pickupStart'];
-        $data['timeend'] = $pickupTimeRange['pickupEnd'];
+        if(empty($data['order']->placeAddr)){
+            // get user's pickup time range based on user's type
+            $pickupTimeRange = $this->market->getPickupTime($userType,$_SESSION['cid']);
+            $data['timestart'] = $pickupTimeRange['pickupStart'];
+            $data['timeend'] = $pickupTimeRange['pickupEnd'];
+        }else{
+            $this->load->model('market');
+            $pickupPlace = $this->market->getPickupTimeRangeByPlace($data['order']->placeID);
+            $data['timestart'] = $pickupPlace->userPickupStart;
+            $data['timeend'] = $pickupPlace->userPickupEnd;
+        }
 
         $this->load->view('ordersuccess',$data);
         session_destroy();

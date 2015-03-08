@@ -231,6 +231,7 @@
                         <th>V卡号</th>
                         <th>电话</th>
                         <th>取餐日期</th>
+                        <th>取餐地址</th>
                         <th>下单时间</th>
                         <th>总价</th>
                         <th>Paid?</th>
@@ -261,6 +262,13 @@
                             echo '<td>' . $prepareOrder[$i]->userPhone . '</td>';
                             $fordate = date("m-d", strtotime($prepareOrder[$i]->forDate));
                             echo '<td>' . $fordate . '</td>';
+                            if(!empty($prepareOrder[$i]->placeAddr)){
+                                echo '<td>' . $prepareOrder[$i]->placeAddr . '</td>';
+                            }else{
+                                echo '<td>' . $prepareOrder[$i]->campusAddr . '</td>';
+                            }
+
+
                             $odate =  date("y-m-d H:i", strtotime($prepareOrder[$i]->orderDate));
                             echo '<td>' . $odate. '</td>';
                             echo '<td>' . "$" . $prepareOrder[$i]->totalCost . '</td>';
@@ -336,6 +344,7 @@
                             <th>V卡号</th>
                             <th>电话</th>
                             <th>取餐日期</th>
+                            <th>取餐地址</th>
                             <th>下单时间</th>
                             <th>总价</th>
                             <th>Paid?</th>
@@ -361,6 +370,13 @@
                             echo '<td>' . $historyOrder[$i]->userPhone . '</td>';
                             $fordate = date("m-d", strtotime($historyOrder[$i]->forDate));
                             echo '<td>' . $fordate . '</td>';
+
+                            if(!empty($historyOrder[$i]->placeAddr)){
+                                echo '<td>' . $historyOrder[$i]->placeAddr . '</td>';
+                            }else{
+                                echo '<td>' . $historyOrder[$i]->campusAddr . '</td>';
+                            }
+
                             $odate = date("y-m-d H:i", strtotime($historyOrder[$i]->orderDate));
                             echo '<td>' . $odate . '</td>';
                             echo '<td>' . "$" . $historyOrder[$i]->totalCost . '</td>';

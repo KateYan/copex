@@ -129,7 +129,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>菜单管理</h1>
+                        <h1>基本时间管理</h1>
                     </div>
                 </div>
             </div>

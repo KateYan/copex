@@ -15,7 +15,7 @@
     <meta content="yes" name="apple-mobile-web-app-capable" />
     <meta content="black" name="apple-mobile-web-app-status-bar-style" />
     <meta content="telephone=no" name="format-detection" />
-    <meta name="viewport" content="width=device-width; maximum-scale=1.0;  user-scalable=no; initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0,  user-scalable=no, initial-scale=1.0" />
     <meta name="screen-orientation" content="portrait" />
     <title><?php echo $title; ?></title>
     <link href="/copex/css/common.css?v=112312" rel="stylesheet" type="text/css" />

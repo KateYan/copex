@@ -42,8 +42,10 @@ class Campuscontroller extends MY_Controller{
             'wrong' => "请按照提示输入正确的校区信息！",
             'success' => "修改已成功!",
             'delerror' => "请选中餐厅再删除！",
+            'delPlaceError' => "请选中取餐地点再删除！",
             'nodelete' => "有该校区的订单还未完成，不能删除！",
             'deletesuccess' => "删除配餐餐厅成功！",
+            'delPlaceSuccess' => "删除取餐地址成功！",
             'addsuccess' => "添加新校区成功，您可以继续对它进行编辑！"
         );
 
@@ -55,6 +57,13 @@ class Campuscontroller extends MY_Controller{
         if(isset($_GET['campusId'])){
             $this->load->model('market');
             $this->market->findCampus($_GET['campusId']);
+        }
+
+        if(isset($_SESSION['campus'])){
+            $campusId = $_SESSION['campus']['cid'];
+            unset($_SESSION['campus']);
+            $this->load->model('market');
+            $this->market->findCampus($campusId);
         }
 
         $data['title'] = "Copex | 校区详情";
@@ -136,6 +145,62 @@ class Campuscontroller extends MY_Controller{
             $this->market->findCampus($campusId);
         }
         return redirect('campuscontroller/showCampusDetail/deletesuccess');
+    }
+
+    // delete pickup place
+    public function removePickupPlace(){
+        if(empty($_POST['place'])){
+            return redirect('campuscontroller/showCampusDetail/delPlaceError');
+        }
+
+        // using posted delete place id
+        // remove place and basic rule
+        $this->load->model('market');
+        $this->market->deletePickupPlace($_POST['place']);
+
+        return redirect('campuscontroller/showCampusDetail/delPlaceSuccess');
+    }
+
+    // show add new pickup place
+    public function showAddPickupPlace($errorCode = null){
+
+        // check if there is error code
+        $eMsg = array(
+            'noName' => "请输入取餐地点名称或代号",
+            'noAddress' => "具体取餐地址不能为空",
+            'success' => "成功添加取餐点！"
+        );
+
+        if(!empty($errorCode) && isset($eMsg["$errorCode"])){
+            $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
+        }
+
+        $data['title'] = "Copex | 添加取餐地点";
+        $this->load->view('partials/adminHeader',$data);
+        $this->load->view('admin/newPickupPlace',$data);
+        $this->load->view('partials/adminFooter');
+    }
+
+    // add pickup place for campus
+    public function addPickupPlace(){
+//        var_dump($_POST);
+//        die();
+        if(empty($_POST['placeName'])){
+            return redirect('campuscontroller/showAddPickupPlace/noName');
+        }
+
+        if(empty($_POST['placeAddr'])){
+            return redirect('campuscontroller/showAddPickupPlace/noAddress');
+        }
+
+        $this->load->model('market');
+        $placeID = $this->market->addPickupPlaceForCampus($_POST['cid'],$_POST['placeName'],$_POST['placeAddr']);
+
+        if($placeID){
+            $_SESSION['place'] = $this->market->getPickupTimeRangeByPlace($placeID);
+            return redirect('basiccontroller/showAddPickupTime');
+        }
+
     }
 
     // show add new campus
@@ -236,6 +301,11 @@ class Campuscontroller extends MY_Controller{
         if(isset($_SESSION['campus'])){
             unset($_SESSION['campus']);
         }
+
+        if(isset($_SESSION['place'])){
+            unset($_SESSION['place']);
+        }
+
 
         return redirect('campuscontroller/showCampusPanel');
     }

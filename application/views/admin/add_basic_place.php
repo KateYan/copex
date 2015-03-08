@@ -2,11 +2,10 @@
 /**
  * Created by PhpStorm.
  * User: kunyan
- * Date: 12/23/2014
- * Time: 4:49 PM
+ * Date: 3/7/2015
+ * Time: 1:51 PM
  */
 ?>
-
 <!-- Vendors -->
 <link rel="stylesheet" media="screen" href="/copex/bootstrap/vendors/bootstrap-datepicker/css/datepicker.css">
 <link rel="stylesheet" media="screen" href="/copex/bootstrap/css/datepicker.fixes.css">
@@ -70,8 +69,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>基本管理
+                        <h1>取餐地点--ID:
                             <?php
+                            echo $_SESSION['place']->placeID;
                             if(isset($eMsg['success'])){
                                 echo '<span style="color: #be2221;"><b>'.$eMsg['success'].'</b></span>';
                             }
@@ -85,7 +85,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default bootstrap-admin-no-table-panel">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">时间规则管理
+                            <div class="text-muted bootstrap-admin-box-title">取餐时间规则管理
 
                                 <?php
                                 $attributes = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'float:right;');
@@ -98,24 +98,26 @@
                             <div class="form-horizontal">
                                 <?php
                                 $attributes = array('id'=>'editTime');
-                                echo form_open('basiccontroller/editTime',$attributes);
+                                echo form_open('basiccontroller/addPlacePickupTime',$attributes);
                                 echo form_close();
                                 ?>
                                 <fieldset>
-                                    <legend>用户类型:
+                                    <legend>取餐地点名:
                                         <?php
-                                        if($_SESSION['ruleDetail']['userType'] =="user"){
-                                            echo "普通用户";
-                                        }else{
-                                            echo "VIP用户";
-                                        }
-                                        echo '<input form="editTime" type="hidden" name="userType" value="'.$_SESSION['ruleDetail']['userType'].'" />'
+                                        echo $_SESSION['place']->placeName;
                                         ?>
                                     </legend>
-                                    <div class="form-group<?php if(isset($eMsg['pstartwrg'])){echo " has-error";}?>">
-                                        <label class="col-lg-2 control-label" for="focusedInput">取餐起始时间</label>
+                                    <input form="editTime" class="form-control" type="hidden" name="placeID" value="<?php echo $_SESSION['place']->placeID; ?>"/>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label" for="focusedInput">取餐地址</label>
                                         <div class="col-lg-10">
-                                            <input form="editTime" class="form-control" type="text" name="pickup-start" value="<?php echo $_SESSION['ruleDetail']['timeRange']['pickupStart']; ?>"/>
+                                            <input readonly class="form-control" type="text" value="<?php echo $_SESSION['place']->placeAddr; ?>"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group<?php if(isset($eMsg['pstartwrg'])){echo " has-error";}?>">
+                                        <label class="col-lg-2 control-label">取餐开始时间</label>
+                                        <div class="col-lg-10">
+                                            <input form="editTime" class="form-control" type="text" name="pickup-start" />
                                             <span class="help-block">
                                                 <?php
                                                 if(isset($eMsg['pstartwrg'])){
@@ -128,7 +130,7 @@
                                     <div class="form-group<?php if(isset($eMsg['pendwrg'])){echo " has-error";}?>">
                                         <label class="col-lg-2 control-label">取餐结束时间</label>
                                         <div class="col-lg-10">
-                                            <input form="editTime" class="form-control" type="text" name="pickup-end" value="<?php echo $_SESSION['ruleDetail']['timeRange']['pickupEnd']; ?>"/>
+                                            <input form="editTime" class="form-control" type="text" name="pickup-end"/>
                                             <span class="help-block">
                                                 <?php
                                                 if(isset($eMsg['pendwrg'])){
@@ -138,35 +140,11 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="form-group<?php if(isset($eMsg['ostartwrg'])){echo " has-error";}?>">
-                                        <label class="col-lg-2 control-label">下单起始时间</label>
-                                        <div class="col-lg-10">
-                                            <input form="editTime" class="form-control" type="text" name="order-start" value="<?php echo $_SESSION['ruleDetail']['timeRange']['orderStart']; ?>"/>
-                                            <span class="help-block">
-                                                <?php
-                                                if(isset($eMsg['ostartwrg'])){
-                                                    echo $eMsg['ostartwrg'];
-                                                }
-                                                ?>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group<?php if(isset($eMsg['oendwrg'])){echo " has-error";}?>">
-                                        <label class="col-lg-2 control-label">下单结束时间</label>
-                                        <div class="col-lg-10">
-                                            <input form="editTime" class="form-control" type="text" name="order-end" value="<?php echo $_SESSION['ruleDetail']['timeRange']['orderEnd']; ?>"/>
-                                            <span class="help-block"><?php
-                                                if(isset($eMsg['oendwrg'])){
-                                                    echo $eMsg['oendwrg'];
-                                                }
-                                                ?>
-                                            </span>
-                                        </div>
-                                    </div>
+
                                     <button form="editTime" type="submit" class="btn btn-primary">
                                         <i class="glyphicon glyphicon-inbox"> 保存修改</i>
                                     </button>
-                                    <a type="reset" href="../showEditVip/" class="btn btn-default">
+                                    <a type="reset" href="showAddPickupTime/" class="btn btn-default">
                                         <i class="glyphicon glyphicon-refresh"> 取消修改</i>
                                     </a>
                                     <?php
@@ -182,4 +160,5 @@
         </div>
     </div>
 </div>
+
 

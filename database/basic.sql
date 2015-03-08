@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2015 at 08:37 PM
+-- Generation Time: Mar 08, 2015 at 04:52 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -28,25 +28,26 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `basic` (
   `BasicID` int(3) NOT NULL AUTO_INCREMENT,
-  `cid` int(5) NOT NULL,
-  `userOrderStart` varchar(100) NOT NULL,
-  `userOrderEnd` varchar(100) NOT NULL,
-  `userPickupStart` varchar(100) NOT NULL,
-  `userPickupEnd` varchar(100) NOT NULL,
-  `vipOrderStart` varchar(100) NOT NULL,
-  `vipOrderEnd` varchar(100) NOT NULL,
-  `vipPickupStart` varchar(100) NOT NULL,
-  `vipPickupEnd` varchar(100) NOT NULL,
+  `cid` int(5) DEFAULT NULL,
+  `placeID` int(5) DEFAULT NULL,
+  `userOrderStart` varchar(100) DEFAULT NULL,
+  `userOrderEnd` varchar(100) DEFAULT NULL,
+  `userPickupStart` varchar(100) DEFAULT NULL,
+  `userPickupEnd` varchar(100) DEFAULT NULL,
+  `vipOrderStart` varchar(100) DEFAULT NULL,
+  `vipOrderEnd` varchar(100) DEFAULT NULL,
+  `vipPickupStart` varchar(100) DEFAULT NULL,
+  `vipPickupEnd` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`BasicID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=107 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=114 ;
 
 --
 -- Dumping data for table `basic`
 --
 
-INSERT INTO `basic` (`BasicID`, `cid`, `userOrderStart`, `userOrderEnd`, `userPickupStart`, `userPickupEnd`, `vipOrderStart`, `vipOrderEnd`, `vipPickupStart`, `vipPickupEnd`) VALUES
-(101, 10001, '13:00:00', '23:59:59', '11:30:00', '13:30:00', '13:00:00', '06:00:00', '11:30:00', '13:30:00'),
-(102, 10004, '13:00:00', '23:59:59', '11:30:00', '13:00:00', '13:00:00', '06:00:00', '11:30:00', '13:30:00');
+INSERT INTO `basic` (`BasicID`, `cid`, `placeID`, `userOrderStart`, `userOrderEnd`, `userPickupStart`, `userPickupEnd`, `vipOrderStart`, `vipOrderEnd`, `vipPickupStart`, `vipPickupEnd`) VALUES
+(101, 10001, NULL, '13:00:00', '23:59:59', '11:30:00', '13:30:00', '13:00:00', '06:00:00', '11:30:00', '13:30:00'),
+(102, 10004, NULL, '13:00:00', '23:59:59', '12:00:00', '13:30:00', '13:00:00', '06:00:00', '12:00:00', '13:30:00');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

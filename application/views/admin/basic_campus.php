@@ -127,6 +127,11 @@
 
         <!-- content -->
         <div class="col-md-10">
+            <?php
+            $attributes = array('id'=>'removeSupportDiner');
+            echo form_open('campuscontroller/removeSupportDiner',$attributes);
+            echo form_close();
+            ?>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header">
@@ -143,7 +148,12 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">时间规则管理--(点击用户类型对特定用户群进行再编辑)</div>
+                            <div class="text-muted bootstrap-admin-box-title">时间规则管理--(点击用户类型对特定用户群进行再编辑)
+                                <?php
+                                $attributes = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'float:right;');
+                                echo anchor('basiccontroller/goback','<i class="glyphicon glyphicon-backward"> 回基本管理主页</i>',$attributes);
+                                ?>
+                            </div>
                         </div>
                         <div class="bootstrap-admin-panel-content">
                             <table class="table table-striped">
@@ -183,6 +193,62 @@
                                     echo '<td>'.$rule->vipOrderStart.'</td>';
                                     echo '<td>'.$rule->vipOrderEnd.'</td>';
                                     echo '</tr>';
+                                }
+                                ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="text-muted bootstrap-admin-box-title">取餐地址列表--点击取餐地点ID修改其取餐时间段
+                                <?php
+                                if(isset($eMsg['deletesuccess'])){
+                                    echo '<span style="color: #be2221;"><b>'.$eMsg['deletesuccess'].'</b></span>';
+                                }
+
+                                $attributes = array('class'=>'btn btn-sm btn-info','type'=>'reset','style'=>'float:right;');
+                                echo anchor('basiccontroller/goback','<i class="glyphicon glyphicon-backward"> 回基本管理主页</i>',$attributes);
+                                ?>
+<!--                                <button style="float: right;" form="removePickupPlace" class="btn btn-sm btn-danger">-->
+<!--                                    <i class="glyphicon glyphicon-remove"></i>-->
+<!--                                    删除取餐地点-->
+<!--                                </button>-->
+
+                            </div>
+                        </div>
+                        <div class="bootstrap-admin-panel-content">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>取餐地点ID</th>
+                                    <th>取餐地址</th>
+                                    <th>取餐开始</th>
+                                    <th>取餐结束</th>
+<!--                                    <th>删除地点</th>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                if(empty($places)){
+                                    echo "暂时没有任何取餐地点！";
+                                }else{
+                                    foreach($places as $place){
+                                        echo '<tr>';
+                                        echo '<td><a href="showPlacePickupTime?placeID='.$place->placeID.'">';
+                                        echo $place->placeID;
+                                        echo '</a></td>';
+                                        echo '<td>'.$place->placeAddr.'</td>';
+                                        echo '<td>'.$place->userPickupStart.'</td>';
+                                        echo '<td>'.$place->userPickupEnd.'</td>';
+//                                        echo '<td>'.'<input form="removePickupPlace" type="radio" name="place" value="'.$place->placeID.'"/></td>';
+                                        echo '</tr>';
+                                    }
                                 }
                                 ?>
                                 </tbody>
