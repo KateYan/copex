@@ -332,7 +332,7 @@ echo form_open('marketcontroller/vipOrderGenerate', $attributes);
 </div>
 
 <!--didn't choose pickup place-->
-<div id="noPickupPlace" class="layer" <?php if (isset($eMsg['noPickup'])) {
+<div id="noPickupPlace" class="layer" <?php if (isset($eMsg['nopickupplace'])) {
     echo 'style="display: block;"';
 } ?>>
     <div class="black_layer"></div>

@@ -132,7 +132,7 @@ class Marketcontroller extends MY_Controller{
             'nopw' => "支付密码不能为空哦",
             'wrongpw'=> "您输入的密码不正确",
             'timelimit' => "超时了！",
-            'noPickup' => "您还没有选择取餐地点"
+            'nopickupplace' => "您还没有选择取餐地点"
         );
         if(!empty($errorCode) && isset($eMsg["$errorCode"])){
             $data["eMsg"] = array("$errorCode"=>$eMsg["$errorCode"]);
@@ -303,12 +303,7 @@ class Marketcontroller extends MY_Controller{
 
         unset($_SESSION['POST']);
         $_SESSION['POST'] = $_POST;
-
-        if(empty($_POST['password'])){ //user didn't type in password
-            return redirect('marketcontroller/showSideDish/nopw');
-        }
-
-
+        
         // use campus' id to check if it has pickup place
         // 1. if it does have, check if there is posted pickup place
         $this->load->model('market');
@@ -322,6 +317,10 @@ class Marketcontroller extends MY_Controller{
 
         }else{
             $pickupPlace = NULL;
+        }
+
+        if(empty($_POST['password'])){ //user didn't type in password
+            return redirect('marketcontroller/showSideDish/nopw');
         }
 
         //1. check if the password is match or not by market moder's method validatePassword()
