@@ -503,14 +503,14 @@ class Marketcontroller extends MY_Controller{
             $data['date'] = date('m月d日',strtotime('+1 day'));
         }
 
-        if(empty($data['order']->placeAddr)){
+        if(empty($data['order']['order']->placeAddr)){
             // get user's pickup time range based on user's type
             $pickupTimeRange = $this->market->getPickupTime($userType,$_SESSION['cid']);
             $data['timestart'] = $pickupTimeRange['pickupStart'];
             $data['timeend'] = $pickupTimeRange['pickupEnd'];
         }else{
             $this->load->model('market');
-            $pickupPlace = $this->market->getPickupTimeRangeByPlace($data['order']->placeID);
+            $pickupPlace = $this->market->getPickupTimeRangeByPlace($data['order']['order']->placeID);
             $data['timestart'] = $pickupPlace->userPickupStart;
             $data['timeend'] = $pickupPlace->userPickupEnd;
         }

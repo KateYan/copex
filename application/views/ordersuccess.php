@@ -25,7 +25,7 @@
 <body>
 <div class="orderGene">
 	<span class="orderFont">
-    	您的订单号为<br /><?php echo $order->oid; ?><br /><br />
+    	您的订单号为<br /><?php echo $order['order']->oid; ?><br /><br />
         请在<?php echo $date; ?><br />
         <?php
         echo $timestart;
@@ -33,12 +33,12 @@
         ?><br />
         于
         <?php
-        echo $order->cname;
+        echo $order['order']->cname;
         echo '校区<br/>';
-        if(empty($order->placeAddr)){
-            echo $order->caddr;
+        if(empty($order['order']->placeAddr)){
+            echo $order['order']->caddr;
         }else{
-            echo $order->placeAddr;
+            echo $order['order']->placeAddr;
         }
         ?>取餐
     </span>
