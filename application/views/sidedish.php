@@ -186,6 +186,9 @@ echo form_open('marketcontroller/vipOrderGenerate', $attributes);
 
                 echo '<label for="' . $place->placeID . '"><li>' . "  ";
                 echo $place->placeAddr;
+                $start = date("H:i",strtotime($place->userPickupStart));
+                $end = date("H:i",strtotime($place->userPickupEnd));
+                echo " (".$start."-".$end."取餐)";
                 echo '</li></label>';
 
             }

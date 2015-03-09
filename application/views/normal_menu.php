@@ -157,7 +157,7 @@
             <div class="select_area_block">
                 <ul>
                     <input type="radio" name="drink" id="defaultDrink" value="NULL" style="display:none;" />
-                    <label for="defaultDrink"><li>NULL</li></label>
+                    <label for="defaultDrink"><li>不需要饮料</li></label>
                     <?php
                     foreach ($drinks as $drink) {
                         echo '<input type="radio" name="drink" id="' . $drink->sid . '" value="' . $drink->sid . '" style="display:none;" form="menuItem">';
