@@ -305,12 +305,12 @@ div.order_password {
 div.order_password .passPay {
     padding-left: 3%;
     display: inline-block;
-    width: 33%;
+    width: 30%;
 }
 
 div.order_password input {
     border: 1px solid #CCC;
     border-radius: 7px 5px;
     padding: 5px;
-    width: 50%;
+    width: 58%;
 }
