@@ -140,7 +140,7 @@
             <div class="clear"></div>
         </div>
     </div>
-    <div class="dSales_btnTo">
+    <div class="dSales_btnTo" style="padding: 0 7px;">
         <?php
         $attributes = array('class' => 'btn_footer moreDinner');
         echo anchor('userlogincontroller/showVipLogin', '想多选？点这里', $attributes);
@@ -173,7 +173,7 @@
 
         </div>
 
-        <a class="btn_footer notInUTSC" onclick="showPickupPlace()">我想就近取餐</a>
+        <a class="btn_footer notInUTSC" style="margin: 10px 0;" onclick="showPickupPlace()">我想就近取餐</a>
 
         <div class="clear"></div>
     </div>
