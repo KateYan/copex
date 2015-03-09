@@ -27,9 +27,10 @@
 <img src="/copex/images/page02_03.jpg" width="100%" />
 <img src="/copex/images/page02_04.jpg" width="100%" />
 <img src="/copex/images/page02_05.jpg" width="100%" />
+<img src="/copex/images/page02_06.jpg" width="100%" />
 
 <?php
-echo anchor('userstatuscontroller/showInstruction3','<img src="/copex/images/page02_06.jpg" width="100%" />');
+echo anchor('userstatuscontroller/showInstruction3','<img src="/copex/images/page02_07.jpg" width="100%" />');
 ?>
 
 </body>
