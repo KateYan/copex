@@ -16,8 +16,10 @@
                 $(this).parent().children(".select_area_block").fadeIn();
             });
             $(".select_area_block ul label li").bind("click", function () {
-                $(this).addClass("selectLi").siblings().removeClass("selectLi");
-                $(this).parent().parent().parent().parent(".n_input_block").children(".n_input").val($(this).html());
+                $(this).parent().siblings().children("li").removeClass("selectLi");
+                $(this).addClass("selectLi");
+//                $(this).addClass("selectLi").siblings().removeClass("selectLi");
+                $(this).parent().parent().parent().parent(".n_input_block").children(".n_input").html($(this).html()).css("color", "#666");
                 $(".select_area_block").hide();
             });
             // ******* new part end
@@ -152,18 +154,20 @@
         <br/>
 
         <div class="n_input_block">
-            <input type="text" class="n_input" placeholder="饮料选择" />
-
+<!--                        <input type="text" class="n_input" placeholder="饮料选择" />-->
+            <div class="n_input">饮料选择</div>
             <div class="select_area_block">
                 <ul>
-                    <input type="radio" name="drink" id="defaultDrink" value="NULL" style="display:none;" />
-                    <label for="defaultDrink"><li>不需要饮料</li></label>
+                    <input type="radio" name="drink" id="defaultDrink" value="NULL" style="display:none;"/>
+                    <label for="defaultDrink">
+                        <li>不需要饮料</li>
+                    </label>
                     <?php
                     foreach ($drinks as $drink) {
                         echo '<input type="radio" name="drink" id="' . $drink->sid . '" value="' . $drink->sid . '" style="display:none;" form="menuItem">';
-                        echo '<label for="'.$drink->sid.'"><li>'."  ";
+                        echo '<label for="' . $drink->sid . '"><li>' . "  ";
                         echo $drink->sname;
-                        echo "   $".$drink->sprice;
+                        echo "   $" . $drink->sprice;
                         echo '</li></label>';
 
                     }
@@ -184,7 +188,8 @@
             } else {
                 echo "请输入手机号";
             } ?>" value="<?php echo $uphone; ?>" required form="menuItem"/>
-            <button form="menuItem" class="btn_submitOrder btn_nowOrder" id="submit_form" style="border:none;">立刻下单</button>
+            <button form="menuItem" class="btn_submitOrder btn_nowOrder" id="submit_form" style="border:none;">立刻下单
+            </button>
         </div>
     </footer>
     </form>
@@ -243,7 +248,8 @@
         </div>
     </div>
 
-    <div id="nopickupplace" class="layer" <?php echo (isset($eMsg['nopickupplace'])) ? 'style="display: block;"' : ''; ?>>
+    <div id="nopickupplace"
+         class="layer" <?php echo (isset($eMsg['nopickupplace'])) ? 'style="display: block;"' : ''; ?>>
         <div class="black_layer"></div>
         <div class="layer_summary">
             <br/>
@@ -346,16 +352,16 @@
         </div>
     </div>
 
-    <div id="pickupPlace" class="layer" >
+    <div id="pickupPlace" class="layer">
         <div class="black_layer"></div>
         <div class="layer_summary">
             <br/>
 
             <p style="margin-left: 5px;">只有会员才可以选择以下取餐地点哦：
                 <?php
-                foreach($places as $place){
-                    if($place->placeAddr != $caddr){
-                        echo '<span class="sorry">'.$place->placeAddr.'</span>';
+                foreach ($places as $place) {
+                    if ($place->placeAddr != $caddr) {
+                        echo '<span class="sorry">' . $place->placeAddr . '</span>';
                     }
                 }
                 ?></p>

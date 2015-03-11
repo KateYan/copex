@@ -9,8 +9,8 @@ class MY_Controller extends CI_Controller{
     public function __construct(){
         parent::__construct();
         session_start();
-        date_default_timezone_set("America/Montreal");
-//        date_default_timezone_set("Asia/Hong_Kong");
+//        date_default_timezone_set("America/Montreal");
+        date_default_timezone_set("Asia/Hong_Kong");
         $this->load->helper('date');
     }
 }

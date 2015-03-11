@@ -314,3 +314,11 @@ div.order_password input {
     padding: 5px;
     width: 58%;
 }
+
+span.n_input {
+    display: inline-block;
+    border: 1px solid #CCC;
+    border-radius: 7px 5px;
+    padding: 5px;
+    width: 58%;
+}

@@ -17,6 +17,7 @@
     background: url(images/H5_downArrow_new.png) no-repeat 96% center;
     background-size: 12px auto;
     border-radius: 5px;
+    color: #999;
 }
 
 .select_area_block {

@@ -48,8 +48,10 @@
             $(this).parent().children(".select_area_block").fadeIn();
         });
         $(".select_area_block ul label li").bind("click", function () {
-            $(this).addClass("selectLi").siblings().removeClass("selectLi");
-            $(this).parent().parent().parent().parent(".order_password").children(".n_input").val($(this).html());
+            $(this).parent().siblings().children("li").removeClass("selectLi");
+            $(this).addClass("selectLi");
+//            $(this).parent().parent().parent().parent(".order_password").children(".n_input").val($(this).html());
+            $(this).parent().parent().parent().parent(".order_password").children(".n_input").html($(this).html()).css("color","#666");
             $(".select_area_block").hide();
         });
         // ******* new part end
@@ -175,9 +177,10 @@ echo form_open('marketcontroller/vipOrderGenerate', $attributes);
 
         <?php
         if(!empty($places)){
-            echo '<div class="order_password" id="pickupPlace">';
+            echo '<div class="order_password" id="pickupPlace" >';
             echo '<div class="passPay">取餐地点</div>';
-            echo '<input type="text" class="n_input" placeholder="选择地点"/>';
+//            echo '<input type="text" class="n_input" placeholder="选择地点"/>';
+            echo '<span class="n_input">取餐地点</span>';
             echo '<div class="select_area_block">';
             echo '<ul>';
 

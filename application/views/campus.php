@@ -30,7 +30,8 @@
                 $(".campus_list").show();
             });
             $(".campus_list li").bind("click", function(){
-                $(this).addClass("selectLi").siblings().removeClass("selectLi");
+                $(this).parent().siblings().children("li").removeClass("selectLi");
+                $(this).addClass("selectLi");
                 $("#Campus_id").val($(this).html());
                 $(".campus_list").hide();
             });
