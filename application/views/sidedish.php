@@ -51,7 +51,7 @@
             $(this).parent().siblings().children("li").removeClass("selectLi");
             $(this).addClass("selectLi");
 //            $(this).parent().parent().parent().parent(".order_password").children(".n_input").val($(this).html());
-            $(this).parent().parent().parent().parent(".order_password").children(".n_input").html($(this).html()).css("color","#666");
+            $(this).parent().parent().parent().parent(".order_password").children(".n_input").html($(this).html()).css("color", "#666");
             $(".select_area_block").hide();
         });
         // ******* new part end
@@ -77,7 +77,8 @@
     function closeWindowTimeLimit() {
         $("#timelimit").hide();
 
-    }function closeWindowNoPickup() {
+    }
+    function closeWindowNoPickup() {
         $("#noPickupPlace").hide();
     }
 
@@ -176,7 +177,7 @@ echo form_open('marketcontroller/vipOrderGenerate', $attributes);
         </div>
 
         <?php
-        if(!empty($places)){
+        if (!empty($places)) {
             echo '<div class="order_password" id="pickupPlace" >';
             echo '<div class="passPay">取餐地点</div>';
 //            echo '<input type="text" class="n_input" placeholder="选择地点"/>';
@@ -189,9 +190,9 @@ echo form_open('marketcontroller/vipOrderGenerate', $attributes);
 
                 echo '<label for="' . $place->placeID . '"><li>' . "  ";
                 echo $place->placeAddr;
-                $start = date("H:i",strtotime($place->userPickupStart));
-                $end = date("H:i",strtotime($place->userPickupEnd));
-                echo " (".$start."-".$end."取餐)";
+                $start = date("H:i", strtotime($place->userPickupStart));
+                $end = date("H:i", strtotime($place->userPickupEnd));
+                echo " (" . $start . "-" . $end . "取餐)";
                 echo '</li></label>';
 
             }
