@@ -43,7 +43,7 @@ class Userstatuscontroller extends MY_Controller {
      * show welcome page for user who first login
 0    */
     public function welcome(){
-        $this->load->view('welcome');
+        $this->load->view('welcomeOld');
     }
 	/*
 	 * Validate user by checking uid-uhash pair
