@@ -206,6 +206,7 @@ class Marketcontroller extends MY_Controller{
         // using the cid to get all the pickup places of this campus
         $this->load->model('market');
         $data['places'] = $this->market->getPickupPlacesByCampus($_SESSION['cid']);
+        $data['campus'] = $this->market->getCampusById($_SESSION['cid']);
 
 
         $data['title'] = '精选小食';

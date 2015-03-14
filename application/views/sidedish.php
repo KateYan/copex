@@ -190,9 +190,14 @@ echo form_open('marketcontroller/vipOrderGenerate', $attributes);
 
                 echo '<label for="' . $place->placeID . '"><li>' . "  ";
                 echo $place->placeAddr;
+
                 $start = date("H:i", strtotime($place->userPickupStart));
                 $end = date("H:i", strtotime($place->userPickupEnd));
-                echo " <p style='color: #be2221;display: inline;'>(仅限" . $start . "-" . $end . ")</p>";
+
+                if($place->placeAddr != $campus->caddr){
+                    echo " <p style='color: #be2221;display: inline;'>(仅限" . $start . "-" . $end . ")</p>";
+                }
+
                 echo '</li></label>';
 
             }
