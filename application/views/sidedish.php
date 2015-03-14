@@ -192,7 +192,7 @@ echo form_open('marketcontroller/vipOrderGenerate', $attributes);
                 echo $place->placeAddr;
                 $start = date("H:i", strtotime($place->userPickupStart));
                 $end = date("H:i", strtotime($place->userPickupEnd));
-                echo " (" . $start . "-" . $end . "取餐)";
+                echo " <p style='color: #be2221;display: inline;'>(仅限" . $start . "-" . $end . ")</p>";
                 echo '</li></label>';
 
             }
