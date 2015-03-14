@@ -207,9 +207,9 @@
 
                         echo '<th>编号</th>
                             <th>操作时间</th>
-                            <th>操作前余额</th>
-                            <th>操作后余额</th>
-                            <th>金额变动</th>';
+                            <th>存入</th>
+                            <th>取出</th>
+                            <th>余额</th>';
                         echo '</tr>';
                         echo '</thead>';
 
@@ -222,9 +222,18 @@
                             echo '<td>'.$i.'</td>';
 
                             echo '<td>' . $history[$i-1]->logTime. '</td>';
-                            echo '<td>$' . $history[$i-1]->befBalance . '</td>';
+
+                            if($history[$i-1]->befBalance < $history[$i-1]->aftBalance){
+                                echo '<td>$' . $history[$i-1]->addBalance . '</td>';
+                                echo '<td>N/A</td>';
+                            }else{
+                                echo '<td>N/A</td>';
+                                $value = 0 - $history[$i-1]->addBalance;
+
+                                echo '<td>$' . $value . '</td>';
+                            }
+
                             echo '<td>$' . $history[$i-1]->aftBalance . '</td>';
-                            echo '<td>$' . $history[$i-1]->addBalance . '</td>';
 
                             echo '</tr>';
                         }

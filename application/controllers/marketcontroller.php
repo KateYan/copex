@@ -430,7 +430,7 @@ class Marketcontroller extends MY_Controller{
             // update history
             $this->load->model('user');
             $minusBalance = 0 - round($totalCost_beforTax*1.13,2);
-            $newBalance = $balance - $minusBalance;
+            $newBalance = $balance - round($totalCost_beforTax*1.13,2);
             $this->user->vipHistoryRecord($uid,$balance,$minusBalance,$newBalance);
             // show order
             return redirect('marketcontroller/succeedOrdered');
