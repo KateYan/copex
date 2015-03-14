@@ -142,10 +142,19 @@
                                         <label class="col-lg-2 control-label" for="optionsCheckbox2">菜品类型</label>
                                         <div class="col-lg-10">
                                             <span>
+                                                <label for="">
+                                                    <?php
+                                                    if($_SESSION['side']->stype == 1){
+                                                        echo "(属性：饮料)";
+                                                    }else{
+                                                        echo "(属性：小菜)";
+                                                    }
+                                                    ?>
+                                                </label>
                                                 <label style="padding-right: 15px;">
-                                                    <input form="editSideDish" type="radio"name="stype" value="1" <?php if($_SESSION['side']->stype == 1){echo "disabled";}?> />   饮品</label>
+                                                    <input form="editSideDish" type="radio"name="stype" value="1" />   饮品</label>
                                                 <label style="padding-right: 15px;">
-                                                    <input form="editSideDish" type="radio"name="stype" value="0" <?php if($_SESSION['side']->stype == 0){echo "disabled";}?>/>   小菜</label>
+                                                    <input form="editSideDish" type="radio"name="stype" value="0" />   小菜</label>
 
                                             </span>
                                         </div>
