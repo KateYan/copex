@@ -248,6 +248,10 @@ class Order extends CI_Model
         // find order and the number of order item
         $sql_order = "SELECT `order`.*, campus.cname, campus.caddr,orderitem.* FROM (`order` JOIN `campus` ON `order`.cid = `campus`.cid) JOIN orderitem ON `order`.oid = orderitem.oid WHERE `order`.uid='$uid' AND `order`.fordate IN ('$today','$tomorrow')";
         $query_order = $this->db->query($sql_order);
+
+        if($query_order->num_rows == 0 ){
+            return false;
+        }
         $userOrder['order'] = $query_order->row(0);
 
         $orderID = $userOrder['order']->oid;
